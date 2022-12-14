@@ -65,7 +65,7 @@ a:hover, a:active { cursor:pointer; }
 .three-bigchar { color: white; font-size: 25px; font-weight: 600;}
 .three-smchar { 
 	color: white; font-size: 13px; font-weight: 200;
-	text-align: left; padding-left: 10px; margin: auto; 
+	text-align: left; padding-left: 20px; margin: auto 0px; 
 }
 .three-btn { 
 	padding: 15px 20px; border-radius: 20px;

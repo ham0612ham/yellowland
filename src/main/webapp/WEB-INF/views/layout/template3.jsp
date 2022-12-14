@@ -6,17 +6,14 @@
 <style type="text/css">
 .body-container {
 	max-width: 800px;
+	min-height: 900px;
+	margin: auto;
+	margin-top: 100px;
 }
 </style>
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 제목 </h3>
-		</div>
-		
-		<div class="body-main">
-			내용 입니다.
-		</div>
+		<h3 class="fw-semibold">타이틀</h3>
 	</div>
 </div>
