@@ -31,7 +31,7 @@
 						<th style="border: none" class="three-button">
 							<div class="btn d-flex flex-row three-btn" 
 								style="background-color: #36C88A; box-shadow: 0px 0px 10px rgb(54, 200, 138, 1.0); 
-									margin-left: 30px; width: 300px;">
+									margin-left: 30px; width: 310px;">
 								<div class="three-bigchar">뜨는 상권</div>
 								<div class="three-smchar lh-sm">요즘 뜨는 주요 상권에 대한<br>확인과 분석을 해보세요</div>
 							</div>
@@ -41,7 +41,7 @@
 						<th style="border: none" class="three-button">
 							<div class="btn d-flex flex-row three-btn" 
 								style="background-color: #756EF2; box-shadow: 0px 0px 10px rgb(117, 110, 242, 1.0); 
-									margin-left: 150px; width: 320px;">
+									margin-left: 150px; width: 330px;">
 								<div class="three-bigchar">상권 매칭</div>
 								<div class="three-smchar lh-sm">원하는 위치 주변의 상권 분석과<br>다양한 통계를 확인하세요</div>
 							</div>
@@ -51,7 +51,7 @@
 						<th style="border: none" class="three-button">
 							<div class="btn d-flex flex-row three-btn" 
 								style="background-color: #49B3FF; box-shadow: 0px 0px 10px rgb(73, 179, 255, 1.0); 
-									width: 330px;">
+									width: 370px;">
 								<div class="three-bigchar">상권 분석</div>
 								<div class="three-smchar lh-sm">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
 							</div>
@@ -218,25 +218,56 @@ $(function(){
 	$(document).scroll(function(){
 		let top = $(document).scrollTop();
 		
-		if(top > 250) {
-			$(".three-div1").removeClass("hide");
-			$(".three-div1").addClass("show");
-			$(".three-div1-text").addClass("move");
-			$(".three-div1-img").addClass("move");
-		}
-		if(top > 850) {
-			$(".three-div2").removeClass("hide");
-			$(".three-div2").addClass("show");
-			$(".three-div2-text").addClass("move");
-			$(".three-div2-img").addClass("move");
-		}
-		if(top > 1450) {
-			$(".three-div3").removeClass("hide");
-			$(".three-div3").addClass("show");
-			$(".three-div3-text").addClass("move");
-			$(".three-div3-img").addClass("move");
-		}
+			
+			if(top > 250) {
+				$(".three-div1").removeClass("hide");
+				$(".three-div1").addClass("show");
+				$(".three-div1-text").addClass("move");
+				$(".three-div1-img").addClass("move");
+			}
+			
+			if(top > 850) {
+				$(".three-div2").removeClass("hide");
+				$(".three-div2").addClass("show");
+				$(".three-div2-text").addClass("move");
+				$(".three-div2-img").addClass("move");
+			}
+			
+			if(top > 1450) {
+				$(".three-div3").removeClass("hide");
+				$(".three-div3").addClass("show");
+				$(".three-div3-text").addClass("move");
+				$(".three-div3-img").addClass("move");
+			}
+			
+			if(top <= 1450) {
+				$(".three-div3").removeClass("show");
+				$(".three-div3").addClass("hide");
+				$(".three-div3-text").removeClass("move");
+				$(".three-div3-img").removeClass("move");
+			}
+			
+			if(top <= 850) {
+				$(".three-div2").removeClass("show");
+				$(".three-div2").addClass("hide");
+				$(".three-div2-text").removeClass("move");
+				$(".three-div2-img").removeClass("move");
+			}
+			
+			if(top <= 250) {
+				$(".three-div1").removeClass("show");
+				$(".three-div1").addClass("hide");
+				$(".three-div1-text").removeClass("move");
+				$(".three-div1-img").removeClass("move");
+			}
+			
+			
+			
+			
+			
+		
+		
+		
 	});
 });
-
 </script>

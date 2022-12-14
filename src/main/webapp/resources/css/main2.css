@@ -65,7 +65,7 @@ a:hover, a:active { cursor:pointer; }
 .three-bigchar { color: white; font-size: 25px; font-weight: 600;}
 .three-smchar { 
 	color: white; font-size: 13px; font-weight: 200;
-	text-align: left; padding-left: 20px; margin: auto 0px; 
+	text-align: left; padding-left: 10px; margin: auto; 
 }
 .three-btn { 
 	padding: 15px 20px; border-radius: 20px;
@@ -159,10 +159,19 @@ a:hover, a:active { cursor:pointer; }
   from { opacity: 0; }
   to {  opacity: 1; }
 }
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to {  opacity: 0; }
+}
+
 .move {
 	animation: box-ani 1s;
 }
 .show {
 	animation: fadeIn 1s;
 }
-.hide { opacity: 0 }
+.hide {
+	opacity: 0;
+	animation: fadeOut 0.5s;	
+}
