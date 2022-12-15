@@ -6,7 +6,7 @@
 	<div style="position: relative;">
 		<div id="back-gray" style="position: absolute; z-index: -2;">
 		</div>
-			<div style="position: relative; left: 100px; top: -100px; z-index: -1;">
+			<div style="position: relative; left: 200px; top: -100px; z-index: -1;">
 				<div class="circles circle-1">&nbsp;</div>
 				<div class="circles circle-2">&nbsp;</div>
 				<div class="circles circle-3">&nbsp;</div>
