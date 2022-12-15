@@ -1,0 +1,177 @@
+﻿@charset "UTF-8";
+
+* { margin: 0; padding: 0; }
+*, ::after, ::before { box-sizing: border-box; }
+a:hover, a:active { cursor:pointer; }
+.container { margin-top: 100px; margin-bottom: 100px; }
+.main-nav {
+	margin-bottom: -10px; padding-left: 10%;
+	width: 100%; display: flex;
+	position: relative;
+}
+.header > ul, li { margin: 0; padding: 0; list-style: none; }
+
+.main-menu > li {
+	float: left;
+	position: relative;
+}
+.main-menu > ul { padding-bottom: 0px; }
+.main-menu > li > a {
+  	font-size: 14px; color: #000; font-weight: 500;
+  	text-align: center; text-decoration: none;
+  	letter-spacing: 0.05em; display: block; padding: 12px 14px; 
+}
+.main-menu > li > a:hover { color: #36C88A; }
+.sub-menu {
+	min-width: 125px;
+	box-shadow: 0px 0px 4px rgb(72, 92, 161, 0.4);
+	position: absolute; font-weight: 500; top: 40px;
+  	text-align: left; font-size: 13px;
+  	opacity: 0; visibility: hidden; transition: all 0.15s ease-in;
+  	background: white; border-radius: 10px; padding-left: 5px;
+  	z-index: 1;
+}
+.sub-menu > li:first-child { padding-top: 10px; }
+.sub-menu > li:last-child { padding-bottom: 10px; }
+.sub-menu > li { padding: 4px 8px; }
+.sub-menu > li >  a {
+  	text-decoration: none; color: #1D1D1D;
+}
+.main-menu > li:hover .sub-menu {
+  	opacity: 1;
+  	visibility: visible;
+}
+.sub-menu > li >  a:hover {
+ 	color: #36C88A;
+}
+.main-menu-a { position: relative; }
+.main-menu-a:after{
+  	content: ""; position: absolute; top: 32px;
+  	left: 16%; bottom: 0px; width: 0px; height: 2px;
+  	transition: all 0.2s ease-in-out;
+  	transition-duration: 0.3s; opacity: 0;
+  	background-color: #36C88A;
+}
+.main-menu-a:hover:after{ width: 68%; opacity: 1; }
+
+#img-logo { width: 70px; margin-left: 0px; }
+#img-logo { -webkit-filter: brightness(100%) invert(0); filter: brightness(100%) invert(0); }
+.login-menu { font-size: 12px; font-weight: 500px; padding-right: 10%; cursor: pointer; }
+.login-menu-a { text-decoration: none; color: #000; }
+.login-menu-a:hover {
+	color: #36C88A;
+}
+#back-gray { background: #EEEEEE; width: 100%; height: 500px; border-radius: 0px 0px 0px 200px; }
+.three-bigchar { color: white; font-size: 21px; font-weight: 600;}
+.three-smchar { 
+	color: white; font-size: 13px; font-weight: 200;
+	text-align: left; padding-left: 10px; margin: auto; 
+}
+.three-btn { 
+	padding: 15px 20px; border-radius: 20px;
+}
+.main-title { font-size: 45px; font-weight: 200; }
+.text-bold { font-weight: 700; }
+.ab1 { position: relative; }
+.ab1-1 { position: absolute; width: 163px; background: white; height: 25px; margin-top: 28px;  }
+.ab2 { position: relative; }
+.ab2-1 { position: absolute; width: 163px; background: white; height: 25px; margin-top: 28px;  }
+.three-button { width: 500px; padding-right: 0px; }
+.circles { position: absolute; }
+.circle-1 { width: 200px; height: 200px; border: 1.5px;
+	border-color: white; border-radius: 500px; border-style: solid; 
+	top: 325px; left: 625px;
+}
+.circle-2 { width: 350px; height: 350px; border: 1.0px;
+	border-color: white; border-radius: 500px; border-style: solid; 
+	top: 250px; left: 550px;
+}
+.circle-3 { width: 420px; height: 420px; border: 0.5px;
+	border-color: white; border-radius: 500px; border-style: solid; 
+	top: 215px; left: 515px;
+}
+.circle-4 { width: 600px; height: 600px; border: 0.2px;
+	border-color: white; border-radius: 500px; border-style: solid; 
+	top: 125px; left: 425px;
+}
+.circle-5 { width: 800px; height: 800px; border: 0.1px;
+	border-color: white; border-radius: 500px; border-style: solid; 
+	top: 25px; left: 325px;
+}
+.black-btn { padding: 15px 25px; border-radius: 30px; margin-top: 10px; }
+.links { margin: auto; }
+.links > span, .links > div { padding-left: 15px; color: #696969; font-size: 12px; }
+#img-gray { width: 60px; }
+
+
+.graph-title { 
+	font-size: 20px; color: white; padding: 10px 40px;
+	background-color: #36C88A; border-radius: 40px; font-weight: 400;
+	position: absolute; top: -25px; text-align: center;
+	left: 50%; transform: translate(-50%);
+	box-shadow: 0px 0px 10px rgb(54, 200, 138, 1.0); }
+.graph-title:hover{ 
+	background-color: #18BD77; color: white; font-weight: 400; 
+	box-shadow: 0px 0px 10px rgb(24, 189, 119, 1.0); 
+}
+.select-div { padding-top: 40px; } 
+.select-div > select { margin: 5px; }
+.form-select {
+	width: 200px; border: none; border-radius: 50px;
+}
+.graph-bottom { background: #EEEEEE; width: 100%; height: 500px; position: relative; }
+.graphs {
+	width: 30%; background: white; min-height: 300px; border-radius: 10px; margin: 5px;
+}
+.graphs-div { padding-top: 15px; }
+.graph1-box { /* border: gray 1px solid; */ min-height: 200px; width: 50%; padding: 5px; }
+.graph1-text { font-size: 12px; margin-bottom: 5px; }
+.graph1-text > .graph1-count { float: right; font-weight: 600; }
+.color-box1 { width: 16px; height: 16px; background: #36C88A; float: left; border-radius: 18px; }
+.color-box2 { width: 16px; height: 16px; background: #756EF2; float: left; border-radius: 18px; }
+.graphs-title { font-weight: 600; padding-left: 17px; padding-top: 17px; }
+.graph1-text-div { padding-right: 17px; }
+.graph2-green { 
+	width: 28%; height: 120px; background: #36C88A; color: white; margin: 4px;
+	box-shadow: 0px 0px 10px rgb(54, 200, 138, 1.0); border-radius: 15px;
+}
+.graph2-purple { 
+	width: 32%; height: 120px; background: #756EF2; color: white; margin: 4px;
+	box-shadow: 0px 0px 10px rgb(117, 110, 242, 1.0); border-radius: 15px;
+}
+.graph2-title { font-size: 14px; text-align: center; padding-top: 35px; }
+.graph2-val { font-size: 20px; text-align: center; font-weight: 600; }
+.graph2-box { align-items: center; }
+.graph2-bottom {
+	width: 50%; font-size: 12px; float: right; 
+	padding-right: 17px; padding-top: 10px;
+}
+.graph2-bottom > .graph2-total-val { font-weight: 600; }
+#graph3-chart { 
+	width: 90%; height: 60%; 
+	gray; margin: auto; margin-top: 20px; text-align: center; 
+} 
+@keyframes box-ani {
+	0% { transform: translate(0, 200px); }
+	100% { transform: translate(0, 0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to {  opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to {  opacity: 0; }
+}
+
+.move {
+	animation: box-ani 1s;
+}
+.show {
+	animation: fadeIn 1s;
+}
+.hide {
+	opacity: 0;
+	animation: fadeOut 0.5s;	
+}
