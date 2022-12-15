@@ -80,7 +80,6 @@
     </interceptors>	 
  -->
  
-  	<!-- 웹소켓 환경 설정 -->
  	<websocket:handlers>
  		<websocket:mapping handler="mySocketHandler" path="/chat.msg"/>
  	</websocket:handlers>
