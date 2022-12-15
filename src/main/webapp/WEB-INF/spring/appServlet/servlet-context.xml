@@ -59,6 +59,33 @@
 		<beans:property name="maxUploadSize" value="10485760" />
     </beans:bean>
 
+<!-- 
+    <interceptors>
+        <interceptor>
+            <mapping path="/**"/>
+            <exclude-mapping path="/"/>
+            <exclude-mapping path="/resources/**"/>
+            <exclude-mapping path="/member/login"/>
+            <exclude-mapping path="/member/logout"/>
+            <exclude-mapping path="/member/member"/>
+            <exclude-mapping path="/member/userIdCheck"/>
+            <exclude-mapping path="/member/complete"/>
+            <exclude-mapping path="/member/pwdFind"/>
+            <exclude-mapping path="/member/idFind"/>
+            <exclude-mapping path="/guest/main"/>
+            <exclude-mapping path="/guest/list"/>
+            <exclude-mapping path="/uploads/photo/**"/>
+            <beans:bean class="com.sp.app.member.LoginCheckInterceptor"/>
+        </interceptor>
+    </interceptors>	 
+ -->
+ 
+  	<!-- 웹소켓 환경 설정 -->
+ 	<websocket:handlers>
+ 		<websocket:mapping handler="mySocketHandler" path="/chat.msg"/>
+ 	</websocket:handlers>
+ 	<beans:bean id="mySocketHandler" class="com.sp.app.chat.MySocketHandler" />
+
     <!-- 예외처리 -->
     <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <beans:property name="order" value="1" />

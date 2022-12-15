@@ -6,6 +6,8 @@
 <style type="text/css">
 .body-container {
 	max-width: 800px;
+	margin: auto;
+	min-height: 900px;
 }
 </style>
 

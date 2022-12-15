@@ -106,7 +106,7 @@
 			<tr>
 				<th style="border: none">&nbsp;</th>
 				<th class="three-div3-img" rowspan="3" style="border: none">
-					<img style="width: 300px; float: right;" src="${pageContext.request.contextPath}/resources/images/nav.png">
+					<img style="width: 300px; float: right;" src="${pageContext.request.contextPath}/resources/images/document.png">
 				</th>
 			</tr>
 			<tr>
@@ -114,6 +114,26 @@
 					<div style="font-weight: 200; font-size: 40px">자세한 <span class="text-bold">정보 </span>어디 없나?</div>
 					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px;">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
 					<button class="btn btn-dark black-btn">상권 분석  바로가기</button>
+				</th>
+			</tr>
+			<tr>
+				<th style="border: none">&nbsp;</th>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 600px; width: 100%; padding: auto;">
+		<table class="table three-div4 hide" style="margin: auto; width: 900px;">
+			<tr>
+				<th class="three-div4-img" rowspan="3" style="border: none">
+					<img style="width: 300px; float: left;" src="${pageContext.request.contextPath}/resources/images/nav.png">
+				</th>
+				<th style="border: none">&nbsp;</th>
+			</tr>
+			<tr>
+				<th class="three-div4-text" style="border: none;">
+					<div style="font-weight: 200; font-size: 40px; text-align: right;">괜찮은 <span class="text-bold">노른자 매물 </span>여기에!</div>
+					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px; text-align: right;">원하는 위치의 다양한 매물을<br>여기서 확인, 직접 연락해보세요</div>
+					<button class="btn btn-dark black-btn" style="float: right;">상가 양도 바로가기</button>
 				</th>
 			</tr>
 			<tr>
@@ -238,6 +258,20 @@ $(function(){
 				$(".three-div3").addClass("show");
 				$(".three-div3-text").addClass("move");
 				$(".three-div3-img").addClass("move");
+			}
+			
+			if(top > 2050) {
+				$(".three-div4").removeClass("hide");
+				$(".three-div4").addClass("show");
+				$(".three-div4-text").addClass("move");
+				$(".three-div4-img").addClass("move");
+			}
+			
+			if(top <= 2050) {
+				$(".three-div4").removeClass("show");
+				$(".three-div4").addClass("hide");
+				$(".three-div4-text").removeClass("move");
+				$(".three-div4-img").removeClass("move");
 			}
 			
 			if(top <= 1450) {

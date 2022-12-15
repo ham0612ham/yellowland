@@ -18,6 +18,7 @@
 						<li><a href="#" aria-label="subemnu">상권별 현황</a></li>
 					</ul>
 				</li>
+				<li><a href="#" class="main-menu-a">상가 양도</a></li>
 				<li><a href="#" class="main-menu-a">커뮤니티</a>
 					<ul class="sub-menu">
 						<li><a href="#" aria-label="subemnu">지역별 커뮤니티</a></li>
