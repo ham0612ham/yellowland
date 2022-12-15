@@ -50,6 +50,7 @@ form[name=hotPlaceForm] > ul { padding-left: 0px; }
 				<div>
 					<div class="title">뜨는 상권</div>
 				</div>
+				
 				<div class="justify-content-center" style="width: 100%;">
 					<div>
 						<select name="#" class="form-select selectGu">
