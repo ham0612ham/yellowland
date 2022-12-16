@@ -71,7 +71,7 @@ function search() {
 
 function map(data, latitude, longitude) {
 	
-	let lat = latitude ? latitude : 37.5642135;
+	let lat = latitude  ? latitude : 37.5642135;
 	let lon = longitude ? longitude : 127.0016985;
 	
 	
