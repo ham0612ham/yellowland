@@ -19,11 +19,11 @@
  	width: 300px;
 }
 
-.data {
-  width: 100%;
+#data {
+  width: 200px;
   border: 1px solid #bbb;
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 3px 10px;
   font-size: 14px;
 }
 
@@ -41,7 +41,7 @@ i {
 <body>
 <div class="search">
 	<p>상세주소 입력</p>
-	<input type="text" id="data">
+	<input type="text" id="data" placeholder="ex)마포구 월드컵북로 21">
 	<i onclick="search();" class="fa-solid fa-magnifying-glass" style="cursor: pointer;"></i>
 	<i onclick="getLocation();" class="fa-solid fa-location-crosshairs" style="cursor: pointer;"></i>
     <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
@@ -117,7 +117,6 @@ function map(data, latitude, longitude) {
 function getLocation() {
 	  if (navigator.geolocation) { // GPS를 지원하면
 	    navigator.geolocation.getCurrentPosition(function(position) {
-	      alert(position.coords.latitude + ' ' + position.coords.longitude);
 	      
 	      let latitude  = position.coords.latitude;
 	      let longitude = position.coords.longitude;
