@@ -6,6 +6,8 @@
 <style type="text/css">
 .body-container {
 	max-width: 800px;
+	min-height: 900px;
+	margin: auto;
 }
 </style>
 
@@ -23,7 +25,7 @@
 	                </div>
                        
                        <div class="d-grid">
-                           <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/';">메인화면 <i class="bi bi-check2"></i> </button>
+                           <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/';">메인화면</button>
                        </div>
                 </div>
 

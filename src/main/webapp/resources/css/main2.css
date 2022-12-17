@@ -175,3 +175,5 @@ a:hover, a:active { cursor:pointer; }
 	opacity: 0;
 	animation: fadeOut 0.5s;	
 }
+
+#user-sort:hover { color: #000; }

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<select id="loginMember" parameterType="String" resultType="com.sp.app.member.Member">
+		SELECT m.memberIdx, membership, userId, userName, userPwd, registerDate, modifyDate, lastLogin
+		FROM member m
+		JOIN member1 m1 ON m1.memberIdx = m.memberIdx
+		WHERE userId = #{userId} AND enabled != 0
+	</select>
+	
+	<update id="updateLastLogin" parameterType="String">
+		UPDATE member1 SET lastLogin = SYSDATE, failureCnt = 0
+		WHERE userId=#{userId}
+	</update>
+	
+    <select id="memberSeq" resultType="Long">
+       SELECT member_seq.NEXTVAL FROM dual 
+    </select>
+
+    <insert id="insertMember" parameterType="Long">
+		INSERT INTO member(memberIdx, membership) VALUES (#{memberIdx}, 1) 
+    </insert>
+
+    <insert id="insertMember1" parameterType="com.sp.app.member.Member">
+		INSERT INTO member1(memberIdx, userId, userName, userPwd, enabled, registerDate, modifyDate, failureCnt)
+		VALUES (#{memberIdx}, #{userId}, #{userName}, #{userPwd}, 1, SYSDATE, SYSDATE, 0) 
+    </insert>
+
+    <insert id="insertMember2" parameterType="com.sp.app.member.Member">
+		INSERT INTO member2(userId, birth, email, tel, zip, addr1, addr2)
+		VALUES (#{userId}, #{birth}, #{email}, #{tel}, 
+			#{zip, jdbcType=VARCHAR}, #{addr1, jdbcType=VARCHAR}, 
+			#{addr2, jdbcType=VARCHAR})
+    </insert>
+	
+    <update id="insertMember12" parameterType="com.sp.app.member.Member">
+		INSERT ALL
+		INTO member1(memberIdx, userId, userName, userPwd, enabled, 
+			registerDate, modifyDate, failureCnt)
+		VALUES (#{memberIdx}, #{userId}, #{userName}, #{userPwd}, 1, SYSDATE, SYSDATE, 0)
+		INTO member2(userId, birth, email, tel, zip, addr1, addr2)
+		VALUES (#{userId}, #{birth}, #{email}, #{tel}, 
+			#{zip, jdbcType=VARCHAR}, #{addr1, jdbcType=VARCHAR}, 
+			#{addr2, jdbcType=VARCHAR})
+		SELECT * FROM dual     
+    </update>
+    
+    <!-- 권한 테이블 -->
+    <insert id="insertAuthority" parameterType="com.sp.app.member.Member">
+    	INSERT INTO memberAuthority(userId, authority) 
+    	VALUES (#{userId}, #{authority})
+    </insert>
+    
+    <update id="upateAuthority" parameterType="com.sp.app.member.Member">
+    	UPDATE memberAuthority SET authority = #{authority} WHERE userId = #{userId}
+    </update>
+	
+	<select id="readMember" parameterType="String" resultType="com.sp.app.member.Member">
+		SELECT m.memberIdx, membership, m1.userId, userName, userPwd, enabled,
+			registerDate, modifyDate, lastLogin,
+			TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, 
+			zip, addr1, addr2
+		FROM member m 
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx 
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE m1.userId = #{userId}
+	</select>
+
+	<select id="readMember2" parameterType="Long" resultType="com.sp.app.member.Member">
+		SELECT m.memberIdx, membership, enabled, 
+			NVL(m1.userId, 'guest') userId, NVL(userName, '손님') userName, userPwd, 
+			registerDate, modifyDate, lastLogin,
+			TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel,
+			zip, addr1, addr2
+		FROM member m
+		LEFT OUTER JOIN member1 m1 ON m.memberIdx = m1.memberIdx
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE m.memberIdx = #{memberIdx}
+	</select>
+	
+    <!-- 회원정보 수정  --> 
+    <update id="updateMembership" parameterType="map">
+		UPDATE member SET membership = #{membership}
+		WHERE memberIdx=#{memberIdx}
+    </update>
+
+    <update id="updateMemberEnabled" parameterType="map">
+		UPDATE member1 SET enabled=#{enabled} WHERE userId=#{userId}
+    </update>
+    
+    <update id="updateMember1" parameterType="com.sp.app.member.Member">
+		UPDATE member1 SET userPwd=#{userPwd}, modifyDate=SYSDATE
+		WHERE userId=#{userId}
+    </update>
+	
+    <update id="updateMember2" parameterType="com.sp.app.member.Member">
+		UPDATE member2 SET email=#{email, jdbcType=VARCHAR}, 
+			tel=#{tel, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR},
+			zip=#{zip, jdbcType=VARCHAR},
+			addr1=#{addr1, jdbcType=VARCHAR}, addr2=#{addr2, jdbcType=VARCHAR}
+		WHERE userId=#{userId}
+    </update>
+
+    <!-- member 테이블 정보 삭제  -->    
+    <delete id="deleteMember1" parameterType="String">
+		DELETE FROM member1 WHERE userId=#{userId}
+    </delete>
+    
+    <delete id="deleteMember2" parameterType="String">
+		DELETE FROM member2 WHERE userId=#{userId}
+    </delete>
+	
+	<!-- 패스워드 실패 / 회원 상태 -->
+	<select id="checkFailureCount" parameterType="String" resultType="Integer">
+		SELECT NVL(failureCnt, 0) failure_cnt
+		FROM member1
+		WHERE userId = #{userId}
+	</select>
+	
+	<update id="updateFailureCountReset" parameterType="String">
+		UPDATE member1 SET failure_cnt = 0
+		WHERE userId = #{userId}
+	</update>
+	
+	<update id="updateFailureCount" parameterType="String">
+		UPDATE member1 SET failureCnt = failureCnt + 1
+		WHERE userId = #{userId}
+	</update>
+	
+	<insert id="insertMemberState" parameterType="com.sp.app.member.Member">
+		INSERT INTO memberState (num, userId, stateCode, memo, registerId, regDate)
+		VALUES (memberState_seq.NEXTVAL, #{userId}, #{stateCode}, #{memo}, #{registerId}, SYSDATE)
+	</insert>
+	
+</mapper>

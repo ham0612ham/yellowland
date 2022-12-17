@@ -6,9 +6,9 @@ public class Member {
 	private String userId;
 	private String userName;
 	private String userPwd;
-	private String register_date;
-	private String modify_date;
-	private String last_login;
+	private String registerDate;
+	private String modifyDate;
+	private String lastLogin;
 	private String email;
 	private String email1;
 	private String email2;
@@ -21,6 +21,13 @@ public class Member {
 	private String addr1;
 	private String addr2;
 	private int enabled;
+	
+	private String authority;
+	private long num;
+	private int stateCode;
+	private String memo;
+	private String registerId;
+	private String reg_date;
 	
 	public long getMemberIdx() {
 		return memberIdx;
@@ -52,23 +59,23 @@ public class Member {
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-	public String getRegister_date() {
-		return register_date;
+	public String getRegisterDate() {
+		return registerDate;
 	}
-	public void setRegister_date(String register_date) {
-		this.register_date = register_date;
+	public void setRegisterDate(String registerDate) {
+		this.registerDate = registerDate;
 	}
-	public String getModify_date() {
-		return modify_date;
+	public String getModifyDate() {
+		return modifyDate;
 	}
-	public void setModify_date(String modify_date) {
-		this.modify_date = modify_date;
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
-	public String getLast_login() {
-		return last_login;
+	public String getLastLogin() {
+		return lastLogin;
 	}
-	public void setLast_login(String last_login) {
-		this.last_login = last_login;
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 	public String getEmail() {
 		return email;
@@ -141,5 +148,41 @@ public class Member {
 	}
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+	public long getNum() {
+		return num;
+	}
+	public void setNum(long num) {
+		this.num = num;
+	}
+	public int getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	public String getRegisterId() {
+		return registerId;
+	}
+	public void setRegisterId(String registerId) {
+		this.registerId = registerId;
+	}
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
 	}
 }

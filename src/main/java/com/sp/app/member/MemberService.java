@@ -17,4 +17,12 @@ public interface MemberService {
 	public void deleteMember(Map<String, Object> map) throws Exception;
 	
 	public void generatePwd(Member dto) throws Exception;
+	
+	public boolean isPasswordCheck(String userId, String userPwd);
+	public void updatePwd(Member dto) throws Exception;
+	public int checkFailureCount(String userId);
+	public void updateFailureCount(String userId) throws Exception;
+	public void updateFailureCountReset(String userId) throws Exception;
+	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
+	public void insertMemberState(Member dto) throws Exception;
 }

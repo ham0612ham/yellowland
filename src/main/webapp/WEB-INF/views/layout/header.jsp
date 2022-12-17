@@ -32,15 +32,17 @@
 						<li><a href="#" aria-label="subemnu">1:1문의</a></li>
 					</ul>
 				</li>
-				<li><a href="#" class="main-menu-a">관리자 메뉴</a>
-					<ul class="sub-menu">
-						<li><a href="#" aria-label="subemnu">공지사항 관리</a></li>
-						<li><a href="#" aria-label="subemnu">자주하는 질문 관리</a></li>
-						<li><a href="#" aria-label="subemnu">1:1문의 관리</a></li>
-						<li><a href="#" aria-label="subemnu">게시글 관리</a></li>
-						<li><a href="#" aria-label="subemnu">회원 관리</a></li>
-					</ul>
-				</li>
+				<c:if test="${sessionScope.member.membership==99}">
+					<li><a href="#" class="main-menu-a">관리자 메뉴</a>
+						<ul class="sub-menu">
+							<li><a href="#" aria-label="subemnu">공지사항 관리</a></li>
+							<li><a href="#" aria-label="subemnu">자주하는 질문 관리</a></li>
+							<li><a href="#" aria-label="subemnu">1:1문의 관리</a></li>
+							<li><a href="#" aria-label="subemnu">게시글 관리</a></li>
+							<li><a href="#" aria-label="subemnu">회원 관리</a></li>
+						</ul>
+					</li>
+				</c:if>
 			</ul>
 			</div>
 			<div class="d-flex justify-content-end login-menu">
@@ -51,7 +53,7 @@
 			       		<a class="login-menu-a" href="${pageContext.request.contextPath}/member/member">회원가입</a>
 		           </c:if>
 		           <c:if test="${not empty sessionScope.member}">
-						<span class="login-menu-a">${sessionScope.member.userName}</span>님
+						<span class="login-menu-a" id="user-sort">${sessionScope.member.userName}</span>님
 						<a class="login-menu-a" style="padding-right: 14px;" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 						<a class="login-menu-a" href="${pageContext.request.contextPath}/">정보수정</a>
 		           </c:if>
