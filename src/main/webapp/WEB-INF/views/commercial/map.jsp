@@ -48,6 +48,7 @@ form[name=hotPlaceForm] > ul { padding-left: 0px; }
 </script>
 
 <div class="container" style="margin: 0px;">
+	<div>${daumKey}</div>
 	<div class="body-container">	
 		<form name="hotPlaceForm">
 			<div class="check-area">
