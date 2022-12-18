@@ -37,6 +37,8 @@
 		
 		<intercept-url pattern="/commercial/**" access="permitAll"/>
 		<intercept-url pattern="/assignComm/**" access="permitAll"/>
+		<intercept-url pattern="/bringcate/**" access="permitAll"/>
+		<intercept-url pattern="/echart/**" access="permitAll"/>
 		
 		<intercept-url pattern="/resources/**" access="permitAll"/>
 		<intercept-url pattern="/uploads/photo/**" access="permitAll"/>

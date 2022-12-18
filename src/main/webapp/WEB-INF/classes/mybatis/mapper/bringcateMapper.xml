@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bringcate">
+	<select id="categoryJob" resultType="com.sp.app.bringcate.Bringcate">
+		SELECT cateJobNum, cateJobName FROM categoryJob
+	</select>
+	
+	<select id="job" parameterType="String" resultType="com.sp.app.bringcate.Bringcate">
+		SELECT jobNum, jobName, cateJobNum FROM job
+		WHERE cateJobNum = #{cateJobNum}
+	</select>
+	
+	<select id="categoryGu" resultType="com.sp.app.bringcate.Bringcate">
+		SELECT siguNum, siguName FROM categoryGu
+	</select>
+	
+	<select id="dong" parameterType="String" resultType="com.sp.app.bringcate.Bringcate">
+		SELECT dongNum, dongName, siguNum FROM dong
+		WHERE siguNum = #{siguNum}
+	</select>
+	
+</mapper>
