@@ -11,13 +11,6 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-<!-- 
-	<http auto-config="true">
-	    <csrf disabled="true"/>
-		<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')" />
-	</http>
- -->
- 
    <context:component-scan base-package="com.sp.app"/>
  	
     <!-- 권한이 없는 페이지를 접근할 경우 접근 불가 메시지 출력  -->
