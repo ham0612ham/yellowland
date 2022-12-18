@@ -50,7 +50,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .hideSel { display: none; }
 #map { z-index: -2; width: 100vw; height: 100vh; position: absolute; top: 0px; }
 #analysis { 
-	position: absolute; min-width: 500px; height: 100vh; 
+	position: absolute; min-width: 500px; height: calc(100vh - 60px); 
 	overflow: scroll; background: white; margin-left: 100%;
 	right: 0px; top: 60px;
 }
@@ -220,7 +220,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					    <label class="btn btn-outline-primary" for="age4050" style="font-size: 10px; font-weight: 600; width: 70px; padding: 9px 6.5px;">40~50대</label>
 						    
 					    <input type="radio" class="btn-check" name="age" id="age60" autocomplete="off" value="age60">  
-					    <label class="btn btn-outline-primary" for="age60" style="border-radius: 0 12px 12px 0; font-size: 10px; font-weight: 600; width: 70px; padding: 9px 6.5px;">60대 이상</label>
+					    <label class="btn btn-outline-primary" for="age60" style="border-radius: 0 12px 12px 0; font-size: 10px; font-weight: 600; width: 72px; padding: 9px 6.5px;">60대 이상</label>
 					</div>
 					<button class="btn btn-primary btn-send" style="width: 92%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0">검색</button>
 				</form>
