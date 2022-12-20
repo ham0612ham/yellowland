@@ -36,7 +36,7 @@
 		<h3 class="fw-semibold">고객센터</h3>
 		<div class="row row-cols-auto">
 			<div class="col">공지사항</div>
-			<div class="col">자주하는 질문문문ㅇㅇㅇㅇ</div>
+			<div class="col">자주하는 질문</div>
 			<div class="col">1:1 문의</div>
 		</div>
 	</div>
