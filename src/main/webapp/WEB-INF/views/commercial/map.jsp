@@ -54,6 +54,11 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 	overflow: scroll; background: white; margin-left: 100%;
 	right: 0px; top: 60px;
 }
+#analysis-banner { 
+	position: absolute; min-width: 500px;
+	background: white; margin-left: 100%;
+	right: 0px; top: 60px; z-index: 1;
+}
 #green-div { background: #36C88A; height: 40px; width: 100%; padding-right: 10px; padding-left: 10px;}
 #green-div > span { color: white; font-size: 16px; margin: auto; }
 .marker { 
@@ -90,34 +95,137 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .horiz { margin: 3px 0; }
 .show-hide-btn { float: right; cursor: pointer; margin-bottom: 3px; }
 .show-hide-btn > img { padding-bottom: 5px; }
-#analysis-info { margin: 5px 0 0; }
+#analysis-info { margin: 5px 0; }
 #analysis-info > .info-bold { margin-left: 16px; font-size: 13px; font-weight: 600; }
 #analysis-info > .info-light { margin-left: 8px; font-size: 13px; }
+.analysis-div { margin: 16px; }
+.analy-title { font-size: 14px; margin-top: 70px; }
+.analy-big-txt { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+.analy-green-txt { color: #36C88A; }
+.analy-graph { width: 100%; min-height: 300px; border: 0.3px solid #BBBBBB; }
+.analy-discribe { border: 0.3px solid #BBBBBB; padding: 10px; margin-bottom: 10px; }
+.analy-disc-text { font-size: 14px; color: #A9A9A9 }
+.gr-text { color: #36C88A; font-weight: 600; }
+.red-text {  color: #e02171; font-weight: 600; }
+.bk-text {  color: #424242; font-weight: 600; }
+.fl-right { float: right; }
 </style>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 <script type="text/javascript">
 	
 
 </script>
+
 <div class="header-white"></div>
 <div class="container" style="margin: 0px;">
 	<div class="body-container">
-		<div id="analysis" >
-		<!-- <div id="analysis" style="display: none"> -->
+	
+		<div id="analysis-banner">
 			<div id="green-div" class="d-flex justify-content-between">
 				<span>분석 리포트</span>
 				<span style="width: 350px;">&nbsp;</span>
 				<span><img id="btn-x"  src='${pageContext.request.contextPath}/resources/images/x.png'></span>
 			</div>
+			
 			<div id="analysis-info">
 				<span class="info-bold">위치</span>
 				<span class="info-light" id="info-region">일일동</span>
 				<span class="info-bold">업종</span>
 				<span class="info-light" id="info-job">업종전체</span>
 			</div>
-			<div class="analysis-div">
+		</div>	
 			
+		<div id="analysis" >
+		<!-- <div id="analysis" style="display: none"> -->
+			<div>&nbsp;</div>
+			<div class="analysis-div">
+				<div class="analy-title">점포수</div>
+				<div class="analy-big-txt">점포수는 <span class="analy-green-txt">101개</span> 입니다.</div>
+				<div class="analy-graph" id="zumposu"></div>
 			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">개업수</div>
+				<div class="analy-big-txt">개업수는 <span class="analy-green-txt">2개</span> 입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="geupsu-quart-count">1</span>개</span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="red-text fl-right">↑ <span id="geupsu-year-count">5</span>개</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="geupsu"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">폐업수</div>
+				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt">3개</span> 입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="pyeupsu-quart-count">6</span>개</span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="gr-text fl-right">↓ <span id="pyeupsu-year-count">1</span>개</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="pyeupsu"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">업종분포 현황</div>
+				<div class="analy-big-txt"><span class="analy-green-txt upzongbunpo-job-first">소매업</span>이 가장 많고 <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span><span class="gr-text" class="upzongbunpo-job">소매업</span>이 가장 많고, <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="upzongbunpo" style="padding: 10px; height: 250px;"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">매출액</div>
+				<div class="analy-big-txt">점포당 월평균 매출액은 <span class="analy-green-txt"><span id="mechulak-ave">932</span>만원</span> 입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="mechulak-quart">54</span>만원</span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="bk-text fl-right">↑ <span id="mechulak-year">0</span>만원</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="mechulak" style="padding-top: 10px;"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">요일별 매출</div>
+				<div class="analy-big-txt">선택상권은 <span class="analy-green-txt"><span id="mechulak-ave">금요일</span>건</span>에 가장 고객이 많았습니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span><span class="gr-text" class="upzongbunpo-job">소매업</span>이 가장 많고, <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="mechulgunsu" style="padding-top: 10px;"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">매출건수</div>
+				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt"><span id="mechulak-ave">438</span>건</span> 입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="mechulak-quart">14</span>건</span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="gr-text fl-right">↑ <span id="mechulak-year">13</span>건</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="yoilbyul-muchul" style="padding-top: 10px;"></div>
+			</div>
+			
+			
+			
 		</div>
 		
 		<div id="map"></div>
@@ -424,6 +532,7 @@ $(function(){
 $(function(){
 	$(".marker").click(function(){
 		$("#analysis").show();
+		$("#analysis-banner").show();
 		let dong = $(this).find(".marker-region-name").text();
 		$("#info-region").text(dong);
 		
@@ -447,6 +556,7 @@ $(function(){
 $(function(){
 	$("#btn-x").click(function(){
 		$("#analysis").hide();
+		$("#analysis-banner").hide();
 	});
 });
 
