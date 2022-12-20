@@ -8,6 +8,17 @@
     <meta charset="utf-8">
     <title>상가 양도 메인 화면</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function kakaopost() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+           document.querySelector("#zip").value = data.zonecode;
+           document.querySelector("#addr1").value =  data.address;
+        }
+    }).open();
+}
+</script>
 <style>
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -114,6 +125,80 @@ i {
 	float: right;
 }
 
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#36C88A;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.float:hover {
+	font-weight: bold;
+}
+
+.my-float{
+	margin-top:22px;
+}
+
+.modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+body{
+	width:100%;
+	height:100vh;
+}
+
+.modal-content {
+	right: 250px; 
+	width: 1000px; 
+	height: 880px;
+}
+
+.modal-footer {
+	margin-bottom: 219px;
+    position: absolute;
+    left: 763px;
+    bottom: -213px;
+    border: none;
+}
+
+.info-wrap .dbox .icon span {
+    font-size: 20px;
+    color: #fff;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.heading-section {
+	margin-top: -95px;
+}
+
+input {
+	
+	margin-bottom: 10px;
+}
+
+#thumnail {
+	margin-top: 14px;
+}
+
 </style>
 </head>
 <body>
@@ -188,9 +273,121 @@ i {
 	<div id="clickLatlng"></div>
 </div>
 
+<div>
+	<a class="float" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
+</div>
 
 
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">상가 양도 작성 폼</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        	<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<input type="text" class="form-control" name="subject" id="subject" placeholder="제목">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12">
+					<div class="wrapper">
+						<div class="row no-gutters">
+							<div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+								<div class="contact-wrap w-100 p-md-5 p-4">
+									
+									<form method="POST" id="contactForm" name="contactForm" class="contactForm" enctype="multipart/form-data">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="name">썸네일 이미지</label>
+													<input type="file" class="form-control" name="thumnail" id="thumnail" placeholder="이미지 파일+">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="button" value="우편번호찾기" onclick="kakaopost()">	
+													<input type="text" class="form-control" name="zip" id="zip" placeholder="우편번호" >
+												</div>
+											</div>
+											
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" name="addr1" id="addr1" placeholder="기본 주소">
+												</div>
+											</div>
+											
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세 주소">
+												</div>
+											</div>
+											
+											<div class="col-md-12">
+												<div class="form-group">
+													<textarea name="content" class="form-control" id="content" cols="30" rows="4" placeholder="내용을 입력하세요"></textarea>
+												</div>
+											</div>
+											
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+								<div class="info-wrap bg-primary w-100 p-md-5 p-4">
+									<h5>상가를 소개해보세요!</h5>
+									<p class="mb-4">실시간으로 상가를 양도해 보세요</p>
+				        	<div class="dbox w-100 d-flex align-items-start">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-map-marker"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p>상가 위치 지도 검색</p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-phone"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p>휴대폰 번호</p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-paper-plane"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p>쪽지 기능</p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-globe"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p>자치구</p>
+					          </div>
+				          </div>
+			          </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}&libraries=services,clusterer"></script>
 
@@ -402,7 +599,8 @@ function overall(data, latitude, longitude) {
 		if (status === kakao.maps.services.Status.OK) {
 	
 	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
+			alert("위도: "+ result[0].y +"경도: "+ result[0].x);
+	        
 	        // 결과값으로 받은 위치를 마커로 표시합니다
 	        var marker = new kakao.maps.Marker({
 	            map: map,

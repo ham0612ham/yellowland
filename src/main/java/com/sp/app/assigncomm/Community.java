@@ -6,15 +6,42 @@ public class Community {
 	private String content;     // 내용
 	private String id;          // 작성자 아이디
 	private String dongNum;     // 행정동 코드
-	private String categoryNum; // 업종 번호
-	private String storeNum;    // 점포 번호 
 	private String regDate;     // 등록 일자
-	private String upDate;      // 수정 일자
+	private String updateDate;      // 수정 일자
+	
+	private String zip;
+	private String addr1;
+	private String addr2;
 	
 	private String thumnail;    // 대표 이미지
 	private String imgName;     // 추가 이미지
 	
 	
+	
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	public String getAddr1() {
+		return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
 	public long getAssignCommNum() {
 		return assignCommNum;
 	}
@@ -45,30 +72,13 @@ public class Community {
 	public void setDongNum(String dongNum) {
 		this.dongNum = dongNum;
 	}
-	public String getCategoryNum() {
-		return categoryNum;
-	}
-	public void setCategoryNum(String categoryNum) {
-		this.categoryNum = categoryNum;
-	}
-	public String getStoreNum() {
-		return storeNum;
-	}
-	public void setStoreNum(String storeNum) {
-		this.storeNum = storeNum;
-	}
 	public String getRegDate() {
 		return regDate;
 	}
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	public String getUpDate() {
-		return upDate;
-	}
-	public void setUpDate(String upDate) {
-		this.upDate = upDate;
-	}
+	
 	public String getThumnail() {
 		return thumnail;
 	}
