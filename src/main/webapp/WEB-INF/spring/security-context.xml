@@ -29,7 +29,7 @@
 		<intercept-url pattern="/member/expired" access="permitAll"/>
 		
 		<intercept-url pattern="/commercial/**" access="permitAll"/>
-		<intercept-url pattern="/assignComm/**" access="permitAll"/>
+		<intercept-url pattern="/assigncomm/**" access="permitAll"/>
 		<intercept-url pattern="/bringcate/**" access="permitAll"/>
 		<intercept-url pattern="/echart/**" access="permitAll"/>
 		

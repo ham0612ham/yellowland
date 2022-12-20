@@ -25,6 +25,7 @@
 							한 번에
 							<div style="font-size: 18px; font-weight: 200; margin-top: 8px;">간편하고 편리한 서울시 상권분석 서비스</div>
 						</th>
+						
 						<th rowspan="3" style="border: none; width: 40px;">
 							<div>&nbsp;</div>
 						</th>
