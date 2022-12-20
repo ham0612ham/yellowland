@@ -109,6 +109,15 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .red-text {  color: #e02171; font-weight: 600; }
 .bk-text {  color: #424242; font-weight: 600; }
 .fl-right { float: right; }
+.analy-graph-3div { width: 33%; min-height: 150px; border: 0.3px solid #BBBBBB; }
+.analy-graph-3div-noline { width: 33%; min-height: 12px; font-size: 12px; text-align: center; }
+.analy-graph-2div { width: 49%; min-height: 200px; border: 0.3px solid #BBBBBB; }
+.analy-graph-2div-noline { width: 49%; min-height: 12px; font-size: 12px; text-align: center; }
+.analy-graph-title { 
+	font-size: 12px; position: relative; top: 25px; margin-left: 10px;
+	margin-top: -10px; height: 15px;
+}
+#sungbyul-yoenryungbyul-yudongingu > div:first-child { top: 20px; }
 </style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
@@ -179,7 +188,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-big-txt"><span class="analy-green-txt upzongbunpo-job-first">소매업</span>이 가장 많고 <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span><span class="gr-text" class="upzongbunpo-job">소매업</span>이 가장 많고, <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</span>
+						<span><span class="gr-text" class="upzongbunpo-job">소매업</span>이 가장 많고, <span class="gr-text upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="upzongbunpo" style="padding: 10px; height: 250px;"></div>
@@ -200,29 +209,99 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			</div>
 			
 			<div class="analysis-div">
-				<div class="analy-title">요일별 매출</div>
-				<div class="analy-big-txt">선택상권은 <span class="analy-green-txt"><span id="mechulak-ave">금요일</span>건</span>에 가장 고객이 많았습니다.</div>
+				<div class="analy-title">매출건수</div>
+				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt"><span id="mechulgunsu-month-ave">438</span>건</span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span><span class="gr-text" class="upzongbunpo-job">소매업</span>이 가장 많고, <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</span>
+						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="mechulgunsu-quart">14</span>건</span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="red-text fl-right">↑ <span id="mechulgunsu-year">13</span>건</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="mechulgunsu" style="padding-top: 10px;"></div>
 			</div>
 			
 			<div class="analysis-div">
-				<div class="analy-title">매출건수</div>
-				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt"><span id="mechulak-ave">438</span>건</span> 입니다.</div>
+				<div class="analy-title">요일별 매출</div>
+				<div class="analy-big-txt">선택상권은 <span class="gr-text yoilbyul-muchul-yoil">금요일</span>에 가장 고객이 많았습니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="mechulak-quart">14</span>건</span>
-					</div>
-					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="gr-text fl-right">↑ <span id="mechulak-year">13</span>건</span>
+						<span><span class="gr-text yoilbyul-muchul-yoil">금요일</span>에 가장 매출이 높습니다.</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="yoilbyul-muchul" style="padding-top: 10px;"></div>
 			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">시간대별 매출</div>
+				<div class="analy-big-txt"><span class="gr-text sigandebuel-mechul-highest">17~21시</span>매출이 가장 높아요.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span><span class="gr-text sigandebuel-mechul-highest">17~21시</span> 매출이 가장 높습니다.</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="sigandebuel-mechul" style="padding-top: 10px;"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">성별 매출</div>
+				<div class="analy-big-txt"><span class="gr-text sungbuel-mechul-result">남성</span><span class="gr-text sungbuel-mechul-percent">(52.6%)</span> 매출이 높아요</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>선택 상권은<span class="gr-text sungbuel-mechul-result">남성</span><span class="gr-text sungbuel-mechul-percent">(52.6%)</span> 고객이 많은 상권입니다. <span class="gr-text sungbuel-mechul-result">남성</span> 고객의 방문에 도움이 되는 요소에보다 많은 투자를 고려하세요.</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="sungbuel-mechul" style="padding-top: 10px;"></div>
+				<div class="d-flex justify-content-between" style="margin-top: -25px; position: relative; top: 25px;">
+					<div class="analy-graph-3div-noline" style="padding-top: 10px;"><span>외식업</span></div>
+					<div class="analy-graph-3div-noline" style="padding-top: 10px;"><span>서비스업</span></div>
+					<div class="analy-graph-3div-noline" style="padding-top: 10px;"><span>소매업</span></div>
+				</div>
+				<div class="d-flex justify-content-between" style="margin-top: 2px;">
+					<div class="analy-graph-3div" id="sungbuel-mechul-food" style="padding-top: 10px;"></div>
+					<div class="analy-graph-3div" id="sungbuel-mechul-service" style="padding-top: 10px;"></div>
+					<div class="analy-graph-3div" id="sungbuel-mechul-retail" style="padding-top: 10px;"></div>
+				</div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">연령대별 매출</div>
+				<div class="analy-big-txt">선택상권의 <span class="gr-text">외식업의 </span><span class="gr-text yoenryungbyul-mechul-age">50대</span><span class="gr-text yoenryungbyul-mechul-percent">(29.1%)</span>에 가장 고객이 많았습니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>선택상권의 <span class="gr-text">외식업</span>은 <span class="gr-text yoenryungbyul-mechul-age">50대</span><span class="gr-text yoenryungbyul-mechul-percent">(29.1%)</span>가 가장 활발한 소비를 보입니다.</span>
+					</div>
+				</div>
+				<div class="analy-graph-title" style="margin-top: -15px;">외식업</div>
+				<div class="analy-graph" id="yoenryungbyul-mechul" style="padding-top: 10px;"></div>
+				<div class="analy-graph-title">서비스업</div>
+				<div class="analy-graph" id="yoenryungbyul-mechul-service" style="padding-top: 10px;"></div>
+				<div class="analy-graph-title">소매업</div>
+				<div class="analy-graph" id="yoenryungbyul-mechul-retail" style="padding-top: 10px;"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">성별, 연령별 유동인구</div>
+				<div class="analy-big-txt"><span class="gr-text sungbyul-yoenryungbyul-yudongingu-gender">여성</span><span class="gr-text">, </span><span class="gr-text sungbyul-yoenryungbyul-yudongingu-percent">(32.4%)</span>유동인구가 가장 많아요.</div>
+				<div class="analy-graph" id="sungbyul-yoenryungbyul-yudongingu" style="padding-top: 10px; height: 400px;"></div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">주거인구 수</div>
+				<div class="analy-big-txt">주거인구 수는 <span class="analy-green-txt" id="gugeoingu-su-result">14,305</span><span class="analy-green-txt">명</span>입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="gugeoingu-su-quart">14</span>명</span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="red-text fl-right">↑ <span id="gugeoingu-su-year">13</span>명</span>
+					</div>
+				</div>
+				<div class="analy-graph" id="gugeoingu-su" style="padding-top: 10px;"></div>
+			</div>
+			
+			<div style="height: 70px;"></div>
 			
 			
 			
