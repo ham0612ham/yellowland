@@ -14,7 +14,9 @@
 .dialog-receiver-list ul, .dialog-receiver-list li { list-style: none; padding: 0; }
 .btnReceiverDialog { width: 70px; }
 .receiver-user { color: #6c757d; margin-right: 3px; cursor: pointer; min-width: 70px; }
-td, table, tr { border: 0px; }
+td, table, tr { border: 0px; margin: 0px; }
+#content { width: 100%; min-height: 300px; }
+.btn-bottom > button { width: 20%; margin: 0 2px; }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -180,53 +182,48 @@ $(function(){
 		<div class="body-title" style="margin-bottom: 12px;">
 			<div id="this-title">쪽지 보내기</div>
 		</div>
-		
+
 		<div class="body-main">
-			
-			<div class="tab-content pt-2" id="nav-tabContent">
-				<div class="tab-pane fade show active mt-3" id="nav-content" role="tabpanel" aria-labelledby="nav-tab-content">
-				
-					<form name="noteForm" method="post">
-						<table class="table mt-5 write-form">
-							<tr>
-								<td class="table-light col-sm-2" scope="row">받는사람</td>
-								<td>
-									<div class="row">
-										<div class="col-auto pe-0">
-											<button type="button" class="btn btn-primary btnReceiverDialog">추가</button>
-										</div>
-										<div class="col">
-											<div class="forms-receiver-name"></div>
-										</div>
-									</div>
-								</td>
-							</tr>
-		        
-							<tr>
-								<td colspan="2">
-									<textarea name="content" id="content" class="form-control">${dto.content}</textarea>
-								</td>
-							</tr>
-							
-						</table>
-						
-						<small class="form-control-plaintext">한번에 보낼수 있는 최대 인원은 5명입니다.</small>
-						<table class="table table-borderless">
-		 					<tr>
-								<td class="text-center">
-									<button type="button" class="btn btn-dark" onclick="sendOk();">보내기&nbsp;<i class="bi bi-check2"></i></button>
-									<button type="reset" class="btn btn-light">다시입력</button>
-									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/note/send/list';">취소&nbsp;<i class="bi bi-x"></i></button>
-									<div id="forms-receiver-list"></div>
-								</td>
-							</tr>
-						</table>
-					</form>
-				
-				</div>
-			</div>		
 		
+			<form name="noteForm" method="post">
+				<table class="table write-form table-borderless">
+					<tr style="border-top: 0.5px solid #eee;">
+						<td class="table-light" scope="row" style="width: 100px; background: white;">받는사람</td>
+						<td>
+							<div class="row">
+								<div class="col-auto pe-0">
+									<button type="button" class="btn btn-primary btnReceiverDialog">추가</button>
+								</div>
+								<div class="col">
+									<div class="forms-receiver-name"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="padding: 0px">
+							<textarea name="content" id="content" class="form-control">${dto.content}
+							</textarea>
+						</td>
+					</tr>
+				</table>
+
+				<small class="form-control-plaintext" style="margin-top: -15px; color: #6c757d">한
+					번에 보낼수 있는 최대 인원은 5명입니다.</small>
+				<table class="table table-borderless">
+					<tr>
+						<td class="text-center btn-bottom">
+							<button type="button" class="btn btn-secondary"
+								onclick="location.href='${pageContext.request.contextPath}/note/send/list';">취소</button>
+							<button type="button" class="btn btn-primary" onclick="sendOk();">보내기</button>
+							<div id="forms-receiver-list"></div>
+						</td>
+					</tr>
+				</table>
+			</form>
+
 		</div>
+
 	</div>
 </div>
 

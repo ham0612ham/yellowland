@@ -128,7 +128,7 @@ public class NoteController {
 		} catch (Exception e) {
 
 		}
-
+		System.out.println("실행1");
 		return "redirect:/note/send/list";
 	}
 

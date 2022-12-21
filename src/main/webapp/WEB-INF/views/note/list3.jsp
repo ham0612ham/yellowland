@@ -44,6 +44,7 @@ td { height: 40px; overflow: hidden; text-overflow: ellipsis; border: 0px;}
 }
 #keyword-input { height: 38.2px; width: 200px; margin-left: 6px; border-radius: 8px; border: 0.5px solid #A3A6AD; }
 .search-btn { height: 38.2px; margin-left: 5px; border-radius: 8px; width: 70px; }
+.date-td { font-size: 14px; margin-top: 10px; }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -142,10 +143,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -156,10 +158,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -170,10 +173,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -184,10 +188,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -198,10 +203,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -212,10 +218,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -226,10 +233,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -240,10 +248,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -254,10 +263,11 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
 						<tr>
 							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
 								12
@@ -268,10 +278,26 @@ $(function() {
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
+						
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						
 					</tbody>
 				</table>
 				<input type="hidden" name="page" value="${page}">
