@@ -12,21 +12,28 @@
 }
 
 
-.fw-semibold { height: 50px; width: 150px; }
+.fw-semibold { height: 50px; width: 150px; font-size: 30px; }
 .row { height: 100px; width: 150px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
-.col {margin-left: 5px; font-weight: bold; color: #C2C2C2; font-size: 18px;}
-.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 20px; margin-left: 5px; }
-.title1 {font-weight: bold; color: #36C88A; font-size: 31px; }
+.col { font-weight: bold; color: #C2C2C2; font-size: 18px;}
+.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 18px;}
+.title1 {font-weight: bold; color: #36C88A; font-size: 30px; }
 
 .text-decoration-none {color: #C2C2C2;} 
 
 .division {margin-top: 20px; margin-bottom: 10px;}
 .container.text-center {margin-top: 0px; margin-left: 40px; margin-right: 100px;}
 
-.pagination {margin-left: 340px;}
+
+.pagination {
+	margin-left: 340px; 
+	--bs-pagination-hover-bg: #36C88A; 
+	--bs-pagination-focus-bg: #36C88A; 
+	--bs-pagination-focus-color: #ffffff;
+	--bs-pagination-hover-color: #ffffff;
+	}
 
 </style>
 
@@ -46,7 +53,7 @@
 			<h3 class="title1">공지사항</h3>
 			<hr class="division">
 			<div class="container text-center">
-				<table class="table table-borderless table-hover">
+				<table class="table table-borderless">
 					<thead>
 						<tr>
 							<th scope="col">번호</th>

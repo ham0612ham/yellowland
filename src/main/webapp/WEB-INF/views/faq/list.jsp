@@ -13,16 +13,20 @@
 }
 
 
-.fw-semibold { height: 50px; width: 150px; }
+.fw-semibold { height: 50px; width: 150px; font-size: 30px; }
 .row { height: 100px; width: 150px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
-.col {margin-left: 5px; font-weight: bold; color: #C2C2C2; font-size: 18px;}
-.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 18px; margin-left: 5px; }
-.title1 {font-weight: bold; color: #36C88A; font-size: 31px; margin: 0px; }
+.col { font-weight: bold; color: #C2C2C2; font-size: 18px;}
+.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 18px;  }
+.title1 {font-weight: bold; color: #36C88A; font-size: 30px; margin: 0px; }
 
 .text-decoration-none {color: #C2C2C2;} 
+
+.questionSubject { display: flex; align-items: center;}
+.questionContentADetail { float: left; margin-right: 10px;}
+
 
 .division {margin-top: 20px; margin-bottom: 10px;}
 .container.text-center {margin-top: 0px; margin-left: 40px; margin-right: 100px;}
@@ -32,6 +36,20 @@
 
 .pagination {margin-left: 340px;}
 
+.accordion-button::after { display: none; }
+
+.accordion-button:not(.collapsed) {
+	color: white;
+	background-color: #36C88A;
+}
+
+.pagination {
+	margin-left: 340px; 
+	--bs-pagination-hover-bg: #36C88A; 
+	--bs-pagination-focus-bg: #36C88A; 
+	--bs-pagination-focus-color: #ffffff;
+	--bs-pagination-hover-color: #ffffff;
+	}
 
 
 </style>
@@ -56,41 +74,81 @@
 					  <div class="accordion-item">
 					    <h2 class="accordion-header" id="flush-headingOne">
 					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false">
-					        Accordion Item #1
+					       	<div class="questionSubject">
+					       		<h3>Q&nbsp;</h3>
+					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
+					       	</div>
 					      </button>
 					    </h2>
 					    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+					      <div class="accordion-body">
+					      		<div class="questionContentSize" >
+									<div >
+										<h3 class="questionContentADetail">A</h3>
+										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
+									</div>	
+								</div>
+					      </div>
 					    </div>
 					  </div>
 					  <div class="accordion-item">
 					    <h2 class="accordion-header" id="flush-headingTwo">
 					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false">
-					        Accordion Item #2
+					        <div class="questionSubject">
+					       		<h3>Q&nbsp;</h3>
+					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
+					       	</div>
 					      </button>
 					    </h2>
 					    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+					      <div class="accordion-body">
+					      		<div class="questionContentSize" >
+									<div >
+										<h3 class="questionContentADetail">A</h3>
+										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
+									</div>	
+								</div>
+					      </div>
 					    </div>
 					  </div>
 					  <div class="accordion-item">
 					    <h2 class="accordion-header" id="flush-headingThree">
 					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false">
-					        Accordion Item #3
+					        <div class="questionSubject">
+					       		<h3>Q&nbsp;</h3>
+					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
+					       	</div>
 					      </button>
 					    </h2>
 					    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+					      <div class="accordion-body">
+					      		<div class="questionContentSize" >
+									<div >
+										<h3 class="questionContentADetail">A</h3>
+										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
+									</div>	
+								</div>					      
+				     		</div>
 					    </div>			    
 	  				</div>
 	  				 <div class="accordion-item">
 					    <h2 class="accordion-header" id="flush-headingFour">
 					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false">
-					        Accordion Item #4
+					        <div class="questionSubject">
+					       		<h3>Q&nbsp;</h3>
+					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
+					       	</div>
 					      </button>
 					    </h2>
 					    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+					      <div class="accordion-body">
+					      		<div class="questionContentSize" >
+									<div >
+										<h3 class="questionContentADetail">A</h3>
+										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
+									</div>	
+								</div>					      
+						  </div>
 					    </div>
 					  </div>
 				</div>
