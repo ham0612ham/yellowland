@@ -68,7 +68,7 @@ a:hover, a:active { cursor:pointer; }
 	text-align: left; padding-left: 10px; margin: auto; 
 }
 .three-btn { 
-	padding: 15px 20px; border-radius: 20px;
+	padding: 17px 20px; border-radius: 20px; cursor: pointer;
 }
 .main-title { font-size: 45px; font-weight: 200; }
 .text-bold { font-weight: 700; }
@@ -175,5 +175,8 @@ a:hover, a:active { cursor:pointer; }
 	opacity: 0;
 	animation: fadeOut 0.5s;	
 }
+#gr-button:hover { background: #18BD77; }
+#pp-button:hover { background: #6660DB; }
+#bl-button:hover { background: #389FE9; }
 
 #user-sort:hover { color: #000; }

@@ -52,12 +52,12 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 #analysis { 
 	position: absolute; min-width: 500px; height: calc(100vh - 60px); 
 	overflow: scroll; background: white; margin-left: 100%;
-	right: 0px; top: 60px;
+	right: 0px; top: 60px; z-index: 2;
 }
 #analysis-banner { 
 	position: absolute; min-width: 500px;
 	background: white; margin-left: 100%;
-	right: 0px; top: 60px; z-index: 1;
+	right: 0px; top: 60px; z-index: 3;
 }
 #green-div { background: #36C88A; height: 40px; width: 100%; padding-right: 10px; padding-left: 10px;}
 #green-div > span { color: white; font-size: 16px; margin: auto; }
@@ -732,5 +732,6 @@ $(function(){
 		alert(query);
 	});
 });
+
 
 </script>

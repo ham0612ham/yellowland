@@ -79,11 +79,6 @@
         </interceptor>
     </interceptors>	 
  -->
- 
- 	<websocket:handlers>
- 		<websocket:mapping handler="mySocketHandler" path="/chat.msg"/>
- 	</websocket:handlers>
- 	<beans:bean id="mySocketHandler" class="com.sp.app.chat.MySocketHandler" />
 
     <!-- 예외처리 -->
     <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

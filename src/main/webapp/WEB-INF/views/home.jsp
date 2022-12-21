@@ -30,9 +30,10 @@
 							<div>&nbsp;</div>
 						</th>
 						<th style="border: none" class="three-button">
-							<div class="btn d-flex flex-row three-btn" 
+							<div class="d-flex flex-row three-btn" id="gr-button"
 								style="background-color: #36C88A; box-shadow: 0px 0px 10px rgb(54, 200, 138, 1.0); 
-									margin-left: 30px; width: 310px;">
+									margin-left: 30px; width: 310px;"
+									onclick="location.href='${pageContext.request.contextPath}/commercial/map'">
 								<div class="three-bigchar">뜨는 상권</div>
 								<div class="three-smchar lh-sm">요즘 뜨는 주요 상권에 대한<br>확인과 분석을 해보세요</div>
 							</div>
@@ -40,9 +41,10 @@
 					</tr>
 					<tr>
 						<th style="border: none" class="three-button">
-							<div class="btn d-flex flex-row three-btn" 
+							<div class="d-flex flex-row three-btn" id="pp-button"
 								style="background-color: #756EF2; box-shadow: 0px 0px 10px rgb(117, 110, 242, 1.0); 
-									margin-left: 150px; width: 330px;">
+									margin-left: 150px; width: 330px;"
+									onclick="location.href='${pageContext.request.contextPath}/matching/main'">
 								<div class="three-bigchar">상권 매칭</div>
 								<div class="three-smchar lh-sm">원하는 위치 주변의 상권 분석과<br>다양한 통계를 확인하세요</div>
 							</div>
@@ -50,9 +52,9 @@
 					</tr>
 					<tr>
 						<th style="border: none" class="three-button">
-							<div class="btn d-flex flex-row three-btn" 
+							<div class="d-flex flex-row three-btn" id="bl-button"
 								style="background-color: #49B3FF; box-shadow: 0px 0px 10px rgb(73, 179, 255, 1.0); 
-									width: 370px;">
+									width: 370px;" onclick="location.href='${pageContext.request.contextPath}/analysis/main'">
 								<div class="three-bigchar">상권 분석</div>
 								<div class="three-smchar lh-sm">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
 							</div>

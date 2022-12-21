@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="note">
+	<!-- 친구 리스트 -->
+	<select id="listFriend" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT userId, userName
+		FROM member1
+		<where>
+			userId != #{userId}
+			AND
+			<if test="keyword!=null and keyword!='' ">
+				INSTR(${condition}, #{keyword}) &gt; 0
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertNote" parameterType="com.sp.app.note.Note">
+		INSERT INTO note(num, content, senderId, receiverId,
+			sendDay, identifyDay, sendDelete, receiveDelete)
+		VALUES (note_seq.NEXTVAL, #{content}, #{senderId}, #{receiverId},
+			SYSDATE, #{identifyDay, jdbcType=VARCHAR}, 'N', 'N')
+	</insert>
+    
+	<sql id="where-list">
+		<if test="condition=='senderName' or condition=='receiverName'">
+			INSTR(userName, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='senderId' or condition=='receiverId'">
+			${condition}=#{keyword}
+		</if>
+		<if test="condition=='content'">
+			INSTR(content, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='sendDay'">
+			( TO_CHAR(sendDay, 'YYYYMMDD') = #{keyword}
+		          OR TO_CHAR(sendDay, 'YYYY-MM-DD') = #{keyword} )
+		</if>
+	</sql>
+    
+	<!-- 받은 쪽지 리스트 -->
+	<select id="dataCountReceive" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM note
+		JOIN member1 ON senderId=userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND receiverId = #{userId}
+			AND receiveDelete = 'N'
+		</where> 
+	</select>
+    
+	<select id="listReceive" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT num, content, senderId, userName senderName, 
+			   TO_CHAR(sendDay, 'YYYY-MM-DD HH24:MI:SS') sendDay,
+			   NVL2(identifyDay, TO_CHAR(identifyDay, 'YYYY-MM-DD HH24:MI:SS'), null) identifyDay,
+			   sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON senderId=userId
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			AND receiverId = #{userId}
+			AND receiveDelete = 'N'
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+    
+	<!-- 보낸 쪽지 리스트 -->
+	<select id="dataCountSend" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM note
+		JOIN member1 ON receiverId=userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND senderId = #{userId}
+			AND sendDelete = 'N'
+		</where> 
+	</select>
+    
+    <select id="listSend" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT num, content, receiverId, userName receiverName, 
+			   TO_CHAR(sendDay, 'YYYY-MM-DD HH24:MI:SS') sendDay,
+			   NVL2(identifyDay, TO_CHAR(identifyDay, 'YYYY-MM-DD HH24:MI:SS'), null) identifyDay,
+			   sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON receiverId=userId
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			AND senderId = #{userId}
+			AND sendDelete = 'N'
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+    </select>
+    
+	<!-- 받은 쪽지 내용 보기 -->
+	<select id="readReceive" parameterType="Long" resultType="com.sp.app.note.Note">
+		SELECT num, content, senderId, userName senderName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON senderId=userId
+		WHERE num=#{num}
+	</select>    
+    
+	<!-- 받은 쪽지 이전글 -->
+	<select id="preReadReceive" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT num, content, senderId, userName senderName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON senderId=userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND receiverId = #{userId}
+			AND receiveDelete = 'N'
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<!-- 받은 쪽지 다음글 -->
+	<select id="nextReadReceive" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT num, content, senderId, userName senderName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON senderId=userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND receiverId = #{userId}
+			AND receiveDelete = 'N'
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+  
+	<!-- 보낸 쪽지 내용 보기 -->
+	<select id="readSend" parameterType="Long" resultType="com.sp.app.note.Note">
+		SELECT num, content, receiverId, userName receiverName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON receiverId=userId
+		WHERE num=#{num}
+	</select>    
+    
+	<!-- 보낸 쪽지 이전글 -->
+	<select id="preReadSend" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT num, content, receiverId, userName receiverName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON receiverId=userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND senderId = #{userId}
+			AND sendDelete = 'N'
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<!-- 보낸 쪽지 다음글 -->
+	<select id="nextReadSend" parameterType="map" resultType="com.sp.app.note.Note">
+		SELECT num, content, receiverId, userName receiverName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON receiverId=userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND senderId = #{userId}
+			AND sendDelete = 'N'
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+    
+	<!-- 보낸 쪽지함에서 쪽지 답변 보기 -->
+	<select id="readReplReceive" parameterType="Long" resultType="com.sp.app.note.Note">
+		SELECT num, content, senderId, userName senderName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM note
+		JOIN member1 ON senderId=userId
+		WHERE parent=#{num} AND receiveDelete = 'N'
+	</select>    
+    
+	<!-- 쪽지를확인상태로변경 -->
+	<delete id="updateIdentifyDay" parameterType="Long">
+		UPDATE note SET identifyDay = SYSDATE 
+		WHERE num=#{num} AND identifyDay IS NULL
+	</delete>
+    
+	<!-- 쪽지를삭제상태로변경 -->
+	<delete id="updateDeleteState" parameterType="map">
+		UPDATE note SET ${field1} = 'Y'
+		WHERE num IN 
+			<foreach item="num" index="index" collection="numList"
+					open="(" separator="," close=")">
+				#{num}
+			</foreach>
+	</delete>
+    
+	<!-- 쪽지삭제 -->
+	<delete id="deleteNote" parameterType="map">
+		DELETE FROM note
+		WHERE ${field2} = 'Y' AND
+			num IN 
+				<foreach item="num" index="index" collection="numList"
+						open="(" separator="," close=")">
+					#{num}
+				</foreach>
+    </delete>
+    
+	<!-- 새로운 쪽지 개수 -->
+	<select id="newNoteCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM note
+		WHERE identifyDay IS NULL AND receiverId=#{userId}
+	</select>
+    
+</mapper>

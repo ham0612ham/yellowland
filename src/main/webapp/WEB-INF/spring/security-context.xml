@@ -28,6 +28,8 @@
 		<intercept-url pattern="/member/pwdFind" access="permitAll"/>
 		<intercept-url pattern="/member/expired" access="permitAll"/>
 		
+		<!-- note는 디자인 끝나면 지울 예장 -->
+		<intercept-url pattern="/note/**" access="permitAll"/>
 		<intercept-url pattern="/qna/**" access="permitAll"/>
 		<intercept-url pattern="/faq/**" access="permitAll"/>
 		<intercept-url pattern="/notice/**" access="permitAll"/>
