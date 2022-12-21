@@ -16,4 +16,9 @@ public class NoticeController {
 		return ".notice.list";	
 	}
 	
+	@RequestMapping(value = "article")
+	public String arricle(Model model) throws Exception{
+		return ".notice.article";
+	}
+	
 }

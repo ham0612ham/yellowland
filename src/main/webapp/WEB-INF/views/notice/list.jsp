@@ -11,9 +11,6 @@
 	margin-top: 100px;
 }
 
-.container {
-
-}
 
 .fw-semibold { height: 50px; width: 150px; }
 .row { height: 100px; width: 150px;}
@@ -21,10 +18,12 @@
 .table2 {width: 800px; text-align: left;}
 
 .col {margin-left: 5px; font-weight: bold; color: #C2C2C2; font-size: 18px;}
-.title1 {font-weight: bold; color: #36C88A; font-size: 36px; }
+.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 20px; margin-left: 5px; }
+.title1 {font-weight: bold; color: #36C88A; font-size: 31px; }
 
+.text-decoration-none {color: #C2C2C2;} 
 
-.division {margin-top: 20px; margin-bottom: 20px;}
+.division {margin-top: 20px; margin-bottom: 10px;}
 .container.text-center {margin-top: 0px; margin-left: 40px; margin-right: 100px;}
 
 .pagination {margin-left: 340px;}
@@ -35,9 +34,11 @@
 	<div class="table1">
 		<h3 class="fw-semibold">고객센터</h3>
 		<div class="row row-cols-auto">
-			<div class="col">공지사항</div>
-			<div class="col">자주하는 질문</div>
-			<div class="col">1:1 문의</div>
+			<div class="colNoticeTitle">
+				<div>공지사항</div>
+			</div>
+			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">자주하는 질문</a></div>
+			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
 		</div>
 	</div>
 	<div class="body-container">
@@ -45,7 +46,7 @@
 			<h3 class="title1">공지사항</h3>
 			<hr class="division">
 			<div class="container text-center">
-				<table class="table table-borderless table-hover" style="margin-left: 0px;">
+				<table class="table table-borderless table-hover">
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
