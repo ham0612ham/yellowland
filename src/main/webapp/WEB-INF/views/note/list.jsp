@@ -13,7 +13,7 @@
 #this-title { font-size: 30px; font-weight: 600; color: #36C88A; }
 input[type=checkbox], input[type=radio] { display: none; }
 label{
-	display: block; border-radius: 12px; margin: 0 auto; text-align: center; color: #000;
+	display: block; border-radius: 8px; margin: 0 auto; text-align: center; color: #000;
 }
 input[type=radio]:checked+label { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
 input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
@@ -123,7 +123,7 @@ $(function() {
 				<table class="table note-table">
 					<thead>
 						<tr>
-							<th scope="col" style="width: 8%"><input type="checkbox" name="chkAll" id="chkAll" class="form-check-input"></th>
+							<th scope="col" style="width: 8%">번호</th>
 							<th scope="col" style="width: 450px;">내용</th>
 							<th scope="col" style="width: 10%">${menuItem=="receive"?"보낸사람":"받는사람"}</th>
 							<th scope="col" style="width: 12%">${menuItem=="receive"?"받은날짜":"보낸날짜"}</th>
@@ -132,24 +132,146 @@ $(function() {
 						</tr>
 					</thead>
 					<tbody>
- 						<%-- <c:forEach var="dto" items="${list}">
- 						
 						<tr>
-							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" value="${dto.num}" class="form-check-input">
-								<input type="checkbox" name="nums" value="${dto.num}" class="form-check-input">
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
 							</td>
 							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
 								<span>
-									<a href="${articleUrl}&num=${dto.num}" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
 								</span>
 							</td>
-							<td class="pd" style="padding: 10px 0;">${menuItem=="receive"?dto.senderName:dto.receiverName}</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">${dto.sendDay}</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;">${dto.identifyDay}</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
 							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
 						</tr>
-						
-						</c:forEach> --%>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" class="form-check-input">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.안녕하세요 매물 관심있어서 연락드립니다.</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0;">2022-12-12</td>
+							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+						</tr>
 					</tbody>
 				</table>
 				<input type="hidden" name="page" value="${page}">
@@ -161,7 +283,7 @@ $(function() {
 			</div>
 
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
-				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 10px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
+				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
 					삭제
 				</button>
 				<form class="d-flex justify-content-between" name="searchForm"

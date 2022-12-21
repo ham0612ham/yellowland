@@ -13,7 +13,7 @@
 #this-title { font-size: 30px; font-weight: 600; color: #36C88A; }
 input[type=checkbox], input[type=radio] { display: none; }
 label{
-	display: block; border-radius: 12px; margin: 0 auto; text-align: center; color: #000;
+	display: block; border-radius: 8px; margin: 0 auto; text-align: center; color: #000;
 }
 input[type=radio]:checked+label { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
 input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
@@ -283,7 +283,7 @@ $(function() {
 			</div>
 
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
-				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 10px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
+				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
 					삭제
 				</button>
 				<form class="d-flex justify-content-between" name="searchForm"

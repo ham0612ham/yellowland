@@ -4,39 +4,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+#this-title { font-size: 30px; font-weight: 600; color: #36C88A; }
 .body-container {
 	max-width: 800px;
 	margin: auto;
 }
 
-.dialog-receiver-list {
-	height: 200px;
-	overflow-y: scroll;
-}
-.dialog-receiver-list ul, .dialog-receiver-list li {
-	list-style: none;
-	padding: 0;
-}
-
-.receiver-user {
-	color: #0d58ba;
-	margin-right: 3px;
-	cursor: pointer;
-}
+.dialog-receiver-list { height: 200px; overflow-y: scroll; }
+.dialog-receiver-list ul, .dialog-receiver-list li { list-style: none; padding: 0; }
+.btnReceiverDialog { width: 70px; }
+.receiver-user { color: #6c757d; margin-right: 3px; cursor: pointer; min-width: 70px; }
+td, table, tr { border: 0px; }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
 <script type="text/javascript">
-$(function(){
-    $("button[role='tab']").on("click", function(e){
-		let tab = $(this).attr("data-tab");
-		if(tab === "send") {
-			return false;
-		}		
-		let url = "${pageContext.request.contextPath}/note/receive/list";
-		location.href=url;
-    });
-});
 
 function sendOk() {
 	const f = document.noteForm;
@@ -160,7 +142,7 @@ $(function(){
 			});
 			
 			if(! b) {
-				s = "<span class='receiver-user btn border px-1'>"+userName+" <i class='bi bi-trash' data-userId='"+userId+"'></i></span>";
+				s = "<span class='receiver-user btn border px-1' data-userId='"+userId+"'>"+userName+"</span>";
 				$(".forms-receiver-name").append(s);
 				
 				s = "<input type='hidden' name='receivers' value='"+userId+"'>";
@@ -175,7 +157,7 @@ $(function(){
 		$("#myDialogModal").modal("hide");
 	});
 	
-	$("body").on("click", ".bi-trash", function(){
+	$("body").on("click", ".receiver-user", function(){
 		let userId = $(this).attr("data-userId");
 		
 		$(this).parent().remove();
@@ -195,19 +177,11 @@ $(function(){
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3>쪽지함</h3>
+		<div class="body-title" style="margin-bottom: 12px;">
+			<div id="this-title">쪽지 보내기</div>
 		</div>
 		
 		<div class="body-main">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-receive" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="receive" aria-selected="true" data-tab="receive">받은 쪽지함</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="tab-send" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="send">보낸 쪽지함</button>
-				</li>
-			</ul>
 			
 			<div class="tab-content pt-2" id="nav-tabContent">
 				<div class="tab-pane fade show active mt-3" id="nav-content" role="tabpanel" aria-labelledby="nav-tab-content">
@@ -219,25 +193,24 @@ $(function(){
 								<td>
 									<div class="row">
 										<div class="col-auto pe-0">
-											<button type="button" class="btn btn-light btnReceiverDialog">추가</button>
+											<button type="button" class="btn btn-primary btnReceiverDialog">추가</button>
 										</div>
 										<div class="col">
 											<div class="forms-receiver-name"></div>
 										</div>
 									</div>
-									<small class="form-control-plaintext">한번에 보낼수 있는 최대 인원은 5명입니다.</small>
 								</td>
 							</tr>
 		        
 							<tr>
-								<td class="table-light col-sm-2" scope="row">내 용</td>
-								<td>
+								<td colspan="2">
 									<textarea name="content" id="content" class="form-control">${dto.content}</textarea>
 								</td>
 							</tr>
 							
 						</table>
 						
+						<small class="form-control-plaintext">한번에 보낼수 있는 최대 인원은 5명입니다.</small>
 						<table class="table table-borderless">
 		 					<tr>
 								<td class="text-center">
