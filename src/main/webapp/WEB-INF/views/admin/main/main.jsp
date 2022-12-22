@@ -5,6 +5,6 @@
 
 <div class="body-container">
     <div class="body-main">
-    	<p> 예 </p>
+    	<p>  </p>
 	</div>
 </div>

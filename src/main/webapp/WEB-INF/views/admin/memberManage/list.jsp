@@ -4,16 +4,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
-.body-main {
-	max-width: 850px;
+.body-container {
+	max-width: 800px;
+	min-height: 500px;
+	margin: auto;
+	margin-top: 100px;
 }
+
+
+.fw-semibold { height: 50px; width: 150px; }
+.row { height: 100px; width: 150px;}
+.table1 {float: left; width: 300px;text-align: left;}
+.table2 {width: 700px; text-align: left;}
+
+.col {margin-left: 5px; font-weight: bold; color: #C2C2C2; font-size: 18px;}
+.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 18px; margin-left: 5px; }
+.title1 {font-weight: bold; color: #36C88A; font-size: 31px; margin: 0px; }
+
+.text-decoration-none {color: #C2C2C2;} 
+
+.division {margin-top: 20px; margin-bottom: 10px;}
+.container.text-center {margin-top: 0px; margin-left: 40px; margin-right: 100px;}
+
+.accordion-button {background-color: #36C88A; color: white;} 
+.collapseOne {background-color: #36C88A;}
+
+.pagination {margin-left: 340px;}
+
+
+
 </style>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
-
 <script type="text/javascript">
-
 function ajaxFun(url, method, query, dataType, fn) {
 	$.ajax({
 		type:method,
@@ -141,20 +162,27 @@ function selectStateChange() {
 	f.memo.focus();
 }
 </script>
-
-<div class="body-container">
-    <div class="body-title">
-		<h2><i class="fa-solid fa-user-group"></i> 회원 관리 </h2>
-    </div>
-    
-    <div class="body-main">
-    	
-		<div>
-			<ul class="tabs">
-				<li id="tab-0" data-tab="0"><i class="fa-solid fa-person"></i> 회원 리스트</li>
-			</ul>
+<div class="container">
+	<div class="table1">
+		<h3 class="fw-semibold">관리자메뉴</h3>
+		<div class="row row-cols-auto">
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/notice/list" class="text-decoration-none" style="color:#C2C2C2">공지사항관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/faq/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/qna/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/board/list" class="text-decoration-none" style="color:#C2C2C2">게시글관리</a></div>
+			<div class="colNoticeTitle">
+				<div>회원관리</div>
+			</div>
+			
 		</div>
-		<div id="tab-content" style="clear:both; padding: 20px 10px 0;">
+	</div>
+	<div class="body-container">
+		<div class="table2">
+			<h3 class="title1">회원관리</h3>
+			<div class="body-main">
+    	
+	<div class="container text-center">
+		
 		
 			<table class="table">
 				<tr>
@@ -170,8 +198,9 @@ function selectStateChange() {
 					</td>
 				</tr>
 			</table>
-				
-			<table class="table table-border table-list">
+			
+		<form name="listForm" method="post">		
+			<table class="table note-table">
 				<thead>
 					<tr> 
 						<th class="wx-60">번호</th>
@@ -182,6 +211,87 @@ function selectStateChange() {
 						<th class="wx-60">상태</th>
 						<th>이메일</th>
 					</tr>
+					<tr>
+							<td class="pd" style="padding: 10px 0;">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">hana</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
+							
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">hana</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
+							
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">hana</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
+							
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">hana</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
+							
+						</tr>
+						<tr>
+							<td class="pd" style="padding: 10px 0;">
+								12
+							</td>
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
+								<span>
+									<a href="#" class="text-reset">hana</a>
+								</span>
+							</td>
+							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
+							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
+							
+						</tr>
+						
 				</thead>
 				
 				<tbody>
@@ -198,37 +308,74 @@ function selectStateChange() {
 					</c:forEach>
 				</tbody>
 			</table>
-					 
+		</form>		 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-					
-			<table class="table">
-				<tr>
-					<td align="left" width="100">
-						<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage/list';">새로고침</button>
-					</td>
-					<td align="center">
-						<form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/list" method="post">
-							<select name="condition" class="form-select">
-								<option value="userId"     ${condition=="userId" ? "selected='selected'":""}>아이디</option>
-								<option value="userName"   ${condition=="userName" ? "selected='selected'":""}>이름</option>
-								<option value="email"      ${condition=="email" ? "selected='selected'":""}>이메일</option>
-								<option value="tel"        ${condition=="tel" ? "selected='selected'":""}>전화번호</option>
-							</select>
-							<input type="text" name="keyword" class="form-control" value="${keyword}">
-							<input type="hidden" name="enabled" value="${enabled}">
-							<input type="hidden" name="page" value="1">
-							<button type="button" class="btn" onclick="searchList()">검색</button>
-						</form>
-					</td>
-					<td align="right" width="100">&nbsp;</td>
-				</tr>
-			</table>
+			
+			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
+				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage/list';">
+					새로고침
+				</button>
+				<form class="d-flex justify-content-between" name="searchForm"
+					class="d-flex justify-content-between"
+					action="${pageContext.request.contextPath}/admin/memberManage/list" method="post">
+					<div>
+						<select name="condition" class="form-select" id="sel-condition">
+							<option value="userId"
+								${condition=="userId" ? "selected='selected'":""}>아이디</option>
+							<c:choose>
+								<c:when test="${menuItem=='receive'}">
+									
+									<option value="userName"   ${condition=="userName" ? "selected='selected'":""}>이름</option>
+									<option value="email"      ${condition=="email" ? "selected='selected'":""}>이메일</option>
+									<option value="tel"        ${condition=="tel" ? "selected='selected'":""}>전화번호</option>
+								</c:when>
+								<c:otherwise>
+									<option value="userName"   ${condition=="userName" ? "selected='selected'":""}>이름</option>
+									<option value="email"      ${condition=="email" ? "selected='selected'":""}>이메일</option>
+									<option value="tel"        ${condition=="tel" ? "selected='selected'":""}>전화번호</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
+					</div>
+					<div>
+						<input type="text" name="keyword" value="${keyword}"
+							class="form-control" id="keyword-input">
+					</div>
+					<div>
+						<div class="btn btn-primary search-btn" onclick="searchList()">
+							검색
+						</div>
+					</div>
+				</form>
+				<div style="width:30px;">&nbsp;</div>
+			</div>
+		<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link" href="#"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+			</nav>
+			</div>
+    	
 		
 		</div>
-    	
 	</div>
+
+			
+
+		</div>
+
+
+	
 </div>
 
 <div id="member-dialog" style="display: none;"></div>
