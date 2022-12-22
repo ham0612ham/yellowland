@@ -11,7 +11,7 @@
 }
 
 
-.fw-semibold { height: 50px; width: 150px; font-size: 30px; }
+.fw-semibold { height: 50px; width: 150px; font-size: 30px; margin-bottom: 3px;}
 .row { height: 100px; width: 150px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
