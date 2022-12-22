@@ -171,7 +171,7 @@ function deleteNote() {
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="myDialogModalLabel">답변 달기</h5>
+				<h5 class="modal-title" id="myDialogModalLabel">답장 쓰기</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
@@ -184,9 +184,9 @@ function deleteNote() {
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary btnSendOk">답변달기</button>
 				<button type="button" class="btn btn-secondary btnSendCancel"
 					data-bs-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-primary btnSendOk">보내기</button>
 			</div>
 		</div>
 	</div>

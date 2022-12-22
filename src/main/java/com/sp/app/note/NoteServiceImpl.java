@@ -27,7 +27,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public void insertNode(Note dto) throws Exception {
+	public void insertNote(Note dto) throws Exception {
 		try {
 			for (String receiver : dto.getReceivers()) {
 				dto.setReceiverId(receiver);

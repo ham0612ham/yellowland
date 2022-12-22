@@ -46,6 +46,7 @@ td { height: 40px; overflow: hidden; text-overflow: ellipsis; border: 0px;}
 .search-btn { height: 38.2px; margin-left: 5px; border-radius: 8px; width: 70px; }
 .date-td { font-size: 13px; margin-top: 10px; }
 .pagination { margin-top: 30px; }
+.toast { width: 400px; height: 200px; }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -215,9 +216,98 @@ $(function(){
 						</div>
 					</div>
 				</form>
-				<div style="width: 70px;">&nbsp;</div>
+				<div style="width: 70px;">
+					<button class="btn btn-light note-btn2" style="float: left; width: 70px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;"
+						onclick="openFind();">
+						쪽지2
+					</button>
+				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  쪽지2
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">쪽지 보내기</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form name="noteForm" method="post">
+					<table class="table write-form table-borderless">
+						<tr style="border-top: 0px;">
+							<td class="table-light" scope="row"
+								style="width: 100px; background: white; text-align: left;"><input
+								type='hidden' name='receivers' value='yellow'>
+								받는 사람 : 김노랑
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="padding: 0px">
+								<textarea name="content" id="content" class="form-control"></textarea>
+							</td>
+						</tr>
+					</table>
+					<input type='hidden' name='receiverName' value='김노랑'>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-primary" onclick="sendOk();">보내기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+	<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="height: 100px;">
+		<div class="toast-header">
+			<img src="${pageContext.request.contextPath}/resources/images/alarm_pp.png" class="rounded me-2" style="width: 20px;"> <strong
+				class="me-auto">쪽지보내기</strong> <small>방금</small>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">${receiverName}님에게 쪽지를 보냈습니다.</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+	let bool = "${sended}";
+	const toastLiveExample = document.getElementById('liveToast')
+	if(bool === "true") {
+		const toast = new bootstrap.Toast(toastLiveExample)
+		toast.show()
+	}
+});
+
+function sendOk() {
+	const f = document.noteForm;
+	let str;
+
+	if($("input[name=receivers]").length === 0) {
+		alert("받는 사람을 추가하세요. ");
+		return;
+	}
+
+	str = f.content.value.trim();
+	if(!str) {
+		alert("내용을 입력하세요. ");
+		f.content.focus();
+		return;
+	}
+
+	f.action="${pageContext.request.contextPath}/note/write";
+	f.submit();
+}
+</script>
+

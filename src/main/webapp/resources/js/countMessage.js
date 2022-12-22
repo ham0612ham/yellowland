@@ -1,7 +1,7 @@
 $(function(){
 	$.ajax({
 		type:"post",
-		url:"note/countMessage",
+		url:"/app/note/countMessage",
 		dataType:"json",
 		success:function(data) {
 			if(data.state==="true" && data.countMessage > 0) {

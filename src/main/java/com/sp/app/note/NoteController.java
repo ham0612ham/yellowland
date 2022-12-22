@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sp.app.common.MyUtil;
 import com.sp.app.member.SessionInfo;
@@ -118,15 +119,20 @@ public class NoteController {
 
 	// 쪽지 보내기
 	@PostMapping("write")
-	public String writeSubmit(Note dto, HttpSession session) throws Exception {
+	public String writeSubmit(Note dto, HttpSession session, final RedirectAttributes rAttr) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		try {
 			dto.setSenderId(info.getUserId());
-			service.insertNode(dto);
+			service.insertNote(dto);
 		} catch (Exception e) {
 
 		}
+		String receiverName = dto.getReceiverName();
+		
+		rAttr.addFlashAttribute("receiverName", receiverName);
+		rAttr.addFlashAttribute("sended", "true");
+		
 		return "redirect:/note/send/list";
 	}
 
@@ -323,4 +329,5 @@ public class NoteController {
 		
 		return map;
 	}
+
 }

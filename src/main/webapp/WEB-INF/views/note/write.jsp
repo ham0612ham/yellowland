@@ -148,6 +148,7 @@ $(function(){
 				$(".forms-receiver-name").append(s);
 				
 				s = "<input type='hidden' name='receivers' value='"+userId+"'>";
+				s += "<input type='hidden' name='receiverName' value='"+userName+"'>";
 				$("#forms-receiver-list").append(s);
 			}
 		});
@@ -258,8 +259,8 @@ $(function(){
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary btnAdd">추가</button>
 				<button type="button" class="btn btn-secondary btnClose">닫기</button>
+				<button type="button" class="btn btn-primary btnAdd">추가</button>
 			</div>			
 		</div>
 	</div>
