@@ -19,6 +19,83 @@ function kakaopost() {
     }).open();
 }
 
+function check() {
+	
+	const f = document.contactForm;
+	
+	if(! f.subject.value.trim()) {
+		f.subject.focus();
+	}
+	
+	if(! f.content.value.trim()) {
+		f.content.focus();
+	}
+	
+	if(! f.pNum2.value.trim()) {
+		f.pNum2.focus();
+	} else if(! f.pNum3.value.trim()) {
+		f.pNum3.focus();
+	}
+	
+	if(! f.zip.value.trim()) {
+		f.zip.focus();
+	}
+	
+	if(! f.addr1.value.trim()) {
+		f.addr1.focus();
+	}
+	
+	if(! f.addr2.value.trim()) {
+		f.addr2.focus();
+	}
+	
+	if(! f.thumnail.value.trim()) {
+		f.thumnail.focus();
+	}
+	
+	if(! f.deposit.value.trim()) {
+		f.deposit.focus();
+	}
+	
+	if(! f.monthly.value.trim()) {
+		f.monthly.focus();
+	}
+	
+	if(! f.expense.value.trim()) {
+		f.expense.focus();
+	}
+	
+	if(! f.area.value.trim()) {
+		f.area.focus();
+	}
+	
+	if(! f.bFloor.value.trim()) {
+		f.bFloor.focus();
+	}
+	
+	if(! f.floor.value.trim()) {
+		f.floor.focus();
+	}
+	
+	if(! f.parking.value.trim()) {
+		f.parking.focus();
+	}
+	
+	if(! f.elevator.value.trim()) {
+		f.elevator.focus();
+	}
+	
+	if(! f.transDate.value.trim()) {
+		f.transDate.focus();
+	}
+	
+	alert("ok 통과")
+	
+	f.action = "${pageContext.request.contextPath}/assignComm/formSubmit"
+	f.submit();
+	
+}
+
 </script>
 
 <style>
@@ -215,8 +292,11 @@ input {
 }
 
 #subject {
-    margin-top: -77px;
-    width: 500px;
+    margin-top: -29px;
+    margin-left: -127px;
+    width: 513px;
+    margin-bottom: -5px;
+   
 }
 
 #mainImg, #subImg {
@@ -237,21 +317,40 @@ input {
 }
 
 #phone {
-	border-radius: 30px;
-	border: 5px solid #36C884;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
+    width: 300px;
+    padding-top: 12px;
+    background: white;
+    margin-left: 20px;
+    min-height: 50px;
+    border-radius: 15px;
+    padding-bottom: 12px;
+    margin-bottom: 50px;
 }
 
 p {
 	align-self: center;
 }
 
+.sub {
+	margin-top: 12px;
+}
+
 .sub > input {
-	width: 33px;
+    width: 52px;
 	height: 25px;
 }
 
 .sub > select {
     height: 24px;
+}
+
+.parking {
+	width: 35px;
+}
+
+.unit {
+	margin-left: 5px;
 }
 
 </style>
@@ -280,7 +379,7 @@ p {
 	        <div class="option">
 	            <div>
 	                <form onsubmit="searchPlaces(); return false;">
-	                    키워드 : <input type="text" id="keyword" size="15"> 
+	                    키워드 : <input type="text" id="keyword" size="15" placeholder="ex) 홍대맛집"> 
 	                    <button class="btn btn-primary" type="submit">검색하기</button> 
 	                </form>
 	            </div>
@@ -343,161 +442,236 @@ p {
       </div>
       <div class="modal-body">
         	<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<input type="text" class="form-control" name="subject" id="subject" placeholder="제목">
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-12">
-					<div class="wrapper">
-						<div class="row no-gutters">
-							<div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
-								<div class="contact-wrap w-100 p-md-5 p-4">
-									
-									<form method="POST" id="contactForm" name="contactForm" class="contactForm" enctype="multipart/form-data">
-										<div class="row">
-								          	
-								          	<div class="col-md-6">
-												<div class="form-group" id="mainImg">
-													<label class="label" for="name">대표 이미지</label>
-													<input type="file" class="form-control" name="thumnail" id="thumnail" placeholder="이미지 파일+">
+	        	<form method="POST" id="contactForm" name="contactForm" class="contactForm" enctype="multipart/form-data">
+				<div class="row justify-content-center">
+					<div class="col-md-12">
+						<div class="wrapper">
+							<div class="row no-gutters">
+								<div style="margin-top: -20px;" class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+									<div class="contact-wrap w-100 p-md-5 p-4">
+											<div class="row">
+												<div class="row justify-content-center">
+													<div class="col-md-6 text-center mb-5">
+														<input type="text" class="form-control" name="subject" id="subject" placeholder="제목">
+													</div>
 												</div>
-											</div>
-											
-											<div class="col-md-6">
-												<div class="form-group" id="subImg">
-													<label class="label" for="name">추가 이미지</label>
-													<input type="file" class="form-control" name="thumnail" id="thumnail" placeholder="이미지 파일+">
+									          	<div style="margin-top: -25px; display: flex; margin-bottom: 13px;">
+										          	<div class="col-md-6">
+														<div class="form-group" id="mainImg">
+															<label class="label" for="name">대표 이미지</label>
+															<input type="file" class="form-control" name="thumnail" id="thumnail">
+														</div>
+													</div>
+													
+													<div class="col-md-6">
+														<div class="form-group" id="subImg">
+															<label class="label" for="name">추가 이미지</label>
+															<input type="file" class="form-control" name="imgName" id="imgName">
+														</div>
+													</div>
 												</div>
-											</div>
-								          	
-											<div class="col-md-6">
-												<div class="form-group" style="display: flex;">
-													<input type="text" class="form-control" name="zip" id="zip" placeholder="우편번호" >
-													<input type="button" value="우편번호찾기" onclick="kakaopost()">
+									          	<p style="margin-bottom: 0; margin-left: 8px;">위치정보</p>
+												<div class="col-md-6">
+													<div class="form-group" style="display: flex;">
+														<input type="text" class="form-control" name="zip" id="zip" placeholder="우편번호" >
+														<input class="btn btn-primary" style="margin-left: 3px;" type="button" value="우편번호찾기" onclick="kakaopost()">
+													</div>
 												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="form-group">
-													<input type="text" class="form-control" name="addr1" id="addr1" placeholder="기본 주소">
+												
+												<div class="col-md-12">
+													<div class="form-group">
+														<input type="text" class="form-control" name="addr1" id="addr1" placeholder="기본 주소">
+													</div>
 												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="form-group">
-													<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세 주소">
+												
+												<div class="col-md-12">
+													<div class="form-group">
+														<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세 주소">
+													</div>
 												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="form-group">
-													<label class="label" for="editor">상세설명</label>
-													<textarea name="content" class="form-control" id="editor" cols="30" rows="4" 
-														placeholder="소개하고 싶은 상가에 대한 설명과 특징을 입력해주세요. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#13;&#10;
-																	상가의 위치와 교통 및 주변 시설 등 전체적인 상가의 느낌 등을 작성해주세요."></textarea>
+												
+												<div class="col-md-12">
+													<div style="margin-top: 10px;" class="form-group">
+														<label class="label" for="editor" style="margin-left: 8px;">상세설명</label>
+														<textarea name="content" class="form-control" id="editor" cols="30" rows="4" 
+															placeholder="소개하고 싶은 상가에 대한 설명과 특징을 입력해주세요. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#13;&#10;
+																		상가의 위치와 교통 및 주변 시설 등 전체적인 상가의 느낌 등을 작성해주세요."></textarea>
+													</div>
 												</div>
+												
 											</div>
-											
-										</div>
-									</form>
-									<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-								    <script>
-								      	ClassicEditor.create( document.querySelector( '#editor' ) );
-								    </script>
+										
+										<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+									    <script>
+									      	ClassicEditor.create( document.querySelector( '#editor' ) );
+									    </script>
+									</div>
 								</div>
-							</div>
-							<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
-								<div id="phone" class="info-wrap w-100 p-md-5 p-4">
-						        	
-							          	<div class="dbox w-100 d-flex align-items-start">
-							        		<div class="icon d-flex align-items-center">
-							        			<div class="col-md-6">
-							        				<div class="sub" style="display: flex;">
-							        					<p style="width:  125px;">보증금</p>
-														<input type="text" class="form-control" name="deposit" id="deposit">
-														<p style="width: 85px;">만원</p>
+								<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+									<div id="phone" class="info-wrap w-100 p-md-5 p-4">
+							        	
+								          	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<div class="sub" style="display: flex;">
+								        					<p style="width: 216px;">보증금</p>
+															<input type="text" class="form-control" name="deposit" id="deposit">
+															<p class="unit" style="width: 85px;">만원</p>
+														</div>
 													</div>
-												</div>
+									          	</div>
 								          	</div>
-							          	</div>
-							        	<div class="dbox w-100 d-flex align-items-start">
-							        		<div class="icon d-flex align-items-center">
-							        			<div class="col-md-6">
-							        				<div class="sub" style="display: flex;">
-							        					<p style="width:  125px;">월세</p>
-														<input type="text" class="form-control" name="deposit" id="deposit">
-														<p style="width: 85px;">만원</p>
+								        	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<div class="sub" style="display: flex;">
+								        					<p style="width: 216px;">월세</p>
+															<input type="text" class="form-control" name="monthly" id="monthly">
+															<p class="unit" style="width: 85px;">만원</p>
+														</div>
 													</div>
-												</div>
+									          	</div>
 								          	</div>
-							          	</div>
-							        	<div class="dbox w-100 d-flex align-items-start">
-							        		<div class="icon d-flex align-items-center">
-							        			<div class="col-md-6">
-							        				<div class="sub" style="display: flex;">
-							        					<p style="width:  125px;">관리비</p>
-														<input type="text" class="form-control" name="deposit" id="deposit">
-														<p style="width: 85px;">만원</p>
+								        	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<div class="sub" style="display: flex;">
+								        					<p style="width: 216px;">관리비</p>
+															<input type="text" class="form-control" name="expense" id="expense">
+															<p class="unit" style="width: 85px;">만원</p>
+														</div>
 													</div>
-												</div>
+									          	</div>
 								          	</div>
-							          	</div>
-							        	<div class="dbox w-100 d-flex align-items-start">
-							        		<div class="icon d-flex align-items-center">
-							        			<div class="col-md-6">
-							        				<div class="sub" style="display: flex;">
-							        					<p style="width: 145px;">전용면적</p>
-														<input type="text" class="form-control" name="deposit" id="deposit">
-														<p style="width: 85px;">m2</p>
+								        	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<div class="sub" style="display: flex; ">
+								        					<p style="width: 216px;">전용면적</p>
+															<input type="text" class="form-control" name="area" id="area">
+															<p class="unit" style="width: 85px;">m2</p>
+														</div>
 													</div>
-												</div>
+									          	</div>
 								          	</div>
-							          	</div>
-							          	<div class="dbox w-100 d-flex align-items-start">
-							        		<div class="icon d-flex align-items-center">
-							        			<div class="col-md-6">
-							        				<div class="sub" style="display: flex;">
-							        					<p style="width: 145px;">건물 층 수</p>
-															<select>
-															<option></option>
-														</select>
-														<p style="width: 85px;">m2</p>
+								          	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<div class="sub" style="display: flex;">
+								        					<p style="width: 211px;">건물 층</p>
+																<select name="bFloor">
+																	<option value="1">1층</option>
+																	<option value="2">2층</option>
+																	<option value="3">3층</option>
+																	<option value="4">4층</option>
+																	<option value="5">5층</option>
+																	<option value="6">6층</option>
+																	<option value="7">7층</option>
+																	<option value="8">8층</option>
+																	<option value="9">9층</option>
+																	<option value="10">10층</option>
+																	<option value="11">11층</option>
+																	<option value="12">12층</option>
+																	<option value="13">13층</option>
+																	<option value="14">14층</option>
+																	<option value="15">15층</option>
+																	<option value="16">16층</option>
+																	<option value="17">17층</option>
+																	<option value="18">18층</option>
+																	<option value="19">19층</option>
+																	<option value="20">20층</option>
+																</select>
+															<p class="unit" style="width: 85px;">m2</p>
+														</div>
+														<div class="sub" style="display: flex;">
+								        					<p style="width:211px;">해당 층</p>
+																<select name="floor">
+																	<option value="1">1층</option>
+																	<option value="2">2층</option>
+																	<option value="3">3층</option>
+																	<option value="4">4층</option>
+																	<option value="5">5층</option>
+																	<option value="6">6층</option>
+																	<option value="7">7층</option>
+																	<option value="8">8층</option>
+																	<option value="9">9층</option>
+																	<option value="10">10층</option>
+																	<option value="11">11층</option>
+																	<option value="12">12층</option>
+																	<option value="13">13층</option>
+																	<option value="14">14층</option>
+																	<option value="15">15층</option>
+																	<option value="16">16층</option>
+																	<option value="17">17층</option>
+																	<option value="18">18층</option>
+																	<option value="19">19층</option>
+																	<option value="20">20층</option>
+																</select>
+															<p class="unit" style="width: 85px;">m2</p>
+														</div>
 													</div>
-													<div class="sub" style="display: flex;">
-							        					<p style="width:  125px;">해당 층</p>
-															<select>
-																<option value="1">1층</option>
-															</select>
-														<p style="width: 85px;">m2</p>
-													</div>
-												</div>
+									          	</div>
 								          	</div>
-							          	</div>
-							          	<div class="dbox w-100 d-flex align-items-start">
-							        		<div class="icon d-flex align-items-center">
-							        			<div class="col-md-6">
-							        				<div class="sub" style="display: flex;">
-							        					<p style="width:  125px;">주차</p>
-														<input type="radio" name="parkingY">가능
-														<input type="radio" name="parkingN">없음
+								          	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<div class="sub" style="display: flex; width: 195px;">
+								        					<p style="width:45px; margin-right: 34px;">주차</p>
+															<input style="width: 14px;" type="radio" name="parking" value="1"><p style="width: 45px;">가능</p>
+															<input style="width: 14px;" type="radio" name="parking" value="0"><p style="width: 45px;">없음</p>
+														</div>
+														<div class="sub" style="display: flex; width: 195px; margin-bottom: 1px;">
+								        					<p style="width: 80px;">엘리베이터</p>
+															<input style="width: 14px;" type="radio" name="elevator" value="1"><p style="width: 45px;">있음</p>
+															<input style="width: 14px;" type="radio" name="elevator" value="0"><p style="width: 45px;">없음</p>
+														</div>
 													</div>
-												</div>
+									          	</div>
 								          	</div>
-							          	</div>
-					          </div>
+								          	<div class="dbox w-100 d-flex align-items-start" style="margin-bottom: 10px;">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<p style="width: 75px; margin-bottom: 1px;">양도가능일</p>
+								        				<div class="sub" style="display: flex; width: 172px; margin-top: 2px;">
+															<input style="width: 227px;" type="date" class="form-control" name="transDate">
+														</div>
+													</div>
+									          	</div>
+								          	</div>
+								          	<div class="dbox w-100 d-flex align-items-start">
+								        		<div class="icon d-flex align-items-center">
+								        			<div class="col-md-6">
+								        				<p style="width:125px; margin-bottom: 1px;">연락처</p>
+								        				<div class="sub" style="display: flex; margin-top: 2px;">
+								        					<select name="pNum">
+								        						<option value="010">010</option>
+								        						<option value="02">02</option>
+								        						<option value="011">011</option>
+								        						<option value="016">016</option>
+								        						<option value="017">017</option>
+								        						<option value="018">018</option>
+								        						<option value="019">019</option>
+								        					</select> -
+															<input style="width:63px;" type="text" class="form-control" name="pNum2"> -
+															<input style="width:63px;" type="text" class="form-control" name="pNum3">
+														</div>
+													</div>
+									          	</div>
+								          	</div>
+						          </div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
+		
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">작성완료</button>
+        <button type="button" onclick="check();" class="btn btn-primary">작성완료</button>
       </div>
     </div>
   </div>

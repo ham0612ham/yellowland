@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sp.app.prop.PropReader;
 
-@Controller(value = "assignCommController")
+@Controller(value = "assigncomm.assignCommController")
 @RequestMapping(value = "/assigncomm/*")
 public class AssignCommController {
 	
@@ -23,6 +24,14 @@ public class AssignCommController {
 		String daumKey = propReader.readDaumKey();
 		
 		model.addAttribute("daumKey", daumKey);
+		
+		return ".assignComm.main";
+	}
+	
+	@RequestMapping(value = "formSubmit", method = RequestMethod.POST)
+	public String formSubmit(Community dto) {
+		
+		
 		
 		return ".assignComm.main";
 	}
