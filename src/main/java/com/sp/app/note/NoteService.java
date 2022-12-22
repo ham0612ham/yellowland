@@ -25,6 +25,8 @@ public interface NoteService {
 	public void updateIdentifyDay(long num) throws Exception;
 	
 	public void deleteNote(Map<String, Object> map) throws Exception;
+	public void deleteOneNote(Map<String, Object> map) throws Exception;
 	
 	public int newNoteCount(String userId);
+	public int countUnreadMessage(String userId) throws Exception;
 }

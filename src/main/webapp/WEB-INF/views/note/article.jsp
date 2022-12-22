@@ -8,7 +8,7 @@
 	max-width: 800px;
 	margin: auto;
 }
-
+#this-title { font-size: 30px; font-weight: 600; color: #36C88A; }
 .table .ellipsis {
 	position: relative;
 	min-width: 200px;
@@ -26,14 +26,20 @@
 	content: '';
 	display: inline-block;
 }
-</style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
-
-<style type="text/css">
+.btnReplyNote, .btnSpam, .btnWrite, .btnDelete, .btnList { 
+	width: 30%; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;
+	background: white; 
+}
 .reply-form textarea {
 	height: 130px;
 }
+a { text-decoration: none; color: black; }
+.delete, .list { cursor:pointer; }
+.delete:hover, .list:hover { color: #36C88A; }
+
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
+
 
 <script type="text/javascript">
 $(function(){
@@ -78,118 +84,96 @@ function deleteNote() {
 </script>
 
 <div class="container">
-	<div class="body-container">	
-		<div class="body-title">
-			<h3>쪽지함</h3>
+	<div class="body-container">
+		<div class="body-title" style="margin-bottom: 12px;">
+			<div id="this-title">쪽지함</div>
 		</div>
-		
+
 		<div class="body-main">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-receive" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="receive" aria-selected="true" data-tab="receive">받은 쪽지함</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-send" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="send">보낸 쪽지함</button>
-				</li>
-			</ul>
-			
-			<div class="tab-content pt-2" id="nav-tabContent">
-				<div class="tab-pane fade show active mt-3" id="nav-content" role="tabpanel" aria-labelledby="nav-tab-content">
-				
-					<table class="table table-borderless mb-0">
-						<tr>
-							<td align="left" width="50%">
-								<c:if test="${menuItem=='receive'}">
-									<button type="button" class="btn btn-light btnReplyNote" >답변</button>
-									<button type="button" class="btn btn-light">스팸신고</button>
-								</c:if>
-							</td>
-							<td align="right">
-								<button type="button" class="btn btn-light" onclick="javascript:location.href='${pageContext.request.contextPath}/note/write';">쪽지 쓰기</button>
-							</td>
-						</tr>
-					</table>
-					
-					<table class="table mb-0">
-						<tr class="border-top2">
-							<td colspan="2" align="left">
-								<c:choose>
-									<c:when test="${menuItem=='receive'}">
-										보낸사람 : ${dto.senderName}(${dto.senderId})
-									</c:when>
-									<c:when test="${menuItem=='send'}">
-										받는사람 : ${dto.receiverName}(${dto.receiverId})
-									</c:when>
-								</c:choose>
-							</td>
-						</tr>
-						
-						<tr>
-							<td width="50%">
-								<c:choose>
-									<c:when test="${menuItem=='receive'}">
-										받은날짜 : ${dto.sendDay}
-									</c:when>
-									<c:when test="${menuItem=='send'}">
-										보낸날짜 : ${dto.sendDay}
-									</c:when>
-								</c:choose>
-							</td>
-							<td align="right">
-								읽은날짜 : ${empty dto.identifyDay ? "읽지 않음": dto.identifyDay}
-							</td>
-						</tr>
-						
-						<tr>
-							<td colspan="2" valign="top" height="170">
-								${dto.content}
-							</td>
-						</tr>
-						
-						<tr>
-							<td colspan="2" class="ellipsis">
-								이전쪽지 :
-								<c:if test="${not empty preDto}">
-									<span><a href="${pageContext.request.contextPath}/note/${menuItem}/article?${query}&num=${preDto.num}">${preDto.content}</a></span>
-								</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" class="ellipsis">
-								다음쪽지 :
-								<c:if test="${not empty nextDto}">
-									<span><a href="${pageContext.request.contextPath}/note/${menuItem}/article?${query}&num=${nextDto.num}">${nextDto.content}</a></span>
-								</c:if>
-							</td>
-						</tr>
-					</table>
-					
-					<table class="table table-borderless">
-						<tr>
-							<td width="50%">
-						    	<button type="button" class="btn btn-light" onclick="deleteNote();">삭제</button>
-							</td>
-							<td class="text-end">
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/note/${menuItem}/list?${query}';">리스트</button>
-							</td>
-						</tr>
-					</table>
-				
-				</div>
-			</div>		
-			
+			<table class="table table-borderless mb-0">
+				<tr>
+					<td align="left" width="50%" style="    padding-left: 0px;">
+						<c:if test="${menuItem=='receive'}">
+							<button type="button" class="btn btn-primary btnReplyNote">답장 보내기</button>
+							<button type="button" class="btn btn-primary btnSpam">스팸신고</button>
+						</c:if>
+					</td>
+					<td align="right">
+						<button type="button" class="btn btn-primary btnWrite"
+							onclick="javascript:location.href='${pageContext.request.contextPath}/note/write';">쪽지쓰기</button>
+					</td>
+				</tr>
+			</table>
+
+			<table class="table mb-0">
+				<tr class="border-top2">
+					<td colspan="2" align="left">
+						<c:choose>
+							<c:when test="${menuItem=='receive'}">보낸사람 : ${dto.senderName}(${dto.senderId})</c:when>
+							<c:when test="${menuItem=='send'}">받는사람 : ${dto.receiverName}(${dto.receiverId})</c:when>
+						</c:choose>
+					</td>
+				</tr>
+
+				<tr>
+					<td width="50%">
+						<c:choose>
+							<c:when test="${menuItem=='receive'}">받은날짜 : ${dto.sendDay}</c:when>
+							<c:when test="${menuItem=='send'}">보낸날짜 : ${dto.sendDay}</c:when>
+						</c:choose></td>
+					<td align="right">읽은날짜 : ${empty dto.identifyDay ? "읽지 않음": dto.identifyDay}
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2" valign="top" height="170">${dto.content}</td>
+				</tr>
+
+				<tr>
+					<td colspan="2" class="ellipsis">이전쪽지 : 
+						<c:if test="${not empty preDto}">	
+							<span>
+								<a href="${pageContext.request.contextPath}/note/${menuItem}/article?${query}&num=${preDto.num}">${preDto.content}</a>
+							</span>
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="ellipsis">다음쪽지 : 
+						<c:if test="${not empty nextDto}">
+							<span>
+								<a href="${pageContext.request.contextPath}/note/${menuItem}/article?${query}&num=${nextDto.num}">${nextDto.content}"></a>
+							</span>
+						</c:if>
+					</td>
+				</tr>
+			</table>
+
+			<table class="table table-borderless">
+				<tr>
+					<td width="50%">
+						<div class="delete" onclick="deleteNote();">삭제</div>
+					</td>
+					<td class="text-end">
+						<div class="list" onclick="location.href='${pageContext.request.contextPath}/note/${menuItem}/list?${query}';">리스트</div>
+					</td>
+				</tr>
+			</table>
+
 		</div>
 	</div>
+
 </div>
 
-<div class="modal fade" id="myDialogModal" tabindex="-1" 
-		data-bs-backdrop="static" data-bs-keyboard="false"
-		aria-labelledby="myDialogModalLabel" aria-hidden="true">
+<div class="modal fade" id="myDialogModal" tabindex="-1"
+	data-bs-backdrop="static" data-bs-keyboard="false"
+	aria-labelledby="myDialogModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="myDialogModalLabel">답변 달기</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<form name="replyForm" method="post">
@@ -201,8 +185,9 @@ function deleteNote() {
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary btnSendOk">답변달기</button>
-				<button type="button" class="btn btn-secondary btnSendCancel" data-bs-dismiss="modal">취소</button>
-			</div>			
+				<button type="button" class="btn btn-secondary btnSendCancel"
+					data-bs-dismiss="modal">취소</button>
+			</div>
 		</div>
 	</div>
 </div>

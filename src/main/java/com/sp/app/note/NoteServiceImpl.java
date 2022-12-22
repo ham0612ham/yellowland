@@ -192,6 +192,20 @@ public class NoteServiceImpl implements NoteService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public void deleteOneNote(Map<String, Object> map) throws Exception {
+		try {
+			// 삭제(삭제상태로 된경우에는 글을 삭제)
+			dao.deleteData("note.deleteOneNote", map);
+			
+			// 삭제 상태가 아닌 경우는 삭제 상태로 수정
+			dao.updateData("note.updateDeleteOneState", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 	@Override
 	public int newNoteCount(String userId) {
@@ -205,4 +219,15 @@ public class NoteServiceImpl implements NoteService {
 		
 		return result;
 	}
+	
+	@Override
+	public int countUnreadMessage(String userId) throws Exception {
+		int result = 0;
+		try {
+			result = dao.selectOne("note.countMessage", userId);
+		} catch (Exception e) {
+		}
+		return result;
+	}
+
 }

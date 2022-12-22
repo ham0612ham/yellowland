@@ -228,11 +228,31 @@
 				</foreach>
     </delete>
     
+	<!-- 쪽지를삭제상태로변경 -->
+	<delete id="updateDeleteOneState" parameterType="map">
+		UPDATE note SET ${field1} = 'Y'
+		WHERE num = #{num}
+	</delete>
+    
+	<!-- 쪽지삭제 -->
+	<delete id="deleteOneNote" parameterType="map">
+		DELETE FROM note
+		WHERE ${field2} = 'Y' AND
+			num = #{num}
+    </delete>
+    
 	<!-- 새로운 쪽지 개수 -->
 	<select id="newNoteCount" parameterType="String" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM note
 		WHERE identifyDay IS NULL AND receiverId=#{userId}
+	</select>
+	
+	<select id="countMessage" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM note
+		WHERE identifyDay IS NULL
+			AND receiverId = #{userId}
+			AND receiveDelete = 'N'
 	</select>
     
 </mapper>

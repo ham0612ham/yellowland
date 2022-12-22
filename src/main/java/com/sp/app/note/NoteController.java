@@ -40,7 +40,6 @@ public class NoteController {
 			HttpServletRequest req,
 			HttpSession session,
 			Model model) throws Exception {
-		System.out.println(menuItem);
 
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
@@ -128,7 +127,6 @@ public class NoteController {
 		} catch (Exception e) {
 
 		}
-		System.out.println("실행1");
 		return "redirect:/note/send/list";
 	}
 
@@ -209,6 +207,42 @@ public class NoteController {
 
 		return ".note.article";
 	}
+	
+	@RequestMapping(value = "deleteOne")
+	public String deleteOne(@RequestParam String menuItem,
+			@RequestParam long num,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpSession session,
+			Model model) throws Exception {
+		System.out.println("실행");
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		
+		String query = "page=" + page;
+		if (keyword.length() != 0) {
+			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (menuItem.equals("receive")) {
+			map.put("field1", "receiveDelete");
+			map.put("field2", "sendDelete");
+		} else {
+			map.put("field1", "sendDelete");
+			map.put("field2", "receiveDelete");
+		}
+		
+		map.put("num", num);
+		
+		try {
+			service.deleteOneNote(map);
+		} catch (Exception e) {
+			
+		}
+		
+		return "redirect:/note/" + menuItem + "/list?" + query;
+	}
 
 	@RequestMapping(value = "{menuItem}/delete")
 	public String delete(@PathVariable String menuItem,
@@ -268,4 +302,25 @@ public class NoteController {
 		return map;
 	}
 	
+	@RequestMapping(value = "countMessage")
+	@ResponseBody
+	public Map<String, Object> countMessage(HttpSession session) throws Exception {
+		int countMessage = 0;
+		String state = "true";
+		
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			String userId = info.getUserId();
+			
+			countMessage = service.countUnreadMessage(userId);
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("countMessage", countMessage);
+		map.put("state", state);
+		
+		return map;
+	}
 }

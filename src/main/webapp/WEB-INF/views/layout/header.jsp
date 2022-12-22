@@ -58,7 +58,10 @@
 						<a class="login-menu-a" href="${pageContext.request.contextPath}/">마이페이지</a>
 						<a href="${pageContext.request.contextPath}/note/receive/list" title="쪽지" class="position-relative">
 							<span class="new-noteCount position-absolute translate-middle badge rounded-pill">
-								<img style="width: 20px; margin-top: 15px; margin-left: 30px;" src="${pageContext.request.contextPath}/resources/images/note.png">
+								<img style="width: 20px; margin-top: 15px; margin-left: 30px; z-index: -1" src="${pageContext.request.contextPath}/resources/images/note.png">
+								<span id="unreadMessages" class="position-absolute translate-middle badge rounded-pill bg-warning" style="top: 15px; display: none">
+								    ${countMessage}+
+								</span>
 							</span>
 						</a>
 		           </c:if>

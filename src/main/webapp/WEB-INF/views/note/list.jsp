@@ -11,7 +11,7 @@
 	margin-top: 100px;
 }
 #this-title { font-size: 30px; font-weight: 600; color: #36C88A; }
-input[type=checkbox], input[type=radio] { display: none; }
+input[type=radio] { display: none; }
 label{
 	display: block; border-radius: 8px; margin: 0 auto; text-align: center; color: #000;
 }
@@ -44,11 +44,13 @@ td { height: 40px; overflow: hidden; text-overflow: ellipsis; border: 0px;}
 }
 #keyword-input { height: 38.2px; width: 200px; margin-left: 6px; border-radius: 8px; border: 0.5px solid #A3A6AD; }
 .search-btn { height: 38.2px; margin-left: 5px; border-radius: 8px; width: 70px; }
-.date-td { font-size: 14px; margin-top: 10px; }
+.date-td { font-size: 13px; margin-top: 10px; }
+.pagination { margin-top: 30px; }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
 <script type="text/javascript">
+
 $(function(){
 	let menu = "${menuItem}";
 	if(menu === "receive") {
@@ -98,6 +100,17 @@ $(function() {
 		}
 	});
 });
+
+$(function(){
+	$(".deleteNote").click(function(){
+		if(confirm("해당 쪽지를 삭제하시겠습니까?")) {
+			let num = $(this).find("input").val();
+			let url = "${pageContext.request.contextPath}/note/deleteOne?num="
+					+num+"&menuItem=${menuItem}&keyword=${keyword}&page=${page}&condition=${condition}";
+			location.href = url;
+		}
+	});
+});
 </script>
 
 <div class="container">
@@ -124,7 +137,7 @@ $(function() {
 				<table class="table note-table">
 					<thead>
 						<tr>
-							<th scope="col" style="width: 8%">번호</th>
+							<th scope="col" style="width: 8%">선택</th>
 							<th scope="col" style="width: 450px;">내용</th>
 							<th scope="col" style="width: 10%">${menuItem=="receive"?"보낸사람":"받는사람"}</th>
 							<th scope="col" style="width: 17%;">${menuItem=="receive"?"받은날짜":"보낸날짜"}</th>
@@ -136,8 +149,8 @@ $(function() {
 						<c:forEach var="dto" items="${list}">
 						
 						<tr>
-							<td class="pd" style="padding: 10px 0;"><input type="checkbox" name="nums" value="${dto.num}" class="form-check-input">
-								<input type="checkbox" name="nums" value="${dto.num}" class="form-check-input">
+							<td>
+								<input type="checkbox" name="nums" value="${dto.num}" class="form-check-input" style="margin-top: 6px;">
 							</td>
 							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
 								<span>
@@ -147,17 +160,16 @@ $(function() {
 							<td class="pd" style="padding: 10px 0;">${menuItem=="receive"?dto.senderName:dto.receiverName}</td>
 							<td class="pd date-td" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">${dto.sendDay}</td>
 							<td class="pd date-td" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">${dto.identifyDay}</td>
-							<td class="pd cancel" style="color:#4F4F4F padding: 10px 0;">삭제</td>
+							<td class="pd cancel deleteNote" style="color:#4F4F4F padding: 10px 0;"><input type="hidden" value="${dto.num}">삭제</td>
 						</tr>
 						
 						</c:forEach>
 					</tbody>
 				</table>
 				<input type="hidden" name="page" value="${page}">
-				<input type="hidden" name="condition" value="${page}">
-				<input type="hidden" name="keyword" value="${page}">
+				<input type="hidden" name="condition" value="${condition}">
+				<input type="hidden" name="keyword" value="${keyword}">
 			</form>
-
 			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
 
