@@ -6,9 +6,9 @@ public class Member {
 	private String userId;
 	private String userName;
 	private String userPwd;
-	private String register_date;
-	private String modify_date;
-	private String last_login;
+	private String registerdate;
+	private String modifydate;
+	private String lastlogin;
 	private String email;
 	private String tel;	
 	private String birth;
@@ -18,6 +18,9 @@ public class Member {
 	private int enabled;	
 	private long num;
 	private int stateCode;
+	private String memo;
+	private String registerId;
+	private String reg_date;
 	public long getMemberIdx() {
 		return memberIdx;
 	}
@@ -48,23 +51,24 @@ public class Member {
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-	public String getRegister_date() {
-		return register_date;
+	
+	public String getRegisterdate() {
+		return registerdate;
 	}
-	public void setRegister_date(String register_date) {
-		this.register_date = register_date;
+	public void setRegisterdate(String registerdate) {
+		this.registerdate = registerdate;
 	}
-	public String getModify_date() {
-		return modify_date;
+	public String getModifydate() {
+		return modifydate;
 	}
-	public void setModify_date(String modify_date) {
-		this.modify_date = modify_date;
+	public void setModifydate(String modifydate) {
+		this.modifydate = modifydate;
 	}
-	public String getLast_login() {
-		return last_login;
+	public String getLastlogin() {
+		return lastlogin;
 	}
-	public void setLast_login(String last_login) {
-		this.last_login = last_login;
+	public void setLastlogin(String lastlogin) {
+		this.lastlogin = lastlogin;
 	}
 	public String getEmail() {
 		return email;
@@ -138,7 +142,5 @@ public class Member {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	private String memo;
-	private String registerId;
-	private String reg_date;
+	
 }

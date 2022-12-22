@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberManage">
+<!-- 회원 리스트 -->
+	<sql id="where-list">
+		<choose>
+			<when test="condition=='userId'">
+				INSTR(m1.userId, #{keyword}) &gt;= 1
+			</when>
+			<otherwise>
+				INSTR(${condition}, #{keyword}) &gt;= 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member m
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="enabled!=''">
+				AND enabled = #{enabled}
+			</if>
+			AND m.membership &lt; 10
+		</where> 
+    </select>
+    
+	<select id="listMember" parameterType="map" resultType="com.sp.app.admin.memberManage.Member">
+		SELECT m1.memberIdx, m1.userId, userName, 
+			m1.registerdate, m1.modifydate, lastlogin,
+			enabled, email, tel, 
+			TO_CHAR(birth, 'YYYY-MM-DD') birth
+		FROM member m
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="enabled!=''">
+				AND enabled = #{enabled}
+			</if>
+			AND m.membership &lt; 10
+		</where> 
+		ORDER BY registerdate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+	<select id="readMember" parameterType="String" resultType="com.sp.app.admin.memberManage.Member">
+		SELECT membership, m1.memberIdx, m1.userId, userName, userPwd, enabled,
+			registerdate, modifydate, lastlogin,
+			TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, 
+			zip, addr1, addr2
+		FROM member m
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE m1.userId = #{userId}
+	</select>
+
+	<update id="updateFailureCountReset" parameterType="String">
+		UPDATE member1 SET failure_cnt = 0
+		WHERE userId = #{userId}
+	</update>
+
+    <update id="updateMemberEnabled" parameterType="map">
+		UPDATE member1 SET enabled=#{enabled} WHERE userId=#{userId}
+    </update>
+    
+	<insert id="insertMemberState" parameterType="com.sp.app.admin.memberManage.Member">
+		INSERT INTO memberState(num, userId, stateCode, memo, registerId, regdate)
+		VALUES (memberState_seq.NEXTVAL, #{userId}, #{stateCode}, #{memo}, #{registerId}, SYSDATE)
+	</insert>
+	
+	<select id="listMemberState" parameterType="String" resultType="com.sp.app.admin.memberManage.Member">
+		SELECT num, userId, stateCode, memo, registerId, regdate
+		FROM memberState
+		WHERE userId = #{userId}
+		ORDER BY num DESC
+	</select>
+
+	<select id="readMemberState" parameterType="String" resultType="com.sp.app.admin.memberManage.Member">
+		SELECT num, userId, stateCode, memo, registerId, regdate
+		FROM memberState
+		WHERE userId = #{userId}
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	
+</mapper>

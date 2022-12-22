@@ -211,86 +211,7 @@ function selectStateChange() {
 						<th class="wx-60">상태</th>
 						<th>이메일</th>
 					</tr>
-					<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">010-7759-7620</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">활성</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">hana@naver.com</td>
-							
-						</tr>
+					
 						
 				</thead>
 				
@@ -351,19 +272,7 @@ function selectStateChange() {
 				</form>
 				<div style="width:30px;">&nbsp;</div>
 			</div>
-		<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+		
 			</div>
     	
 		
