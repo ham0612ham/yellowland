@@ -35,10 +35,7 @@
 <tiles:insertAttribute name="header"/>
 </header>
 
-
-<tiles:insertAttribute name="left"/>
-<main class="wrapper">
-	
+<main>
 	<tiles:insertAttribute name="body"/>	
 </main>
 
