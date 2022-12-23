@@ -24,74 +24,107 @@ function check() {
 	const f = document.contactForm;
 	
 	if(! f.subject.value.trim()) {
+		alert("subject");
 		f.subject.focus();
+		return false;
 	}
 	
 	if(! f.content.value.trim()) {
+		alert("content");
 		f.content.focus();
+		
 	}
 	
 	if(! f.pNum2.value.trim()) {
+		alert("pNum2");
 		f.pNum2.focus();
+		return false;
 	} else if(! f.pNum3.value.trim()) {
+		alert("pNum3");
 		f.pNum3.focus();
+		return false;
 	}
 	
 	if(! f.zip.value.trim()) {
+		alert("zip");
 		f.zip.focus();
+		return false;
 	}
 	
 	if(! f.addr1.value.trim()) {
+		alert("addr1");
 		f.addr1.focus();
+		return false;
 	}
 	
 	if(! f.addr2.value.trim()) {
+		alert("addr2");
 		f.addr2.focus();
+		return false;
 	}
 	
 	if(! f.thumnail.value.trim()) {
+		alert("thumnail");
 		f.thumnail.focus();
+		return false;
 	}
 	
 	if(! f.deposit.value.trim()) {
+		alert("deposit");
 		f.deposit.focus();
+		return false;
 	}
 	
 	if(! f.monthly.value.trim()) {
+		alert("monthly");
 		f.monthly.focus();
+		return false;
 	}
 	
 	if(! f.expense.value.trim()) {
+		alert("expense");
 		f.expense.focus();
+		return false;
 	}
 	
 	if(! f.area.value.trim()) {
+		alert("area");
 		f.area.focus();
+		return false;
 	}
 	
 	if(! f.bFloor.value.trim()) {
+		alert("bFloor");
 		f.bFloor.focus();
+		return false;
 	}
 	
 	if(! f.floor.value.trim()) {
+		alert("floor");
 		f.floor.focus();
+		return false;
 	}
 	
 	if(! f.parking.value.trim()) {
+		alert("parking");
 		f.parking.focus();
+		return false;
 	}
 	
 	if(! f.elevator.value.trim()) {
+		alert("elevator");
 		f.elevator.focus();
+		return false;
 	}
 	
 	if(! f.transDate.value.trim()) {
+		alert("transDate");
 		f.transDate.focus();
+		return false;
 	}
 	
-	alert("ok 통과")
 	
-	f.action = "${pageContext.request.contextPath}/assignComm/formSubmit"
+	f.action = "${pageContext.request.contextPath}/assignComm/submit";
 	f.submit();
 	
 }
@@ -442,7 +475,7 @@ p {
       </div>
       <div class="modal-body">
         	<div class="container">
-	        	<form method="POST" id="contactForm" name="contactForm" class="contactForm" enctype="multipart/form-data">
+	        	<form method="post" id="contactForm" name="contactForm" class="contactForm" enctype="multipart/form-data">
 				<div class="row justify-content-center">
 					<div class="col-md-12">
 						<div class="wrapper">
@@ -665,13 +698,12 @@ p {
 						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+			        <button type="button" onclick="check();" class="btn btn-primary">작성완료</button>
+		      	</div>
 			</form>
 		</div>
-		
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" onclick="check();" class="btn btn-primary">작성완료</button>
       </div>
     </div>
   </div>

@@ -1,4 +1,9 @@
-package com.sp.app.assigncomm;
+package com.sp.app.assignComm;
+
+
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class Community {
 	
@@ -15,8 +20,11 @@ public class Community {
 	private String addr1;		// 기본 주소
 	private String addr2;		// 상세 주소
 	
-	private String thumnail;    // 대표 이미지
-	private String imgName;     // 추가 이미지
+	private String thumbnail; // 대표 이미지
+	private MultipartFile thumbnailFile; 
+	
+	private String imgName;   // 추가 이미지
+	private List<MultipartFile> imgFiles; 	
 	
 	private int deposit;   // 보증금
 	private int monthly;   // 월세
@@ -29,6 +37,33 @@ public class Community {
 	private int transDate; // 양도 가능일
 	
 	
+	
+	
+	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	public MultipartFile getThumbnailFile() {
+		return thumbnailFile;
+	}
+	public void setThumbnailFile(MultipartFile thumbnailFile) {
+		this.thumbnailFile = thumbnailFile;
+	}
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public List<MultipartFile> getImgFiles() {
+		return imgFiles;
+	}
+	public void setImgFiles(List<MultipartFile> imgFiles) {
+		this.imgFiles = imgFiles;
+	}
 	public long getNum() {
 		return num;
 	}
@@ -89,18 +124,8 @@ public class Community {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	public String getThumnail() {
-		return thumnail;
-	}
-	public void setThumnail(String thumnail) {
-		this.thumnail = thumnail;
-	}
-	public String getImgName() {
-		return imgName;
-	}
-	public void setImgName(String imgName) {
-		this.imgName = imgName;
-	}
+	
+	
 	public int getDeposit() {
 		return deposit;
 	}

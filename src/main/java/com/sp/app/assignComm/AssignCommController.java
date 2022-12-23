@@ -1,0 +1,63 @@
+package com.sp.app.assignComm;
+
+import java.io.File;
+
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.sp.app.member.SessionInfo;
+import com.sp.app.prop.PropReader;
+
+@Controller(value = "assignComm.assignCommController")
+@RequestMapping(value = "/assignComm/*")
+public class AssignCommController {
+	
+	@Autowired
+	private AssignCommService service;
+	
+	
+	
+	@GetMapping(value = "main")
+	public String main(Model model) throws Exception {
+		
+		PropReader propReader = new PropReader();
+		
+		String daumKey = propReader.readDaumKey();
+		
+		model.addAttribute("daumKey", daumKey);
+		
+		return ".assignComm.main";
+	}
+	
+	@PostMapping("submit")
+	public String formSubmit(Community dto, HttpServletRequest req) throws Exception {
+		
+		try {
+			
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			dto.setUserId(info.getUserId());
+			
+			String root = session.getServletContext().getRealPath("/");
+			String path = root + "uploads" + File.separator + "image";
+			
+			service.insertAllComm(dto, path);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/assignComm/main";
+	}
+	
+}

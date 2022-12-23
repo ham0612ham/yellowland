@@ -18,7 +18,7 @@
 						<li><a href="#" aria-label="subemnu">상권별 현황</a></li>
 					</ul>
 				</li>
-				<li><a href="${pageContext.request.contextPath}/assigncomm/main" class="main-menu-a">상가 양도</a></li>
+				<li><a href="${pageContext.request.contextPath}/assignComm/main" class="main-menu-a">상가 양도</a></li>
 				<li><a href="#" class="main-menu-a">커뮤니티</a>
 					<ul class="sub-menu" style="z-index: 100">
 						<li><a href="${pageContext.request.contextPath}/localCommunity/list" aria-label="subemnu">지역별 커뮤니티</a></li>
