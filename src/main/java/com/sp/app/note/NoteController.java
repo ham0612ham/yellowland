@@ -222,7 +222,6 @@ public class NoteController {
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session,
 			Model model) throws Exception {
-		System.out.println("실행");
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query = "page=" + page;
