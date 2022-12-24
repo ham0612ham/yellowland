@@ -52,7 +52,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 #analysis { 
 	position: absolute; min-width: 500px; height: calc(100vh - 60px); 
 	overflow: scroll; background: white; margin-left: 100%;
-	right: 0px; top: 100px; z-index: 2;
+	right: 0px; top: 60px; z-index: 2;
 }
 #analysis-banner { 
 	position: absolute; min-width: 500px;
@@ -68,12 +68,10 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .marker-region-name { 
 	font-size: 11px; background: #36C88A; border-radius: 5px; margin: auto;
 	color: white; text-align:center; padding:1px; width: 60px; margin-top: -17px;
-	z-index: 3;
 }
 .marker-sales-total { 
 	font-size: 11px; background: white; border-radius: 5px; margin: auto;
 	color: #36C88A; text-align:center; padding:1px; width: 60px; margin-top: 2px;
-	z-index: 3;
 }
 .marker-rank { 
 	text-align: center; position: relative;  margin-bottom: 5px; top: -16px;
@@ -107,9 +105,6 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .analy-graph { width: 100%; min-height: 300px; border: 0.3px solid #BBBBBB; }
 .analy-discribe { border: 0.3px solid #BBBBBB; padding: 10px; margin-bottom: 10px; }
 .analy-disc-text { font-size: 14px; color: #A9A9A9 }
-#analysis-class { 
-	text-align: center; font-size: 13px; margin: 10px 0; color: #BBBBBB;
-}
 .gr-text { color: #36C88A; font-weight: 600; }
 .red-text {  color: #e02171; font-weight: 600; }
 .bk-text {  color: #424242; font-weight: 600; }
@@ -123,24 +118,6 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 	margin-top: -10px; height: 15px;
 }
 #sungbyul-yoenryungbyul-yudongingu > div:first-child { top: 20px; }
-.circle1 {
-  border: 10px solid #36C88A; border-radius: 50%; z-inex:-1;
-  position: absolute; top: -20px; left: -20px;
-  width: 120px; height: 120px;
-  animation: 
-  	scale1 1s infinite ease-out,
-  	fadeOut 1s infinite ease-out;
-}
-@keyframes scale1 {
-  0%   { transform: scale(0.7) }
-  100%  { transform: scale(1) }
-}
-@keyframes fadeOut {
-  from { opacity: 0.5; }
-  to {  opacity: 0; }
-}
-.active { color: #36C88A; font-weight: 600; }
-.list-group-item.active { color: #36C88A; font-weight: 600; }
 </style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
@@ -161,24 +138,18 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<span><img id="btn-x"  src='${pageContext.request.contextPath}/resources/images/x.png'></span>
 			</div>
 			
-			<div id="analysis-class" class="d-flex justify-content-between">
-				<a class="list-group-item list-group-item-action" href="#list-item-1">업종분석</a>
-      			<a class="list-group-item list-group-item-action" href="#list-item-2">매출분석</a>
-     			<a class="list-group-item list-group-item-action" href="#list-item-3">인구분석</a>
-			</div>
-			
 			<div id="analysis-info">
 				<span class="info-bold">위치</span>
 				<span class="info-light" id="info-region">일일동</span>
 				<span class="info-bold">업종</span>
 				<span class="info-light" id="info-job">업종전체</span>
 			</div>
+		</div>	
 			
-		</div>
-			
-		<div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+		<div id="analysis" >
+		<!-- <div id="analysis" style="display: none"> -->
 			<div>&nbsp;</div>
-			<div class="analysis-div" id="list-item-1">
+			<div class="analysis-div">
 				<div class="analy-title">점포수</div>
 				<div class="analy-big-txt">점포수는 <span class="analy-green-txt">101개</span> 입니다.</div>
 				<div class="analy-graph" id="zumposu"></div>
@@ -223,7 +194,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-graph" id="upzongbunpo" style="padding: 10px; height: 250px;"></div>
 			</div>
 			
-			<div class="analysis-div" id="list-item-2">
+			<div class="analysis-div">
 				<div class="analy-title">매출액</div>
 				<div class="analy-big-txt">점포당 월평균 매출액은 <span class="analy-green-txt"><span id="mechulak-ave">932</span>만원</span> 입니다.</div>
 				<div class="analy-discribe">
@@ -310,7 +281,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-graph" id="yoenryungbyul-mechul-retail" style="padding-top: 10px;"></div>
 			</div>
 			
-			<div class="analysis-div" id="list-item-3">
+			<div class="analysis-div">
 				<div class="analy-title">성별, 연령별 유동인구</div>
 				<div class="analy-big-txt"><span class="gr-text sungbyul-yoenryungbyul-yudongingu-gender">여성</span><span class="gr-text">, </span><span class="gr-text sungbyul-yoenryungbyul-yudongingu-percent">(32.4%)</span>유동인구가 가장 많아요.</div>
 				<div class="analy-graph" id="sungbyul-yoenryungbyul-yudongingu" style="padding-top: 10px; height: 400px;"></div>
@@ -522,8 +493,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<hr class="horiz">
 			</div>
 		</div>
-<%-- 	 	<div class='marker' data-val=''>
-			<div class=""></div>
+<%-- 	<div class='marker' data-val=''>
 			<div class='marker-rank'>
 				<div class='marker-rank-img'>
 					<img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'>
@@ -541,17 +511,33 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}"></script>
 <script type="text/javascript">
 
-function makeMap(level, long1, lat1, obj){
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
-	    center: new kakao.maps.LatLng(long1, lat1), // 지도의 중심좌표
-	    level: level // 지도의 확대 레벨
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
 	};
 	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
 	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-	var positions = obj;
+	var positions = [
+		{
+		    content: "<div class='marker' data-val=''><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>1</p></div></div><div class='marker-region-name'>일일동</div><div class='marker-sales-total'>100억</div></div>", 
+		    latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+		},
+		{
+		    content: "<div class='marker' data-val=''><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>2</p></div></div><div class='marker-region-name'>이이동</div><div class='marker-sales-total'>90억</div></div>",
+		    latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+		},
+		{
+		    content: "<div class='marker' data-val=''><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>3</p></div></div><div class='marker-region-name'>삼삼동</div><div class='marker-sales-total'>80억</div></div>", 
+		    latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+		},
+		{
+		    content: "<div class='marker' data-val=''><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_white.png'></div><div class='marker-rank-text'><p>4</p></div></div><div class='marker-region-name'>사사동</div><div class='marker-sales-total'>70억</div></div>", 
+		    latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+		}
+	];
 	
 	for (var i = 0; i < positions.length; i ++) {
 		var customOverlay = new kakao.maps.CustomOverlay({
@@ -563,34 +549,10 @@ function makeMap(level, long1, lat1, obj){
 		// 커스텀 오버레이를 지도에 표시합니다
 		customOverlay.setMap(map);
 	}
-}
+		
+</script>
 
-let obj = [
-	{
-	    content: "<div class='marker' data-val='' data-name='사직동' data-long='37.5761637' data-lat='126.9688063'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>1</p></div></div><div class='marker-region-name'>사직동</div><div class='marker-sales-total'>100억</div></div>", 
-	    latlng: new kakao.maps.LatLng(37.5761637, 126.9688063)
-	},
-	{
-	    content: "<div class='marker' data-val='' data-name='삼청동' data-long='37.5848379' data-lat='126.9819133'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>2</p></div></div><div class='marker-region-name'>삼청동</div><div class='marker-sales-total'>90억</div></div>",
-		latlng: new kakao.maps.LatLng(37.5848379, 126.9819133)
-	},
-	{
-		content: "<div class='marker' data-val='' data-name='부암동' data-long='37.5962608' data-lat='126.9676991'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>3</p></div></div><div class='marker-region-name'>부암동</div><div class='marker-sales-total'>80억</div></div>", 
-		latlng: new kakao.maps.LatLng(37.5962608, 126.9676991)
-	},
-	{
-	    content: "<div class='marker' data-val='' data-name='평창동' data-long='37.6053351' data-lat='126.9668582'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_white.png'></div><div class='marker-rank-text'><p>4</p></div></div><div class='marker-region-name'>평창동</div><div class='marker-sales-total'>70억</div></div>", 
-	    latlng: new kakao.maps.LatLng(37.6053351, 126.9668582)
-	}
-];
-
-$(function(){
-	let level = 8;
-	let long1 = 37.5729503;
-	let lat1 = 126.9793579;
-	makeMap(level, long1, lat1, obj);
-});
-
+<script type="text/javascript">
 
 function ajaxFun(url, method, query, dataType, fn) {
 	$.ajax({
@@ -627,32 +589,22 @@ $(function(){
 	});
 });
 
-// 마커 hover, click 이벤트
+// 마커 hover 이벤트
 $(function(){
 	$(".marker").mouseenter(function(){
-		$(this).find(".marker-region-name").css("background", "white");
-		$(this).find(".marker-region-name").css("color", "#36C88A");
-		$(this).find(".marker-sales-total").css("background", "#36C88A");
-		$(this).find(".marker-sales-total").css("color", "white");
-		$(this).find("div").first().addClass("circle1");
-	});
-	
+			$(this).find(".marker-region-name").css("background", "white");
+			$(this).find(".marker-region-name").css("color", "#36C88A");
+			$(this).find(".marker-sales-total").css("background", "#36C88A");
+			$(this).find(".marker-sales-total").css("color", "white");
+		}
+	);
 	$(".marker").mouseleave(function(){
-		$(this).find(".marker-region-name").css("background", "#36C88A");
-		$(this).find(".marker-region-name").css("color", "white");
-		$(this).find(".marker-sales-total").css("background", "white");
-		$(this).find(".marker-sales-total").css("color", "#36C88A");
-		$(this).find("div").first().removeClass("circle1");
-	});
-	
-	// 
-	$(".marker").click(function(){
-		let long1 = $(this).attr("data-long");
-		let lat1 = $(this).attr("data-lat");
-		
-		makeMap(3, long1, lat1, obj);
-	});
-	
+			$(this).find(".marker-region-name").css("background", "#36C88A");
+			$(this).find(".marker-region-name").css("color", "white");
+			$(this).find(".marker-sales-total").css("background", "white");
+			$(this).find(".marker-sales-total").css("color", "#36C88A");
+		}
+	);
 });
 
 // 마커 click 이벤트
@@ -780,4 +732,6 @@ $(function(){
 		alert(query);
 	});
 });
+
+
 </script>
