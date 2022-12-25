@@ -3,9 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="assignComm">
 	<insert id="insertComm" parameterType="com.sp.app.assignComm.Community">
-		INSERT INTO assignComm(num, subject, content, userId, regDate, thumbnail, zip, addr1, addr2) 
+		INSERT INTO assignComm(num, subject, content, userId, regDate, thumbnail, zip, addr1, addr2, pNum) 
 			VALUES(ASSIGNCOMM_SEQ.NEXTVAL, #{subject}, #{content}, #{userId}, 
-				SYSDATE, #{thumbnail}, #{zip}, #{addr1}, #{addr2})
+				SYSDATE, #{thumbnail}, #{zip}, #{addr1}, #{addr2}, #{pNum})
 	</insert>
 	
 	<insert id="insertCommDetail" parameterType="com.sp.app.assignComm.Community">

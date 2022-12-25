@@ -15,7 +15,11 @@ public class Community {
 	private String regDate;     // 등록 일자
 	private String updateDate;  // 수정 일자
 	
-	private String pNum;		// 연락처 
+	private String pNum;		// 연락처  : pNum + pNum2 + pNum3
+	private String pNum1;
+	private String pNum2;
+	private String pNum3;		
+	
 	private String zip;			// 우편번호
 	private String addr1;		// 기본 주소
 	private String addr2;		// 상세 주소
@@ -34,12 +38,34 @@ public class Community {
 	private int floor;     // 해당 층
 	private int parking;   // 주차
 	private int elevator;  // 엘리베이터
-	private int transDate; // 양도 가능일
+	private String transDate; // 양도 가능일
 	
 	
 	
-	
-	
+	public String getpNum() {
+		return pNum;
+	}
+	public void setpNum(String pNum) {
+		this.pNum = pNum;
+	}
+	public String getpNum1() {
+		return pNum1;
+	}
+	public void setpNum1(String pNum1) {
+		this.pNum1 = pNum1;
+	}
+	public String getpNum2() {
+		return pNum2;
+	}
+	public void setpNum2(String pNum2) {
+		this.pNum2 = pNum2;
+	}
+	public String getpNum3() {
+		return pNum3;
+	}
+	public void setpNum3(String pNum3) {
+		this.pNum3 = pNum3;
+	}
 	public String getThumbnail() {
 		return thumbnail;
 	}
@@ -100,12 +126,7 @@ public class Community {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getpNum() {
-		return pNum;
-	}
-	public void setpNum(String pNum) {
-		this.pNum = pNum;
-	}
+	
 	public String getZip() {
 		return zip;
 	}
@@ -174,10 +195,10 @@ public class Community {
 	public void setElevator(int elevator) {
 		this.elevator = elevator;
 	}
-	public int getTransDate() {
+	public String getTransDate() {
 		return transDate;
 	}
-	public void setTransDate(int transDate) {
+	public void setTransDate(String transDate) {
 		this.transDate = transDate;
 	}
 	

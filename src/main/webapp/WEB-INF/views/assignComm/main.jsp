@@ -9,7 +9,12 @@
     <title>상가 양도 메인 화면</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
+
 <script>
+
+
 function kakaopost() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -29,12 +34,7 @@ function check() {
 		return false;
 	}
 	
-	if(! f.content.value.trim()) {
-		alert("content");
-		f.content.focus();
-		
-	}
-	
+
 	if(! f.pNum2.value.trim()) {
 		alert("pNum2");
 		f.pNum2.focus();
@@ -63,7 +63,7 @@ function check() {
 		return false;
 	}
 	
-	if(! f.thumnail.value.trim()) {
+	if(! f.thumbnailFile.value.trim()) {
 		alert("thumnail");
 		f.thumnail.focus();
 		return false;
@@ -289,7 +289,7 @@ body{
 }
 
 .modal-footer {
-	margin-bottom: 219px;
+	margin-bottom: 292px;
     position: absolute;
     left: 820px;
     bottom: -213px;
@@ -491,15 +491,15 @@ p {
 									          	<div style="margin-top: -25px; display: flex; margin-bottom: 13px;">
 										          	<div class="col-md-6">
 														<div class="form-group" id="mainImg">
-															<label class="label" for="name">대표 이미지</label>
-															<input type="file" class="form-control" name="thumnail" id="thumnail">
+															<label class="label" for="thumnail">대표 이미지</label>
+															<input type="file" class="form-control" name="thumbnailFile" id="thumnail">
 														</div>
 													</div>
 													
 													<div class="col-md-6">
 														<div class="form-group" id="subImg">
-															<label class="label" for="name">추가 이미지</label>
-															<input type="file" class="form-control" name="imgName" id="imgName">
+															<label class="label" for="imgName">추가 이미지</label>
+															<input type="file" class="form-control" name="imgFiles" id="imgName">
 														</div>
 													</div>
 												</div>
@@ -534,11 +534,26 @@ p {
 												</div>
 												
 											</div>
+										  <script>
+										    
+										    // 에디터를 화면에 붙일때 작성공간인 textarea값이나 div의 id로 가져온다.
+										         ClassicEditor
+										            .create( document.querySelector( '#editor' ), {
+										                language: 'ko' //언어설정
+										            })
+												.then( editor => {
+													theEditor = editor; // #contents에 있는 값을 theEditor에 넣어놓는다.
+												} )
+										            .catch( error => {
+										                console.error( error );
+										            } );
+											
+										    // 나중에 확인 할 때 소스
+										        var sHTML = theEditor.getData();
+										        console.log(sHTML); 
+										        
+										</script>
 										
-										<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-									    <script>
-									      	ClassicEditor.create( document.querySelector( '#editor' ) );
-									    </script>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
@@ -677,7 +692,7 @@ p {
 								        			<div class="col-md-6">
 								        				<p style="width:125px; margin-bottom: 1px;">연락처</p>
 								        				<div class="sub" style="display: flex; margin-top: 2px;">
-								        					<select name="pNum">
+								        					<select name="pNum1">
 								        						<option value="010">010</option>
 								        						<option value="02">02</option>
 								        						<option value="011">011</option>
@@ -1455,5 +1470,8 @@ function removeAllChildNods(el) {
 
     
 </script>
+
+
+
 </body>
 </html>

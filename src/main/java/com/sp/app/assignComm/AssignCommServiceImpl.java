@@ -26,6 +26,9 @@ public class AssignCommServiceImpl implements AssignCommService {
 			String thumbnail = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
 			dto.setThumbnail(thumbnail);
 			
+			String pNum = dto.getpNum1() + "-" + dto.getpNum2() + "-" + dto.getpNum3();
+			dto.setpNum(pNum);
+			
 			dao.insertData("assignComm.insertComm", dto);
 			dao.insertData("assignComm.insertCommDetail", dto);
 			

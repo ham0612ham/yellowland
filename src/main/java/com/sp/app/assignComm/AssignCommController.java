@@ -2,7 +2,6 @@ package com.sp.app.assignComm;
 
 import java.io.File;
 
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.sp.app.member.SessionInfo;
 import com.sp.app.prop.PropReader;
 
@@ -38,7 +35,7 @@ public class AssignCommController {
 		return ".assignComm.main";
 	}
 	
-	@PostMapping("submit")
+	@PostMapping(value = "submit")
 	public String formSubmit(Community dto, HttpServletRequest req) throws Exception {
 		
 		try {
