@@ -12,7 +12,7 @@ body { height: 60px; }
 main { width: 320px; }
 .container { padding-left: 0px; width: 320px; margin-left: 0px; }
 .body-container {
-	margin-top: 50px; width: 320px;
+	margin-top: 20px; width: 320px;
 }
 footer { display: none; }
 .check-area { 
@@ -50,7 +50,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .hideSel { display: none; }
 #map { z-index: -2; width: 100vw; height: 100vh; position: absolute; top: 0px; }
 #analysis { 
-	position: absolute; min-width: 500px; height: calc(100vh - 60px); 
+	position: absolute; min-width: 500px; height: calc(100vh - 100px); 
 	overflow: scroll; background: white; margin-left: 100%;
 	right: 0px; top: 100px; z-index: 2;
 }
@@ -629,7 +629,7 @@ $(function(){
 
 // 마커 hover, click 이벤트
 $(function(){
-	$(".marker").mouseenter(function(){
+	$("body").on("mouseenter", ".marker", function() {
 		$(this).find(".marker-region-name").css("background", "white");
 		$(this).find(".marker-region-name").css("color", "#36C88A");
 		$(this).find(".marker-sales-total").css("background", "#36C88A");
@@ -637,7 +637,7 @@ $(function(){
 		$(this).find("div").first().addClass("circle1");
 	});
 	
-	$(".marker").mouseleave(function(){
+	$("body").on("mouseleave", ".marker", function() {
 		$(this).find(".marker-region-name").css("background", "#36C88A");
 		$(this).find(".marker-region-name").css("color", "white");
 		$(this).find(".marker-sales-total").css("background", "white");
@@ -646,7 +646,7 @@ $(function(){
 	});
 	
 	// 
-	$(".marker").click(function(){
+	$("body").on("click", ".marker", function() {
 		let long1 = $(this).attr("data-long");
 		let lat1 = $(this).attr("data-lat");
 		
@@ -657,7 +657,7 @@ $(function(){
 
 // 마커 click 이벤트
 $(function(){
-	$(".marker").click(function(){
+	$("body").on("click", ".marker", function() {
 		$("#analysis").show();
 		$("#analysis-banner").show();
 		let dong = $(this).find(".marker-region-name").text();
