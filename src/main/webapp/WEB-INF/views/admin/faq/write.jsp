@@ -3,14 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-</head>
-<body>
-
-</body>
-</html>
+<h3 style="font-size: 15px; padding-top: 10px;"><i class="fa-solid fa-angles-right"></i> 자주하는 질문등록</h3>
+<table class="table td-border mx-auto my-10" style="width: 99%;">
+	<tr>
+			<td class="wp-15 text-center bg-light">제목</td>
+			<td class="ps-5">
+				${dto.subject}
+			</td>
+		</tr>
+		<tr style="width: 200px">
+			<td class="pe-7 text-center bg-light">내용</td>
+			<td class="ps-5" >
+				${dto.content}
+							
+			</td>
+		</tr>
+	
+	
+	
+</table>

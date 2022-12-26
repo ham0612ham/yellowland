@@ -11,10 +11,15 @@
 	margin-top: 100px;
 }
 
-
+input[type=radio]:checked+label { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
+input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
+input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
+label:hover { color: #18BD77; cursor: pointer; }
+input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
+.up-btn { padding: 8px 30px; }
 .fw-semibold { height: 50px; width: 150px; }
-.row { height: 100px; width: 150px;}
-.table1 {float: left; width: 300px;text-align: left;}
+.row { height: 200px; width: 180px;}
+.table1 {float: left; width: 300px;  text-align: left;}
 .table2 {width: 700px; text-align: left;}
 
 .col {margin-left: 5px; font-weight: bold; color: #C2C2C2; font-size: 18px;}
@@ -29,10 +34,13 @@
 .accordion-button {background-color: #36C88A; color: white;} 
 .collapseOne {background-color: #36C88A;}
 
-.pagination {margin-left: 340px;}
-
-
-
+.pagination {margin-top: 30px;}
+#keyword-input { height: 38.2px; width: 200px; margin-left: 6px; border-radius: 8px; border: 0.5px solid #A3A6AD; }
+#sel-condition { width: 150px; color: #000; 
+	border: 0.5px solid #A3A6AD; font-size: 14px; 
+	border-radius: 8px; height: 38.2px; width: 150px;
+}
+.search-btn { height: 38.2px; margin-left: 5px; border-radius: 8px; width: 70px; }
 </style>
 <script type="text/javascript">
 function ajaxFun(url, method, query, dataType, fn) {
@@ -167,13 +175,13 @@ function selectStateChange() {
 		<h3 class="fw-semibold">관리자메뉴</h3>
 		<div class="row row-cols-auto">
 		
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/board/list" class="text-decoration-none" style="color:#C2C2C2">공지사항관리</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/faq/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/qna/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="text-decoration-none" style="color:#C2C2C2">공지사항관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/faqManage/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/qnaManage/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의관리</a></div>
 			<div class="colNoticeTitle">
 				<div>게시글관리</div>
 			</div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/notice/list" class="text-decoration-none" style="color:#C2C2C2">회원관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/memberManage/list" class="text-decoration-none" style="color:#C2C2C2">회원관리</a></div>
 			
 		</div>
 	</div>
@@ -190,7 +198,13 @@ function selectStateChange() {
 					<td align="left" width="50%">
 						${dataCount}개(${page}/${total_page} 페이지)
 					</td>
-					
+					<td align="right">
+						<select id="selectEnabled" class="form-select" onchange="searchList();">
+							<option value="" ${enabled=="" ? "selected='selected'":""}>::카테고리::</option>
+							<option value="0" ${enabled=="0" ? "selected='selected'":""}>업종관련</option>
+							<option value="1" ${enabled=="1" ? "selected='selected'":""}>지역관련</option>
+						</select>
+					</td>
 				</tr>
 			</table>
 			
@@ -208,72 +222,16 @@ function selectStateChange() {
 							<td class="pd" style="padding: 10px 0;">
 								12
 							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							
-							
-							
-						</tr>
-						<tr>
 							<td class="pd" style="padding: 10px 0;">
-								12
+								지역관련
 							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
+							
 							<td class="pd" style="padding: 10px 0;">김하나</td>
 							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
 							
 							
 						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
+						
 						
 				</thead>
 				
@@ -322,19 +280,7 @@ function selectStateChange() {
 				</form>
 				<div style="width:30px;">&nbsp;</div>
 			</div>
-		<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+		
 			</div>
     	
 		

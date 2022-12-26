@@ -11,9 +11,14 @@
 	margin-top: 100px;
 }
 
-
+input[type=radio]:checked+label { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
+input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
+input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
+label:hover { color: #18BD77; cursor: pointer; }
+input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
+.up-btn { padding: 8px 30px; }
 .fw-semibold { height: 50px; width: 150px; }
-.row { height: 100px; width: 150px;}
+.row { height: 200px; width: 180px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 700px; text-align: left;}
 
@@ -29,10 +34,13 @@
 .accordion-button {background-color: #36C88A; color: white;} 
 .collapseOne {background-color: #36C88A;}
 
-.pagination {margin-left: 340px;}
-
-
-
+.pagination {margin-top: 30px;}
+#keyword-input { height: 38.2px; width: 200px; margin-left: 6px; border-radius: 8px; border: 0.5px solid #A3A6AD; }
+#sel-condition { width: 150px; color: #000; 
+	border: 0.5px solid #A3A6AD; font-size: 14px; 
+	border-radius: 8px; height: 38.2px; width: 150px;
+}
+.search-btn { height: 38.2px; margin-left: 5px; border-radius: 8px; width: 70px; }
 </style>
 <script type="text/javascript">
 function ajaxFun(url, method, query, dataType, fn) {
@@ -169,10 +177,10 @@ function selectStateChange() {
 		<div class="colNoticeTitle">
 				<div>공지사항관리</div>
 			</div>	
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/faq/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/qna/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/faqManage/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/qnaManage/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/board/list" class="text-decoration-none" style="color:#C2C2C2">게시글관리</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/notice/list" class="text-decoration-none" style="color:#C2C2C2">회원관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/memberManage/list" class="text-decoration-none" style="color:#C2C2C2">회원관리</a></div>
 			
 		</div>
 	</div>
@@ -197,21 +205,22 @@ function selectStateChange() {
 			<table class="table note-table">
 				<thead>
 					<tr> 
-						<th class="wx-60">번호</th>						
-						<th class="wx-120">제목</th>
-						<th class="wx-120">작성일</th>
+						<th class="wx-120">번호</th>						
+						<th class="wx-200">제목</th>
+						<th class="wx-200">작성일</th>
 						
 					</tr>
-					<tr>
+					
+						<tr>
 							<td class="pd" style="padding: 10px 0;">
 								12
 							</td>
 							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
 								<span>
-									<a href="#" class="text-reset">hana</a>
+									<a href="#" class="text-reset">공지사항입니다</a>
 								</span>
 							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
+							<td class="pd" style="padding: 10px 0;">2022-12-31</td>
 							
 							
 							
@@ -222,57 +231,11 @@ function selectStateChange() {
 							</td>
 							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
 								<span>
-									<a href="#" class="text-reset">hana</a>
+									<a href="#" class="text-reset">안녕하세요</a>
 								</span>
 							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">hana</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">김하나</td>
-							<td class="pd" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">2022-12-12</td>
-							
-							
-						</tr>
-						
+							<td class="pd" style="padding: 10px 0;">2022-10-21</td>					
+						</tr>						
 				</thead>
 				
 				<tbody>
@@ -285,12 +248,12 @@ function selectStateChange() {
 			</div>
 			
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
-				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/memberManage/list';">
+				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/list';">
 					새로고침
 				</button>
 				<form class="d-flex justify-content-between" name="searchForm"
 					class="d-flex justify-content-between"
-					action="${pageContext.request.contextPath}/admin/memberManage/list" method="post">
+					action="${pageContext.request.contextPath}/admin/noticeManage/list" method="post">
 					<div>
 						<select name="condition" class="form-select" id="sel-condition">
 							<option value="subject"
@@ -318,21 +281,13 @@ function selectStateChange() {
 						</div>
 					</div>
 				</form>
+				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;"
+						onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/write';">
+						작성하기
+					</button>
 				<div style="width:30px;">&nbsp;</div>
 			</div>
-		<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+		
 			</div>
     	
 		

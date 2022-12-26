@@ -106,6 +106,20 @@ public class MemberManageController {
 		return ".admin.memberManage.list";
 	}
 	
+	// 회원상세 정보 : AJAX-Text 응답
+	@RequestMapping(value = "detaile")
+	public String detaileMember(@RequestParam String userId, Model model) throws Exception {
+		Member dto = service.readMember(userId);
+		Member memberState = service.readMemberState(userId);
+		List<Member> listState = service.listMemberState(userId);
+
+		model.addAttribute("dto", dto);
+		model.addAttribute("memberState", memberState);
+		model.addAttribute("listState", listState);
+
+		return "admin/memberManage/detaile";
+	}
+	
 	@RequestMapping(value = "updateMemberState", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> updateMemberState(Member dto) throws Exception {
