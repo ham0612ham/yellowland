@@ -46,6 +46,15 @@
 					</tr>
 				</table>
 
+		<div class="col-md-12">
+			<div style="margin-top: 10px;" class="form-group">
+				<label class="label" for="editor" style="margin-left: 8px;">상세설명</label>
+				<textarea name="content" class="form-control" id="editor" cols="30" rows="4"
+					placeholder=" 문의글을 작성해주세요. "></textarea>
+			</div>
+		</div>
+
+
 
 	</div>
 </div>
@@ -106,5 +115,7 @@
 				.catch( err => {
 					console.error( err.stack );
 				});
+
 	</script>
+
 
