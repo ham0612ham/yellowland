@@ -20,19 +20,34 @@
 	
 	
 	<update id="updateComm" parameterType="com.sp.app.assignComm.Community">
-		
+		UPDATE assignComm SET subject=#{subject}, content=#{content}, thumbnail=#{thumbnail}, 
+			zip=#{zip}, addr1=#{addr1}, addr2=#{addr2}, pNum=#{pNum}, updateDate=SYSDATE
+		WHERE num = #{num}
+	</update>
+	
+	<update id="updateCommDetail" parameterType="com.sp.app.assignComm.Community">
+		UPDATE assignCommDetail SET deposit=#{deposit}, monthly=#{monthly}, expense=#{expense}, area=#{area}, 
+			bFloor=#{bFloor}, floor=#{floor}, parking=#{parking}, elevator=#{elevator}, transDate=#{transDate}
+		WHERE num = #{num}
 	</update>
 	
 	<update id="updateCommImg" parameterType="com.sp.app.assignComm.Community">
-		
+		UPDATE assignCommImg SET imgName = #{imgName}
+			WHERE imgNum = #{imgNum} AND num = #{num}
 	</update>
 	
 	<delete id="deleteComm" parameterType="long">
 		DELETE FROM assignComm 
-			WHERE num=#{num}
+			WHERE num = #{num}
 	</delete>
 	
 	<select id="readComm" parameterType="long" resultType="com.sp.app.assignComm.Community">
+		SELECT a.num, subject, content, userId, regDate, updateDate, pNum, zip, addr1, addr2, thumbnail, imgName,
+			deposit, monthly, expense, area, bFloor, parking, elevator, transDate
+		FROM assignComm a
+		JOIN assignCommDetail ad ON a.num = ad.num
+		JOIN assignCommImg ai ON a.num = ai.num
+		WHERE num = #{num}
 		
 	</select>
 	

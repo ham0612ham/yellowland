@@ -64,8 +64,8 @@ function check() {
 	}
 	
 	if(! f.thumbnailFile.value.trim()) {
-		alert("thumnail");
-		f.thumnail.focus();
+		alert("thumbnail");
+		f.thumbnail.focus();
 		return false;
 	}
 	
@@ -128,6 +128,75 @@ function check() {
 	f.submit();
 	
 }
+
+</script>
+
+<script type="text/javascript">
+// 메인 이미지
+$(function() {
+	let img = "${dto.thumbnail}";
+	
+	// 로컬에 이미지를 업로드 했다면
+	if( img ) {
+		
+		// 메인이미지 로컬 저장 경로
+		img = "${pageContext.request.contextPath}/uploads/image/" + img;
+		
+		// empty : 태그는 남기고 내용만 지움 
+		$(".thumbnail-viewer").empty();
+		$(".thumbnail-viewer").css("background-image", "url("+img+")");
+	}
+	
+	$(".thumbnail-viewer").click(function() {
+		$("form[name=contactForm] input[name=thumbnailFile]").trigger("click");
+	});
+	
+	// change : 값이 바뀔경우
+	$("form[name=contactForm] input[name=thumbnailFile]").change(function() {
+		
+		let file = this.files[0];
+		
+		// 이미지 파일이 없을 경우
+		if(! file) {
+			$(".thumbnail-viewer").empty();
+			
+			if( img ) {
+				
+				if( img !== "${pageContext.request.contextPath}/resources/images/add_photo.png") {
+					img = "${pageContext.request.contextPath}/uploads/image/" + img;
+				}
+				
+			} else {
+				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+			}
+			
+			$(".thumbnail-viewer").css("background-image", "url("+ img +")");
+		
+			return false;
+		}
+		
+		// 이미지 파일이 아닌 경우 
+		if( ! file.type.match("image.*") ) {
+			this.focus();
+			return false;
+		}
+		
+		let reader = new FileReader();
+		
+		// 파일의 내용을 다 읽었으면 
+		reader.onload = function(e) {
+			$(".thumbnail-viewer").empty();
+			$(".thumbnail-viewer").css("background-image", "url("+ e.target.result +")");
+		};
+		
+		reader.readAsDataURL( file );
+		
+	});
+	
+});
+
+// 추가 이미지
+
 
 </script>
 
@@ -215,6 +284,29 @@ function check() {
 
 body {
 	font-family: Pretendard-Regular, sans-serif;
+}
+
+.thumbnail-viewer {
+	cursor: pointer;
+	border: 1px solid #f5fffa;
+	width: 50px; height: 50px; border-radius: 10px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.img-grid {
+	display: grid;
+	grid-template-columns:repeat(auto-fill, 54px);
+	grid-gap: 2px;
+}
+
+.img-grid .item {
+	object-fit:cover;
+	width: 50px; height: 50px; border-radius: 10px;
+	cursor: pointer;
 }
 
 .search {
@@ -485,51 +577,57 @@ p {
 											<div class="row">
 												<div class="row justify-content-center">
 													<div class="col-md-6 text-center mb-5">
-														<input type="text" class="form-control" name="subject" id="subject" placeholder="제목">
+														<input type="text" class="form-control" name="subject" id="subject" placeholder="제목" value="${dto.subject}">
 													</div>
 												</div>
 									          	<div style="margin-top: -25px; display: flex; margin-bottom: 13px;">
 										          	<div class="col-md-6">
 														<div class="form-group" id="mainImg">
-															<label class="label" for="thumnail">대표 이미지</label>
-															<input type="file" class="form-control" name="thumbnailFile" id="thumnail">
+															<label class="label" for="thumbnailFile">대표 이미지</label>
+															<div class="thumbnail-viewer"></div>
+															<input type="file" class="form-control" name="thumbnailFile" id="thumbnail" accept="image/*" 
+																value="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}" style="display: none;">
 														</div>
 													</div>
 													
 													<div class="col-md-6">
 														<div class="form-group" id="subImg">
 															<label class="label" for="imgName">추가 이미지</label>
-															<input type="file" class="form-control" name="imgFiles" id="imgName">
+															<div class="img-grid">
+																<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+															</div>
+															<input type="file" class="form-control" name="imgFiles" id="imgName" accept="image/*" multiple="multiple" 
+																value="${pageContext.request.contextPath}/uploads/image/${dto.imgName}" style="display: none;">
 														</div>
 													</div>
 												</div>
 									          	<p style="margin-bottom: 0; margin-left: 8px;">위치정보</p>
 												<div class="col-md-6">
 													<div class="form-group" style="display: flex;">
-														<input type="text" class="form-control" name="zip" id="zip" placeholder="우편번호" >
+														<input type="text" class="form-control" name="zip" id="zip" placeholder="우편번호" value="${dto.zip}">
 														<input class="btn btn-primary" style="margin-left: 3px;" type="button" value="우편번호찾기" onclick="kakaopost()">
 													</div>
 												</div>
 												
 												<div class="col-md-12">
 													<div class="form-group">
-														<input type="text" class="form-control" name="addr1" id="addr1" placeholder="기본 주소">
+														<input type="text" class="form-control" name="addr1" id="addr1" placeholder="기본 주소" value="${dto.addr1}">
 													</div>
 												</div>
 												
 												<div class="col-md-12">
 													<div class="form-group">
-														<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세 주소">
-													</div>
+														<input type="text" class="form-control" name="addr2" id="addr2" placeholder="상세 주소" value="${dto.addr2}">
+													</div> 
 												</div>
 												
 												<div class="col-md-12">
 													<div style="margin-top: 10px;" class="form-group">
 														<label class="label" for="editor" style="margin-left: 8px;">상세설명</label>
-														<textarea name="content" class="form-control" id="editor" cols="30" rows="4" 
+														<textarea name="content" class="form-control" id="editor" cols="30" rows="4"  
 															placeholder="소개하고 싶은 상가에 대한 설명과 특징을 입력해주세요. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#13;&#10;
-																		상가의 위치와 교통 및 주변 시설 등 전체적인 상가의 느낌 등을 작성해주세요."></textarea>
+																		상가의 위치와 교통 및 주변 시설 등 전체적인 상가의 느낌 등을 작성해주세요.">${dto.content}</textarea>
 													</div>
 												</div>
 												
@@ -564,7 +662,7 @@ p {
 								        			<div class="col-md-6">
 								        				<div class="sub" style="display: flex;">
 								        					<p style="width: 216px;">보증금</p>
-															<input type="text" class="form-control" name="deposit" id="deposit">
+															<input type="text" class="form-control" name="deposit" id="deposit" value="${dto.deposit}">
 															<p class="unit" style="width: 85px;">만원</p>
 														</div>
 													</div>
@@ -575,7 +673,7 @@ p {
 								        			<div class="col-md-6">
 								        				<div class="sub" style="display: flex;">
 								        					<p style="width: 216px;">월세</p>
-															<input type="text" class="form-control" name="monthly" id="monthly">
+															<input type="text" class="form-control" name="monthly" id="monthly" value="${dto.monthly}">
 															<p class="unit" style="width: 85px;">만원</p>
 														</div>
 													</div>
@@ -586,7 +684,7 @@ p {
 								        			<div class="col-md-6">
 								        				<div class="sub" style="display: flex;">
 								        					<p style="width: 216px;">관리비</p>
-															<input type="text" class="form-control" name="expense" id="expense">
+															<input type="text" class="form-control" name="expense" id="expense" value="${dto.expense}">
 															<p class="unit" style="width: 85px;">만원</p>
 														</div>
 													</div>
@@ -597,7 +695,7 @@ p {
 								        			<div class="col-md-6">
 								        				<div class="sub" style="display: flex; ">
 								        					<p style="width: 216px;">전용면적</p>
-															<input type="text" class="form-control" name="area" id="area">
+															<input type="text" class="form-control" name="area" id="area" value="${dto.area}">
 															<p class="unit" style="width: 85px;">m2</p>
 														</div>
 													</div>
@@ -682,7 +780,7 @@ p {
 								        			<div class="col-md-6">
 								        				<p style="width: 75px; margin-bottom: 1px;">양도가능일</p>
 								        				<div class="sub" style="display: flex; width: 172px; margin-top: 2px;">
-															<input style="width: 227px;" type="date" class="form-control" name="transDate">
+															<input style="width: 227px;" type="date" class="form-control" name="transDate" value="${dto.transDate}">
 														</div>
 													</div>
 									          	</div>
@@ -701,8 +799,8 @@ p {
 								        						<option value="018">018</option>
 								        						<option value="019">019</option>
 								        					</select> -
-															<input style="width:63px;" type="text" class="form-control" name="pNum2"> -
-															<input style="width:63px;" type="text" class="form-control" name="pNum3">
+															<input style="width:63px;" type="text" class="form-control" name="pNum2" value="${dto.pNum2}"> -
+															<input style="width:63px;" type="text" class="form-control" name="pNum3" value="${dto.pNum3}">
 														</div>
 													</div>
 									          	</div>
