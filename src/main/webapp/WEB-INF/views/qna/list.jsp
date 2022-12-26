@@ -10,6 +10,7 @@
 	margin-top: 100px;
 }
 
+.container {margin-bottom: 30px;}
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; margin-bottom: 3px;}
 .row { height: 100px; width: 150px;}
@@ -33,7 +34,49 @@
 	--bs-pagination-focus-bg: #36C88A; 
 	--bs-pagination-focus-color: #ffffff;
 	--bs-pagination-hover-color: #ffffff;
+	margin-bottom: 40px;
 	}
+
+
+.btn {
+    width: 80px;
+}
+
+.sendButton { 
+	width: 100px; 
+	margin-left: 645px;
+}
+
+.searchButton { 
+	width: 100px; 
+	float:left; 
+	margin-left: 20px;
+}
+.searchCondition {
+	 width: 60px; 
+	 margin-left: 25px;
+	 float:left; 
+	 margin-right: 20px;
+ }
+.searchInput { 
+	float:left; 
+	width: 150px;
+	margin-left: 240px;
+}
+
+
+#searchComm { width: 160px; }
+
+
+.form-select {
+	border: solid 0.5px;
+	border-color: #C2C2C2; 
+	border-radius: 3px;
+	width: 90px;
+	margin-right: 10px;
+	margin-left: 220px;
+} 
+
 
 </style>
 
@@ -138,7 +181,12 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="sendButton">
+					<button type="button" class="btn btn-primary ">글 작성</button>
+				</div>
 			</div>
+
+
 
 			<nav aria-label="Page navigation example">
 				<ul class="pagination">
@@ -153,6 +201,27 @@
 					</a></li>
 				</ul>
 			</nav>
+
+			<div class="search">
+				<form action="">
+					<div class="searchCondition">
+						<select class="form-select" id="condition">
+							<option selected>전체</option>
+							<option value="1">제목</option>
+							<option value="2">제목+내용</option>
+							<option value="3">내용</option>
+						</select>
+					</div>
+					<div class="searchInput">
+						<input type="text" class="form-control" id="searchComm">
+					</div>
+					<div class="searchButton">
+						<button type="button" class="btn btn-primary ">검색</button>
+					</div>
+				</form>
+			</div>
+
+
 
 		</div>
 

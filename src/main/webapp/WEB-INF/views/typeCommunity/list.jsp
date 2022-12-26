@@ -11,18 +11,34 @@
 	margin-top: 100px;
 }
 
+.title1 {margin-bottom: 20px;}
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 100px; width: 150px;}
-.table1 {float: left; width: 300px;text-align: left;}
+.row { 
+	height: 100px; 
+	width: 160px;
+}
+.table1 {float: left; width: 300px; text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
 .col { font-weight: bold; color: #C2C2C2; font-size: 18px;}
-.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 18px;}
+.colNoticeTitle {
+	font-weight: bold; 
+	color: #36C88A; 
+	font-size: 18px;
+	height: 10px;
+	}
 .title1 {font-weight: bold; color: #36C88A; font-size: 30px; }
 
 
-.division {margin-top: 20px; margin-bottom: 10px; margin-left: 20px; border-width: 2px;}
+.division {
+	margin-top: 20px; 
+	margin-bottom: 10px; 
+	margin-left: 20px; 
+	border-width: 2px;
+	background-color:black;
+	background: black;
+}
 
 
 .pagination {
@@ -50,37 +66,68 @@
 	--bs-btn-active-color: black;
 }
 
-#searchComm {
-	width: 140px;
+#searchComm { width: 160px; }
+
+#condition { width: 90px; }
+
+#board { margin: 10px; }
+
+.typeSelectorLarge { width: 170px; float: left; }
+.typeSelectorSmall { width: 170px; float: left}
+
+.typeSelectorForm {margin-left: 20px;}
+.semiTitle {margin-left: 25px; font-weight: bold; color: #4A4A4A; }
+
+#mainButton { margin-left: 260px; }
+
+.searchButton { 
+	width: 100px; 
+	float:left; 
+	margin-left: 20px;
+}
+.searchCondition {
+	 width: 100px; 
+	 margin-left: 25px;
+	 float:left; 
+ }
+.searchInput { 
+	float:left; 
+	width: 150px;
 }
 
-#condition {
-	width: 105px;
-}
-
-#board {
-	margin: 10px;
-}
+.backMain { width: 200px; display: inline-block;}
+.search {}
 
 </style>
 
 <div class="container">
+	<div class="table1">
+		<h3 class="fw-semibold">커뮤니티</h3>
+		<div class="row row-cols-auto">
+			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">커뮤니티 홈</a></div>
+			<div class="colNoticeTitle" style="margin-bottom: 15px;">
+				<div>업종별 커뮤니티</div>
+			</div>
+			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">지역별 커뮤니티</a></div>
+		</div>
+	</div>
 	<div class="body-container">
 		<div class="table2">
 			<h3 class="title1">업종별 커뮤니티</h3>
-			<h6>업종 기준</h6>
 			
-				<form>
-					<div>
-						<select class="form-select" aria-label="Default select example">
-							<option selected>업종 선택</option>
-							<option value="1">서비스</option>
-							<option value="2">도소매</option>
-							<option value="3">그 외</option>
-						</select>
-					</div>
-				<div>
-					<select name="condition" class="form-select" id="sel-condition">
+			<h6 class="semiTitle">&nbsp;업종 기준</h6>
+			
+			<form class="typeSelectorForm">
+				<div class="typeSelectorLarge">
+					<select class="form-select" aria-label="Default select example">
+						<option selected>업종 선택</option>
+						<option value="1">업종1</option>
+						<option value="2">업종2</option>
+						<option value="3">업종3</option>
+					</select>
+				</div>
+				<div class="typeSelectorSmall">
+					<select name="condition" class="form-select">
 						<option selected>세부업종 선택</option>
 						<option value="1">세부업종1</option>
 						<option value="2">세부업종2</option>
@@ -89,16 +136,18 @@
 				</div>
 			</form>
 			
-			<button type="button" class="btn btn-primary ">검색</button>
+			<button type="button" class="btn btn-primary ">조회</button>
 			<br>
 			<hr class="division">
-			<div class="container text-center" id="board">
+			<div class="container text-center" id="board" style="margin-left: 28px;">
 				<table class="table">
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
 							<th scope="col">제목</th>
 							<th scope="col">작성일</th>
+							<th scope="col">작성자</th>
+							<th scope="col">좋아요 수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -106,75 +155,81 @@
 							<th scope="row">1</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
-
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">2</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
 							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
 							<td>2022-01-01</td>
+							<td>김*준</td>
+							<td>0</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<button type="button" class="btn btn-outline-secondary" id="mainButton">커뮤니티 메인</button>
+			<div class="sendButton">
+				<button type="button" class="btn btn-primary" style="margin-left: 740px;">글 작성</button>
+			</div>
 
-			<form action="">
-				<div>
-					<select class="form-select" id="condition">
-							<option selected>검색</option>
-							<option value="1">제목</option>
-							<option value="2">제목+내용</option>
-							<option value="3">내용</option>
-					</select>
-				</div>
-				<div>
-					<input type="text" class="form-control" id="searchComm">
-				</div>
-				<div>
-					<button type="button" class="btn btn-primary ">검색</button>
-				</div>
-			</form>
-
+			<br>
+			
 			<nav aria-label="Page navigation example">
 				<ul class="pagination">
 					<li class="page-item"><a class="page-link" href="#"
@@ -183,10 +238,33 @@
 					<li class="page-item"><a class="page-link" href="#">1</a></li>
 					<li class="page-item"><a class="page-link" href="#">2</a></li>
 					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					<li class="page-item"><a class="page-link" href="#"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</ul>
 			</nav>
+
+
+			<div class="search">
+				<form action="">
+					<div class="searchCondition" style="margin-left: 220px; margin-bottom: 20px;">
+						<select class="form-select" id="condition">
+								<option selected>전체</option>
+								<option value="1">제목</option>
+								<option value="2">제목+내용</option>
+								<option value="3">내용</option>
+						</select>
+					</div>
+					<div class="searchInput">
+						<input type="text" class="form-control" id="searchComm">
+					</div>
+					<div class="searchButton">
+						<button type="button" class="btn btn-primary ">검색</button>
+					</div>
+				</form>
+			</div>
+			<br>
+
 		</div>
 	</div>
 

@@ -33,7 +33,7 @@
 					<tr>
 						<td class="table-light col-sm-2" scope="row">작성자명</td>
  						<td>
-							<p class="form-control-plaintext">김*나</p>
+							<p class="form-control-plaintext">${dto.userName}</p>
 						</td>
 					</tr>
 
@@ -49,6 +49,11 @@
 
 	</div>
 </div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+									    <script>
+									      	ClassicEditor.create( document.querySelector( '#editor' ) );
+									    </script>
 
 
 	<script>
