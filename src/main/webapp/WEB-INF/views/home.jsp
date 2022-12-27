@@ -2,7 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/home_graph.js"></script>
 	<div style="position: relative;">
 		<div id="back-gray" style="position: absolute; z-index: -2;">
 		</div>
@@ -64,7 +64,7 @@
 			</div>
 	</div>
 	<div style="height: 700px;"></div>
-	<div style="height: 600px; width: 100%; padding: auto;">
+	<div style="height: 550px; width: 100%; padding: auto;">
 		<table class="table three-div1 hide" style="margin: auto; width: 900px;">
 			<tr>
 				<th style="border: none">&nbsp;</th>
@@ -84,7 +84,7 @@
 			</tr>
 		</table>
 	</div>
-	<div style="height: 600px; width: 100%; padding: auto;">
+	<div style="height: 550px; width: 100%; padding: auto;">
 		<table class="table three-div2 hide" style="margin: auto; width: 900px;">
 			<tr>
 				<th class="three-div2-img" rowspan="3" style="border: none">
@@ -104,7 +104,7 @@
 			</tr>
 		</table>
 	</div>
-	<div style="height: 600px; width: 100%; padding: auto;">
+	<div style="height: 550px; width: 100%; padding: auto;">
 		<table class="table three-div3 hide" style="margin: auto; width: 900px;">
 			<tr>
 				<th style="border: none">&nbsp;</th>
@@ -124,7 +124,7 @@
 			</tr>
 		</table>
 	</div>
-	<div style="height: 600px; width: 100%; padding: auto;">
+	<div style="height: 550px; width: 100%; padding: auto;">
 		<table class="table three-div4 hide" style="margin: auto; width: 900px;">
 			<tr>
 				<th class="three-div4-img" rowspan="3" style="border: none">
@@ -208,7 +208,7 @@
 			</div>
 			<div class="graphs" title="매출액">
 				<div class="graphs-title">매출액</div>
-				<div class="d-flex flex-row justify-content-center" style="margin-top: 20px;">
+				<div class="d-flex flex-row justify-content-center" style="margin-top: 30px;">
 					<div class="graph2-box graph2-green">
 						<div class="graph2-title">전분기 대비</div>
 						<div class="graph2-val">+ 8,733억</div>
@@ -229,7 +229,9 @@
 			</div>
 			<div class="graphs" title="유동인구">
 				<div class="graphs-title">유동인구</div>
-				<div id="graph3-chart">차트 들어갈 곳</div>
+				<div id="graph3-chart" style="">
+					차트 들어갈 곳
+				</div>
 			</div>
 		</div>
 	</div>
@@ -240,8 +242,6 @@
 $(function(){
 	$(document).scroll(function(){
 		let top = $(document).scrollTop();
-		
-			
 			if(top > 250) {
 				$(".three-div1").removeClass("hide");
 				$(".three-div1").addClass("show");
@@ -249,42 +249,42 @@ $(function(){
 				$(".three-div1-img").addClass("move");
 			}
 			
-			if(top > 850) {
+			if(top > 800) {
 				$(".three-div2").removeClass("hide");
 				$(".three-div2").addClass("show");
 				$(".three-div2-text").addClass("move");
 				$(".three-div2-img").addClass("move");
 			}
 			
-			if(top > 1450) {
+			if(top > 1350) {
 				$(".three-div3").removeClass("hide");
 				$(".three-div3").addClass("show");
 				$(".three-div3-text").addClass("move");
 				$(".three-div3-img").addClass("move");
 			}
 			
-			if(top > 2050) {
+			if(top > 1900) {
 				$(".three-div4").removeClass("hide");
 				$(".three-div4").addClass("show");
 				$(".three-div4-text").addClass("move");
 				$(".three-div4-img").addClass("move");
 			}
 			
-			if(top <= 2050) {
+			if(top <= 1900) {
 				$(".three-div4").removeClass("show");
 				$(".three-div4").addClass("hide");
 				$(".three-div4-text").removeClass("move");
 				$(".three-div4-img").removeClass("move");
 			}
 			
-			if(top <= 1450) {
+			if(top <= 1350) {
 				$(".three-div3").removeClass("show");
 				$(".three-div3").addClass("hide");
 				$(".three-div3-text").removeClass("move");
 				$(".three-div3-img").removeClass("move");
 			}
 			
-			if(top <= 850) {
+			if(top <= 800) {
 				$(".three-div2").removeClass("show");
 				$(".three-div2").addClass("hide");
 				$(".three-div2-text").removeClass("move");
@@ -297,8 +297,6 @@ $(function(){
 				$(".three-div1-text").removeClass("move");
 				$(".three-div1-img").removeClass("move");
 			}
-			
-			
 	});
 });
 
