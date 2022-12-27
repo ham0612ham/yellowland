@@ -1,6 +1,7 @@
 package com.sp.app.assignComm;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,10 @@ public class AssignCommController {
 		
 		model.addAttribute("daumKey", daumKey);
 		
+		List<Community> list = service.listComm();
+		
+		model.addAttribute("list", list);
+		
 		return ".assignComm.main";
 	}
 	
@@ -56,5 +61,7 @@ public class AssignCommController {
 		
 		return "redirect:/assignComm/main";
 	}
+	
+	
 	
 }

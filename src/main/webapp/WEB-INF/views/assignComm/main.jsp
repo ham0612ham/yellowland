@@ -196,7 +196,105 @@ $(function() {
 });
 
 // 추가 이미지
-
+$(function() {
+	
+	let sel_files = [];
+	let count = 0;
+	
+	$("body").on("click", ".img-add", function() {
+		$("form[name=contactForm] input[name=imgFiles]").trigger("click");
+	});
+	
+	$("form[name=contactForm] input[name=imgFiles]").change(function(){
+		
+		
+		
+		// 현재 고른  파일이 없다면
+		if(! this.files) {
+			let dt = new DataTransfer();
+			
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			
+			// 기존 저장된 파일들 다시 저장
+			document.contactForm.imgFiles.files = dt.files;
+			
+			return false;
+			
+		}
+		
+		// 유사 배열을 배열로 변환
+		const fileArr = Array.from(this.files);
+		
+		
+		
+		fileArr.forEach((file, index) => {
+			
+			count++;
+			
+			if(count > 4) {
+				alert(" 추가 이미지는 최대 4개까지 넣을 수 있습니다. ");
+				count--;
+				return false;
+			}
+			
+			sel_files.push(file);
+			
+			const reader = new FileReader();
+			const $img = $("<img>", {"class":"item img-item"});
+			$img.attr("data-filename", file.name);
+			
+			reader.onload = e => {
+				$img.attr("src", e.target.result);
+			};
+			
+			reader.readAsDataURL(file);
+			$(".img-flex").append($img);
+			
+		});
+		
+		let dt = new DataTransfer();
+		
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		document.contactForm.imgFiles.files = dt.files;
+		
+	});
+	
+	$("body").on("click", ".img-item", function() {
+		if(! confirm("선택한 파일을 삭제하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+		for(let i=0; i<sel_files.length; i++) {
+			if(filename === sel_files[i].name) {
+				// splice : 원하는 위치에 요소를 추가하거나 삭제
+				// splice(index, [0:추가,1:삭제], [0일 경우, 추가할 값])
+				// i번째 요소 삭제
+				sel_files.splice(i, 1);
+				count--;
+				break;
+			}
+		}
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		document.contactForm.imgFiles.files = dt.files;
+		
+		$(this).remove();
+		
+		
+	});
+	
+});
 
 </script>
 
@@ -241,10 +339,10 @@ $(function() {
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 #container {overflow:hidden;height:820px;position:relative;}
-#mapWrapper {width:100%; height:700px; z-index:1;}
+#mapWrapper {width:100%; height:700px; z-index:1; display: flex;}
 #rvWrapper {width:33%;height:300px;top:0;right:0;position:absolute;z-index:0;}
 #container.view_roadview #mapWrapper {width: 100%;}
-#roadviewControl {position:absolute;top:2px;left:1130px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
+#roadviewControl {position:absolute;top:2px;right: 520px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
 #roadviewControl.active {background-position:0 -350px;}
 #close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
 #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
@@ -297,13 +395,13 @@ body {
 	background-size: cover;
 }
 
-.img-grid {
-	display: grid;
+.img-flex {
+	display: flex;
 	grid-template-columns:repeat(auto-fill, 54px);
 	grid-gap: 2px;
 }
 
-.img-grid .item {
+.img-flex .item {
 	object-fit:cover;
 	width: 50px; height: 50px; border-radius: 10px;
 	cursor: pointer;
@@ -424,8 +522,13 @@ input {
    
 }
 
-#mainImg, #subImg {
+#mainImg {
 	display: flex;
+}
+
+#subImg {
+	display: flex;
+    margin-left: -93px;
 }
 
 #mainImg > label, #subImg > label {
@@ -478,11 +581,47 @@ p {
 	margin-left: 5px;
 }
 
+
+.body-container {
+	margin-top: 50px; width: 320px;
+}
+
+.assign-list {
+	display: flex;
+    padding-bottom: 13px;
+    border-bottom: 1px solid lightgray;
+    margin-right: 30px;
+}
+
+.assign-class {
+	width: 24%;
+}
+
+.assign-count {
+	text-align: center;
+	margin-bottom: 25px;
+	font-weight: 600;
+}
+
+.assign-img {
+	width: 135px;
+    height: 117px;
+    border-radius: 7px;
+}
+
+.assign-set {
+    margin-left: 10px;
+}
+
+.monthly {
+	font-weight: bold;
+}
+
 </style>
 </head>
 <body>
 <div id="container">
-    <div id="rvWrapper">
+    <div id="rvWrapper" style="display: none;">
         <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
         <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
     </div>
@@ -498,6 +637,23 @@ p {
 			</div>
 		</div>
         <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+        <div class="assign-class">
+        	<div class="assign-count">지역 목록 5개</div>
+			<ul>
+				<c:forEach var="dto" items="${list}">
+					<li class="assign-list">
+						<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
+						<div class="assign-set">
+							<div class="monthly"> 월세: ${dto.deposit}/${dto.monthly}</div>
+							<div>${dto.expense}</div>
+							<div>${dto.area}</div>
+							<div>${dto.transDate}</div>
+							<div>${dto.subject}</div>
+						</div>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
     </div>
     <div class="map_wrap">
 	    <div id="menu_wrap" class="bg_white">
@@ -557,6 +713,8 @@ p {
 </div>
 
 
+
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static">
   <div class="modal-dialog">
@@ -590,10 +748,10 @@ p {
 														</div>
 													</div>
 													
-													<div class="col-md-6">
+													<div class="col-md-10">
 														<div class="form-group" id="subImg">
 															<label class="label" for="imgName">추가 이미지</label>
-															<div class="img-grid">
+															<div class="img-flex">
 																<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
 															</div>
 															<input type="file" class="form-control" name="imgFiles" id="imgName" accept="image/*" multiple="multiple" 
@@ -1185,6 +1343,8 @@ function toggleOverlay(active) {
 
 // 지도 위의 로드뷰 버튼을 눌렀을 때 호출되는 함수입니다
 function setRoadviewRoad() {
+	document.getElementById("rvWrapper").style.display = "block";
+	
     var control = document.getElementById('roadviewControl');
 
     // 버튼이 눌린 상태가 아니면
@@ -1198,11 +1358,14 @@ function setRoadviewRoad() {
 
         // 로드뷰 도로 오버레이를 제거합니다
         toggleOverlay(false);
+        
+        document.getElementById("rvWrapper").style.display = "none";
     }
 }
 
 // 로드뷰에서 X버튼을 눌렀을 때 로드뷰를 지도 뒤로 숨기는 함수입니다
 function closeRoadview() {
+	
     var position = marker.getPosition();
     toggleMapWrapper(true, position);
 }

@@ -100,7 +100,7 @@ public class AssignCommServiceImpl implements AssignCommService {
 		
 		try {
 			
-			
+			list = dao.selectList("assignComm.listComm");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
