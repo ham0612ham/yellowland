@@ -35,55 +35,78 @@
 
 </style>
 
+<script type="text/javascript">
+<c:if test="${sessionScope.member.userId==dto.userId}">
+function deleteOk(num, mode) {
+    if(confirm("문의글을 삭제 하시 겠습니까 ? ")) {
+    	let query = "num="+num+"&mode="+mode+"&${query}";
+	    let url = "${pageContext.request.contextPath}/qna/delete?" + query;
+    	location.href = url;
+    }
+}
+</c:if>
+</script>
+
 <div class="container">
 	<div class="body-container">	
 		<div class="articleSubject">
 			<h3 class="categoryTitle">1:1 문의</h3>
-			<h3 class="fw-semibold">이거 궁금해요 ~ !!!</h3>	
+			<h3 class="fw-semibold">${dto.subject}</h3>	
 		</div>
 		<div class="articleWriter">
 			<h4 class="articleWriterCircle">●&nbsp;</h4>
-			<h3 class="articleWriterManager">김*자</h3>
-			<h3 class="articleWriterDate">&nbsp;2022-01-01</h3>
-			<h3	class="articleWriterIsAnswer">&nbsp;답변완료</h3>
+			<h3 class="articleWriterManager">${dto.userName}</h3>
+			<h3 class="articleWriterDate">&nbsp;${dto.reg_date}</h3>
+			<h3	class="articleWriterIsAnswer">&nbsp;${dto.replyNum==1?"답변완료":"답변대기"}</h3>
 		</div>
-
 
 		<hr>
 
 		<div class="articleContent">
 			<span class="articleContentDetail">
-				우리지역에 있는 상권이 궁금해요 ! ! ! 
+				${dto.content} 
 			</span>
 		</div>
 		
-		<hr>
-		<div class="articleManager">
-			<h4 class="articleManagerCircle">●&nbsp;</h4>
-			<h3 class="articleManagerManager">관리자</h3>
-			<h3 class="articleManagerDate">&nbsp;2022-01-01</h3>
-			<br>
-			<div  class="articleManagerContent">
-				<span class="articleManagerContentDetail">
-				안녕하세요. 답변드립니다. 
-				상단 메뉴의 나도곧 ..... 
-				메뉴를 선택하신후 ....... 
-				........ 하시면 됩니다. 
-				감사합니다.
-				</span>
+		
+		<c:choose>
+			<c:when test="${sessionScope.member.userId==dto.userId}">
+				<button type="button" class="btn btn-light"
+					onclick="location.href='${pageContext.request.contextPath}/qna/update?num=${dto.num}&page=${page}';">수정</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-light" disabled="disabled">수정</button>
+			</c:otherwise>
+		</c:choose>
+
+		<c:choose>
+			<c:when test="${sessionScope.member.userId==dto.userId}">
+				<button type="button" class="btn btn-light" style="margin-right: 10px;" onclick="deleteQna();">삭제</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
+			</c:otherwise>
+		</c:choose>
+
+
+		<c:forEach var="dto" items="${list}" varStatus="status">
+			<div class="articleManager">
+				<h4 class="articleManagerCircle">●&nbsp;</h4>
+				<h3 class="articleManagerManager">관리자</h3>
+				<h3 class="articleManagerDate">&nbsp;${dto.regDate}</h3>
+				<br>
+				<div  class="articleManagerContent">
+					<span class="articleManagerContentDetail">
+					${dto.content}
+					</span>
+				</div>
+				<br>
 			</div>
-			<br>
-		</div>
-		
-		
-		<div class="articleLower">
-			<hr class="division">
-			<h5 class="preNext">이전글:</h5>
-			<hr class="division">
-			<h5 class="preNext">다음글:</h5>
-			<hr class="division">
-		</div>
-		<br>
-		<button type="button" class="btn btn-primary ">목록</button>
+		</c:forEach>
+		<br>	
+		<br>	
+		<hr>
+		<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/qna/list';">목록</button>
+
 	</div>
 </div>

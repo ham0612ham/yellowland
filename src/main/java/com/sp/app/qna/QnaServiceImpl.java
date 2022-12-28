@@ -15,15 +15,91 @@ public class QnaServiceImpl implements QnaService {
 	
 	@Override
 	public void insertQna(Qna dto) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.insertData("qna.insertQna", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public List<Qna> listQna(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		List<Qna> list = null;
+		
+		try {
+			list = dao.selectList("qna.listQna", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("qna.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Qna readQna(long num) {
+		Qna dto = null;
+		
+		try {
+			dto = dao.selectOne("qna.readQuestion", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+
+	@Override
+	public void updateQna(Qna dto) throws Exception {
+		try {
+			dao.updateData("qna.updateQna", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void deleteQna(long num) throws Exception {
+		try {
+			dao.deleteData("qna.deleteQna", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		Qna dto = null; 
+		
+		try {
+			dto = dao.selectOne("qna.readAnswer", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		return null;
 	}
+
+
 
 		
 }

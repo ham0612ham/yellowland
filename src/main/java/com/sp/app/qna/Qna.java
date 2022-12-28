@@ -1,13 +1,43 @@
 package com.sp.app.qna;
 
 public class Qna {
+	// 1:1 게시글
 	private long num;
 	private String subject;
 	private String content;
 	private String reg_date;
 	private String userId;
-	private int isAnswer;
+	private String userName;
+	private Integer parent;
+	private int qnaPwd;
+	private long replyNum;
 	
+
+	public long getReplyNum() {
+		return replyNum;
+	}
+	public void setReplyNum(long replyNum) {
+		this.replyNum = replyNum;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public Integer getParent() {
+		return parent;
+	}
+	public void setParent(Integer parent) {
+		this.parent = parent;
+	}
+	public int getQnaPwd() {
+		return qnaPwd;
+	}
+	public void setQnaPwd(int qnaPwd) {
+		this.qnaPwd = qnaPwd;
+	}
 	public long getNum() {
 		return num;
 	}
@@ -38,12 +68,7 @@ public class Qna {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getIsAnswer() {
-		return isAnswer;
-	}
-	public void setIsAnswer(int isAnswer) {
-		this.isAnswer = isAnswer;
-	}
+
 	
 	
 }

@@ -29,17 +29,17 @@
 .isAnswer { color:#36C88A; }
 
 .pagination {
-	margin-left: 340px; 
-	--bs-pagination-hover-bg: #36C88A; 
-	--bs-pagination-focus-bg: #36C88A; 
-	--bs-pagination-focus-color: #ffffff;
-	--bs-pagination-hover-color: #ffffff;
-	margin-bottom: 40px;
+	float: left;
 	}
 
+.pagination justify-content-center {
+	float: left;
+}
 
 .btn {
     width: 80px;
+    margin-left: 28px;
+    margin-top: 20px;
 }
 
 .sendButton { 
@@ -77,6 +77,10 @@
 	margin-left: 220px;
 } 
 
+.page-navigation {
+	margin-left: 330px;
+	margin-bottom: 50px;
+}
 
 </style>
 
@@ -84,8 +88,8 @@
 	<div class="table1">
 		<h3 class="fw-semibold">고객센터</h3>
 		<div class="row row-cols-auto">
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">공지사항</a></div>
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">자주하는 질문</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/notice/list" class="text-decoration-none" style="color:#C2C2C2">공지사항</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/faq/list" class="text-decoration-none" style="color:#C2C2C2">자주하는 질문</a></div>
 			<div class="colNoticeTitle">
 				<div>1:1 문의</div>
 			</div>
@@ -109,124 +113,29 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>문의 드립니다</td>
-							<td>김*바</td>
-							<td>-</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>궁금해요 !!!!!!!!!!!</td>
-							<td>김*바</td>
-							<td>-</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>알려주세요 </td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>문의 100번째 드려요</td>
-							<td>김*바</td>
-							<td class="isAnswer">답변완료</td>
-							<td>2022-01-01</td>
-						</tr>
+						<c:forEach var="dto" items="${list}" varStatus="status">
+							<tr>
+								<th scope="row">${dto.num}</th>
+								<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</td>
+								<td>${dto.userName}</td>
+								<td>${dto.replyNum==1?"답변완료":"-"}</td>
+								<td>${dto.reg_date}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<div class="sendButton">
-					<button type="button" class="btn btn-primary ">글 작성</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/qna/write';">글 작성</button>
 				</div>
 			</div>
 
-
-
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
-
-			<div class="search">
-				<form action="">
-					<div class="searchCondition">
-						<select class="form-select" id="condition">
-							<option selected>전체</option>
-							<option value="1">제목</option>
-							<option value="2">제목+내용</option>
-							<option value="3">내용</option>
-						</select>
-					</div>
-					<div class="searchInput">
-						<input type="text" class="form-control" id="searchComm">
-					</div>
-					<div class="searchButton">
-						<button type="button" class="btn btn-primary ">검색</button>
-					</div>
-				</form>
+			<div class="page-navigation">
+				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
+
 
 
 
 		</div>
-
-
 	</div>
-
-
 </div>

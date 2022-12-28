@@ -44,8 +44,8 @@
 			<div class="colNoticeTitle">
 				<div>공지사항</div>
 			</div>
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">자주하는 질문</a></div>
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/faq/list" class="text-decoration-none" style="color:#C2C2C2">자주하는 질문</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/qna/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
 		</div>
 	</div>
 	<div class="body-container">

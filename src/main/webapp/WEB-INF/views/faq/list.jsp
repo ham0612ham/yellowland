@@ -58,11 +58,11 @@
 	<div class="table1">
 		<h3 class="fw-semibold">고객센터</h3>
 		<div class="row row-cols-auto">
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">공지사항</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/notice/list" class="text-decoration-none" style="color:#C2C2C2">공지사항</a></div>
 			<div class="colNoticeTitle">
 				<div>자주하는 질문</div>
 			</div>
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/qna/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의</a></div>
 		</div>
 	</div>
 	<div class="body-container">

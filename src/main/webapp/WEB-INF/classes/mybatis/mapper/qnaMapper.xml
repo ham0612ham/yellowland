@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	<insert id="insertQna" parameterType="com.sp.app.qna.Qna">
+		INSERT INTO INQUIRYBOARD(num, subject, content, reg_date,
+						userId,qnaPwd)
+		VALUES (INQUIRYBOARD_seq.NEXTVAL, #{subject}, #{content},
+		SYSDATE, #{userId}, #{qnaPwd})
+	</insert>
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+	</select>
+	
+
+	<select id="listQna" parameterType="map" resultType="com.sp.app.qna.Qna">
+		SELECT q.num, m.userName, q.userId, q.subject,
+			TO_CHAR(q.reg_date, 'YYYY-MM-DD') reg_date, q.content
+		FROM INQUIRYBOARD q
+        JOIN member1 m ON q.userId=m.userId
+	</select>
+	
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.app.qna.Qna">
+		SELECT r.num, r.content, r.regDate, r.userId, replyNum
+        FROM INQUIRYReply r
+        JOIN INQUIRYBOARD q ON r.userId = q.userID
+	</select> 
+		
+		
+	<select id="readQuestion" parameterType="Long" resultType="com.sp.app.qna.Qna">
+		SELECT m.userName, q.num, q.subject, q.content, q.reg_date 
+			FROM INQUIRYBOARD q 
+			JOIN member1 m ON m.userId = 'admin'
+			WHERE num = #{num}
+	</select>
+	
+	<select id="readAnswer" parameterType="Long" resultType="com.sp.app.qna.Reply">
+		SELECT m.userName, r.regDate, r.content
+			FROM INQUIRYBOARD q
+			JOIN INQUIRYREPLY r ON r.num = q.num
+			JOIN member1 m ON m.userId = q.userId
+	</select>
+	
+	
+	<update id="updateQna" parameterType="com.sp.app.qna.Qna">
+		UPDAET INQUIRYBOARD SET subject=#{subject}, content=#{content}
+			WHERE num = #{num}
+	</update>
+	
+
+	<delete id="deleteQna" parameterType="Long">
+		  DELETE FROM INQUIRYBOARD WHERE num = #{num}
+	</delete>
+	
+	
+</mapper>
