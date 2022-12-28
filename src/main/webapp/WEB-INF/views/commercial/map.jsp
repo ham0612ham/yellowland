@@ -144,6 +144,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 </style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map2.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 <script type="text/javascript">
 	
@@ -541,10 +542,11 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}"></script>
 <script type="text/javascript">
 
-function makeMap(level, long1, lat1, obj){
+function makeMap(level, lat1, long1, obj){
+	console.log("실행중");
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
-	    center: new kakao.maps.LatLng(long1, lat1), // 지도의 중심좌표
+	    center: new kakao.maps.LatLng(lat1, long1), // 지도의 중심좌표
 	    level: level // 지도의 확대 레벨
 	};
 	
@@ -567,28 +569,28 @@ function makeMap(level, long1, lat1, obj){
 
 let obj = [
 	{
-	    content: "<div class='marker' data-val='' data-name='사직동' data-long='37.5761637' data-lat='126.9688063'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>1</p></div></div><div class='marker-region-name'>사직동</div><div class='marker-sales-total'>100억</div></div>", 
+	    content: "<div class='marker' data-val='' data-name='사직동' data-lat='37.5761637' data-long='126.9688063'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>1</p></div></div><div class='marker-region-name'>사직동</div><div class='marker-sales-total'>100억</div></div>", 
 	    latlng: new kakao.maps.LatLng(37.5761637, 126.9688063)
 	},
 	{
-	    content: "<div class='marker' data-val='' data-name='삼청동' data-long='37.5848379' data-lat='126.9819133'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>2</p></div></div><div class='marker-region-name'>삼청동</div><div class='marker-sales-total'>90억</div></div>",
+	    content: "<div class='marker' data-val='' data-name='삼청동' data-lat='37.5848379' data-long='126.9819133'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>2</p></div></div><div class='marker-region-name'>삼청동</div><div class='marker-sales-total'>90억</div></div>",
 		latlng: new kakao.maps.LatLng(37.5848379, 126.9819133)
 	},
 	{
-		content: "<div class='marker' data-val='' data-name='부암동' data-long='37.5962608' data-lat='126.9676991'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>3</p></div></div><div class='marker-region-name'>부암동</div><div class='marker-sales-total'>80억</div></div>", 
+		content: "<div class='marker' data-val='' data-name='부암동' data-lat='37.5962608' data-long='126.9676991'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>3</p></div></div><div class='marker-region-name'>부암동</div><div class='marker-sales-total'>80억</div></div>", 
 		latlng: new kakao.maps.LatLng(37.5962608, 126.9676991)
 	},
 	{
-	    content: "<div class='marker' data-val='' data-name='평창동' data-long='37.6053351' data-lat='126.9668582'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_white.png'></div><div class='marker-rank-text'><p>4</p></div></div><div class='marker-region-name'>평창동</div><div class='marker-sales-total'>70억</div></div>", 
+	    content: "<div class='marker' data-val='' data-name='평창동' data-lat='37.6053351' data-long='126.9668582'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_white.png'></div><div class='marker-rank-text'><p>4</p></div></div><div class='marker-region-name'>평창동</div><div class='marker-sales-total'>70억</div></div>", 
 	    latlng: new kakao.maps.LatLng(37.6053351, 126.9668582)
 	}
 ];
 
 $(function(){
 	let level = 8;
-	let long1 = 37.5729503;
-	let lat1 = 126.9793579;
-	makeMap(level, long1, lat1, obj);
+	let lat1 = 37.5729503;
+	let long1 = 126.9793579;
+	makeMap(level, lat1, long1, obj);
 });
 
 

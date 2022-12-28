@@ -45,9 +45,9 @@
 		<jackson-version>2.14.0</jackson-version>
 
 		<!-- 몽고디비 -->
-		<org.mongodb-version>3.12.11</org.mongodb-version>
-		<org.spring-data-commons-version>2.7.6</org.spring-data-commons-version>
-		<org.spring-data-mongodb-version>3.4.6</org.spring-data-mongodb-version>
+		<org.mongodb-version>3.12.10</org.mongodb-version>
+		<org.spring-data-commons-version>2.5.6</org.spring-data-commons-version>
+		<org.spring-data-mongodb-version>3.2.6</org.spring-data-mongodb-version>
 		
 		<!-- org.json -->
 		<org.json-version>20220924</org.json-version>
