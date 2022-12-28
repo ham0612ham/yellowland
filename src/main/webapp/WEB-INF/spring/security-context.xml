@@ -27,7 +27,7 @@
 		<intercept-url pattern="/member/complete" access="permitAll"/>
 		<intercept-url pattern="/member/pwdFind" access="permitAll"/>
 		<intercept-url pattern="/member/expired" access="permitAll"/>
-		
+				
 		<!-- note는 디자인 끝나면 지울 예장 -->
 		<intercept-url pattern="/note/**" access="permitAll"/>
 		<intercept-url pattern="/qna/**" access="permitAll"/>
@@ -39,7 +39,7 @@
 		<intercept-url pattern="/echart/**" access="permitAll"/>
 		
 		<intercept-url pattern="/resources/**" access="permitAll"/>
-		<intercept-url pattern="/uploads/photo/**" access="permitAll"/>
+		<intercept-url pattern="/uploads/**" access="permitAll"/>
 		
 		<!-- 관리자 페이지 -->
 		<intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN')"/>

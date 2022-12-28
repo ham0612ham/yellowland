@@ -12,6 +12,97 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 
+<script type="text/javascript">
+
+function login() {
+	location.href = "${pageContext.request.contextPath}/member/login";
+}
+
+function ajaxFun(url, method, query, dataType, fn) {
+	
+	$.ajax({
+		type : method,
+		url  : url,
+		data : query,
+		dataType : dataType,
+		
+		success : function(data) {
+			fn(data);
+		},
+		
+		beforeSend : function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		
+		error : function(jqXHR) {
+			// 403 : 원하는 URL이 유효하지만 사용자의 요청을 이행 할 수 없음을 의미
+			if(jqXHR.status === 403) {
+				login();
+				
+				return false;
+				
+			} else if(jqXHR.status === 400) {
+				
+				alert("요청 처리가 실패했습니다.");
+				
+				return false;
+			}
+		
+			console.log(jqXHR.responseText);
+		}
+			
+	});
+	
+}
+
+function ajaxFileFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type : method,
+		url  : url,
+		processData : false, // 서버로 전송하는 데이터를 쿼리문자열로 변환 여부
+		contentType : false, // 서버에 전송할 데이터의 Content-Type.
+		data : query,
+		dataType : dataType,
+		
+		success : function(data) {
+			fn(data);
+		},
+		
+		beforeSend : function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		
+		error : function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				
+				return false;
+			}
+			
+			console.log(jqXHR.responseText);
+		}
+		
+	});
+}
+
+function detailPage(num) {
+	let url = "${pageContext.request.contextPath}/assignComm/detail";
+	let query = "num=" + num;
+	let selector = "#asDetail";
+	
+	const fn = function(data) {
+		$(selector).html(data);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+}
+
+</script>
+
 <script>
 
 
@@ -29,96 +120,85 @@ function check() {
 	const f = document.contactForm;
 	
 	if(! f.subject.value.trim()) {
-		alert("subject");
+		alert(" 제목을 입력해주세요! ");
 		f.subject.focus();
 		return false;
 	}
 	
 
 	if(! f.pNum2.value.trim()) {
-		alert("pNum2");
+		alert(" 휴대폰 번호를 입력해주세요! ");
 		f.pNum2.focus();
 		return false;
 	} else if(! f.pNum3.value.trim()) {
-		alert("pNum3");
+		alert(" 휴대폰 번호를 입력해주세요! ");
 		f.pNum3.focus();
 		return false;
 	}
 	
 	if(! f.zip.value.trim()) {
-		alert("zip");
+		alert(" 우편 번호를 입력해주세요! ");
 		f.zip.focus();
 		return false;
 	}
 	
 	if(! f.addr1.value.trim()) {
-		alert("addr1");
+		alert(" 기본 주소를 입력해주세요! ");
 		f.addr1.focus();
 		return false;
 	}
 	
 	if(! f.addr2.value.trim()) {
-		alert("addr2");
+		alert(" 상세 주소를 입력해주세요! ");
 		f.addr2.focus();
 		return false;
 	}
 	
 	if(! f.thumbnailFile.value.trim()) {
-		alert("thumbnail");
+		alert(" 기본 이미지를 업로드해주세요! ");
 		f.thumbnail.focus();
 		return false;
 	}
 	
 	if(! f.deposit.value.trim()) {
-		alert("deposit");
+		alert(" 보증금을 입력해주세요! ");
 		f.deposit.focus();
 		return false;
 	}
 	
 	if(! f.monthly.value.trim()) {
-		alert("monthly");
+		alert(" 월세를 입력해주세요! ");
 		f.monthly.focus();
 		return false;
 	}
 	
 	if(! f.expense.value.trim()) {
-		alert("expense");
+		alert(" 관리비를 입력해주세요! ");
 		f.expense.focus();
 		return false;
 	}
 	
 	if(! f.area.value.trim()) {
-		alert("area");
+		alert(" 전용면적을 입력해주세요! ");
 		f.area.focus();
 		return false;
 	}
 	
-	if(! f.bFloor.value.trim()) {
-		alert("bFloor");
-		f.bFloor.focus();
-		return false;
-	}
-	
-	if(! f.floor.value.trim()) {
-		alert("floor");
-		f.floor.focus();
-		return false;
-	}
 	
 	if(! f.parking.value.trim()) {
-		alert("parking");
+		alert(" 주차 가능 여부를 입력해주세요! ");
 		f.parking.focus();
 		return false;
 	}
 	
 	if(! f.elevator.value.trim()) {
-		alert("elevator");
+		alert(" 엘리베이터 유무를 입력해주세요! ");
 		f.elevator.focus();
 		return false;
 	}
 	
 	if(! f.transDate.value.trim()) {
-		alert("transDate");
+		alert(" 양도 가능일을 입력해주세요! ");
 		f.transDate.focus();
 		return false;
 	}
@@ -560,6 +640,10 @@ p {
 	align-self: center;
 }
 
+ul {
+	padding-left: 0;
+}
+
 .sub {
 	margin-top: 12px;
 }
@@ -588,9 +672,14 @@ p {
 
 .assign-list {
 	display: flex;
-    padding-bottom: 13px;
+	padding-top: 15px;
+    padding-bottom: 12px;
     border-bottom: 1px solid lightgray;
-    margin-right: 30px;
+    padding-left: 20px;
+}
+
+.assign-list:hover {
+	background-color: rgba(204, 204, 204, 0.7);
 }
 
 .assign-class {
@@ -641,7 +730,8 @@ p {
         	<div class="assign-count">지역 목록 5개</div>
 			<ul>
 				<c:forEach var="dto" items="${list}">
-					<li class="assign-list">
+					<li class="assign-list"> <!-- href="${pageContext.request.contextPath}/assignComm/detail?num=${dto.num}" -->
+						<a class="detail-list" onclick="detailPage(${dto.num});">눌러봐</a>
 						<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 						<div class="assign-set">
 							<div class="monthly"> 월세: ${dto.deposit}/${dto.monthly}</div>
@@ -652,6 +742,9 @@ p {
 						</div>
 					</li>
 				</c:forEach>
+				<li>
+					<div id="asDetail"></div>
+				</li>
 			</ul>
 		</div>
     </div>
@@ -854,7 +947,7 @@ p {
 								        				<div class="sub" style="display: flex; ">
 								        					<p style="width: 216px;">전용면적</p>
 															<input type="text" class="form-control" name="area" id="area" value="${dto.area}">
-															<p class="unit" style="width: 85px;">m2</p>
+															<p class="unit" style="width: 85px;">㎡</p>
 														</div>
 													</div>
 									          	</div>
@@ -886,7 +979,7 @@ p {
 																	<option value="19">19층</option>
 																	<option value="20">20층</option>
 																</select>
-															<p class="unit" style="width: 85px;">m2</p>
+															<p class="unit" style="width: 85px;">㎡</p>
 														</div>
 														<div class="sub" style="display: flex;">
 								        					<p style="width:211px;">해당 층</p>
@@ -912,7 +1005,7 @@ p {
 																	<option value="19">19층</option>
 																	<option value="20">20층</option>
 																</select>
-															<p class="unit" style="width: 85px;">m2</p>
+															<p class="unit" style="width: 85px;">㎡</p>
 														</div>
 													</div>
 									          	</div>
@@ -1190,7 +1283,7 @@ function overall(data, latitude, longitude) {
 		if (status === kakao.maps.services.Status.OK) {
 	
 	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			alert("위도: "+ result[0].y +"경도: "+ result[0].x);
+			// alert("위도: "+ result[0].y +"경도: "+ result[0].x);
 	        
 	        // 결과값으로 받은 위치를 마커로 표시합니다
 	        var marker = new kakao.maps.Marker({

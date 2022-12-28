@@ -102,6 +102,10 @@ public class AssignCommServiceImpl implements AssignCommService {
 			
 			list = dao.selectList("assignComm.listComm");
 			
+			for(Community dto : list) {
+				dto.setRegDate(dto.getRegDate().substring(10));
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			

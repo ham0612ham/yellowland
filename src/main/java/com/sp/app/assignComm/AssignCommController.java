@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.sp.app.member.SessionInfo;
 import com.sp.app.prop.PropReader;
 
@@ -60,6 +63,13 @@ public class AssignCommController {
 		}
 		
 		return "redirect:/assignComm/main";
+	}
+	
+	// ajax - text
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String asDetail(@RequestParam long num) {
+		// 여기 할 차례
+		return "assignComm/detail";
 	}
 	
 	
