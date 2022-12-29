@@ -2,12 +2,9 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>상가 양도 메인 화면</title>
+	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/assign-main.css">
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
@@ -94,7 +91,11 @@ function detailPage(num) {
 	let query = "num=" + num;
 	let selector = "#asDetail";
 	
+	document.querySelector(".assign-ul").style.display = "none";
+	// document.querySelector(selector).style.overflow = "scroll";
+	
 	const fn = function(data) {
+		
 		$(selector).html(data);
 	};
 	
@@ -212,20 +213,25 @@ function check() {
 </script>
 
 <script type="text/javascript">
-// 메인 이미지
+//메인 이미지
 $(function() {
 	let img = "${dto.thumbnail}";
 	
 	// 로컬에 이미지를 업로드 했다면
 	if( img ) {
-		
 		// 메인이미지 로컬 저장 경로
 		img = "${pageContext.request.contextPath}/uploads/image/" + img;
 		
-		// empty : 태그는 남기고 내용만 지움 
-		$(".thumbnail-viewer").empty();
-		$(".thumbnail-viewer").css("background-image", "url("+img+")");
+	} else {
+		
+		img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+		
 	}
+	
+	// empty : 태그는 남기고 내용만 지움 
+	$(".thumbnail-viewer").empty();
+	$(".thumbnail-viewer").css("background-image", "url("+img+")");
+	
 	
 	$(".thumbnail-viewer").click(function() {
 		$("form[name=contactForm] input[name=thumbnailFile]").trigger("click");
@@ -378,344 +384,15 @@ $(function() {
 
 </script>
 
-<style>
 
 
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:-660px;left:0;bottom:0;width:250px;height:490px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-
-#container {overflow:hidden;height:820px;position:relative;}
-#mapWrapper {width:100%; height:700px; z-index:1; display: flex;}
-#rvWrapper {width:33%;height:300px;top:0;right:0;position:absolute;z-index:0;}
-#container.view_roadview #mapWrapper {width: 100%;}
-#roadviewControl {position:absolute;top:2px;right: 520px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
-#roadviewControl.active {background-position:0 -350px;}
-#close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
-#close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
-
-#category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
-#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
-#category li.on {background: #eee;}
-#category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
-#category li:last-child{margin-right:0;border-right:0;}
-#category li span {display: block;margin:0 auto 3px;width:27px;height: 28px;}
-#category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;}
-#category li .bank {background-position: -10px 0;}
-#category li .mart {background-position: -10px -36px;}
-#category li .pharmacy {background-position: -10px -72px;}
-#category li .oil {background-position: -10px -108px;}
-#category li .cafe {background-position: -10px -144px;}
-#category li .store {background-position: -10px -180px;}
-#category li.on .category_bg {background-position-x:-46px;}
-
-.placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
-.placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
-.placeinfo:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-.placeinfo_wrap .after {content:'';position:relative;margin-left:-12px;left:50%;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-.placeinfo a, .placeinfo a:hover, .placeinfo a:active{color:#fff;text-decoration: none;}
-.placeinfo a, .placeinfo span {display: block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-.placeinfo span {margin:5px 5px 0 5px;cursor: default;font-size:13px;}
-.placeinfo .title {font-weight: bold; font-size:14px;border-radius: 6px 6px 0 0;margin: -1px -1px 0 -1px;padding:10px; color: #fff;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-.placeinfo .tel {color:#0f7833;}
-.placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
-
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-
-body {
-	font-family: Pretendard-Regular, sans-serif;
-}
-
-.thumbnail-viewer {
-	cursor: pointer;
-	border: 1px solid #f5fffa;
-	width: 50px; height: 50px; border-radius: 10px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
-	position: relative;
-	z-index: 9999;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.img-flex {
-	display: flex;
-	grid-template-columns:repeat(auto-fill, 54px);
-	grid-gap: 2px;
-}
-
-.img-flex .item {
-	object-fit:cover;
-	width: 50px; height: 50px; border-radius: 10px;
-	cursor: pointer;
-}
-
-.search {
-    position: absolute; 
-    z-index: 10;
- 	width: 300px;
- 	left: 10px;
- 	top: 10px;
-}
-
-#data {
-  width: 200px;
-  border: 1px solid #bbb;
-  border-radius: 8px;
-  padding: 3px 10px;
-  font-size: 14px;
-}
-
-i {
-  width: 17px;
-  top: 10px;
-  right: 12px;
-  margin: 0;
-}
-
-.mapType {
-	margin-bottom: 10px;
-	margin-top: -5px;
-}
-
-#clickLatlng {
-	float: right;
-}
-
-.float{
-	position:fixed;
-	width:60px;
-	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color:#36C88A;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
-}
-
-.float:hover {
-	font-weight: bold;
-}
-
-.my-float{
-	margin-top:22px;
-}
-
-.modal{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-body{
-	width:100%;
-	height:100vh;
-}
-
-.modal-content {
-	right: 250px; 
-	width: 1000px; 
-	height: 880px;
-}
-
-.modal-footer {
-	margin-bottom: 292px;
-    position: absolute;
-    left: 820px;
-    bottom: -213px;
-    border: none;
-}
-
-.info-wrap .dbox .icon span {
-    font-size: 20px;
-    color: #fff;
-}
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.heading-section {
-	margin-top: -95px;
-}
-
-input {
-	
-	margin-bottom: 10px;
-}
-
-
-.ck {
-	height: 300px;
-}
-
-#subject {
-    margin-top: -29px;
-    margin-left: -127px;
-    width: 513px;
-    margin-bottom: -5px;
-   
-}
-
-#mainImg {
-	display: flex;
-}
-
-#subImg {
-	display: flex;
-    margin-left: -93px;
-}
-
-#mainImg > label, #subImg > label {
-    width: 90px;
-    text-align: center;
-}
-
-#mainImg > input, #subImg > input {
-	width: 46px;
-}
-
-.wrapper {
-	margin-top: -45px;
-}
-
-#phone {
-    box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
-    width: 300px;
-    padding-top: 12px;
-    background: white;
-    margin-left: 20px;
-    min-height: 50px;
-    border-radius: 15px;
-    padding-bottom: 12px;
-    margin-bottom: 50px;
-}
-
-p {
-	align-self: center;
-}
-
-ul {
-	padding-left: 0;
-}
-
-.sub {
-	margin-top: 12px;
-}
-
-.sub > input {
-    width: 52px;
-	height: 25px;
-}
-
-.sub > select {
-    height: 24px;
-}
-
-.parking {
-	width: 35px;
-}
-
-.unit {
-	margin-left: 5px;
-}
-
-
-.body-container {
-	margin-top: 50px; width: 320px;
-}
-
-.assign-list {
-	display: flex;
-	padding-top: 15px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid lightgray;
-    padding-left: 20px;
-}
-
-.assign-list:hover {
-	background-color: rgba(204, 204, 204, 0.7);
-}
-
-.assign-class {
-	width: 24%;
-}
-
-.assign-count {
-	text-align: center;
-	margin-bottom: 25px;
-	font-weight: 600;
-}
-
-.assign-img {
-	width: 135px;
-    height: 117px;
-    border-radius: 7px;
-}
-
-.assign-set {
-    margin-left: 10px;
-}
-
-.monthly {
-	font-weight: bold;
-}
-
-</style>
-</head>
-<body>
 <div id="container">
     <div id="rvWrapper" style="display: none;">
         <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
         <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
     </div>
     <div id="mapWrapper">
-        <div id="map" style="width:76%; height:800px; position: relative;">
+        <div id="map">
 			<div class="search">
 				<input type="text" id="data" placeholder="ex)마포구 월드컵북로 21">
 				<i onclick="search();" class="fa-solid fa-magnifying-glass" style="cursor: pointer;"></i>
@@ -727,11 +404,12 @@ ul {
 		</div>
         <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
         <div class="assign-class">
-        	<div class="assign-count">지역 목록 5개</div>
-			<ul>
+        	<!-- <div class="assign-count">지역 목록 5개</div>  -->
+			<ul class="assign-ul">
+				<li class="assign-count">지역 목록 5개</li>
 				<c:forEach var="dto" items="${list}">
-					<li class="assign-list"> <!-- href="${pageContext.request.contextPath}/assignComm/detail?num=${dto.num}" -->
-						<a class="detail-list" onclick="detailPage(${dto.num});">눌러봐</a>
+					<li class="assign-list" onclick="detailPage(${dto.num});"> <!-- href="${pageContext.request.contextPath}/assignComm/detail?num=${dto.num}" -->
+						<!-- <a class="detail-list" onclick="detailPage(${dto.num});">눌러봐</a>  -->
 						<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 						<div class="assign-set">
 							<div class="monthly"> 월세: ${dto.deposit}/${dto.monthly}</div>
@@ -742,12 +420,13 @@ ul {
 						</div>
 					</li>
 				</c:forEach>
-				<li>
-					<div id="asDetail"></div>
-				</li>
 			</ul>
+			<div id="asDetail" style="overflow: auto; height: 800px;"></div>
 		</div>
     </div>
+    
+   
+    
     <div class="map_wrap">
 	    <div id="menu_wrap" class="bg_white">
 	        <div class="option">
@@ -762,44 +441,50 @@ ul {
 	        <ul id="placesList"></ul>
 	        <div id="pagination"></div>
 	    </div>
+	    
+	    <div class="mapInfo">
+	    	<div class="mapType">
+			    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도
+			    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보
+			    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보    
+			    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로
+			</div>
+			<div id="clickLatlng"></div>
+	    </div>
+	    
 	    <ul id="category">
 	        <li id="BK9" data-order="0"> 
-	            <span class="category_bg bank"></span>
+	            <span class="bank"></span>
 	            	은행
 	        </li>       
 	        <li id="MT1" data-order="1"> 
-	            <span class="category_bg mart"></span>
+	            <span class="mart"></span><i class="fa-regular fa-user"></i>
 	            	마트
 	        </li>  
 	        <li id="PM9" data-order="2"> 
-	            <span class="category_bg pharmacy"></span>
+	            <span class="pharmacy"></span>
 	           	 	약국
 	        </li>  
 	        <li id="OL7" data-order="3"> 
-	            <span class="category_bg oil"></span>
+	            <span class="oil"></span>
 	           		 주유소
 	        </li>  
 	        <li id="CE7" data-order="4"> 
-	            <span class="category_bg cafe"></span>
+	            <span class="cafe"></span>
 	            	카페
 	        </li>  
 	        <li id="CS2" data-order="5"> 
-	            <span class="category_bg store"></span>
+	            <span class="store"></span>
 	            	편의점
 	        </li>      
     	</ul>
+    	
     </div>
 </div>
 
-<div>
-	<div class="mapType">
-	    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
-	    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기 
-	    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기       
-	    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
-	</div>
-	<div id="clickLatlng"></div>
-</div>
+
+
+
 
 <div>
 	<a class="float" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
@@ -1825,7 +1510,3 @@ function removeAllChildNods(el) {
     
 </script>
 
-
-
-</body>
-</html>

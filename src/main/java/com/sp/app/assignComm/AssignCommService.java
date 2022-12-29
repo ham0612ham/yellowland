@@ -8,6 +8,7 @@ public interface AssignCommService {
 	public void deleteComm(long num) throws Exception;
 	
 	public Community readComm(long num);
+	public List<Community> readCommImg(long num);
 	public List<Community> listComm();
 
 }

@@ -43,7 +43,7 @@
 	
 	<select id="readComm" parameterType="long" resultType="com.sp.app.assignComm.Community">
 		SELECT a.num, subject, content, userId, regDate, updateDate, pNum, zip, addr1, addr2, thumbnail,
-			deposit, monthly, expense, area, bFloor, parking, elevator, transDate
+			deposit, monthly, expense, area, floor, bFloor, parking, elevator, transDate
 		FROM assignComm a
         JOIN assignCommDetail ad ON a.num = ad.num
 		WHERE a.num = #{num}

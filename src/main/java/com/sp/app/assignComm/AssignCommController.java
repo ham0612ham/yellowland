@@ -34,10 +34,9 @@ public class AssignCommController {
 		
 		String daumKey = propReader.readDaumKey();
 		
-		model.addAttribute("daumKey", daumKey);
-		
 		List<Community> list = service.listComm();
 		
+		model.addAttribute("daumKey", daumKey);
 		model.addAttribute("list", list);
 		
 		return ".assignComm.main";
@@ -65,10 +64,31 @@ public class AssignCommController {
 		return "redirect:/assignComm/main";
 	}
 	
-	// ajax - text
+	// ajax - html
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String asDetail(@RequestParam long num) {
-		// 여기 할 차례
+	public String asDetail(@RequestParam long num, Model model) throws Exception {
+		
+		Community dto = null;
+		List<Community> imgList = null;
+		
+		try {
+			
+			dto = service.readComm(num);
+			
+			imgList = service.readCommImg(num);
+			
+			
+			
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("imgList", imgList);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		return "assignComm/detail";
 	}
 	

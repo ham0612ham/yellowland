@@ -93,19 +93,36 @@ public class AssignCommServiceImpl implements AssignCommService {
 		}
 		return dto;
 	}
+	
+	@Override
+	public List<Community> readCommImg(long num) {
+		
+		List<Community> list = null;
+		
+		try {
+			
+			list = dao.selectList("assignComm.readCommImg", num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 	@Override
 	public List<Community> listComm() {
+		
 		List<Community> list = null;
 		
 		try {
 			
 			list = dao.selectList("assignComm.listComm");
-			
+			/*
 			for(Community dto : list) {
 				dto.setRegDate(dto.getRegDate().substring(10));
 			}
-			
+			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			
