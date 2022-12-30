@@ -6,4 +6,14 @@
 		SELECT longitude, latitude, dongName FROM dong
 		WHERE dongNum = #{dongNum}
 	</select>
+	
+	<select id="dong" parameterType="String" resultType="Long">
+		SELECT dongNum FROM dong
+		WHERE siguNum = #{siguNum}
+	</select>
+	
+	<select id="getSiguLatLong" parameterType="String" resultType="com.sp.app.commercial.Position">
+		SELECT latitude, longitude FROM categoryGu
+		WHERE siguNum = #{siguNum}
+	</select>
 </mapper>

@@ -91,8 +91,8 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .rank-div { padding: 0 15px; margin-top: 5px; }
 .ranks > div { font-size: 13px; }
 .rank { width: 20px; text-align: center; }
-.rank-region { width: 170px; }
-.rank-value { width: 50px; font-weight: 600; }
+.rank-region { width: 160px; }
+.rank-value { width: 70px; font-weight: 600; text-align: right; padding-right: 5px; }
 .rank-percent { width: 50px; text-align: right; color: #36C88A; }
 .horiz { margin: 3px 0; }
 .show-hide-btn { float: right; cursor: pointer; margin-bottom: 3px; }
@@ -387,7 +387,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 						<label for="retail" class="div-4 selMenu-lavs" id="retail-lav" data-val="CS3">소매업</label>
 					</div>
 					<div class="d-flex justify-content-center">
-						<select id="selPlace" name="" class="form-select selectWork hideSel" style="margin-top: 5px;">
+						<select id="selPlace" name="selectWork" class="form-select selectWork hideSel" style="margin-top: 5px;">
 							
 						</select>	
 					</div>
@@ -450,14 +450,14 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<span class="show-hide-btn"><img style='width: 12px;' src='${pageContext.request.contextPath}/resources/images/hide_btn.png'></span>
 			</div>
 			<div class="rank-dis" style="margin-top: 3px;"><span class="hole-rank-title">전체</span><span class="hole-rank-quarter">2022년 3분기 기준</span></div>
-			<div class="rank-div">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
+			<div class="rank-div" id="rank-lists">
+				<div class='ranks d-flex flex-row'>
+					<div class='rank'>1</div>
+					<div class='rank-region'>일일동</div>
+					<div class='rank-value'>100억</div>
+					<div class='rank-percent'>3.6% ↑</div>
 				</div>
-				<hr class="horiz">
+				<hr class='horiz'>
 				<div class="ranks d-flex flex-row">
 					<div class="rank">1</div>
 					<div class="rank-region">일일동</div>
@@ -567,7 +567,7 @@ function makeMap(level, lat1, long1, obj){
 	}
 }
 
-let obj = [
+var obj = [
 	{
 	    content: "<div class='marker' data-val='' data-name='사직동' data-lat='37.5761637' data-long='126.9688063'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>1</p></div></div><div class='marker-region-name'>사직동</div><div class='marker-sales-total'>100억</div></div>", 
 	    latlng: new kakao.maps.LatLng(37.5761637, 126.9688063)
@@ -652,7 +652,7 @@ $(function(){
 		let long1 = $(this).attr("data-long");
 		let lat1 = $(this).attr("data-lat");
 		
-		makeMap(3, long1, lat1, obj);
+		makeMap(3, lat1, long1, obj);
 	});
 	
 });
@@ -708,23 +708,40 @@ $(function(){
 
 $(function(){
 	$("#selPlace").hide;
+	
+	$("#allJob").click(function(){
+		$("select[name=selectWork]").val("all");
+	});
+	
 	$("#stoCou-lav").click(function(){
 		$("#form-stoCou-sales").show();
 		$("#form-Pop").hide();
+		$("input[name=selectMenu1]#allJob").prop("checked", true);
+		$("#selPlace").addClass("hideSel");
+		// $("select[name=selectWork]").find("option[value='all']").prop("selected", true);
+		$("select[name=selectWork]").val("all");
 	});
 	$("#sales-lav").click(function(){
 		$("#form-stoCou-sales").show();
 		$("#form-Pop").hide();
+		$("input[name=selectMenu1]#allJob").prop("checked", true);
+		$("#selPlace").addClass("hideSel");
+		$("select[name=selectWork]").val("all");
 	});
 	$("#mPop-lav").click(function(){
 		$("#form-stoCou-sales").hide();
 		$("#form-Pop").show();
 		$(".weekSel").removeClass("hideSel");
+		$("input[name=gender]#allGender").prop("checked", true);
+		$("input[name=week]#allWeek").prop("checked", true);
+		$("input[name=age]#allAge").prop("checked", true);
 	});
 	$("#hPop-lav").click(function(){
 		$("#form-stoCou-sales").hide();
 		$("#form-Pop").show();
 		$(".weekSel").addClass("hideSel");
+		$("input[name=gender]#allGender").prop("checked", true);
+		$("input[name=age]#allAge").prop("checked", true);
 	});
 });
 
@@ -732,7 +749,6 @@ $(function(){
 $(function(){
 	$("#allJob").click(function(){
 		$("#selPlace").addClass("hideSel");
-		$("#selPlace").attr("name", "all");
 	});
 	
 	$(".selMenu-lavs").click(function(){
@@ -746,15 +762,12 @@ $(function(){
 		} else if ($(this).attr("data-val") === "CS1") {
 			query = "cateJobNum=CS1";
 			innerHtml += "<option value='all'>전체 외식업</option>";
-			$("#selPlace").attr("name", "food");
 		} else if ($(this).attr("data-val") === "CS2") {
 			query = "cateJobNum=CS2";
 			innerHtml += "<option value='all'>전체 서비스업</option>";
-			$("#selPlace").attr("name", "service");
 		} else if ($(this).attr("data-val") === "CS3") {
 			query = "cateJobNum=CS3";
 			innerHtml += "<option value='all'>전체 소매업</option>";
-			$("#selPlace").attr("name", "retail");
 		}
 		
 		const fn = function(data) {
@@ -770,16 +783,4 @@ $(function(){
 	});
 });
 
-$(function(){
-	$(".btn-send").click(function(){
-		let selected = $("input[name=selectMenu]:checked").val();
-		let selectedGu = $("#select-Gu").val();
-		$("input[name=category]").val(selected);
-		$("input[name=gu]").val(selectedGu);
-		
-		let query = $(this).closest("form").serialize();
-		
-		alert(query);
-	});
-});
 </script>

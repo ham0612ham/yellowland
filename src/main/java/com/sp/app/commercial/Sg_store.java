@@ -4,11 +4,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "sg_store")
 public class Sg_store {
-	private long yCode;
-	private long qCode;
+	private String yCode;
+	private String qCode;
 	private String sgGBCode;
 	private String sgGBName;
-	private long sgCode;
+	private String sgCode;
 	private String sgCodeName;
 	private String wCode;
 	private String wName;
@@ -19,19 +19,19 @@ public class Sg_store {
 	private long closePer;
 	private long closeSu;
 	private long franSu;
-	private long siguNum;
-	private long dongNum;
+	private String siguNum;
+	private String dongNum;
 	
-	public long getyCode() {
+	public String getyCode() {
 		return yCode;
 	}
-	public void setyCode(long yCode) {
+	public void setyCode(String yCode) {
 		this.yCode = yCode;
 	}
-	public long getqCode() {
+	public String getqCode() {
 		return qCode;
 	}
-	public void setqCode(long qCode) {
+	public void setqCode(String qCode) {
 		this.qCode = qCode;
 	}
 	public String getSgGBCode() {
@@ -46,10 +46,10 @@ public class Sg_store {
 	public void setSgGBName(String sgGBName) {
 		this.sgGBName = sgGBName;
 	}
-	public long getSgCode() {
+	public String getSgCode() {
 		return sgCode;
 	}
-	public void setSgCode(long sgCode) {
+	public void setSgCode(String sgCode) {
 		this.sgCode = sgCode;
 	}
 	public String getSgCodeName() {
@@ -112,16 +112,16 @@ public class Sg_store {
 	public void setFranSu(long franSu) {
 		this.franSu = franSu;
 	}
-	public long getSiguNum() {
+	public String getSiguNum() {
 		return siguNum;
 	}
-	public void setSiguNum(long siguNum) {
+	public void setSiguNum(String siguNum) {
 		this.siguNum = siguNum;
 	}
-	public long getDongNum() {
+	public String getDongNum() {
 		return dongNum;
 	}
-	public void setDongNum(long dongNum) {
+	public void setDongNum(String dongNum) {
 		this.dongNum = dongNum;
 	}
 }

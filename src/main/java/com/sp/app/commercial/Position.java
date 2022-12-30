@@ -4,6 +4,7 @@ public class Position {
 	private float longitude;
 	private float latitude;
 	private String dongName;
+	private String dongNum;
 	
 	public float getLongitude() {
 		return longitude;
@@ -22,5 +23,11 @@ public class Position {
 	}
 	public void setDongName(String dongName) {
 		this.dongName = dongName;
+	}
+	public String getDongNum() {
+		return dongNum;
+	}
+	public void setDongNum(String dongNum) {
+		this.dongNum = dongNum;
 	}
 }

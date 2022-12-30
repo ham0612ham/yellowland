@@ -10,6 +10,9 @@ public class Sg_citizen_top10 {
 	private float ratio;
 	private float longitude;
 	private float latitude;
+	private String siguNum;
+	private String gender;
+	private String age;
 	
 	public long getDongNum() {
 		return dongNum;
@@ -46,5 +49,23 @@ public class Sg_citizen_top10 {
 	}
 	public void setLatitude(float latitude) {
 		this.latitude = latitude;
+	}
+	public String getSiguNum() {
+		return siguNum;
+	}
+	public void setSiguNum(String siguNum) {
+		this.siguNum = siguNum;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
 	}
 }
