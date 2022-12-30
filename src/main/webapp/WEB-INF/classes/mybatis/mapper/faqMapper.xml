@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+
+	<select id="seq" resultType="Long">
+		SELECT faq_seq.NEXTVAL FROM dual
+	</select>
+
+	<select id="listFaq" parameterType="map" resultType="com.sp.app.faq.Faq">
+  		SELECT num,subject,content,regDate,f.userId
+        	FROM FAQ f
+        JOIN member1 m ON m.userId = f.userId 
+        ORDER BY num DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM faq f
+		JOIN member1 m ON f.userId=m.userId
+	</select>
+	
+	
+	<select id="readFaq" parameterType="Long" resultType="com.sp.app.faq.Faq">
+		SELECT f.num, f.userId, subject, content, m.userName
+			 regDate 
+		FROM faq f
+		JOIN member1 m ON f.userId = m.userId
+	</select>
+
+	
+</mapper>

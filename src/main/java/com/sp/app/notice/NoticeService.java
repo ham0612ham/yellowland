@@ -3,20 +3,18 @@ package com.sp.app.notice;
 import java.util.List;
 import java.util.Map;
 
-public interface NoticeService {
-	// 글 보기, 글 리스트
-	
+public interface NoticeService {	
 	// 글 리스트
 	public List<Notice> listNotice(Map<String, Object> map);
 
 	// 글의 갯수 세기
 	public int dataCount(Map<String, Object> map);
 	
-	// 조회수 증가
-	public void updateHitCount(long num) throws Exception;
-	
 	// 글 보기
 	public Notice readNotice(long num);
+	
+	// 조회수
+	public void updateHitCount(long num) throws Exception;
 	
 	// 이전글,다음글 보기
 	public Notice preReadNotice(Map<String, Object> map);

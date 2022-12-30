@@ -13,6 +13,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private CommonDAO dao;
 	
+	@Override
 	public List<Notice> listNotice(Map<String, Object> map) {
 		List<Notice> list = null;
 		
@@ -39,16 +40,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return result;
 	}
 
-	@Override
-	public void updateHitCount(long num) throws Exception {
-		try {
-			dao.updateData("notice.updateHitCount", num);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-	}
 
 	@Override
 	public Notice readNotice(long num) {
@@ -115,6 +106,13 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 		
 		return dto;
+	}
+
+
+	@Override
+	public void updateHitCount(long num) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

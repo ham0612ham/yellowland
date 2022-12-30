@@ -34,8 +34,6 @@
 .accordion-button {background-color: #36C88A; color: white;} 
 .collapseOne {background-color: #36C88A;}
 
-.pagination {margin-left: 340px;}
-
 .accordion-button::after { display: none; }
 
 .accordion-button:not(.collapsed) {
@@ -43,13 +41,29 @@
 	background-color: #36C88A;
 }
 
+.accordion-item {
+	overflow-wrap: break-word;
+}
+
 .pagination {
-	margin-left: 340px; 
+	margin-top: 70px;
 	--bs-pagination-hover-bg: #36C88A; 
 	--bs-pagination-focus-bg: #36C88A; 
 	--bs-pagination-focus-color: #ffffff;
 	--bs-pagination-hover-color: #ffffff;
 	}
+
+.page-navigation {
+	margin-top: 20px;
+}
+
+.bi bi-chevron-bar-right::after{
+	color: white; 
+}
+
+.bi bi-chevron-bar-left::before {
+	color: white; 
+}
 
 
 </style>
@@ -70,110 +84,43 @@
 			<h3 class="title1">자주하는 질문</h3>
 			<br>
 			<div class="container text-center">
-				<div class="accordion" id="accordionFlushExample">
-					  <div class="accordion-item">
-					    <h2 class="accordion-header" id="flush-headingOne">
-					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false">
-					       	<div class="questionSubject">
-					       		<h3>Q&nbsp;</h3>
-					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
-					       	</div>
-					      </button>
-					    </h2>
-					    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">
-					      		<div class="questionContentSize" >
-									<div >
-										<h3 class="questionContentADetail">A</h3>
-										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
-									</div>	
-								</div>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="accordion-item">
-					    <h2 class="accordion-header" id="flush-headingTwo">
-					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false">
-					        <div class="questionSubject">
-					       		<h3>Q&nbsp;</h3>
-					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
-					       	</div>
-					      </button>
-					    </h2>
-					    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">
-					      		<div class="questionContentSize" >
-									<div >
-										<h3 class="questionContentADetail">A</h3>
-										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
-									</div>	
-								</div>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="accordion-item">
-					    <h2 class="accordion-header" id="flush-headingThree">
-					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false">
-					        <div class="questionSubject">
-					       		<h3>Q&nbsp;</h3>
-					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
-					       	</div>
-					      </button>
-					    </h2>
-					    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">
-					      		<div class="questionContentSize" >
-									<div >
-										<h3 class="questionContentADetail">A</h3>
-										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
-									</div>	
-								</div>					      
-				     		</div>
-					    </div>			    
-	  				</div>
-	  				 <div class="accordion-item">
-					    <h2 class="accordion-header" id="flush-headingFour">
-					      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false">
-					        <div class="questionSubject">
-					       		<h3>Q&nbsp;</h3>
-					       		<span>어쩌고 저쩌고고고고 왈라왈라라라랄 가능한가요 ?? </span>
-					       	</div>
-					      </button>
-					    </h2>
-					    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-					      <div class="accordion-body">
-					      		<div class="questionContentSize" >
-									<div >
-										<h3 class="questionContentADetail">A</h3>
-										<span class="questionContentMainDetail" >메인의 '카테고리' 메뉴를 누르면 해당 페이지로 이동가능합니다. 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요 그리고 ~~~~도 가능합니다. ~~~~~ 밖에 눈이 옵니다. 모두 우산을 챙기세요</span>
-									</div>	
-								</div>					      
-						  </div>
-					    </div>
-					  </div>
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<div class="accordion" id="accordionFlushExample">
+							  <div class="accordion-item">
+							    <h2 class="accordion-header" id="flush-heading-${status.index}">
+							      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-${status.index}" aria-expanded="false">
+							       	<div class="questionSubject">
+							       		<h3>Q&nbsp;</h3>
+							       		<span>${dto.subject}</span>
+							       	</div>
+							      </button>
+							    </h2>
+							    <div id="flush-collapse-${status.index}" class="accordion-collapse collapse" aria-labelledby="flush-heading-${status.index}" data-bs-parent="#accordionFlushExample">
+							      <div class="accordion-body">
+							      		<div class="questionContentSize" >
+											<div >
+												<h3 class="questionContentADetail">A</h3>
+												<span class="questionContentMainDetail">${dto.content}</span>
+											</div>	
+										</div>
+							      </div>
+							    </div>
+							  </div>
+					</c:forEach>
 				</div>
-			
 			</div>
 		</div>
 
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+	
+			
+			<div class="page-navigation">
+				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+			</div>
 
+
+<ul id="pagination-demo" class="pagination-sm"></ul>
 		</div>
 
 
 	</div>
-
-
 </div>

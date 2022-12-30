@@ -32,9 +32,9 @@
 		
 		
 	<select id="readQuestion" parameterType="Long" resultType="com.sp.app.qna.Qna">
-		SELECT m.userName, q.num, q.subject, q.content, q.reg_date 
+		SELECT m.userName, q.userId, q.num, q.subject, q.content, q.reg_date 
 			FROM INQUIRYBOARD q 
-			JOIN member1 m ON m.userId = 'admin'
+			JOIN member1 m ON q.userId = m.userId
 			WHERE num = #{num}
 	</select>
 	
@@ -48,12 +48,13 @@
 	
 	<update id="updateQna" parameterType="com.sp.app.qna.Qna">
 		UPDAET INQUIRYBOARD SET subject=#{subject}, content=#{content}
-			WHERE num = #{num}
+			WHERE num = #{num} AND userId = #{userId}	
 	</update>
 	
 
 	<delete id="deleteQna" parameterType="Long">
-		  DELETE FROM INQUIRYBOARD WHERE num = #{num}
+		  DELETE FROM INQUIRYBOARD 
+		  	WHERE num = #{num}
 	</delete>
 	
 	

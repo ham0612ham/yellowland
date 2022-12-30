@@ -11,6 +11,7 @@ public class Qna {
 	private Integer parent;
 	private int qnaPwd;
 	private long replyNum;
+	private int questionPrivate;
 	
 
 	public long getReplyNum() {
@@ -67,6 +68,12 @@ public class Qna {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public int getQuestionPrivate() {
+		return questionPrivate;
+	}
+	public void setQuestionPrivate(int questionPrivate) {
+		this.questionPrivate = questionPrivate;
 	}
 
 	

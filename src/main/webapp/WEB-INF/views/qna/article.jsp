@@ -37,9 +37,9 @@
 
 <script type="text/javascript">
 <c:if test="${sessionScope.member.userId==dto.userId}">
-function deleteOk(num, mode) {
+function deleteOk(num) {
     if(confirm("문의글을 삭제 하시 겠습니까 ? ")) {
-    	let query = "num="+num+"&mode="+mode+"&${query}";
+    	let query = "num="+num+"&page=${page}";
 	    let url = "${pageContext.request.contextPath}/qna/delete?" + query;
     	location.href = url;
     }
@@ -81,7 +81,7 @@ function deleteOk(num, mode) {
 
 		<c:choose>
 			<c:when test="${sessionScope.member.userId==dto.userId}">
-				<button type="button" class="btn btn-light" style="margin-right: 10px;" onclick="deleteQna();">삭제</button>
+				<button type="button" class="btn btn-light" style="margin-right: 10px;" onclick="deleteOk(${dto.num});">삭제</button>
 			</c:when>
 			<c:otherwise>
 				<button type="button" class="btn btn-light" disabled="disabled">삭제</button>

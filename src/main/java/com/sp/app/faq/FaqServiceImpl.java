@@ -15,7 +15,7 @@ public class FaqServiceImpl implements FaqService{
 	
 	
 	@Override
-	public List<Faq> ListFap(Map<String, Object> map) {
+	public List<Faq> ListFaq(Map<String, Object> map) {
 		List<Faq> list = null;
 		
 		try {
@@ -26,5 +26,31 @@ public class FaqServiceImpl implements FaqService{
 		
 		return list;
 	}
+	
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("faq.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return result;
+	}
+	
+	@Override
+	public Faq readFaq(long num) {
+		Faq dto = null;
+		
+		try {
+			dto = dao.selectOne("faq.readFaq", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
 
 }

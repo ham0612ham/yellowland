@@ -7,7 +7,15 @@ public class Notice {
 	private String content;
 	private String subject;
 	private String reg_date;
+	private int hitCount;
 	
+	
+	public int getHitCount() {
+		return hitCount;
+	}
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
+	}
 	public long getNum() {
 		return num;
 	}

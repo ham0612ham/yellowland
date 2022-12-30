@@ -116,7 +116,8 @@
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dto.num}</th>
-								<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</td>
+									<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</td>
+								
 								<td>${dto.userName}</td>
 								<td>${dto.replyNum==1?"답변완료":"-"}</td>
 								<td>${dto.reg_date}</td>
@@ -129,10 +130,10 @@
 				</div>
 			</div>
 
+
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-
 
 
 

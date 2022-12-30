@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<!-- 시퀀스 -->
+	<select id="seq" resultType="Long">
+		SELECT notice_seq.NEXTVAL FROM dual
+	</select>
+	
+	<!-- 데이터 갯수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM notice n
+		JOIN member1 m ON n.userId=m.userId
+	</select>
+	
+	<!-- 리스트 -->
+	<select id="listNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
+		SELECT n.num, notice, n.userId, userName, subject, hitCount, 
+				TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
+				NVL(fileNum, 0) fileNum
+		FROM notice n
+		JOIN member1 m ON n.userId=m.userId
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileNum FROM noticeFile
+			GROUP BY num
+		) f ON n.num=f.num
+		ORDER BY num DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 글 보기 -->
+	<select id="readNotice" parameterType="Long" resultType="com.sp.app.notice.Notice">
+		SELECT num, n.userId, userName, subject, content, reg_date, hitCount, notice
+		FROM notice n
+		JOIN member1 m ON n.userId=m.userId 
+		WHERE num = #{num}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE notice SET hitCount=hitCount+1 WHERE num = #{num}
+	</update>
+	
+	<!-- 이전글 -->
+	<select id="preReadNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
+		SELECT num, subject
+		FROM notice n
+		JOIN member1 m ON n.userId=m.userId
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<!-- 다음글 -->
+	<select id="nextReadNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
+		SELECT num, subject
+		FROM notice n
+		JOIN member1 m ON n.userId=m.userId
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<!-- 파일 보기 -->
+	<select id="readFile" parameterType="Long" resultType="com.sp.app.notice.Notice">
+		SELECT fileNum, num, saveFilename, oriFilename
+		FROM noticeFile
+	    WHERE fileNum=#{fileNum}  
+	</select>
+	
+	<!-- 파일 리스트 -->
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.notice.Notice">
+		SELECT fileNum, num, saveFilename, oriFilename
+		FROM noticeFile
+		WHERE num=#{num}  
+	</select>
+	
+
+</mapper>

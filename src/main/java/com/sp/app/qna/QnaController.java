@@ -1,7 +1,6 @@
 package com.sp.app.qna;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +46,6 @@ public class QnaController {
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("condition", condition);
-		map.put("keyword", keyword);
 		
 		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(dataCount, size);
@@ -68,10 +65,7 @@ public class QnaController {
 		String query = "";
 		String listUrl = cp + "/qna/list";
 		String articleUrl = cp + "/qna/article?page=" + current_page;
-		if (keyword.length() != 0) {
-			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
-		}
-		
+	
 		if (query.length() != 0) {
 			listUrl = cp + "/qna/list?" + query;
 			articleUrl = cp + "/qna/article?page=" + current_page + "&" + query;
@@ -87,10 +81,6 @@ public class QnaController {
 		model.addAttribute("size", size);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
-
-		model.addAttribute("condition", condition);
-		model.addAttribute("keyword", keyword);
-		
 	
 		return ".qna.list";
 	}
@@ -98,7 +88,7 @@ public class QnaController {
 	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String writeForm(Model model) throws Exception {
 		
-		model.addAttribute("mode", "write");
+		model.addAttribute("write");
 		return ".qna.write";
 	}
 	
@@ -125,13 +115,12 @@ public class QnaController {
 			Model model) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Qna dto = service.readQna(num);
+		
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query = "page=" + page;
-		if (keyword.length() != 0) {
-			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
-		}
-		
+
 		Qna QnaDto = service.readQna(num);
 		if (QnaDto == null) {
 			return "redirect:/qna/list?" + query;
@@ -139,12 +128,6 @@ public class QnaController {
 	
 		QnaDto.setContent(QnaDto.getContent().replaceAll("\n", "<br>"));
 		
-		// 이전 글, 다음 글
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("num", QnaDto.getNum());
-		map.put("condition", condition);
-		map.put("keyword", keyword);
-
 		model.addAttribute("dto", QnaDto);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
@@ -188,7 +171,7 @@ public class QnaController {
 		}
 		
 		
-		return "retirect:/qna/list?page=" + page;
+		return "retirect:/qna/list" ;
 	}
 	
 	// 댓글 리스트 -> AJAX 
@@ -217,35 +200,22 @@ public class QnaController {
 	@RequestMapping(value = "delete")
 	public String delete(@RequestParam long num,
 			@RequestParam String page,
-			@RequestParam String mode,
-			@RequestParam(defaultValue = "all") String condition,
-			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-		keyword = URLDecoder.decode(keyword, "utf-8");
-		String query = "page=" + page;
-		if (keyword.length() != 0) {
-			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
-		}
 		
 		Qna dto = service.readQna(num);
 		
 		if (dto != null) {
-			if (info.getUserId().equals(dto.getUserId()) || info.getMembership() > 50) {
+			if (info.getUserId().equals(dto.getUserId())) {
 				try {
-					if (mode.equals("question")) {
-						service.deleteQna(num);
-					} else if (mode.equals("answer")) {
-						service.deleteQna(num);
-					}
+					service.deleteQna(num);
 				} catch (Exception e) {
 				}
 			}
 		}
 		
 		
-		return "redirect:/qna/list?" + query;
+		return "redirect:/qna/list?"+"page="+page;
 	}
 }

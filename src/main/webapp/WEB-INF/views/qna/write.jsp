@@ -100,6 +100,7 @@ function sendOk() {
 					</tr>
 				</tbody>
 			</table>
+				<input type="hidden" name="num" value="${dto.num}">
 		</form>
 
 

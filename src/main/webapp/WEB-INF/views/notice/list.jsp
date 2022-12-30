@@ -59,77 +59,44 @@
 							<th scope="col">번호</th>
 							<th scope="col">제목</th>
 							<th scope="col">작성일</th>
+							<th scope="col">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-						</tr>
+						<c:forEach var="dto" items="${list}" varStatus="status">
+							<tr>
+								<th scope="row">${dto.num}</th>
+								<td>
+								<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</td>
+								<td>${dto.reg_date}</td>
+								<td>${dto.hitCount}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+			<div class="page-navigation">
+				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+			</div>
+			
+			<div class="col-6 text-center">
+					<form class="row" name="searchForm" action="${pageContext.request.contextPath}/notice/list" method="post">
+						<div class="col-auto p-1">
+							<select name="condition" class="form-select">
+								<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
+								<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+								<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+							</select>
+						</div>
+						<div class="col-auto p-1">
+							<input type="text" name="keyword" value="${keyword}" class="form-control">
+						</div>
+						<div class="col-auto p-1">
+							<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+						</div>
+					</form>
+				</div>
 
 		</div>
 
