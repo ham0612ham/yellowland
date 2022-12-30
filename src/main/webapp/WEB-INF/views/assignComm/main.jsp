@@ -394,19 +394,26 @@ $(function() {
     <div id="mapWrapper">
         <div id="map">
 			<div class="search">
+				<div>주소 검색</div>
 				<input type="text" id="data" placeholder="ex)마포구 월드컵북로 21">
-				<i onclick="search();" class="fa-solid fa-magnifying-glass" style="cursor: pointer;"></i>
-				<i onclick="getLocation();" class="fa-solid fa-location-crosshairs" style="cursor: pointer;"></i>
-			    <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-			        <i class="fa-regular fa-circle-question" style="color: black;"></i>
-			    </a>
+				<button id="aSearch" class="btn btn-primary" onclick="search();" type="button"><i class="fa-solid fa-magnifying-glass"></i></button> 
 			</div>
 		</div>
-        <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+		<div class="tri-menu">
+	        <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+	        <div>
+	        	<img class="gps" style="right: 568px;" onclick="getLocation();" src="${pageContext.request.contextPath}/resources/images/gps.png" alt="gps" style="cursor: pointer;">
+		    </div>
+		    <div>
+		    	<!-- javascript:void(0) : a태그의 페이지 전환 무효화 -->
+		    	<a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+		    		<img class="gps" src="${pageContext.request.contextPath}/resources/images/question.png" alt="question">
+			    </a>
+		    </div>
+	    </div>
         <div class="assign-class">
-        	<!-- <div class="assign-count">지역 목록 5개</div>  -->
 			<ul class="assign-ul">
-				<li class="assign-count">지역 목록 5개</li>
+				<li class="assign-count">지역 목록 6개</li>
 				<c:forEach var="dto" items="${list}">
 					<li class="assign-list" onclick="detailPage(${dto.num});"> <!-- href="${pageContext.request.contextPath}/assignComm/detail?num=${dto.num}" -->
 						<!-- <a class="detail-list" onclick="detailPage(${dto.num});">눌러봐</a>  -->
@@ -432,8 +439,9 @@ $(function() {
 	        <div class="option">
 	            <div>
 	                <form onsubmit="searchPlaces(); return false;">
-	                    키워드 : <input type="text" id="keyword" size="15" placeholder="ex) 홍대맛집"> 
-	                    <button class="btn btn-primary" type="submit">검색하기</button> 
+	                	<div>키워드 검색</div>
+	                    <input type="text" id="keyword" size="15" placeholder="ex) 홍대맛집"> 
+	                    <button id="kSearch" class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> 
 	                </form>
 	            </div>
 	        </div>
@@ -444,41 +452,42 @@ $(function() {
 	    
 	    <div class="mapInfo">
 	    	<div class="mapType">
-			    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도
-			    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보
-			    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보    
-			    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로
+	    		<i class="fa-solid fa-mound"></i>&nbsp; 지형정보 <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" />
+			    <i class="fa-solid fa-mountain-city"></i>&nbsp; 지적편집도 <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" />
+			</div>
+			<div class="mapType">
+			   <i class="fa-solid fa-car-side"></i>&nbsp; 교통정보  <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" />  
+			   <i class="fa-solid fa-person-biking"></i>&nbsp; 자전거도로 <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" />
 			</div>
 			<div id="clickLatlng"></div>
 	    </div>
 	    
 	    <ul id="category">
 	        <li id="BK9" data-order="0"> 
-	            <span class="bank"></span>
+	            <span class="bank"><i class="fa-solid fa-piggy-bank"></i></span>
 	            	은행
 	        </li>       
 	        <li id="MT1" data-order="1"> 
-	            <span class="mart"></span><i class="fa-regular fa-user"></i>
+	            <span class="mart"><i class="fa-solid fa-store"></i></span>
 	            	마트
 	        </li>  
 	        <li id="PM9" data-order="2"> 
-	            <span class="pharmacy"></span>
+	            <span class="pharmacy"><i class="fa-solid fa-hospital"></i></span>
 	           	 	약국
 	        </li>  
 	        <li id="OL7" data-order="3"> 
-	            <span class="oil"></span>
+	            <span class="oil"><i class="fa-solid fa-oil-can"></i></span>
 	           		 주유소
 	        </li>  
 	        <li id="CE7" data-order="4"> 
-	            <span class="cafe"></span>
+	            <span class="cafe"><i class="fa-solid fa-mug-hot"></i></span>
 	            	카페
 	        </li>  
 	        <li id="CS2" data-order="5"> 
-	            <span class="store"></span>
+	            <span class="store"><i class="fa-solid fa-bottle-water"></i></span>
 	            	편의점
 	        </li>      
     	</ul>
-    	
     </div>
 </div>
 

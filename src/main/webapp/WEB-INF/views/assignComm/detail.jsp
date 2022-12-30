@@ -71,13 +71,12 @@ function backButton() {
 	<div class="detail-view">
 		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 		    <div class="carousel-inner">
+		    	<img class="back" onclick="backButton();" src="${pageContext.request.contextPath}/resources/images/back.png">
 		    	<div class="carousel-item active">
-		    		<img class="back" onclick="backButton();" src="${pageContext.request.contextPath}/resources/images/back.png">
 			      	<img class="detail-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}" class="d-block w-100">
 			    </div>
 				<c:forEach var="img" items="${imgList}">
 				    <div class="carousel-item active">
-				    	<img class="back" onclick="backButton();" src="${pageContext.request.contextPath}/resources/images/back.png">
 				      	<img class="detail-img" src="${pageContext.request.contextPath}/uploads/image/${img.imgName}" class="d-block w-100">
 				    </div>	
 				</c:forEach>

@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
+*.not(i):after, *.not(i):before
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:-660px;left:0;bottom:0;width:250px;height:490px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top: -625px;left:0;bottom:0;width:250px;height:490px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 1px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option{text-align: left;}
+#menu_wrap .option input {width: 200px;border: 1px solid #bbb;border-radius: 8px;padding: 3px 10px;font-size: 14px;}  
 #menu_wrap .option button {margin-left:5px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
@@ -43,12 +44,20 @@
 #mapWrapper {width:100%; height:700px; z-index:1; display: flex;}
 #rvWrapper {width:33%;height:300px;top:0;right:0;position:absolute;z-index:0;}
 #container.view_roadview #mapWrapper {width: 100%;}
-#roadviewControl {position:absolute;top:2px;right: 530px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
+#roadviewControl {position: absolute;
+    top: 2px;
+    right: 611px;
+    width: 41px;
+    height: 38px;
+    z-index: 1;
+    cursor: pointer;
+    background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;
+}}
 #roadviewControl.active {background-position:0 -350px;}
-#close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
+#close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 1px 1px #888;}
 #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
 
-#category {position:absolute;top:49px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden; z-index: 2; width: 302px;}
+#category {position:absolute;top: 44px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden; z-index: 2; width: 302px;}
 #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
 #category li.on {background: #eee;}
 #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
@@ -62,10 +71,11 @@
 #category li .cafe {background-position: -10px -144px;}
 #category li .store {background-position: -10px -180px;}
 #category li.on .category_bg {background-position-x:-46px;}
+#category li span > i {color: #36C88A; box-shadow: 1px 1px 2px;}
 
 .placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
 .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
-.placeinfo:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.placeinfo:nth-of-type(n) {border:0; box-shadow:1px 1px 2px #888;}
 .placeinfo_wrap .after {content:'';position:relative;margin-left:-12px;left:50%;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .placeinfo a, .placeinfo a:hover, .placeinfo a:active{color:#fff;text-decoration: none;}
 .placeinfo a, .placeinfo span {display: block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
@@ -109,11 +119,17 @@ main {
 }
 
 .search {
-    position: absolute; 
+    position: absolute;
     z-index: 10;
- 	width: 300px;
- 	left: 10px;
- 	top: 10px;
+    width: 250px;
+    left: 10px;
+    top: -1px;
+    height: 65px;
+    margin: 10px 0 30px 0;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.7);
 }
 
 #data {
@@ -122,6 +138,7 @@ main {
   border-radius: 8px;
   padding: 3px 10px;
   font-size: 14px;
+  margin-right: 4px;
 }
 
 i {
@@ -334,11 +351,75 @@ ul {
 .mapInfo {
 	position: absolute;
     z-index: 2;
-    margin-top: -15px;
     margin-left: 10px;
-    box-shadow: 1px 1px 3px;
+    box-shadow: 2px 2px 3px rgb(0 0 0 / 40%);
     background-color: white;
     border-radius: 5px;
     padding: 2px;
-    margin-top: 25px;
+    margin-top: -20px;
+    padding-top: 4px;
 }
+
+.mapType > i {
+	color: #36C88A;
+    box-shadow: 1px 1px 2px;
+}
+
+#kSearch, #aSearch {
+    padding: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.tri-menu {
+	display: flex;
+}
+
+.gps {
+    width: 36px;
+    margin: 5px;
+    position: absolute;
+    right: 528px;
+    z-index: 1;
+    top: -2px;
+    background: white;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
+}
+
+#asDetail {
+    overflow: auto;
+  }
+  #asDetail::-webkit-scrollbar {
+    width: 10px;
+  }
+  #asDetail::-webkit-scrollbar-thumb {
+    background-color: #36C884;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  #asDetail::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+  
+.assign-ul {
+    overflow: auto;
+  }
+.assign-ul::-webkit-scrollbar {
+    width: 10px;
+  }
+.assign-ul::-webkit-scrollbar-thumb {
+    background-color: #36C884;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+.assign-ul::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }  
