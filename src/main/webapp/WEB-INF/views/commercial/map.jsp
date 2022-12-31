@@ -94,6 +94,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .rank-region { width: 140px; }
 .rank-value { width: 90px; font-weight: 600; text-align: right; padding-right: 5px; }
 .rank-percent { min-width: 60px; text-align: right; color: #36C88A; }
+.rank-per-red{ color:#e02171 }
 .horiz { margin: 3px 0; }
 .show-hide-btn { float: right; cursor: pointer; margin-bottom: 3px; }
 .show-hide-btn > img { padding-bottom: 5px; }

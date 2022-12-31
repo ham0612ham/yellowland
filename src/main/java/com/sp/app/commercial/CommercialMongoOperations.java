@@ -209,7 +209,124 @@ public class CommercialMongoOperations {
 		}
 		return list;
 	}
+	
+	public List<Sg_store_top10> list_sg_store_top10(Form form, List<Long> dongList) {
+		List<Sg_store_top10> list = new ArrayList<Sg_store_top10>();
+		List<Sg_store> list1 = null;
+		List<Sg_store> list2 = null;
+		Sg_store_top10 top10 = null;
+		
+		String menu = form.getSelectMenu1();
+		String work = form.getSelectWork();
+		
+		work = work.equals("all") || work.equals(null) ? menu : work;
+		
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		try {
+			for(Long dong : dongList) {
+				top10 = new Sg_store_top10();
+				if (menu.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
+				} else if(!menu.equals("all") && work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").is(work));
+				}
+				groupOperation = Aggregation.group("dongNum").sum("storeSu").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				AggregationResults<Sg_store> result1 = mongo.aggregate(aggregation, "sg_store", Sg_store.class);
+				list1 = result1.getMappedResults();
+				
+				if (menu.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
+				} else if(!menu.equals("all") && work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").is(work));
+				}
+				groupOperation = Aggregation.group("dongNum").sum("storeSu").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				AggregationResults<Sg_store> result2 = mongo.aggregate(aggregation, "sg_store", Sg_store.class);
+				list2 = result2.getMappedResults();
+				for(int i=0; i<list1.size(); i++) {
+					Sg_store dto1 = list1.get(i);
+					Sg_store dto2 = list2.get(i);
+					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setDongNum(dong);
+					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
+					top10.setRatio(ratio);
+				}
+				if(top10.getDongNum() != 0) {
+					list.add(top10);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
+	public List<Sg_sales_top10> list_sg_sales_top10(Form form, List<Long> dongList) {
+		List<Sg_sales_top10> list = new ArrayList<Sg_sales_top10>();
+		List<Sg_sales> list1 = null;
+		List<Sg_sales> list2 = null;
+		Sg_sales_top10 top10 = null;
+		
+		String menu = form.getSelectMenu1();
+		String work = form.getSelectWork();
+
+		work = work.equals("all") || work.equals(null) ? menu : work;
+		
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		try {
+			for(Long dong : dongList) {
+				top10 = new Sg_sales_top10();
+				if (menu.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
+				} else if(!menu.equals("all") && work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").is(work));
+				}
+				groupOperation = Aggregation.group("dongNum").sum("salesSu_quarter").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				AggregationResults<Sg_sales> result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
+				list1 = result1.getMappedResults();
+				
+				if (menu.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
+				} else if(!menu.equals("all") && work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").is(work));
+				}
+				groupOperation = Aggregation.group("dongNum").sum("salesSu_quarter").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				AggregationResults<Sg_sales> result2 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
+				list2 = result2.getMappedResults();
+				for(int i=0; i<list1.size(); i++) {
+					Sg_sales dto1 = list1.get(i);
+					Sg_sales dto2 = list2.get(i);
+					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setDongNum(dong);
+					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
+					top10.setRatio(ratio);
+				}
+				if(top10.getDongNum() != 0) {
+					list.add(top10);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 	public List<Sg_float_top10> list_sg_float_top10(Form form, List<Long> dongList) {
 		List<Sg_float_top10> list = new ArrayList<Sg_float_top10>();
 		List<Sg_float> list1 = null;
@@ -225,10 +342,8 @@ public class CommercialMongoOperations {
 		MatchOperation matchOperation = null;
 		GroupOperation groupOperation = null;
 		Aggregation aggregation = null;
-		System.out.println(sum);
 		try {
 			for(Long dong : dongList) {
-				System.out.println(dong);
 				top10 = new Sg_float_top10();
 				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
 				groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
@@ -248,8 +363,6 @@ public class CommercialMongoOperations {
 					top10.setDongNum(dong);
 					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
 					top10.setRatio(ratio);
-					System.out.print(dto1.getTot()+"  ");
-					System.out.println(dto2.getTot());
 				}
 				if(top10.getDongNum() != 0) {
 					list.add(top10);

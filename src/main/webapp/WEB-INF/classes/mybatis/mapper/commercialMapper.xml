@@ -12,6 +12,10 @@
 		WHERE siguNum = #{siguNum}
 	</select>
 	
+	<select id="allDong" resultType="Long">
+		SELECT dongNum FROM dong
+	</select>
+	
 	<select id="getSiguLatLong" parameterType="String" resultType="com.sp.app.commercial.Position">
 		SELECT latitude, longitude FROM categoryGu
 		WHERE siguNum = #{siguNum}

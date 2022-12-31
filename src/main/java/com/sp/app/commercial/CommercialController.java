@@ -152,14 +152,26 @@ public class CommercialController {
 	@ResponseBody
 	public Map<String, Object> getStoCouRankLists(Form form){
 		List<Sg_store_top10> list = new ArrayList<Sg_store_top10>();
+		String siguNum = form.getSiguNum();
+		Position pos = new Position();
 		try {
 			list = service.list_sg_store_top10(form);
 			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
 		
 		return map;
 	}
@@ -168,14 +180,26 @@ public class CommercialController {
 	@ResponseBody
 	public Map<String, Object> getSalesRankLists(Form form){
 		List<Sg_sales_top10> list = new ArrayList<Sg_sales_top10>();
+		String siguNum = form.getSiguNum();
+		Position pos = new Position();
 		try {
 			list = service.list_sg_sales_top10(form);
 			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
 		
 		return map;
 	}
@@ -183,7 +207,6 @@ public class CommercialController {
 	@RequestMapping(value="getMPopRankLists")
 	@ResponseBody
 	public Map<String, Object> getMPopRankLists(Form form){
-		System.out.println("getMPopRankLists");
 		List<Sg_float_top10> list = new ArrayList<Sg_float_top10>();
 		String siguNum = form.getSiguNum();
 		Position pos = new Position();
@@ -212,7 +235,6 @@ public class CommercialController {
 	@RequestMapping(value="getHPopRankLists")
 	@ResponseBody
 	public Map<String, Object> getHPopRankLists(Form form) throws Exception {
-		System.out.println("getHPopRankLists");
 		List<Sg_citizen_top10> list = new ArrayList<Sg_citizen_top10>();
 		String siguNum = form.getSiguNum();
 		Position pos = new Position();

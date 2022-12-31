@@ -14,6 +14,7 @@ $(function(){
 		console.log("갔다옴");
 		let obj2 = new Array();
 		$(data.list).each(function(index, item){
+			let ud = item.ratio >= 0 && item.chai >= 0 ? "↑" : "↓";
 			let color = "white";
 			if(index < 3) color = "yellow";
 			let objs = new Object();
@@ -24,7 +25,7 @@ $(function(){
 			innerHtml += "<div class='ranks d-flex flex-row'><div class='rank'>"
 				+(index+1)+"</div><div class='rank-region'>"+item.dongName
 				+"</div><div class='rank-value'>"+item.chai
-				+dan+"</div><div class='rank-percent'>"+item.ratio+"% ↑</div></div><hr class='horiz'>";
+				+dan+"</div><div class='rank-percent'>"+item.ratio+"% "+ud+"</div></div><hr class='horiz'>";
 		});
 		$("#rank-lists").html(innerHtml);
 		makeMap(level, lat1, long1, obj2);
@@ -33,7 +34,6 @@ $(function(){
 	ajaxFun(url, "get", query, "json", fn);
 });
 
-// 주거인구를 눌렀을 때
 $(function(){
 	$("input[name=selectMenu]").change(function(){
 		let menu = $(this).val();
@@ -58,7 +58,9 @@ $(function(){
 			console.log("갔다옴");
 			let obj2 = new Array();
 			$(data.list).each(function(index, item){
+				let ud = item.ratio >= 0 && item.chai >= 0 ? "↑" : "↓";
 				let color = "white";
+				let pcolor = item.ratio >= 0 && item.chai >= 0 ? "" : "rank-per-red";
 				if(index < 3) color = "yellow";
 				let objs = new Object();
 				objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"+item.dongName+"' data-lat='"+item.latitude+"' data-long='"+item.longitude+"'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='/app/resources/images/rank_"+color+".png'></div><div class='marker-rank-text'><p>"+(index+1)+"</p></div></div><div class='marker-region-name'>"+item.dongName+"</div><div class='marker-sales-total'>"+item.chai+dan+"</div></div>";
@@ -68,7 +70,7 @@ $(function(){
 				innerHtml += "<div class='ranks d-flex flex-row'><div class='rank'>"
 					+(index+1)+"</div><div class='rank-region'>"+item.dongName
 					+"</div><div class='rank-value'>"+item.chai
-					+dan+"</div><div class='rank-percent'>"+item.ratio+"% ↑</div></div><hr class='horiz'>";
+					+dan+"</div><div class='rank-percent "+pcolor+"'>"+item.ratio+"% "+ud+"</div></div><hr class='horiz'>";
 			});
 			if (siguNum !== "all") {
 				level = data.level;
@@ -108,20 +110,21 @@ $(function(){
 		alert(query);
 		
 		const fn = function(data) {
-			console.log("갔다옴");
 			let obj2 = new Array();
 			$(data.list).each(function(index, item){
+				let ud = item.ratio >= 0 && item.chai >= 0 ? "↑" : "↓";
 				let color = "white";
+				let pcolor = item.ratio >= 0 && item.chai >= 0 ? "" : "rank-per-red";
 				if(index < 3) color = "yellow";
 				let objs = new Object();
-				objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"+item.dongName+"' data-lat='"+item.latitude+"' data-long='"+item.longitude+"'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='/app/resources/images/rank_"+color+".png'></div><div class='marker-rank-text'><p>"+(index+1)+"</p></div></div><div class='marker-region-name'>"+item.dongName+"</div><div class='marker-sales-total'>"+item.chai+"명</div></div>";
+				objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"+item.dongName+"' data-lat='"+item.latitude+"' data-long='"+item.longitude+"'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='/app/resources/images/rank_"+color+".png'></div><div class='marker-rank-text'><p>"+(index+1)+"</p></div></div><div class='marker-region-name'>"+item.dongName+"</div><div class='marker-sales-total'>"+item.chai+dan+"</div></div>";
 				objs.latlng = new kakao.maps.LatLng(item.latitude, item.longitude)
 				obj2.push(objs);
 				
 				innerHtml += "<div class='ranks d-flex flex-row'><div class='rank'>"
 							+(index+1)+"</div><div class='rank-region'>"+item.dongName
 							+"</div><div class='rank-value'>"+item.chai
-							+dan+"</div><div class='rank-percent'>"+item.ratio+"% ↑</div></div><hr class='horiz'>";
+							+dan+"</div><div class='rank-percent "+pcolor+"'>"+item.ratio+"% "+ud+"</div></div><hr class='horiz'>";
 			});
 			if (siguNum !== "all") {
 				level = data.level;

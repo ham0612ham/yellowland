@@ -68,8 +68,12 @@ public class CommercialServiceImpl implements CommercialService {
 			}
 			
 			for(int i=0; i<list.size(); i++) {
-				long chai = list.get(i).getChai()/1000;
-				chai = chai == 0 ? 1 : chai;
+				long chai = list.get(i).getChai();
+				if(chai > 0) {
+					chai = chai / 1000 == 0 ? 1 : chai / 1000;
+				} else {
+					chai = chai / 1000 == 0 ? -1 : chai / 1000;
+				}
 				list.get(i).setChai(chai);
 				Position po = dao.selectOne("commercial.getLongLat_dong", list.get(i).getDongNum());
 				if(po != null) {
@@ -190,14 +194,89 @@ public class CommercialServiceImpl implements CommercialService {
 
 	@Override
 	public List<Sg_store_top10> list_sg_store_top10(Form form) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Sg_store_top10> list = null;
+		String siguNum = form.getSiguNum();
+		try {
+			if(siguNum.equals("all")) {
+				List<Long> dongList = dao.selectList("commercial.allDong");
+				list = commercialMongo.list_sg_store_top10(form, dongList);
+			} else {
+				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
+				list = commercialMongo.list_sg_store_top10(form, dongList);
+			}
+			for(int i=0; i<list.size(); i++) {
+				Position po = dao.selectOne("commercial.getLongLat_dong", list.get(i).getDongNum());
+				if(po != null) {
+					list.get(i).setLatitude(po.getLatitude());
+					list.get(i).setLongitude(po.getLongitude());
+					list.get(i).setDongName(po.getDongName());
+				}
+			}
+			
+			if (!siguNum.equals("all")) {
+				for (int i = 1; i < list.size(); i++) {
+					for (int j = 0; j < list.size() - i; j++) {
+						if (list.get(j).getChai() < list.get(j + 1).getChai()) {
+							Collections.swap(list, j, j + 1);
+						}
+					}
+				}
+			}
+			if (list.size() > 10) {
+				list = list.subList(0, 10);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	@Override
 	public List<Sg_sales_top10> list_sg_sales_top10(Form form) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Sg_sales_top10> list = null;
+		String siguNum = form.getSiguNum();
+		try {
+			if(siguNum.equals("all")) {
+				List<Long> dongList = dao.selectList("commercial.allDong");
+				list = commercialMongo.list_sg_sales_top10(form, dongList);
+			} else {
+				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
+				list = commercialMongo.list_sg_sales_top10(form, dongList);
+			}
+			
+			for(int i=0; i<list.size(); i++) {
+				long chai = list.get(i).getChai();
+				if(chai > 0) {
+					chai = chai / 1000 == 0 ? 1 : chai / 1000;
+				} else {
+					chai = chai / 1000 == 0 ? -1 : chai / 1000;
+				}
+				list.get(i).setChai(chai);
+				Position po = dao.selectOne("commercial.getLongLat_dong", list.get(i).getDongNum());
+				if(po != null) {
+					list.get(i).setLatitude(po.getLatitude());
+					list.get(i).setLongitude(po.getLongitude());
+					list.get(i).setDongName(po.getDongName());
+				}
+			}
+			
+			if (!siguNum.equals("all")) {
+				for (int i = 1; i < list.size(); i++) {
+					for (int j = 0; j < list.size() - i; j++) {
+						if (list.get(j).getRatio() < list.get(j + 1).getRatio()) {
+							Collections.swap(list, j, j + 1);
+						}
+					}
+				}
+			}
+			if (list.size() > 10) {
+				list = list.subList(0, 10);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
@@ -207,7 +286,8 @@ public class CommercialServiceImpl implements CommercialService {
 		String siguNum = form.getSiguNum();
 		try {
 			if(siguNum.equals("all")) {
-				list = commercialMongo.list_sg_float_top10();
+				List<Long> dongList = dao.selectList("commercial.allDong");
+				list = commercialMongo.list_sg_float_top10(form, dongList);
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_float_top10(form, dongList);
@@ -247,7 +327,8 @@ public class CommercialServiceImpl implements CommercialService {
 		String siguNum = form.getSiguNum();
 		try {
 			if(siguNum.equals("all")) {
-				list = commercialMongo.list_sg_citizen_top10();
+				List<Long> dongList = dao.selectList("commercial.allDong");
+				list = commercialMongo.list_sg_citizen_top10(form, dongList);
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_citizen_top10(form, dongList);
