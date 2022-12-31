@@ -21,6 +21,7 @@ public class Sg_store {
 	private long franSu;
 	private String siguNum;
 	private String dongNum;
+	private long tot;
 	
 	public String getyCode() {
 		return yCode;
@@ -123,5 +124,11 @@ public class Sg_store {
 	}
 	public void setDongNum(String dongNum) {
 		this.dongNum = dongNum;
+	}
+	public long getTot() {
+		return tot;
+	}
+	public void setTot(long tot) {
+		this.tot = tot;
 	}
 }

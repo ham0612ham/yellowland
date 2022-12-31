@@ -1,6 +1,6 @@
 package com.sp.app.commercial;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,15 +32,91 @@ public class CommercialController {
 		return ".commercial.map";
 	}
 	
-	@RequestMapping(value="listStore")
-	public void listStore() throws Exception {
-		List<Sg_store> list = null;
+	@RequestMapping(value="sg_store_top10")
+	@ResponseBody
+	public Map<String, Object> sg_store_top10(@RequestParam String siguNum){
+		Sg_store_top10 sg = new Sg_store_top10();
+		sg.setSiguNum(siguNum);
+		List<Sg_store_top10> list = null;
+		Position pos = new Position();
 		try {
-			list = service.list_sg_store();
+			list = service.list_sg_store_top10(sg);
+			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value="sg_sales_top10")
+	@ResponseBody
+	public Map<String, Object> sg_sales_top10(@RequestParam String siguNum){
+		Sg_sales_top10 sg = new Sg_sales_top10();
+		sg.setSiguNum(siguNum);
+		List<Sg_sales_top10> list = null;
+		Position pos = new Position();
+		try {
+			list = service.list_sg_sales_top10(sg);
+			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value="sg_float_top10")
+	@ResponseBody
+	public Map<String, Object> sg_float_top10(@RequestParam String siguNum){
+		Sg_float_top10 sg = new Sg_float_top10();
+		sg.setSiguNum(siguNum);
+		List<Sg_float_top10> list = null;
+		Position pos = new Position();
+		try {
+			list = service.list_sg_float_top10(sg);
+			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
+		
+		return map;
 	}
 	
 	@RequestMapping(value="sg_citizen_top10")
@@ -54,22 +130,102 @@ public class CommercialController {
 			list = service.list_sg_citizen_top10(sg);
 			
 			if( !siguNum.equals("all") ) {
-				for (int i = 1; i < list.size(); i++) {
-					for (int j = 0; j < list.size() - i; j++) {
-						if (list.get(j).getChai() < list.get(j + 1).getChai()) {
-							Collections.swap(list, j, j + 1);
-						}
-					}
-				}
 				pos = service.getSiguLatLong(siguNum);
-			}
-			if(list.size() > 10) {
-				list = list.subList(0, 10);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value="getStoCouRankLists")
+	@ResponseBody
+	public Map<String, Object> getStoCouRankLists(Form form){
+		List<Sg_store_top10> list = new ArrayList<Sg_store_top10>();
+		try {
+			list = service.list_sg_store_top10(form);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		return map;
+	}
+	
+	@RequestMapping(value="getSalesRankLists")
+	@ResponseBody
+	public Map<String, Object> getSalesRankLists(Form form){
+		List<Sg_sales_top10> list = new ArrayList<Sg_sales_top10>();
+		try {
+			list = service.list_sg_sales_top10(form);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		return map;
+	}
+	
+	@RequestMapping(value="getMPopRankLists")
+	@ResponseBody
+	public Map<String, Object> getMPopRankLists(Form form){
+		System.out.println("getMPopRankLists");
+		List<Sg_float_top10> list = new ArrayList<Sg_float_top10>();
+		String siguNum = form.getSiguNum();
+		Position pos = new Position();
+		try {
+			list = service.list_sg_float_top10(form);
+			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value="getHPopRankLists")
+	@ResponseBody
+	public Map<String, Object> getHPopRankLists(Form form) throws Exception {
+		System.out.println("getHPopRankLists");
+		List<Sg_citizen_top10> list = new ArrayList<Sg_citizen_top10>();
+		String siguNum = form.getSiguNum();
+		Position pos = new Position();
+		try {
+			list = service.list_sg_citizen_top10(form);
+			
+			if( !siguNum.equals("all") ) {
+				pos = service.getSiguLatLong(siguNum);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		

@@ -91,9 +91,9 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .rank-div { padding: 0 15px; margin-top: 5px; }
 .ranks > div { font-size: 13px; }
 .rank { width: 20px; text-align: center; }
-.rank-region { width: 160px; }
-.rank-value { width: 70px; font-weight: 600; text-align: right; padding-right: 5px; }
-.rank-percent { width: 50px; text-align: right; color: #36C88A; }
+.rank-region { width: 140px; }
+.rank-value { width: 90px; font-weight: 600; text-align: right; padding-right: 5px; }
+.rank-percent { min-width: 60px; text-align: right; color: #36C88A; }
 .horiz { margin: 3px 0; }
 .show-hide-btn { float: right; cursor: pointer; margin-bottom: 3px; }
 .show-hide-btn > img { padding-bottom: 5px; }
@@ -358,13 +358,13 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				</div>
 				<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist">
 					<input class="nav-link active" id="stoCou" type="radio" role="tab" aria-controls="v-pills-home" name="selectMenu" value="stoCou" checked>
-				    <label for="stoCou" class="div-4" id="stoCou-lav">점포수</label>
+				    <label for="stoCou" class="div-4 selectMenu" id="stoCou-lav">점포수</label>
 				    <input class="nav-link" id="sales" type="radio" role="tab" name="selectMenu" value="sales">
-				    <label for="sales" class="div-4" id="sales-lav">매출</label>
+				    <label for="sales" class="div-4 selectMenu" id="sales-lav">매출</label>
 				    <input class="nav-link" id="mPop" type="radio" role="tab" name="selectMenu" value="mPop">
-					<label for="mPop" class="div-4" id="mPop-lav">유동인구</label>
+					<label for="mPop" class="div-4 selectMenu" id="mPop-lav">유동인구</label>
 				    <input class="nav-link" id="hPop" type="radio" role="tab" name="selectMenu" value="hPop">
-				    <label for="hPop" class="div-4" id="hPop-lav">주거인구</label>
+				    <label for="hPop" class="div-4 selectMenu" id="hPop-lav">주거인구</label>
 				</div>
 			</div>
 		</div>
@@ -372,12 +372,12 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 		<div class="check-area">
 		
 			<div id="form-stoCou-sales">
-				<form name="form-stoCou-sales" method="post">
-					<input type="hidden" name="category" value="">
-					<input type="hidden" name="gu" value="">
+				<form name="form-stoCou-sales">
+					<input type="hidden" name="selectedMenu" value="">
+					<input type="hidden" name="siguNum" value="">
 					<div class="select-title">업종</div>
 					<div class="d-flex justify-content-center">
-						<input id="allJob" type="radio" name="selectMenu1" checked>
+						<input id="allJob" type="radio" name="selectMenu1" checked value="all">
 						<label for="allJob" class="div-4 selMenu-lavs" id="allJob-lav" data-val="all">전체</label>
 						<input id="food" type="radio" role="tab" name="selectMenu1" value="CS1">
 						<label for="food" class="div-4 selMenu-lavs" id="food-lav" data-val="CS1">외식업</label>
@@ -391,14 +391,14 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 							
 						</select>	
 					</div>
-					<button class="btn btn-primary btn-send" style="width: 92%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0">검색</button>
+					<button type="button" class="btn btn-primary btn-send" style="width: 92%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0">검색</button>
 				</form>
 			</div>
 			
 			<div id="form-Pop" style="display: none">
-				<form name="form-Pop" method="post">
-					<input type="hidden" name="category" value="">
-					<input type="hidden" name="gu" value="">
+				<form name="form-Pop">
+					<input type="hidden" name="selectedMenu" value="">
+					<input type="hidden" name="siguNum" value="">
 					<div class="select-title">성별</div>
 					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
 						<input type="radio" class="btn-check" name="gender" id="allGender" autocomplete="off" checked value="allGender">
@@ -416,8 +416,8 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					    <input type="radio" class="btn-check" name="week" id="allWeek" autocomplete="off" checked value="allWeek">
 					    <label class="btn btn-outline-primary" for="allWeek" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">전체</label>
 						
-					    <input type="radio" class="btn-check" name="week" id="week" autocomplete="off" value="week">
-					    <label class="btn btn-outline-primary" for="week" style="font-size: 12px; font-weight: 600;">주중</label>
+					    <input type="radio" class="btn-check" name="week" id="weekdays" autocomplete="off" value="weekdays">
+					    <label class="btn btn-outline-primary" for="weekdays" style="font-size: 12px; font-weight: 600;">주중</label>
 						
 					    <input type="radio" class="btn-check" name="week" id="weekend" autocomplete="off" value="weekend">  
 					    <label class="btn btn-outline-primary" for="weekend" style="border-radius: 0 12px 12px 0; font-size: 12px; font-weight: 600;">주말</label>
@@ -439,7 +439,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					    <input type="radio" class="btn-check" name="age" id="age60" autocomplete="off" value="age60">  
 					    <label class="btn btn-outline-primary" for="age60" style="border-radius: 0 12px 12px 0; font-size: 10px; font-weight: 600; width: 72px; padding: 9px 6.5px;">60대 이상</label>
 					</div>
-					<button class="btn btn-primary btn-send" style="width: 92%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0">검색</button>
+					<button type="button" class="btn btn-primary btn-send" style="width: 92%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0">검색</button>
 				</form>
 			</div>
 		</div>
@@ -567,24 +567,7 @@ function makeMap(level, lat1, long1, obj){
 	}
 }
 
-var obj = [
-	{
-	    content: "<div class='marker' data-val='' data-name='사직동' data-lat='37.5761637' data-long='126.9688063'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>1</p></div></div><div class='marker-region-name'>사직동</div><div class='marker-sales-total'>100억</div></div>", 
-	    latlng: new kakao.maps.LatLng(37.5761637, 126.9688063)
-	},
-	{
-	    content: "<div class='marker' data-val='' data-name='삼청동' data-lat='37.5848379' data-long='126.9819133'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>2</p></div></div><div class='marker-region-name'>삼청동</div><div class='marker-sales-total'>90억</div></div>",
-		latlng: new kakao.maps.LatLng(37.5848379, 126.9819133)
-	},
-	{
-		content: "<div class='marker' data-val='' data-name='부암동' data-lat='37.5962608' data-long='126.9676991'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_yellow.png'></div><div class='marker-rank-text'><p>3</p></div></div><div class='marker-region-name'>부암동</div><div class='marker-sales-total'>80억</div></div>", 
-		latlng: new kakao.maps.LatLng(37.5962608, 126.9676991)
-	},
-	{
-	    content: "<div class='marker' data-val='' data-name='평창동' data-lat='37.6053351' data-long='126.9668582'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='${pageContext.request.contextPath}/resources/images/rank_white.png'></div><div class='marker-rank-text'><p>4</p></div></div><div class='marker-region-name'>평창동</div><div class='marker-sales-total'>70억</div></div>", 
-	    latlng: new kakao.maps.LatLng(37.6053351, 126.9668582)
-	}
-];
+var obj = [];
 
 $(function(){
 	let level = 8;
@@ -780,6 +763,15 @@ $(function(){
 		
 		ajaxFun(url, "post", query, "json", fn);
 		
+	});
+});
+
+// 점포수 / 매출 / 유동인구 / 주거인구 바꾸면, name="selectedMenu"도 함께 바꿈	
+$(function(){
+	$(function(){
+		$("input[name=selectMenu]").change(function(){
+			$("input[name=selectedMenu]").val($(this).val());
+		});	
 	});
 });
 
