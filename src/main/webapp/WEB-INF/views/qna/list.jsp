@@ -10,7 +10,7 @@
 	margin-top: 100px;
 }
 
-.container {margin-bottom: 30px;}
+.container {margin-bottom: 10px;}
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; margin-bottom: 3px;}
 .row { height: 100px; width: 150px;}
@@ -38,8 +38,9 @@
 
 .btn {
     width: 80px;
-    margin-left: 28px;
-    margin-top: 20px;
+    margin-left: 735px;
+    margin-bottom: 40px;
+
 }
 
 .sendButton { 
@@ -115,7 +116,7 @@
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<th scope="row">${dto.num}</th>
+								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
 									<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</td>
 								
 								<td>${dto.userName}</td>
@@ -125,17 +126,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<div class="sendButton">
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/qna/write';">글 작성</button>
-				</div>
 			</div>
 
+			<c:choose>
+				<c:when test="${sessionScope.member.userId ne null}">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/qna/write';">글 작성</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login';">글 작성</button>
+				</c:otherwise>
+			</c:choose>
 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-
-
 
 		</div>
 	</div>

@@ -6,12 +6,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
 
 @Service("notice.noticeService")
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private CommonDAO dao;
+	
+	private FileManager fileManager;
 	
 	@Override
 	public List<Notice> listNotice(Map<String, Object> map) {
@@ -111,7 +114,12 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void updateHitCount(long num) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("notice.updateHitCount", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 	

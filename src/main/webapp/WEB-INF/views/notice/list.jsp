@@ -11,9 +11,12 @@
 	margin-top: 100px;
 }
 
+.container {
+	margin-bottom: 65px;
+	min-height: 300px;
+}
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 100px; width: 150px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
@@ -26,9 +29,21 @@
 .division {margin-top: 20px; margin-bottom: 10px;}
 .container.text-center {margin-top: 0px; margin-left: 40px; margin-right: 100px;}
 
+.form-select {
+	border: revert;
+	border-radius: 0px;
+	margin-left: 240px;
+}
+
+.col-auto {
+	display: inline-block;
+}
+
+.col-6 {
+	width: 100%;
+}
 
 .pagination {
-	margin-left: 340px; 
 	--bs-pagination-hover-bg: #36C88A; 
 	--bs-pagination-focus-bg: #36C88A; 
 	--bs-pagination-focus-color: #ffffff;
@@ -37,10 +52,17 @@
 
 </style>
 
+<script>
+function searchList(){
+	const f = document.searchForm;
+	f.submit();
+}
+</script>
+
 <div class="container">
 	<div class="table1">
 		<h3 class="fw-semibold">고객센터</h3>
-		<div class="row row-cols-auto">
+		<div class="row row-cols-auto" style="height: 100px; width: 150px;">
 			<div class="colNoticeTitle">
 				<div>공지사항</div>
 			</div>
@@ -59,17 +81,15 @@
 							<th scope="col">번호</th>
 							<th scope="col">제목</th>
 							<th scope="col">작성일</th>
-							<th scope="col">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
-								<th scope="row">${dto.num}</th>
+								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
 								<td>
-								<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</td>
+								<a href="${articleUrl}&num=${dto.num}" class="text-reset" style=" text-decoration: none; color:black;">${dto.subject}</td>
 								<td>${dto.reg_date}</td>
-								<td>${dto.hitCount}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -80,20 +100,20 @@
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
 			
-			<div class="col-6 text-center">
+			<div class="col-6 text-center" style="display: flex; margin-top: 60px;">
 					<form class="row" name="searchForm" action="${pageContext.request.contextPath}/notice/list" method="post">
-						<div class="col-auto p-1">
-							<select name="condition" class="form-select">
-								<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
+						<div class="col-auto p-1" style="flex:1;">
+							<select name="condition" class="form-select" style="width: 80px;">
+								<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
 								<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
 								<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 							</select>
 						</div>
-						<div class="col-auto p-1">
+						<div class="col-auto p-1"  style="float: left;">
 							<input type="text" name="keyword" value="${keyword}" class="form-control">
 						</div>
-						<div class="col-auto p-1">
-							<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+						<div class="col-auto p-1"  style="float: right;">
+							<button type="button" class="btn btn-primary" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 						</div>
 					</form>
 				</div>

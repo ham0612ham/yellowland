@@ -11,12 +11,20 @@
 	margin-top: 100px;
 }
 
-.categoryTitle {font-size: 17px; color: #696969;}
+.categoryTitle {
+	font-size: 17px; 
+	color: #696969;
+}
 
 
 .articleWriterCircle {display: inline; color: #36C88A;}
 .articleWriterManager {display: inline; font-size: 15px; font-weight: bold; color: #696969;}
 .articleWriterDate {display: inline; font-size: 16px; color: #696969;}
+
+.articleContent {
+	min-height: 400px;
+	text-align: center;
+}
 
 
 .division {margin-bottom: 10px; margin-top: 10px;}
@@ -29,12 +37,12 @@
 	<div class="body-container">	
 		<div class="articleSubject">
 			<h3 class="categoryTitle">공지사항</h3>
-			<h3 class="fw-semibold">서울시가 다양한 상권 분석을 도와드립니다.</h3>	
+			<h3 class="fw-semibold">${dto.subject}</h3>	
 		</div>
 		<div class="articleWriter">
 			<h4 class="articleWriterCircle">●&nbsp;</h4>
 			<h3 class="articleWriterManager">관리자</h3>
-			<h3 class="articleWriterDate">&nbsp;2022-01-01</h3>
+			<h3 class="articleWriterDate">&nbsp;${dto.reg_date}</h3>
 		</div>
 
 
@@ -42,27 +50,28 @@
 
 		<div class="articleContent">
 			<span>
-				내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용
-				<br><br> 
-				내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용
-				<br><br> 
-				내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 
-				<br><br> 
-				내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용
-				<br><br> 
-				내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용 내용내용
-				<br><br> 
+			${dto.content}
 			</span>
 		</div>
 		
 		<div class="articleLower">
 			<hr class="division">
-			<h5 class="preNext">이전글:</h5>
+			<h5 class="preNext" style="color: #696969; font-size: 16px;">
+				이전글:
+				<c:if test="${not empty preReadDto}">
+					<a href="${pageContext.request.contextPath}/notice/article?${query}&num=${preReadDto.num}" style=" text-decoration: none; color:black;">${preReadDto.subject}</a>
+				</c:if>
+			</h5>
 			<hr class="division">
-			<h5 class="preNext">다음글:</h5>
+			<h5 class="preNext" style="color: #696969; font-size: 16px;">
+				다음글:
+				<c:if test="${not empty nextReadDto}">
+					<a href="${pageContext.request.contextPath}/notice/article?${query}&num=${nextReadDto.num}" style=" text-decoration: none; color:black;">${nextReadDto.subject}</a>
+				</c:if>	
+			</h5>
 			<hr class="division">
 		</div>
 		<br>
-		<button type="button" class="btn btn-primary ">목록</button>
+		<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/notice/list?${query}';">목록</button>
 	</div>
 </div>

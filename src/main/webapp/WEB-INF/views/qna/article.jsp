@@ -19,7 +19,7 @@
 .articleWriterDate {display: inline; font-size: 16px; color: #696969;}
 .articleWriterIsAnswer {display: inline; font-size: 15px; color: #696969;}
 
-.articleContent {height: 200px;}
+.articleContent { min-height: 350px; text-align: center;}
 .articleManagerCircle {display: inline; color: #756EF2;}
 .articleManagerManager  {display: inline; font-size: 15px; font-weight: bold; color: #696969;}
 .articleManagerDate {display: inline; font-size: 16px; color: #696969;}

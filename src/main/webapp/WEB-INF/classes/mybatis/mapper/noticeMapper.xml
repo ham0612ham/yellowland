@@ -7,11 +7,36 @@
 		SELECT notice_seq.NEXTVAL FROM dual
 	</select>
 	
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='reg_date' ">
+			( TO_CHAR(reg_date, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(reg_date, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+	
 	<!-- 데이터 갯수 -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword!=''  ">
+				<include refid="where-list"/>
+			</if>
+		</where>
 	</select>
 	
 	<!-- 리스트 -->
@@ -25,13 +50,19 @@
 			SELECT num, COUNT(*) fileNum FROM noticeFile
 			GROUP BY num
 		) f ON n.num=f.num
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 		ORDER BY num DESC
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<!-- 글 보기 -->
 	<select id="readNotice" parameterType="Long" resultType="com.sp.app.notice.Notice">
-		SELECT num, n.userId, userName, subject, content, reg_date, hitCount, notice
+		SELECT num, n.userId, userName, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
+		hitCount, notice
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId 
 		WHERE num = #{num}
@@ -47,6 +78,12 @@
 		SELECT num, subject
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
+			<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
 		ORDER BY num ASC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -56,6 +93,12 @@
 		SELECT num, subject
 		FROM notice n
 		JOIN member1 m ON n.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
 		ORDER BY num DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
