@@ -11,7 +11,6 @@ $(function(){
 	let query = "siguNum=all";
 		
 	const fn = function(data) {
-		console.log("갔다옴");
 		let obj2 = new Array();
 		$(data.list).each(function(index, item){
 			let ud = item.ratio >= 0 && item.chai >= 0 ? "↑" : "↓";
@@ -55,7 +54,6 @@ $(function(){
 		let query = "siguNum="+siguNum;
 		
 		const fn = function(data) {
-			console.log("갔다옴");
 			let obj2 = new Array();
 			$(data.list).each(function(index, item){
 				let ud = item.ratio >= 0 && item.chai >= 0 ? "↑" : "↓";

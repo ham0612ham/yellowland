@@ -198,8 +198,7 @@ public class CommercialServiceImpl implements CommercialService {
 		String siguNum = form.getSiguNum();
 		try {
 			if(siguNum.equals("all")) {
-				List<Long> dongList = dao.selectList("commercial.allDong");
-				list = commercialMongo.list_sg_store_top10(form, dongList);
+				list = commercialMongo.list_sg_store_top10();
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_store_top10(form, dongList);
@@ -238,8 +237,7 @@ public class CommercialServiceImpl implements CommercialService {
 		String siguNum = form.getSiguNum();
 		try {
 			if(siguNum.equals("all")) {
-				List<Long> dongList = dao.selectList("commercial.allDong");
-				list = commercialMongo.list_sg_sales_top10(form, dongList);
+				list = commercialMongo.list_sg_sales_top10();
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_sales_top10(form, dongList);
@@ -286,8 +284,7 @@ public class CommercialServiceImpl implements CommercialService {
 		String siguNum = form.getSiguNum();
 		try {
 			if(siguNum.equals("all")) {
-				List<Long> dongList = dao.selectList("commercial.allDong");
-				list = commercialMongo.list_sg_float_top10(form, dongList);
+				list = commercialMongo.list_sg_float_top10();
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_float_top10(form, dongList);
@@ -327,8 +324,7 @@ public class CommercialServiceImpl implements CommercialService {
 		String siguNum = form.getSiguNum();
 		try {
 			if(siguNum.equals("all")) {
-				List<Long> dongList = dao.selectList("commercial.allDong");
-				list = commercialMongo.list_sg_citizen_top10(form, dongList);
+				list = commercialMongo.list_sg_citizen_top10();
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_citizen_top10(form, dongList);

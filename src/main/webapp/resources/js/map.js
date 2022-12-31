@@ -1,106 +1,121 @@
-$(function() {
-	var chartDom = document.getElementById('zumposu');
-	var myChart = echarts.init(chartDom);
-	var option;
+function makeReport(dongNum){
+	zumposu(dongNum);
+	geupsu(dongNum);
+	pyeupsu(dongNum);
+};
 
-	option = {
-		xAxis : {
-			type : 'category',
-			data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
-					'2022년 3분기' ]
-		},
-		tooltip : {
-			trigger : 'axis'
-		},
-		yAxis : {
-			type : 'value'
-		},
-		series : [ {
-			data : [ {
-				value : 99,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 101,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 105,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 103,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 101,
-				itemStyle : {
-					color : '#36C88A'
-				}
-			} ],
-			type : 'bar'
-		} ]
+
+function zumposu(dongNum) {
+	let url = "/app/commEchart/zumposu";
+	let query = "dongNum="+dongNum;
+	const fn = function(data) {
+		var chartDom = document.getElementById('zumposu');
+		var myChart = echarts.init(chartDom);
+		var option;
+		option = {
+			xAxis : {
+				type : 'category',
+				data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
+						'2022년 3분기' ]
+			},
+			tooltip : {
+				trigger : 'axis'
+			},
+			yAxis : {
+				type : 'value'
+			},
+			series : data.series
+			
+		};
+		option && myChart.setOption(option);
+		$("#zumposu-result").text(data.zumposu+"개");
 	};
+	ajaxFun(url, "get", query, "json", fn);
+};
 
-	option && myChart.setOption(option);
+function geupsu(dongNum) {
+	let url = "/app/commEchart/geupsu";
+	let query = "dongNum="+dongNum;
+	const fn = function(data) {
+		var chartDom = document.getElementById('geupsu');
+		var myChart = echarts.init(chartDom);
+		var option;
+		option = {
+			xAxis : {
+				type : 'category',
+				data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
+						'2022년 3분기' ]
+			},
+			tooltip : {
+				trigger : 'axis'
+			},
+			yAxis : {
+				type : 'value'
+			},
+			series : data.series
+		};
 
-});
-
-$(function() {
-	var chartDom = document.getElementById('geupsu');
-	var myChart = echarts.init(chartDom);
-	var option;
-
-	option = {
-		xAxis : {
-			type : 'category',
-			data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
-					'2022년 3분기' ]
-		},
-		tooltip : {
-			trigger : 'axis'
-		},
-		yAxis : {
-			type : 'value'
-		},
-		series : [ {
-			data : [ {
-				value : 21,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 16,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 15,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 15,
-				itemStyle : {
-					color : '#A9A9A9'
-				}
-			}, {
-				value : 20,
-				itemStyle : {
-					color : '#36C88A'
-				}
-			} ],
-			type : 'bar'
-		} ]
+		option && myChart.setOption(option);
+		if(data.quart < 0) {
+			$("#geupsu-quart-count").text("↓ "+Math.abs(data.quart)+"개");
+			$("#geupsu-quart-count").addClass("red-text");
+		} else {
+			$("#geupsu-quart-count").text("↑ "+data.quart+"개");
+			$("#geupsu-quart-count").addClass("gr-text");
+		}
+		if(data.year < 0) {
+			$("#geupsu-year-count").text("↓ "+Math.abs(data.year)+"개");
+			$("#geupsu-year-count").addClass("red-text");
+		} else {
+			$("#geupsu-year-count").text("↑ "+data.year+"개");
+			$("#geupsu-year-count").addClass("gr-text");
+		}
+		$("#geupsu-result").text(data.su+"개");
 	};
+	ajaxFun(url, "get", query, "json", fn);
+};
 
-	option && myChart.setOption(option);
-
-});
+function pyeupsu(dongNum) {
+	let url = "/app/commEchart/geupsu";
+	let query = "dongNum="+dongNum;
+	const fn = function(data) {
+		var chartDom = document.getElementById('geupsu');
+		var myChart = echarts.init(chartDom);
+		var option;
+		option = {
+				xAxis : {
+					type : 'category',
+					data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
+						'2022년 3분기' ]
+				},
+				tooltip : {
+					trigger : 'axis'
+				},
+				yAxis : {
+					type : 'value'
+				},
+				series : data.series
+		};
+		
+		option && myChart.setOption(option);
+		if(data.quart < 0) {
+			$("#pyeupsu-quart-count").text("↓ "+Math.abs(data.quart)+"개");
+			$("#pyeupsu-quart-count").addClass("red-text");
+		} else {
+			$("#pyeupsu-quart-count").text("↑ "+data.quart+"개");
+			$("#pyeupsu-quart-count").addClass("gr-text");
+		}
+		if(data.year < 0) {
+			$("#pyeupsu-year-count").text("↓ "+Math.abs(data.year)+"개");
+			$("#pyeupsu-year-count").addClass("red-text");
+		} else {
+			$("#pyeupsu-year-count").text("↑ "+data.year+"개");
+			$("#pyeupsu-year-count").addClass("gr-text");
+		}
+		$("#geupsu-result").text(data.su+"개");
+	};
+	ajaxFun(url, "get", query, "json", fn);
+};
 
 $(function() {
 	var chartDom = document.getElementById('pyeupsu');

@@ -182,19 +182,19 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			<div>&nbsp;</div>
 			<div class="analysis-div" id="list-item-1">
 				<div class="analy-title">점포수</div>
-				<div class="analy-big-txt">점포수는 <span class="analy-green-txt">101개</span> 입니다.</div>
+				<div class="analy-big-txt">점포수는 <span class="analy-green-txt" id="zumposu-result">101개</span> 입니다.</div>
 				<div class="analy-graph" id="zumposu"></div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">개업수</div>
-				<div class="analy-big-txt">개업수는 <span class="analy-green-txt">2개</span> 입니다.</div>
+				<div class="analy-big-txt">개업수는 <span class="analy-green-txt" id="geupsu-result">2개</span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="geupsu-quart-count">1</span>개</span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-quart-count">↓ 1개</span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="red-text fl-right">↑ <span id="geupsu-year-count">5</span>개</span>
+						<span>전분기 대비</span><span class="fl-right" id="geupsu-year-count">↑ 5개</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="geupsu"></div>
@@ -205,10 +205,10 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt">3개</span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="pyeupsu-quart-count">6</span>개</span>
+						<span>전년 동분기 대비</span><span class="gr-text fl-right" id="pyeupsu-quart-count">↓ 6개</span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="gr-text fl-right">↓ <span id="pyeupsu-year-count">1</span>개</span>
+						<span>전분기 대비</span><span class="gr-text fl-right" id="pyeupsu-year-count">↓ 1개</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="pyeupsu"></div>
@@ -544,7 +544,6 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <script type="text/javascript">
 
 function makeMap(level, lat1, long1, obj){
-	console.log("실행중");
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
 	    center: new kakao.maps.LatLng(lat1, long1), // 지도의 중심좌표
@@ -631,12 +630,13 @@ $(function(){
 		$(this).find("div").first().removeClass("circle1");
 	});
 	
-	// 
 	$("body").on("click", ".marker", function() {
 		let long1 = $(this).attr("data-long");
 		let lat1 = $(this).attr("data-lat");
+		let dongNum = $(this).attr("data-val");
 		
 		makeMap(3, lat1, long1, obj);
+		makeReport(dongNum);
 	});
 	
 });

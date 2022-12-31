@@ -88,6 +88,7 @@ public class Sg_sales {
 	
 	private String siguNum;
 	private long dongNum;
+	private String cateJobNum;
 	private long tot;
 	
 	public long getyCode() {
@@ -581,6 +582,12 @@ public class Sg_sales {
 	}
 	public void setDongNum(long dongNum) {
 		this.dongNum = dongNum;
+	}
+	public String getCateJobNum() {
+		return cateJobNum;
+	}
+	public void setCateJobNum(String cateJobNum) {
+		this.cateJobNum = cateJobNum;
 	}
 	public long getTot() {
 		return tot;
