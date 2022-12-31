@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service("commercial.commercialMongoOperations")
@@ -219,8 +218,6 @@ public class CommercialMongoOperations {
 		String menu = form.getSelectMenu1();
 		String work = form.getSelectWork();
 		
-		work = work.equals("all") || work.equals(null) ? menu : work;
-		
 		MatchOperation matchOperation = null;
 		GroupOperation groupOperation = null;
 		Aggregation aggregation = null;
@@ -229,8 +226,8 @@ public class CommercialMongoOperations {
 				top10 = new Sg_store_top10();
 				if (menu.equals("all")) {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
-				} else if(!menu.equals("all") && work.equals("all")) {
-					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else if(work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("cateJobNum").is(menu));
 				} else {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").is(work));
 				}
@@ -241,8 +238,8 @@ public class CommercialMongoOperations {
 				
 				if (menu.equals("all")) {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
-				} else if(!menu.equals("all") && work.equals("all")) {
-					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else if(work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("cateJobNum").is(menu));
 				} else {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").is(work));
 				}
@@ -277,8 +274,6 @@ public class CommercialMongoOperations {
 		String menu = form.getSelectMenu1();
 		String work = form.getSelectWork();
 
-		work = work.equals("all") || work.equals(null) ? menu : work;
-		
 		MatchOperation matchOperation = null;
 		GroupOperation groupOperation = null;
 		Aggregation aggregation = null;
@@ -287,8 +282,8 @@ public class CommercialMongoOperations {
 				top10 = new Sg_sales_top10();
 				if (menu.equals("all")) {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
-				} else if(!menu.equals("all") && work.equals("all")) {
-					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else if(work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("cateJobNum").is(menu));
 				} else {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").is(work));
 				}
@@ -299,8 +294,8 @@ public class CommercialMongoOperations {
 				
 				if (menu.equals("all")) {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
-				} else if(!menu.equals("all") && work.equals("all")) {
-					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").regex("^"+menu));
+				} else if(work.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("cateJobNum").is(menu));
 				} else {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").is(work));
 				}
@@ -386,12 +381,12 @@ public class CommercialMongoOperations {
 			for(Long dong : dongList) {
 				top10 = new Sg_citizen_top10();
 				MatchOperation matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
-				if (gender.equals("allGender") && gender.equals("ageAll")) {
+				if (gender.equals("allGender") && age.equals("ageAll")) {
 					groupOperation = Aggregation.group("dongNum").sum("citizenSu").as("tot");
-				} else if (!gender.equals("allGender") && gender.equals("ageAll")) {
+				} else if (!gender.equals("allGender") && age.equals("ageAll")) {
 					sum = gender.equals("male") ? "maleCitizenSu" : "femaleCitizenSu";
 					groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
-				} else if (gender.equals("allGender") && !gender.equals("ageAll")) {
+				} else if (gender.equals("allGender") && !age.equals("ageAll")) {
 					sum = "citizenSu_"+age.substring(3);
 					groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
 				} else {
