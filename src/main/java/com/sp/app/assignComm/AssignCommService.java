@@ -10,5 +10,6 @@ public interface AssignCommService {
 	public Community readComm(long num);
 	public List<Community> readCommImg(long num);
 	public List<Community> listComm();
+	public long listCommCount();
 
 }

@@ -36,8 +36,11 @@ public class AssignCommController {
 		
 		List<Community> list = service.listComm();
 		
+		long count = service.listCommCount();
+		
 		model.addAttribute("daumKey", daumKey);
 		model.addAttribute("list", list);
+		model.addAttribute("count", count);
 		
 		return ".assignComm.main";
 	}
@@ -78,8 +81,6 @@ public class AssignCommController {
 			imgList = service.readCommImg(num);
 			
 			
-			
-			
 			model.addAttribute("dto", dto);
 			model.addAttribute("imgList", imgList);
 			
@@ -90,6 +91,13 @@ public class AssignCommController {
 		
 		
 		return "assignComm/detail";
+	}
+	
+	@GetMapping("myList")
+	public String myList(@RequestParam String userId) {
+		
+		
+		return "assignComm/myList";
 	}
 	
 	

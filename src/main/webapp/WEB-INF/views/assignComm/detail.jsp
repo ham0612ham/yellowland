@@ -18,7 +18,7 @@
     font-style: normal;
 }
 
-body {
+article {
 	font-family: Pretendard-Regular, sans-serif;
 }
 
@@ -59,7 +59,10 @@ i {
 
 
 function backButton() {
-	 window.location.reload();
+	
+	document.querySelector(".detail-view").style.display = "none";
+	document.querySelector(".assign-ul").style.display = "block";
+	
 }
 
 </script>

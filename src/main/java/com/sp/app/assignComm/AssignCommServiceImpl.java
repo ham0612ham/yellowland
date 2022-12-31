@@ -118,16 +118,29 @@ public class AssignCommServiceImpl implements AssignCommService {
 		try {
 			
 			list = dao.selectList("assignComm.listComm");
-			/*
-			for(Community dto : list) {
-				dto.setRegDate(dto.getRegDate().substring(10));
-			}
-			*/
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
 		}
 		return list;
+	}
+
+	@Override
+	public long listCommCount() {
+		
+		long count = 0;
+		
+		try {
+			
+			count = dao.selectOne("assignComm.listCommCount");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 
 }
