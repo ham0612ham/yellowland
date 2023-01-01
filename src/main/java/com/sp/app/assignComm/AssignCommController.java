@@ -41,11 +41,12 @@ public class AssignCommController {
 		model.addAttribute("daumKey", daumKey);
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
+		model.addAttribute("mode", "write");
 		
 		return ".assignComm.main";
 	}
 	
-	@PostMapping(value = "submit")
+	@PostMapping(value = "write")
 	public String formSubmit(Community dto, HttpServletRequest req) throws Exception {
 		
 		try {
@@ -83,6 +84,8 @@ public class AssignCommController {
 			
 			model.addAttribute("dto", dto);
 			model.addAttribute("imgList", imgList);
+			model.addAttribute("mode", "update");
+			
 			
 			
 		} catch (Exception e) {
@@ -94,12 +97,52 @@ public class AssignCommController {
 	}
 	
 	@GetMapping("myList")
-	public String myList(@RequestParam String userId) {
+	public String myList(@RequestParam String userId, Model model) throws Exception {
 		
+		try {
+			
+		List<Community> list = service.listComm(userId);
+		long count = service.listCommCount(userId);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", count);
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "assignComm/myList";
 	}
 	
 	
+	@PostMapping("update")
+	public String updateSubmit(Community dto, Model model) throws Exception {
+		
+		try {
+			
+			service.updateComm(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/assignComm/detail";
+	}
+	
+	@GetMapping("delete")
+	public String delete(@RequestParam long num) throws Exception {
+		
+		try {
+			
+			service.deleteComm(num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:.assignComm.main";
+	}
 	
 }

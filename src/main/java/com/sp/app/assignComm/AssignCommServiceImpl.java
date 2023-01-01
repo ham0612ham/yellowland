@@ -87,6 +87,10 @@ public class AssignCommServiceImpl implements AssignCommService {
 			
 			dto = dao.selectOne("assignComm.readComm", num);
 			
+			dto.setpNum1(dto.getpNum().substring(0, 3));
+			dto.setpNum2(dto.getpNum().substring(4, 8));
+			dto.setpNum3(dto.getpNum().substring(9));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -139,6 +143,39 @@ public class AssignCommServiceImpl implements AssignCommService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return count;
+	}
+
+	@Override
+	public List<Community> listComm(String userId) {
+		
+		List<Community> list = null;
+		
+		try {
+			
+			list = dao.selectList("assignComm.listCommMyList", userId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public long listCommCount(String userId) {
+		
+		long count = 0;
+		
+		try {
+			
+			count = dao.selectOne("assignComm.listCommCountMyList", userId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		return count;
 	}

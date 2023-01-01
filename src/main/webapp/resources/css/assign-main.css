@@ -397,9 +397,7 @@ ul {
     cursor: pointer;
 }
 
-.assign-ul li:nth-child(2) {
-	text-align: right;
-}
+
 
 .assign-ul li:nth-child(2) > button {
 	display: inline-block;
@@ -408,6 +406,17 @@ ul {
     border: 0.5px solid #36C88A;
     font-size: 12px;
     margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+#zero {
+    position: absolute;
+    top: 40vh;
+    right: 4.5vw;
+}
+
+.my-title {
+    text-align: right;
 }
 
 #asDetail {

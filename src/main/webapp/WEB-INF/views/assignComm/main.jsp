@@ -186,7 +186,7 @@ function check() {
 	
 	if(! f.thumbnailFile.value.trim()) {
 		alert(" 기본 이미지를 업로드해주세요! ");
-		f.thumbnail.focus();
+		f.thumbnailFile.focus();
 		return false;
 	}
 	
@@ -234,7 +234,7 @@ function check() {
 	}
 	
 	
-	f.action = "${pageContext.request.contextPath}/assignComm/submit";
+	f.action = "${pageContext.request.contextPath}/assignComm/${mode}";
 	f.submit();
 	
 }
@@ -242,7 +242,7 @@ function check() {
 </script>
 
 <script type="text/javascript">
-//메인 이미지
+// 메인 이미지
 $(function() {
 	let img = "${dto.thumbnail}";
 	
@@ -444,20 +444,26 @@ $(function() {
 			<ul class="assign-ul">
 				<li class="assign-count">지역 목록 ${count}개 </li>
 				<c:if test="${!empty sessionScope.member.userId}">
-					<li><button type="button" onclick="myList();" class="btn btn-primary">내 게시글</button></li>
+					<li class="my-title"><button type="button" onclick="myList();" class="btn btn-primary">내 게시글</button></li>
 				</c:if>
 				<c:forEach var="dto" items="${list}">
 					<li class="assign-list" onclick="detailPage(${dto.num});"> 
 						<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 						<div class="assign-set">
-							<div class="monthly"> 월세: ${dto.deposit}/${dto.monthly}</div>
-							<div>관리비: ${dto.expense}</div>
-							<div>전용면적: ${dto.area}㎡</div>
-							<div>양도 가능일: ${dto.transDate}</div>
+							<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
+							&emsp;&emsp;&emsp;&emsp;&emsp;
+								<c:if test="${sessionScope.member.userId != dto.userId && !empty sessionScope.member.userId}">
+									<a data-bs-toggle="modal" data-bs-target="#myDialogModal"><i class="fa-regular fa-comments"></i></a>
+								</c:if>
+							</div>
+							<div>관리비 ${dto.expense}만원</div>
+							<div>전용면적 ${dto.area}㎡</div>
+							<div>양도 가능일 ${dto.transDate}</div>
 							<div>${dto.subject}</div>
 						</div>
 					</li>
 				</c:forEach>
+				<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
 			</ul>
 			<div id="asDetail" style="overflow: auto; height: 800px;"></div>
 		</div>
@@ -531,9 +537,7 @@ $(function() {
 </div>
 
 
-
-
-<!-- Modal -->
+<!-- form Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -780,6 +784,47 @@ $(function() {
       </div>
     </div>
   </div>
+</div>
+
+
+
+<!-- 쪽지 보내기 모달 -->
+<div class="modal fade" id="myDialogModal" tabindex="-1" 
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="myDialogModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myDialogModalLabel">받는 사람</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-auto p-1">
+						<select name="condition" id="condition" class="form-select">
+							<option value="userName">이름</option>
+							<option value="userId">아이디</option>
+						</select>
+					</div>
+					<div class="col-auto p-1">
+						<input type="text" name="keyword" id="keyword" class="form-control">
+					</div>
+					<div class="col-auto p-1">
+						<button type="button" class="btn btn-light btnReceiverFind"> <i class="bi bi-search"></i> </button>
+					</div>				
+				</div>
+				<div class="row p-1">
+					<div class="border p-1 dialog-receiver-list">
+						<ul></ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btnClose">닫기</button>
+				<button type="button" class="btn btn-primary btnAdd">추가</button>
+			</div>			
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}&libraries=services,clusterer"></script>
