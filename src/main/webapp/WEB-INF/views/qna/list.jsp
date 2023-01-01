@@ -146,7 +146,8 @@
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-
+ 
+ 
 			<button type="button" class="btn btn-primary" ></button>
 	
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
