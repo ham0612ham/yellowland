@@ -202,13 +202,13 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			
 			<div class="analysis-div">
 				<div class="analy-title">폐업수</div>
-				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt">3개</span> 입니다.</div>
+				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt" id="pyeupsu-result">3개</span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right" id="pyeupsu-quart-count">↓ 6개</span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="pyeupsu-year-count">↓ 6개</span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="gr-text fl-right" id="pyeupsu-year-count">↓ 1개</span>
+						<span>전분기 대비</span><span class="fl-right" id="pyeupsu-quart-count">↓ 1개</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="pyeupsu"></div>
@@ -227,13 +227,13 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			
 			<div class="analysis-div" id="list-item-2">
 				<div class="analy-title">매출액</div>
-				<div class="analy-big-txt">점포당 월평균 매출액은 <span class="analy-green-txt"><span id="mechulak-ave">932</span>만원</span> 입니다.</div>
+				<div class="analy-big-txt">점포당 월평균 매출액은 <span class="analy-green-txt" id="mechulak-ave">932만원</span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="mechulak-quart">54</span>만원</span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="mechulak-quart">↓ 54만원</span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="bk-text fl-right">↑ <span id="mechulak-year">0</span>만원</span>
+						<span>전분기 대비</span><span class="fl-right" id="mechulak-year">↑ 0만원</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="mechulak" style="padding-top: 10px;"></div>
@@ -241,13 +241,13 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			
 			<div class="analysis-div">
 				<div class="analy-title">매출건수</div>
-				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt"><span id="mechulgunsu-month-ave">438</span>건</span> 입니다.</div>
+				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt" id="mechulgunsu-month-ave">438건</span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="mechulgunsu-quart">14</span>건</span>
+						<span>전년 동분기 대비</span><span class="gr-text fl-right" id="mechulgunsu-quart">↓ 14건</span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="red-text fl-right">↑ <span id="mechulgunsu-year">13</span>건</span>
+						<span>전분기 대비</span><span class="red-text fl-right" id="mechulgunsu-year">↑ 13건</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="mechulgunsu" style="padding-top: 10px;"></div>

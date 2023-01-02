@@ -106,7 +106,7 @@ public class CommEchartController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<Long> list = null;
 		try {
-			list = service.geupsu(dongNum);
+			list = service.pyeupsu(dongNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -143,4 +143,187 @@ public class CommEchartController {
 		return model;
 	}
 	
+	@RequestMapping(value="upzongbunpo")
+	@ResponseBody
+	public Map<String, Object> upzongbunpo(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Map<String, Object>> data = new ArrayList<>();
+		List<Long> list = new ArrayList<Long>();
+		Map<String, Object> map = null;
+		String up = "";
+		String most = "";
+		String[] name = {"외식업","서비스업","소매업"};
+		try {
+			list = service.upzongbunpo(dongNum);
+			List<String> list2 = service.upzongbunpo_up(list);
+			up = list2.get(0);
+			most = list2.get(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for(int i=0; i<3; i++) {
+			map = new HashMap<>();
+			map.put("value", list.get(i));
+			map.put("name", name[i]);
+			
+			data.add(map);
+		}
+		model.put("data", data);
+		model.put("up", up);
+		model.put("most", most);
+		
+		return model;
+	}
+	
+	@RequestMapping(value="mechulak")
+	@ResponseBody
+	public Map<String, Object> mechulak(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Long> list = null;
+		try {
+			list = service.mechulak(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("dong", list.subList(0, 5));
+		model.put("sigu", list.subList(5, 10));
+		model.put("seoul", list.subList(6, 15));
+		model.put("ave", list.get(4)/10000);
+		model.put("yChai", (list.get(4)-list.get(9))/10000);
+		model.put("qChai", (list.get(4)-list.get(3))/10000);
+		
+		return model;
+	}
+	
+	@RequestMapping(value="mechulgunsu")
+	@ResponseBody
+	public Map<String, Object> mechulgunsu(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Long> list = null;
+		try {
+			list = service.mechulgunsu(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("dong", list.subList(0, 5));
+		model.put("sigu", list.subList(5, 10));
+		model.put("seoul", list.subList(6, 15));
+		model.put("ave", list.get(4));
+		model.put("yChai", (list.get(4)-list.get(9)));
+		model.put("qChai", (list.get(4)-list.get(3)));
+		
+		return model;
+	}
+
+	@RequestMapping(value="yoilbyulMuchul")
+	@ResponseBody
+	public Map<String, Object> yoilbyulMuchul(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Double> list = null;
+		try {
+			list = service.yoilbyulMuchul(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<Object> series = new ArrayList<>();
+		Map<String, Object> map;
+		Map<String, Object> colorMap;
+		String color = "";
+		
+		List<Map<String, Object>> data = new ArrayList<>();
+
+		int max = 0;
+		for(int j=0; j<list.size()-1; j++) {
+			max = list.get(max) > list.get(j+1) ? max : j+1;
+		}
+		
+		for(int i=0; i<list.size(); i++) {
+			map = new HashMap<>();
+			map.put("value", list.get(i));
+			
+			colorMap = new HashMap<>();
+			color = i == max ? "#36C88A" : "#A9A9A9";
+			colorMap.put("color", color);
+			
+			map.put("itemStyle", colorMap);
+			
+			data.add(map);
+		}
+		map = new HashMap<>();
+		map.put("data", data);
+		
+		map.put("type", "bar");
+		series.add(map);
+		model.put("series", series);
+		model.put("yoil", max);
+		
+		return model;
+	}
+	
+	@RequestMapping(value="sigandebuelMechul")
+	@ResponseBody
+	public Map<String, Object> sigandebuelMechul(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Double> list = null;
+		try {
+			list = service.sigandebuelMechul(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int max = 0;
+		for(int j=0; j<list.size()-1; j++) {
+			max = list.get(max) > list.get(j+1) ? max : j+1;
+		}
+		
+		model.put("data", list);
+		model.put("sigan", max);
+		
+		return model;
+	}
+	
+	@RequestMapping(value="sungbuelMechul")
+	@ResponseBody
+	public Map<String, Object> sungbuelMechul(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Double> list = null;
+		try {
+			list = service.sungbuelMechul(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int max = 0;
+		for(int j=0; j<list.size()-1; j++) {
+			max = list.get(max) > list.get(j+1) ? max : j+1;
+		}
+		
+		model.put("male", list.get(0));
+		model.put("female", list.get(1));
+		model.put("gender", max);
+		model.put("percent", list.get(max));
+		
+		return model;
+	}
+	
+	@RequestMapping(value="sungbuelMechulThree")
+	@ResponseBody
+	public Map<String, Object> sungbuelMechulThree(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Double> list = null;
+		try {
+			list = service.sungbuelMechulThree(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.put("maleFood", list.get(0));
+		model.put("femaleFood", list.get(1));
+		model.put("maleService", list.get(2));
+		model.put("femaleService", list.get(3));
+		model.put("maleRetail", list.get(4));
+		model.put("femaleRetail", list.get(5));
+		
+		return model;
+	}
 }

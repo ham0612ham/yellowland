@@ -124,13 +124,13 @@ public class CommercialMongoOperations {
 			for(Long dong : dongList) {
 				top10 = new Sg_sales_top10();
 				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
-				groupOperation = Aggregation.group("dongNum").sum("salesSu_quarter").as("tot");
+				groupOperation = Aggregation.group("dongNum").sum("salesCost_quarter").as("tot");
 				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
 				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				list1 = result1.getMappedResults();
 				
 				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(1).and("dongNum").is(dong));
-				groupOperation = Aggregation.group("dongNum").sum("salesSu_quarter").as("tot");
+				groupOperation = Aggregation.group("dongNum").sum("salesCost_quarter").as("tot");
 				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
 				result2 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				list2 = result2.getMappedResults();
@@ -320,7 +320,7 @@ public class CommercialMongoOperations {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong).and("wCode").is(work));
 				}
 				
-				groupOperation = Aggregation.group("dongNum").sum("salesSu_quarter").as("tot");
+				groupOperation = Aggregation.group("dongNum").sum("salesCost_quarter").as("tot");
 				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
 				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				list1 = result1.getMappedResults();
@@ -333,7 +333,7 @@ public class CommercialMongoOperations {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong).and("wCode").is(work));
 				}
 				
-				groupOperation = Aggregation.group("dongNum").sum("salesSu_quarter").as("tot");
+				groupOperation = Aggregation.group("dongNum").sum("salesCost_quarter").as("tot");
 				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
 				result2 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				list2 = result2.getMappedResults();
@@ -353,6 +353,7 @@ public class CommercialMongoOperations {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(list.size());
 		return list;
 	}
 	
