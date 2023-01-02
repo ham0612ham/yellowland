@@ -440,6 +440,7 @@ function sungbuelMechulFood(data){
 	var myChart = echarts.init(chartDom);
 	var option;
 	
+	
 	option = {
 			tooltip : {
 				trigger : 'item'
