@@ -24,21 +24,21 @@ public class Community {
 	private String addr1;		// 기본 주소
 	private String addr2;		// 상세 주소
 	
-	private String thumbnail; // 대표 이미지
-	private MultipartFile thumbnailFile; 
+	private String thumbnail;   // 로컬에 저장한 대표 이미지 파일명
+	private MultipartFile thumbnailFile;  // 사용자가 첨부한 대표 이미지 파일
 	
-	private String imgName;   // 추가 이미지
-	private List<MultipartFile> imgFiles; 	
+	private String imgName;     // 로컬에 저장한 추가 이미지 파일명
+	private List<MultipartFile> imgFiles; // 사용자가 첨부한 추가 이미지 파일
 	
-	private int deposit;   // 보증금
-	private int monthly;   // 월세
-	private int expense;   // 관리비
-	private int area; 	   // 전용면적
-	private int bFloor;    // 건물 층
-	private int floor;     // 해당 층
-	private int parking;   // 주차
-	private int elevator;  // 엘리베이터
-	private String transDate; // 양도 가능일
+	private int deposit;   	    // 보증금
+	private int monthly;        // 월세
+	private int expense;        // 관리비
+	private int area; 	        // 전용면적
+	private int bFloor;         // 건물 층
+	private int floor;          // 해당 층
+	private int parking;        // 주차
+	private int elevator;       // 엘리베이터
+	private String transDate;   // 양도 가능일
 	
 	
 	

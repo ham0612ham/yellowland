@@ -83,7 +83,13 @@
 	margin-bottom: 50px;
 }
 
+.show {
+    animation: none;
+}
+
+
 </style>
+
 
 <div class="container">
 	<div class="table1">
@@ -117,7 +123,7 @@
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-									<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</td>
+									<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">${dto.subject} Open modal for @mdo</td>
 								
 								<td>${dto.userName}</td>
 								<td>${dto.replyNum==1?"답변완료":"-"}</td>
@@ -139,6 +145,32 @@
 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+			</div>
+ 
+ 
+			<button type="button" class="btn btn-primary" ></button>
+	
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label">비밀번호:</label>
+			            <input type="password" class="form-control" id="recipient-name">
+			          </div>
+			        </form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+			        <button type="button" class="btn btn-primary">입력</button>
+			      </div>
+			    </div>
+			  </div>
 			</div>
 
 		</div>

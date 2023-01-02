@@ -15,6 +15,17 @@ function login() {
 	location.href = "${pageContext.request.contextPath}/member/login";
 }
 
+function loginCheck() {
+	let session = '<%=session.getAttribute("member")%>';
+	
+	if(session === "null") {
+		alert(" 로그인이 필요한 서비스입니다! ");
+		
+		login();
+	}
+	
+}
+
 function ajaxFun(url, method, query, dataType, fn) {
 	
 	$.ajax({
@@ -92,7 +103,6 @@ function detailPage(num) {
 	let selector = "#asDetail";
 	
 	document.querySelector(".assign-ul").style.display = "none";
-	// document.querySelector(selector).style.overflow = "scroll";
 	
 	const fn = function(data) {
 		
@@ -100,6 +110,25 @@ function detailPage(num) {
 	};
 	
 	ajaxFun(url, "get", query, "html", fn);
+}
+
+function myList() {
+
+	let url = "${pageContext.request.contextPath}/assignComm/myList";
+	let userId = "${sessionScope.member.userId}";
+	let query = "userId=" + userId;
+	let selector = "#asDetail";
+	
+	document.querySelector(".assign-ul").style.display = "none";
+	
+	
+	const fn = function(data) {
+		
+		$(selector).html(data);	
+	
+	}
+
+	 ajaxFun(url, "get", query, "html", fn);
 }
 
 </script>
@@ -157,7 +186,7 @@ function check() {
 	
 	if(! f.thumbnailFile.value.trim()) {
 		alert(" 기본 이미지를 업로드해주세요! ");
-		f.thumbnail.focus();
+		f.thumbnailFile.focus();
 		return false;
 	}
 	
@@ -205,7 +234,7 @@ function check() {
 	}
 	
 	
-	f.action = "${pageContext.request.contextPath}/assignComm/submit";
+	f.action = "${pageContext.request.contextPath}/assignComm/${mode}";
 	f.submit();
 	
 }
@@ -213,7 +242,7 @@ function check() {
 </script>
 
 <script type="text/javascript">
-//메인 이미지
+// 메인 이미지
 $(function() {
 	let img = "${dto.thumbnail}";
 	
@@ -395,7 +424,7 @@ $(function() {
         <div id="map">
 			<div class="search">
 				<div>주소 검색</div>
-				<input type="text" id="data" placeholder="ex)마포구 월드컵북로 21">
+				<input type="text" id="data" placeholder="ex) 마포구 월드컵북로 21">
 				<button id="aSearch" class="btn btn-primary" onclick="search();" type="button"><i class="fa-solid fa-magnifying-glass"></i></button> 
 			</div>
 		</div>
@@ -413,20 +442,28 @@ $(function() {
 	    </div>
         <div class="assign-class">
 			<ul class="assign-ul">
-				<li class="assign-count">지역 목록 6개</li>
+				<li class="assign-count">지역 목록 ${count}개 </li>
+				<c:if test="${!empty sessionScope.member.userId}">
+					<li class="my-title"><button type="button" onclick="myList();" class="btn btn-primary">내 게시글</button></li>
+				</c:if>
 				<c:forEach var="dto" items="${list}">
-					<li class="assign-list" onclick="detailPage(${dto.num});"> <!-- href="${pageContext.request.contextPath}/assignComm/detail?num=${dto.num}" -->
-						<!-- <a class="detail-list" onclick="detailPage(${dto.num});">눌러봐</a>  -->
+					<li class="assign-list" onclick="detailPage(${dto.num});"> 
 						<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 						<div class="assign-set">
-							<div class="monthly"> 월세: ${dto.deposit}/${dto.monthly}</div>
-							<div>${dto.expense}</div>
-							<div>${dto.area}</div>
-							<div>${dto.transDate}</div>
+							<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
+							&emsp;&emsp;&emsp;&emsp;&emsp;
+								<c:if test="${sessionScope.member.userId != dto.userId && !empty sessionScope.member.userId}">
+									<a data-bs-toggle="modal" data-bs-target="#myDialogModal"><i class="fa-regular fa-comments"></i></a>
+								</c:if>
+							</div>
+							<div>관리비 ${dto.expense}만원</div>
+							<div>전용면적 ${dto.area}㎡</div>
+							<div>양도 가능일 ${dto.transDate}</div>
 							<div>${dto.subject}</div>
 						</div>
 					</li>
 				</c:forEach>
+				<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
 			</ul>
 			<div id="asDetail" style="overflow: auto; height: 800px;"></div>
 		</div>
@@ -496,13 +533,11 @@ $(function() {
 
 
 <div>
-	<a class="float" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
+	<a class="float" onclick="loginCheck();" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
 </div>
 
 
-
-
-<!-- Modal -->
+<!-- form Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -577,26 +612,10 @@ $(function() {
 												</div>
 												
 											</div>
-										  <script>
-										    
-										    // 에디터를 화면에 붙일때 작성공간인 textarea값이나 div의 id로 가져온다.
-										         ClassicEditor
-										            .create( document.querySelector( '#editor' ), {
-										                language: 'ko' //언어설정
-										            })
-												.then( editor => {
-													theEditor = editor; // #contents에 있는 값을 theEditor에 넣어놓는다.
-												} )
-										            .catch( error => {
-										                console.error( error );
-										            } );
-											
-										    // 나중에 확인 할 때 소스
-										        var sHTML = theEditor.getData();
-										        console.log(sHTML); 
-										        
-										</script>
-										
+										<script>
+									    	ClassicEditor.create( document.querySelector( '#editor' ) );
+									    </script>
+	
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
@@ -652,52 +671,52 @@ $(function() {
 								        				<div class="sub" style="display: flex;">
 								        					<p style="width: 211px;">건물 층</p>
 																<select name="bFloor">
-																	<option value="1">1층</option>
-																	<option value="2">2층</option>
-																	<option value="3">3층</option>
-																	<option value="4">4층</option>
-																	<option value="5">5층</option>
-																	<option value="6">6층</option>
-																	<option value="7">7층</option>
-																	<option value="8">8층</option>
-																	<option value="9">9층</option>
-																	<option value="10">10층</option>
-																	<option value="11">11층</option>
-																	<option value="12">12층</option>
-																	<option value="13">13층</option>
-																	<option value="14">14층</option>
-																	<option value="15">15층</option>
-																	<option value="16">16층</option>
-																	<option value="17">17층</option>
-																	<option value="18">18층</option>
-																	<option value="19">19층</option>
-																	<option value="20">20층</option>
+																	<option value="1" ${bFloor=="1" ? "selected='selected'":""}>1층</option>
+																	<option value="2" ${bFloor=="2" ? "selected='selected'":""}>2층</option>
+																	<option value="3" ${bFloor=="3" ? "selected='selected'":""}>3층</option>
+																	<option value="4" ${bFloor=="4" ? "selected='selected'":""}>4층</option>
+																	<option value="5" ${bFloor=="5" ? "selected='selected'":""}>5층</option>
+																	<option value="6" ${bFloor=="6" ? "selected='selected'":""}>6층</option>
+																	<option value="7" ${bFloor=="7" ? "selected='selected'":""}>7층</option>
+																	<option value="8" ${bFloor=="8" ? "selected='selected'":""}>8층</option>
+																	<option value="9" ${bFloor=="9" ? "selected='selected'":""}>9층</option>
+																	<option value="10" ${bFloor=="10" ? "selected='selected'":""}>10층</option>
+																	<option value="11" ${bFloor=="11" ? "selected='selected'":""}>11층</option>
+																	<option value="12" ${bFloor=="12" ? "selected='selected'":""}>12층</option>
+																	<option value="13" ${bFloor=="13" ? "selected='selected'":""}>13층</option>
+																	<option value="14" ${bFloor=="14" ? "selected='selected'":""}>14층</option>
+																	<option value="15" ${bFloor=="15" ? "selected='selected'":""}>15층</option>
+																	<option value="16" ${bFloor=="16" ? "selected='selected'":""}>16층</option>
+																	<option value="17" ${bFloor=="17" ? "selected='selected'":""}>17층</option>
+																	<option value="18" ${bFloor=="18" ? "selected='selected'":""}>18층</option>
+																	<option value="19" ${bFloor=="19" ? "selected='selected'":""}>19층</option>
+																	<option value="20" ${bFloor=="20" ? "selected='selected'":""}>20층</option>
 																</select>
 															<p class="unit" style="width: 85px;">㎡</p>
 														</div>
 														<div class="sub" style="display: flex;">
 								        					<p style="width:211px;">해당 층</p>
 																<select name="floor">
-																	<option value="1">1층</option>
-																	<option value="2">2층</option>
-																	<option value="3">3층</option>
-																	<option value="4">4층</option>
-																	<option value="5">5층</option>
-																	<option value="6">6층</option>
-																	<option value="7">7층</option>
-																	<option value="8">8층</option>
-																	<option value="9">9층</option>
-																	<option value="10">10층</option>
-																	<option value="11">11층</option>
-																	<option value="12">12층</option>
-																	<option value="13">13층</option>
-																	<option value="14">14층</option>
-																	<option value="15">15층</option>
-																	<option value="16">16층</option>
-																	<option value="17">17층</option>
-																	<option value="18">18층</option>
-																	<option value="19">19층</option>
-																	<option value="20">20층</option>
+																	<option value="1" ${floor=="1" ? "selected='selected'":""}>1층</option>
+																	<option value="2" ${floor=="2" ? "selected='selected'":""}>2층</option>
+																	<option value="3" ${floor=="3" ? "selected='selected'":""}>3층</option>
+																	<option value="4" ${floor=="4" ? "selected='selected'":""}>4층</option>
+																	<option value="5" ${floor=="5" ? "selected='selected'":""}>5층</option>
+																	<option value="6" ${floor=="6" ? "selected='selected'":""}>6층</option>
+																	<option value="7" ${floor=="7" ? "selected='selected'":""}>7층</option>
+																	<option value="8" ${floor=="8" ? "selected='selected'":""}>8층</option>
+																	<option value="9" ${floor=="9" ? "selected='selected'":""}>9층</option>
+																	<option value="10" ${floor=="10" ? "selected='selected'":""}>10층</option>
+																	<option value="11" ${floor=="11" ? "selected='selected'":""}>11층</option>
+																	<option value="12" ${floor=="12" ? "selected='selected'":""}>12층</option>
+																	<option value="13" ${floor=="13" ? "selected='selected'":""}>13층</option>
+																	<option value="14" ${floor=="14" ? "selected='selected'":""}>14층</option>
+																	<option value="15" ${floor=="15" ? "selected='selected'":""}>15층</option>
+																	<option value="16" ${floor=="16" ? "selected='selected'":""}>16층</option>
+																	<option value="17" ${floor=="17" ? "selected='selected'":""}>17층</option>
+																	<option value="18" ${floor=="18" ? "selected='selected'":""}>18층</option>
+																	<option value="19" ${floor=="19" ? "selected='selected'":""}>19층</option>
+																	<option value="20" ${floor=="20" ? "selected='selected'":""}>20층</option>
 																</select>
 															<p class="unit" style="width: 85px;">㎡</p>
 														</div>
@@ -736,13 +755,13 @@ $(function() {
 								        				<p style="width:125px; margin-bottom: 1px;">연락처</p>
 								        				<div class="sub" style="display: flex; margin-top: 2px;">
 								        					<select name="pNum1">
-								        						<option value="010">010</option>
-								        						<option value="02">02</option>
-								        						<option value="011">011</option>
-								        						<option value="016">016</option>
-								        						<option value="017">017</option>
-								        						<option value="018">018</option>
-								        						<option value="019">019</option>
+								        						<option value="010" ${pNum1=="010" ? "selected='selected'":""}>010</option>
+								        						<option value="02"  ${pNum1=="02"  ? "selected='selected'":""}>02</option>
+								        						<option value="011" ${pNum1=="011" ? "selected='selected'":""}>011</option>
+								        						<option value="016" ${pNum1=="016" ? "selected='selected'":""}>016</option>
+								        						<option value="017" ${pNum1=="017" ? "selected='selected'":""}>017</option>
+								        						<option value="018" ${pNum1=="018" ? "selected='selected'":""}>018</option>
+								        						<option value="019" ${pNum1=="019" ? "selected='selected'":""}>019</option>
 								        					</select> -
 															<input style="width:63px;" type="text" class="form-control" name="pNum2" value="${dto.pNum2}"> -
 															<input style="width:63px;" type="text" class="form-control" name="pNum3" value="${dto.pNum3}">
@@ -765,6 +784,47 @@ $(function() {
       </div>
     </div>
   </div>
+</div>
+
+
+
+<!-- 쪽지 보내기 모달 -->
+<div class="modal fade" id="myDialogModal" tabindex="-1" 
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="myDialogModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myDialogModalLabel">받는 사람</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-auto p-1">
+						<select name="condition" id="condition" class="form-select">
+							<option value="userName">이름</option>
+							<option value="userId">아이디</option>
+						</select>
+					</div>
+					<div class="col-auto p-1">
+						<input type="text" name="keyword" id="keyword" class="form-control">
+					</div>
+					<div class="col-auto p-1">
+						<button type="button" class="btn btn-light btnReceiverFind"> <i class="bi bi-search"></i> </button>
+					</div>				
+				</div>
+				<div class="row p-1">
+					<div class="border p-1 dialog-receiver-list">
+						<ul></ul>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btnClose">닫기</button>
+				<button type="button" class="btn btn-primary btnAdd">추가</button>
+			</div>			
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}&libraries=services,clusterer"></script>

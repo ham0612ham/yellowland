@@ -42,8 +42,8 @@
 	</delete>
 	
 	<select id="readComm" parameterType="long" resultType="com.sp.app.assignComm.Community">
-		SELECT a.num, subject, content, userId, regDate, updateDate, pNum, zip, addr1, addr2, thumbnail,
-			deposit, monthly, expense, area, floor, bFloor, parking, elevator, transDate
+		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate, pNum, zip, addr1, addr2, thumbnail,
+			deposit, monthly, expense, area, floor, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate
 		FROM assignComm a
         JOIN assignCommDetail ad ON a.num = ad.num
 		WHERE a.num = #{num}
@@ -57,12 +57,34 @@
         ORDER BY imgNum ASC
 	</select>
 	
+	<select id="listCommCount" resultType="long">
+		SELECT NVL(COUNT(*), 0) count 
+		FROM assignComm
+	</select>
+	
 	<select id="listComm" resultType="com.sp.app.assignComm.Community">
-		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD'), updateDate, pNum, zip, addr1, addr2, thumbnail,
-			deposit, monthly, expense, area, bFloor, parking, elevator, transDate
+		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate, 
+			pNum, zip, addr1, addr2, thumbnail, deposit, monthly, expense, area, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate
 		FROM assignComm a
         JOIN assignCommDetail ad ON a.num = ad.num
         ORDER BY regDate DESC
 		
 	</select>
+	
+	<select id="listCommCountMyList" parameterType="String" resultType="long">
+		SELECT NVL(COUNT(*), 0) count 
+		FROM assignComm
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="listCommMyList" parameterType="String" resultType="com.sp.app.assignComm.Community">
+		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate, 
+			pNum, zip, addr1, addr2, thumbnail, deposit, monthly, expense, area, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate
+		FROM assignComm a
+        JOIN assignCommDetail ad ON a.num = ad.num
+        WHERE userId = #{userId}
+        ORDER BY regDate DESC
+		
+	</select>
+	
 </mapper>
