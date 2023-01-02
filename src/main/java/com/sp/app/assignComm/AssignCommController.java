@@ -117,11 +117,14 @@ public class AssignCommController {
 	
 	
 	@PostMapping("update")
-	public String updateSubmit(Community dto, Model model) throws Exception {
+	public String updateSubmit(Community dto, HttpSession session, Model model) throws Exception {
 		
 		try {
 			
-			service.updateComm(dto);
+			String root = session.getServletContext().getRealPath("/");
+			String path = root + "uploads" + File.separator + "image";
+			
+			service.updateComm(dto, path);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,7 +145,25 @@ public class AssignCommController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:.assignComm.main";
+		return "redirect:/assignComm/main";
 	}
 	
+	@RequestMapping(value = "noteSubmit", method = RequestMethod.POST)
+	public String noteSubmit(Note note, HttpSession session) throws Exception {
+		
+		try {
+			
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			note.setSenderId(info.getUserId());
+			
+			service.insertNote(note);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/assignComm/main";
+	}
 }

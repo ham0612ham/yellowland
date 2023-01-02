@@ -195,18 +195,23 @@ body{
 	height:100vh;
 }
 
-.modal-content {
+.main-modal {
 	right: 250px; 
 	width: 1000px; 
 	height: 880px;
 }
 
-.modal-footer {
-	margin-bottom: 292px;
+.main-modal-footer {
+	margin-bottom: 309px;
     position: absolute;
-    left: 820px;
+    left: 842px;
     bottom: -213px;
     border: none;
+}
+
+.modal-footer {
+    margin-bottom: -19px;
+    margin-right: -16px;
 }
 
 .info-wrap .dbox .icon span {

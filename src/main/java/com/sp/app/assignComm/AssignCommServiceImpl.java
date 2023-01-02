@@ -54,10 +54,37 @@ public class AssignCommServiceImpl implements AssignCommService {
 	}
 
 	@Override
-	public void updateComm(Community dto) throws Exception {
+	public void updateComm(Community dto, String pathname) throws Exception {
+		
 		try {
 			
+			String pNum = dto.getpNum1() + "-" + dto.getpNum2() + "-" + dto.getpNum3();
+			dto.setpNum(pNum);
+			
+			String thumbnail = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
+			dto.setThumbnail(thumbnail);
+			
 			dao.updateData("assignComm.updateComm", dto);
+			dao.updateData("assignComm.updateCommImg", dto);
+			
+			// 추가 이미지가 있으면
+			if(dto.getImgFiles().size() != 0) {
+				
+				for( MultipartFile img : dto.getImgFiles() ) {
+					
+					String imgName = fileManager.doFileUpload(img, pathname);
+					
+					if(imgName == null) {
+						continue;
+					}
+					
+					dto.setImgName(imgName);
+					
+					dao.updateData("assignComm.updateCommImg", dto);
+				}
+				
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -178,6 +205,20 @@ public class AssignCommServiceImpl implements AssignCommService {
 		
 		
 		return count;
+	}
+	
+	@Override
+	public void insertNote(Note note) throws Exception {
+		
+		try {
+			
+			dao.insertData("assignComm.insertNote", note);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
 
 }
