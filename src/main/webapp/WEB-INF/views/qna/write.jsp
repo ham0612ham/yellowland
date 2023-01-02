@@ -57,6 +57,7 @@ function sendOk() {
         window.editor.focus();
         return;
     }
+    
 	f.content.value = str;
 
     f.action = "${pageContext.request.contextPath}/qna/${mode}";
@@ -94,29 +95,31 @@ function sendOk() {
 								</div>
 							</td>	
 					</tr>
-					<tr>
-						<th scope="row">비밀번호</th>
-						<td colspan="2"><input name="qnaPwd" type="password" value="${dto.qnaPwd}"></td>
-					</tr>
 				</tbody>
 			</table>
-				<input type="hidden" name="num" value="${dto.num}">
+			<table class="table table-borderless">
+				<tr>
+					<td class="text-center">
+						<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i
+								class="bi bi-check2"></i>
+						</button>
+						<button type="button" class="btn btn-light"
+							onclick="location.href='${pageContext.request.contextPath}/qna/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i
+								class="bi bi-x"></i>
+						</button>
+						
+						<c:if test="${mode=='update'}">
+							<input type="hidden" name="num" value="${dto.num}">
+						</c:if>
+						
+					</td>
+				</tr>
+			</table>
 		</form>
 
 
 
-		<table class="table table-borderless">
-			<tr>
-				<td class="text-center">
-					<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}&nbsp;<i class="bi bi-check2"></i></button>
-					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button> 
-				</td>
-			</tr>
-		</table>
-		
-		
-
-
+	
 	</div>
 </div>
 

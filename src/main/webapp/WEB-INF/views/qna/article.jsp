@@ -56,8 +56,8 @@ function deleteOk(num) {
 		<div class="articleWriter">
 			<h4 class="articleWriterCircle">●&nbsp;</h4>
 			<h3 class="articleWriterManager">${dto.userName}</h3>
-			<h3 class="articleWriterDate">&nbsp;${dto.reg_date}</h3>
-			<h3	class="articleWriterIsAnswer">&nbsp;${dto.replyNum==1?"답변완료":"답변대기"}</h3>
+			<h3 class="articleWriterDate">&nbsp;${dto.regDate}</h3>
+			<h3	class="articleWriterIsAnswer">&nbsp;${not empty dto2 ? "답변완료":"답변대기"}</h3>
 		</div>
 
 		<hr>
@@ -84,25 +84,26 @@ function deleteOk(num) {
 				<button type="button" class="btn btn-light" style="margin-right: 10px;" onclick="deleteOk(${dto.num});">삭제</button>
 			</c:when>
 			<c:otherwise>
-				<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
+				<button type="button" class="btn btn-light" disabled="disabled" style="margin-right: 10px;">삭제</button>
 			</c:otherwise>
 		</c:choose>
 
-
-		<c:forEach var="dto" items="${list}" varStatus="status">
+		<c:if test="${not empty dto2}">
+		
 			<div class="articleManager">
 				<h4 class="articleManagerCircle">●&nbsp;</h4>
 				<h3 class="articleManagerManager">관리자</h3>
-				<h3 class="articleManagerDate">&nbsp;${dto.regDate}</h3>
+				<h3 class="articleManagerDate">&nbsp;${dto2.regDate}날짜</h3>
+				<h3></h3>
 				<br>
 				<div  class="articleManagerContent">
 					<span class="articleManagerContentDetail">
-					${dto.content}
+					${dto2.content} 컨텐츠
 					</span>
 				</div>
 				<br>
 			</div>
-		</c:forEach>
+		</c:if>
 		<br>	
 		<br>	
 		<hr>

@@ -90,7 +90,6 @@
 
 </style>
 
-
 <div class="container">
 	<div class="table1">
 		<h3 class="fw-semibold">고객센터</h3>
@@ -123,11 +122,18 @@
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-									<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">${dto.subject} Open modal for @mdo</td>
-								
+								<td>
+									<c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId == 'admin';}">
+										<a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</a>
+									</c:if>
+									<c:if test="${dto.userId != sessionScope.member.userId}">
+										<span style=" text-decoration: none; color:black;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">${dto.subject}</span>
+										<span style="display: none;">@mdo</span>
+									</c:if>
+								</td>
 								<td>${dto.userName}</td>
-								<td>${dto.replyNum==1?"답변완료":"-"}</td>
-								<td>${dto.reg_date}</td>
+								<td>${dto.isReply != 0 ?"답변완료":"-"}</td>
+								<td>${dto.regDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -147,27 +153,24 @@
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
  
- 
-			<button type="button" class="btn btn-primary" ></button>
 	
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+			        <h1 class="modal-title fs-5" id="exampleModalLabel">1:1 문의글 확인</h1>
 			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			      </div>
 			      <div class="modal-body">
 			        <form>
 			          <div class="mb-3">
-			            <label for="recipient-name" class="col-form-label">비밀번호:</label>
-			            <input type="password" class="form-control" id="recipient-name">
+			          	등록한 게시물만 확인 가능합니다.
 			          </div>
 			        </form>
 			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-			        <button type="button" class="btn btn-primary">입력</button>
+			      <div class="modal-footer" style="height: 70px;">
+			      	<span id="pwdErr" style="color:red; margin-bottom:45px; margin-right:30px;"></span>
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-left: 0px;">확인</button>
 			      </div>
 			    </div>
 			  </div>

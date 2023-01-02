@@ -11,11 +11,5 @@ public interface QnaService {
 	public void updateQna(Qna dto) throws Exception;
 	public void deleteQna(long num) throws Exception;
 	
-	public List<Reply> listReply(Map<String, Object> map);
-	
-
-	
-	
-
-	
+	public Qna readAnswer(long num); 
 }
