@@ -1,11 +1,14 @@
 package com.sp.app.commEchart;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sp.app.commercial.Sg_float;
+import com.sp.app.commercial.Sg_float_top5;
 import com.sp.app.common.dao.CommonDAO;
 
 @Service("commEchart.commEchartService")
@@ -190,5 +193,85 @@ public class CommEchartServiceImpl implements CommEchartService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public List<Long> graph1Chart(String siguNum, String cateJobNum) {
+		List<Long> list = null;
+		
+		try {
+			list = commEchartMongo.graph1Chart(siguNum, cateJobNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Long> graph2Chart(String siguNum, String cateJobNum) {
+		List<Long> list = null;
+		
+		try {
+			if(siguNum.equals("all")) {
+				list = commEchartMongo.sg_sales_job(siguNum, cateJobNum);
+			} else {
+				list = commEchartMongo.graph2Chart(siguNum, cateJobNum);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
+	@Override
+	public List<Object> graph3Chart(String siguNum) {
+		List<Sg_float> list = null;
+		List<Sg_float_top5> allList = null;
+		List<Object> result = new ArrayList<Object>();
+		List<Long> dongList = null;
+		List<Object> addList = null;
+		String dongName = "";
+		try {
+			if(siguNum.equals("all")) {
+				allList = commEchartMongo.sg_float_top5();
+				for(int i=0; i<allList.size(); i++) {
+					dongName = dao.selectOne("commercial.getDongName", allList.get(i).getDongNum());
+					addList = new ArrayList<Object>();
+					addList.add(allList.get(i).getTot()/10000);
+					addList.add(dongName);
+					result.add(addList);
+				}
+			} else {
+				dongList = dao.selectList("commercial.dong", siguNum);
+				list = commEchartMongo.graph3Chart(dongList);
+				
+				for (int i = 1; i < list.size(); i++) {
+					for (int j = 0; j < list.size() - i; j++) {
+						if (list.get(j).getTot() < list.get(j + 1).getTot()) {
+							Collections.swap(list, j, j + 1);
+						}
+					}
+				}
+				
+				if (list.size() > 5) {
+					list = list.subList(0, 5);
+				}
+				
+				for(int i=0; i<list.size(); i++) {
+					dongName = dao.selectOne("commercial.getDongName", dongList.get(i));
+					addList = new ArrayList<Object>();
+					addList.add(list.get(i).getTot()/10000);
+					addList.add(dongName);
+					result.add(addList);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

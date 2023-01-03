@@ -147,7 +147,7 @@
 	<div class="graph-bottom">
 		<div class="btn graph-title">서울시 상권 현황</div>
 		<div class="d-flex flex-row select-div justify-content-center">
-			<select name="#" class="form-select">
+			<select name="siguNum" class="form-select">
 				<option value="all" selected>자치구 전체</option>
 				<option value="11110">종로구</option>
 				<option value="11140">중구</option>
@@ -175,35 +175,26 @@
 				<option value="11710">송파구</option>
 				<option value="11740">강동구</option>
 			</select>
-			<select name="#" class="form-select">
-				<option selected>전체업종</option>
+			<select name="cateJobNum" class="form-select">
+				<option value="all" selected>전체업종</option>
 				<option value="CS1">외식업</option>
 				<option value="CS2">서비스업</option>
 				<option value="CS3">소매업</option>
-			</select>
-			<select name="#" class="form-select">
-				<option value="2022,3" selected>2022년 3분기</option>
-				<option value="2022,2">2022년 2분기</option>
-				<option value="2022,1">2022년 1분기</option>
-				<option value="2021,4">2021년 4분기</option>
-				<option value="2021,3">2021년 3분기</option>
-				<option value="2021,2">2021년 2분기</option>
-				<option value="2021,1">2021년 1분기</option>
 			</select>
 		</div>
 		<div class="d-flex flex-row justify-content-center graphs-div">
 			<div class="graphs" title="점포수">
 				<div class="graphs-title">점포수</div>
 				<div class="d-flex flex-row">
-					<div class="graph1-box graph1" id="graph1-chart">그래프 들어갈 곳</div>
+					<div class="graph1-box graph1" id="graph1-chart"></div>
 					<div class="graph1-box graph1-text-div">
 						<div class="graph1-text">&nbsp;</div>
-						<div class="graph1-text">전체<span class="graph1-count">577,194 개</span></div>
-						<div class="graph1-text"><span class="color-box1"></span>&nbsp;일반점포<span class="graph1-count">531,789 개</span></div>
-						<div class="graph1-text"><span class="color-box2"></span>&nbsp;프렌차이즈<span class="graph1-count">84,345 개</span></div>
+						<div class="graph1-text">전체<span class="graph1-count" id="graph1-total1"></span></div>
+						<div class="graph1-text"><span class="color-box1"></span>&nbsp;일반점포<span class="graph1-count" id="graph1-normal"></span></div>
+						<div class="graph1-text"><span class="color-box2"></span>&nbsp;프렌차이즈<span class="graph1-count" id="graph1-fran"></span></div>
 						<div class="graph1-text">&nbsp;</div>
-						<div class="graph1-text">2022년 1분기<span class="graph1-count">547,164 개</span></div>
-						<div class="graph1-text">2021년 2분기<span class="graph1-count">557,234 개</span></div>
+						<div class="graph1-text">2022년 2분기<span class="graph1-count" id="graph1-total2">547,164 개</span></div>
+						<div class="graph1-text">2021년 3분기<span class="graph1-count" id="graph1-total3">557,234 개</span></div>
 					</div>
 				</div>
 			</div>
@@ -212,26 +203,25 @@
 				<div class="d-flex flex-row justify-content-center" style="margin-top: 30px;">
 					<div class="graph2-box graph2-green">
 						<div class="graph2-title">전분기 대비</div>
-						<div class="graph2-val">+ 8,733억</div>
+						<div class="graph2-val" id="one-quart-before-chai"></div>
 					</div>
 					<div class="graph2-box graph2-purple">
-						<div class="graph2-title">2022년 2분기</div>
-						<div class="graph2-val">90,538억</div>
+						<div class="graph2-title">2022년 3분기</div>
+						<div class="graph2-val" id="this-quart"></div>
 					</div>
 					<div class="graph2-box graph2-green">
 						<div class="graph2-title">전년동분기 대비</div>
-						<div class="graph2-val">+ 4,712억</div>
+						<div class="graph2-val" id="one-year-before-chai"></div>
 					</div>
 				</div>
 				<div class="graph2-bottom">
-					<div>2022년 1분기<span class="graph2-total-val" style="float: right">81,805 억</span></div>
-					<div>2021년 2분기<span class="graph2-total-val" style="float: right">85,826 억</span></div>
+					<div>2022년 2분기<span class="graph2-total-val" style="float: right" id="one-quart-before"></span></div>
+					<div>2021년 3분기<span class="graph2-total-val" style="float: right" id="one-year-before"></span></div>
 				</div>
 			</div>
 			<div class="graphs" title="유동인구">
 				<div class="graphs-title">유동인구</div>
 				<div id="graph3-chart" style="">
-					차트 들어갈 곳
 				</div>
 			</div>
 		</div>
@@ -344,4 +334,24 @@ $(function(){
   ChannelIO('boot', {
     "pluginKey": "df1625ed-220c-4cb9-bb52-af3f513c8cd8"
   });
+  
+
+  function ajaxFun(url, method, query, dataType, fn) {
+  	$.ajax({
+  		type:method,
+  		url:url,
+  		data:query,
+  		dataType:dataType,
+  		success:function(data) {
+  			fn(data);
+  		},
+  		beforeSend:function(jqXHR) {
+  			jqXHR.setRequestHeader("AJAX", true);
+  		},
+  		error:function(jqXHR) {
+  			console.log(jqXHR.responseText);
+  		}
+  	});
+  }
+
 </script>

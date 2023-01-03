@@ -156,7 +156,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <div class="container" style="margin: 0px;">
 	<div class="body-container">
 	
-		<div id="analysis-banner" style="display:none">
+		<div id="analysis-banner" style="opacity: 0;">
 			<div id="green-div" class="d-flex justify-content-between">
 				<span>분석 리포트</span>
 				<span style="width: 350px;">&nbsp;</span>
@@ -178,7 +178,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			
 		</div>
 			
-		<div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style="display:none">
+		<div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style="opacity: 0;">
 			<div>&nbsp;</div>
 			<div class="analysis-div" id="list-item-1">
 				<div class="analy-title">점포수</div>
@@ -579,6 +579,11 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}"></script>
 <script type="text/javascript">
 
+$(function(){
+	$("#analysis").hide();
+	$("#analysis-banner").hide();
+});
+
 function makeMap(level, lat1, long1, obj){
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
@@ -671,6 +676,7 @@ $(function(){
 		let lat1 = $(this).attr("data-lat");
 		let dongNum = $(this).attr("data-val");
 		
+		$("#analysis").scrollTop(0);
 		makeMap(3, lat1, long1, obj);
 		
 		makeReport(dongNum);
@@ -683,6 +689,8 @@ $(function(){
 	$("body").on("click", ".marker", function() {
 		$("#analysis").show();
 		$("#analysis-banner").show();
+		$("#analysis").css("opacity", 1);
+		$("#analysis-banner").css("opacity", 1);
 		let dong = $(this).find(".marker-region-name").text();
 		$("#info-region").text(dong);
 		
@@ -784,7 +792,6 @@ $(function(){
 		let innerHtml;
 		
 		if ($(this).attr("data-val") === "all") {
-			console.log("false");
 			return;
 		} else if ($(this).attr("data-val") === "CS1") {
 			query = "cateJobNum=CS1";

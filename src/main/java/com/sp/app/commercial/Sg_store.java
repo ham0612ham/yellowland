@@ -22,6 +22,7 @@ public class Sg_store {
 	private String siguNum;
 	private String dongNum;
 	private long tot;
+	private String cateJobNum;
 	
 	public String getyCode() {
 		return yCode;
@@ -130,5 +131,11 @@ public class Sg_store {
 	}
 	public void setTot(long tot) {
 		this.tot = tot;
+	}
+	public String getCateJobNum() {
+		return cateJobNum;
+	}
+	public void setCateJobNum(String cateJobNum) {
+		this.cateJobNum = cateJobNum;
 	}
 }

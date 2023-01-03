@@ -9,12 +9,15 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.commercial.Sg_citizen;
 import com.sp.app.commercial.Sg_float;
+import com.sp.app.commercial.Sg_float_top5;
 import com.sp.app.commercial.Sg_sales;
+import com.sp.app.commercial.Sg_sales_job;
 import com.sp.app.commercial.Sg_store;
 
 @Service("commerEchart.commEchartMongoOperations")
@@ -547,6 +550,136 @@ public class CommEchartMongoOperations {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+
+	public List<Long> graph1Chart(String siguNum, String cateJobNum){
+		List<Long> list = new ArrayList<>();
+		List<Sg_store> result = null;
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_store> result1 = null;
+		
+		int[] y = {2022, 2022, 2022, 2021};
+		int[] q = {3,3,2,3};
+		String[] s = {"storeSu", "franSu", "storeSu", "storeSu"};
+		
+		try {
+			for(int i=0; i<4; i++) {
+				if(cateJobNum.equals("all") && siguNum.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]));
+				} else if (!cateJobNum.equals("all") && siguNum.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]).and("cateJobNum").is(cateJobNum));
+				} else if (cateJobNum.equals("all") && !siguNum.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]).and("siguNum").is(Integer.parseInt(siguNum)));
+				} else if (!cateJobNum.equals("all") && !siguNum.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]).and("siguNum").is(Integer.parseInt(siguNum)).and("cateJobNum").is(cateJobNum));
+				}
+				groupOperation = Aggregation.group("siguNum").sum(s[i]).as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_store", Sg_store.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0).getTot());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+
+	public List<Long> sg_sales_job(String siguNum, String cateJobNum){
+		List<Long> list = new ArrayList<>();
+		List<Sg_sales_job> result = null;
+		MatchOperation matchOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_sales_job> result1 = null;
+		int[] y = {2022, 2022, 2021};
+		int[] q = {3,2,3};
+		
+		try {
+			for(int i=0; i<3; i++) {
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]).and("cateJobNum").is(cateJobNum));
+				aggregation = Aggregation.newAggregation(matchOperation);
+				result1 = mongo.aggregate(aggregation, "sg_sales_job", Sg_sales_job.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0).getTot()/100000000);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<Long> graph2Chart(String siguNum, String cateJobNum){
+		List<Long> list = new ArrayList<>();
+		List<Sg_sales> result = null;
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_sales> result1 = null;
+		int[] y = {2022, 2022, 2021};
+		int[] q = {3,2,3};
+		
+		try {
+			for(int i=0; i<3; i++) {
+				if(cateJobNum.equals("all")) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]).and("siguNum").is(Integer.parseInt(siguNum)));
+				} else {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(y[i]).and("qCode").is(q[i]).and("siguNum").is(Integer.parseInt(siguNum)).and("cateJobNum").is(cateJobNum));
+				}
+				groupOperation = Aggregation.group("siguNum").sum("salesCost_quarter").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0).getTot()/100000000);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<Sg_float_top5> sg_float_top5() {
+		List<Sg_float_top5> list = null;
+		try {
+			BasicQuery query = new BasicQuery("{}");
+			list = mongo.find(query, Sg_float_top5.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Sg_float> graph3Chart(List<Long> dongList){
+		List<Sg_float> list = new ArrayList<>();
+		List<Sg_float> result = null;
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_float> result1 = null;
+		
+		try {
+			for(int i=0; i<dongList.size(); i++) {
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongList.get(i)));
+				groupOperation = Aggregation.group("dongNum").sum("floSu").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return list;
 	}
 }

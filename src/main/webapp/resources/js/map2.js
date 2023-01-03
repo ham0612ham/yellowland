@@ -105,8 +105,6 @@ $(function(){
 		}
 		let query = $(this).closest("form").serialize();
 		
-		alert(query);
-		
 		const fn = function(data) {
 			let obj2 = new Array();
 			$(data.list).each(function(index, item){

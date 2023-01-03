@@ -92,7 +92,7 @@ public class CommercialMongoOperations {
 				for(int i=0; i<list1.size(); i++) {
 					Sg_store dto1 = list1.get(i);
 					Sg_store dto2 = list2.get(i);
-					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setChai(dto1.getTot());
 					top10.setDongNum(dong);
 					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
 					top10.setRatio(ratio);
@@ -138,7 +138,7 @@ public class CommercialMongoOperations {
 				for(int i=0; i<list1.size(); i++) {
 					Sg_sales dto1 = list1.get(i);
 					Sg_sales dto2 = list2.get(i);
-					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setChai(dto1.getTot());
 					top10.setDongNum(dong);
 					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
 					top10.setRatio(ratio);
@@ -184,7 +184,7 @@ public class CommercialMongoOperations {
 				for(int i=0; i<list1.size(); i++) {
 					Sg_float dto1 = list1.get(i);
 					Sg_float dto2 = list2.get(i);
-					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setChai(dto1.getTot());
 					top10.setDongNum(dong);
 					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
 					top10.setRatio(ratio);

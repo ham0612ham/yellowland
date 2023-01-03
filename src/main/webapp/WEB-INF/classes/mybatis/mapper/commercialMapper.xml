@@ -20,4 +20,9 @@
 		SELECT latitude, longitude FROM categoryGu
 		WHERE siguNum = #{siguNum}
 	</select>
+	
+	<select id="getDongName" parameterType="Long" resultType="String">
+		SELECT dongName FROM dong
+		WHERE dongNum = #{dongNum}
+	</select>
 </mapper>

@@ -6,7 +6,7 @@
 <style type="text/css">
 .body-container {
 	max-width: 900px;
-	min-height: 900px;
+	min-height: 800px;
 	margin: auto;
 	margin-top: 100px;
 }
@@ -90,11 +90,11 @@ $(function() {
 		let cnt = $("input[name=nums]:checked").length;
 
 		if (cnt === 0) {
-			alert("삭제할 쪽지를 먼저 선택 하세요 !!!");
+			alert("삭제할 쪽지를 선택해주세요.");
 			return;
 		}
          
-		if(confirm("선택한 쪽지를 삭제 하시 겠습니까 ? ")) {
+		if(confirm("선택한 쪽지를 삭제하시겠습니까?")) {
 			const f = document.listForm;
 			f.action = "${pageContext.request.contextPath}/note/${menuItem}/delete";
 			f.submit();
@@ -217,17 +217,13 @@ $(function(){
 					</div>
 				</form>
 				<div style="width: 70px;">
-					<button class="btn btn-light note-btn2" style="float: left; width: 70px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;"
-						onclick="openFind();">
-						쪽지2
-					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none">
   쪽지2
 </button>
 

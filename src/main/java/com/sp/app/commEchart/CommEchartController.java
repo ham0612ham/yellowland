@@ -412,7 +412,6 @@ public class CommEchartController {
 		return model;
 	}
 	
-
 	@RequestMapping(value="gugeoinguSu")
 	@ResponseBody
 	public Map<String, Object> gugeoinguSu(@RequestParam long dongNum){
@@ -433,4 +432,59 @@ public class CommEchartController {
 		return model;
 	}
 	
+	@RequestMapping(value="graph1Chart")
+	@ResponseBody
+	public Map<String, Object> graph1Chart(@RequestParam String siguNum,
+			@RequestParam String cateJobNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Long> result = new ArrayList<Long>();
+		
+		try {
+			result = service.graph1Chart(siguNum, cateJobNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("total1", result.get(0));
+		model.put("normal", result.get(0)-result.get(1));
+		model.put("fran", result.get(1));
+		model.put("total2", result.get(2));
+		model.put("total3", result.get(3));
+
+		return model;
+	}
+
+	@RequestMapping(value="graph2Chart")
+	@ResponseBody
+	public Map<String, Object> graph2Chart(@RequestParam String siguNum,
+			@RequestParam String cateJobNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Long> result = new ArrayList<Long>();
+		
+		try {
+			result = service.graph2Chart(siguNum, cateJobNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("thisQ", result.get(0));
+		model.put("quartB", result.get(1));
+		model.put("yearB", result.get(2));
+		
+		return model;
+	}
+	
+	@RequestMapping(value="graph3Chart")
+	@ResponseBody
+	public Map<String, Object> graph3Chart(@RequestParam String siguNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Object> result = new ArrayList<Object>();
+		
+		try {
+			result = service.graph3Chart(siguNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("source", result);
+		
+		return model;
+	}
 }

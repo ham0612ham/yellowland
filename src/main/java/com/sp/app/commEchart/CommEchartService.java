@@ -17,4 +17,7 @@ public interface CommEchartService {
 	public List<Double> yoenryungbyulMechul(long dongNum);
 	public List<Double> sungbyulYoenryungbyulYudongingu(long dongNum);
 	public List<Long> gugeoinguSu(long dongNum);
+	public List<Long> graph1Chart(String siguNum, String cateJobNum);
+	public List<Long> graph2Chart(String siguNum, String cateJobNum);
+	public List<Object> graph3Chart(String siguNum);
 }
