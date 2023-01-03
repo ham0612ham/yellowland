@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,7 +87,7 @@ public class QnaController {
 	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String writeForm(Model model) throws Exception {
 		
-		model.addAttribute("write");
+		model.addAttribute("mode", "write");
 		return ".qna.write";
 	}
 	
@@ -100,6 +99,7 @@ public class QnaController {
 			dto.setUserId(info.getUserId());
 			service.insertQna(dto);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return "redirect:/qna/list";
@@ -109,32 +109,33 @@ public class QnaController {
 	@RequestMapping(value = "article")
 	public String artilce(@RequestParam long num,
 			@RequestParam String page,
-			@RequestParam(defaultValue = "all") String condition,
-			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session,
 			Model model) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		Qna dto = service.readQna(num);
-		
-		keyword = URLDecoder.decode(keyword, "utf-8");
-		
+
 		String query = "page=" + page;
 
-		Qna QnaDto = service.readQna(num);
-		if (QnaDto == null) {
+		Qna qnaDto = service.readQna(num);
+		if (qnaDto == null) {
 			return "redirect:/qna/list?" + query;
 		}
-	
-		QnaDto.setContent(QnaDto.getContent().replaceAll("\n", "<br>"));
+		if(! qnaDto.getUserId().equals(info.getUserId())) {
+			return "redirect:/qna/list?" + query;
+		}
 		
-		model.addAttribute("dto", QnaDto);
+		Qna qnaDto2 = service.readAnswer(num);
+	
+		qnaDto.setContent(qnaDto.getContent().replaceAll("\n", "<br>"));
+		
+		model.addAttribute("dto", qnaDto);
+		model.addAttribute("dto2",qnaDto2);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 
 		return ".qna.article";
 	}
-
+	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public String updateForm(@RequestParam long num,
 			@RequestParam String page,
@@ -174,28 +175,6 @@ public class QnaController {
 		return "retirect:/qna/list" ;
 	}
 	
-	// 댓글 리스트 -> AJAX 
-	@GetMapping("listReply")
-	public String listReply(@RequestParam long num,
-			HttpSession session,
-			Model model) throws Exception {
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("num", num);
-		
-		map.put("membership", info.getUserId());
-		map.put("userId", info.getUserId());
-		
-		map.put("num", num);
-		
-		List<Reply> listReply = service.listReply(map);
-	
-		
-		return ".qna.article";
-	}
-	
 	
 	@RequestMapping(value = "delete")
 	public String delete(@RequestParam long num,
@@ -216,6 +195,6 @@ public class QnaController {
 		}
 		
 		
-		return "redirect:/qna/list?"+"page="+page;
+		return "redirect:/qna/list?page="+page;
 	}
 }

@@ -27,6 +27,7 @@ public class Community {
 	private String thumbnail;   // 로컬에 저장한 대표 이미지 파일명
 	private MultipartFile thumbnailFile;  // 사용자가 첨부한 대표 이미지 파일
 	
+	private long imgNum;
 	private String imgName;     // 로컬에 저장한 추가 이미지 파일명
 	private List<MultipartFile> imgFiles; // 사용자가 첨부한 추가 이미지 파일
 	
@@ -42,6 +43,12 @@ public class Community {
 	
 	
 	
+	public long getImgNum() {
+		return imgNum;
+	}
+	public void setImgNum(long imgNum) {
+		this.imgNum = imgNum;
+	}
 	public String getpNum() {
 		return pNum;
 	}

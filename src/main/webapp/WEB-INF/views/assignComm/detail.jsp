@@ -71,7 +71,13 @@ i {
 	cursor: pointer;
 }
 
+.noteForm {
+	width: 30vw;
+}
+
 </style>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 
 <script type="text/javascript">
 
@@ -90,6 +96,100 @@ function deleteComm() {
 		let url = "${pageContext.request.contextPath}/assignComm/delete?num=${dto.num}";
 		location.href = url;
 	}
+	
+}
+
+function check() {
+	
+	const f = document.detailForm;
+	
+	if(! f.subject.value.trim()) {
+		alert(" 제목을 입력해주세요! ");
+		f.subject.focus();
+		return false;
+	}
+	
+
+	if(! f.pNum2.value.trim()) {
+		alert(" 휴대폰 번호를 입력해주세요! ");
+		f.pNum2.focus();
+		return false;
+	} else if(! f.pNum3.value.trim()) {
+		alert(" 휴대폰 번호를 입력해주세요! ");
+		f.pNum3.focus();
+		return false;
+	}
+	
+	if(! f.zip.value.trim()) {
+		alert(" 우편 번호를 입력해주세요! ");
+		f.zip.focus();
+		return false;
+	}
+	
+	if(! f.addr1.value.trim()) {
+		alert(" 기본 주소를 입력해주세요! ");
+		f.addr1.focus();
+		return false;
+	}
+	
+	if(! f.addr2.value.trim()) {
+		alert(" 상세 주소를 입력해주세요! ");
+		f.addr2.focus();
+		return false;
+	}
+	
+	if(! f.thumbnailFile.value.trim()) {
+		alert(" 기본 이미지를 업로드해주세요! ");
+		f.thumbnailFile.focus();
+		return false;
+	}
+	
+	if(! f.deposit.value.trim()) {
+		alert(" 보증금을 입력해주세요! ");
+		f.deposit.focus();
+		return false;
+	}
+	
+	if(! f.monthly.value.trim()) {
+		alert(" 월세를 입력해주세요! ");
+		f.monthly.focus();
+		return false;
+	}
+	
+	if(! f.expense.value.trim()) {
+		alert(" 관리비를 입력해주세요! ");
+		f.expense.focus();
+		return false;
+	}
+	
+	if(! f.area.value.trim()) {
+		alert(" 전용면적을 입력해주세요! ");
+		f.area.focus();
+		return false;
+	}
+	
+	
+	if(! f.parking.value.trim()) {
+		alert(" 주차 가능 여부를 입력해주세요! ");
+		f.parking.focus();
+		return false;
+	}
+	
+	if(! f.elevator.value.trim()) {
+		alert(" 엘리베이터 유무를 입력해주세요! ");
+		f.elevator.focus();
+		return false;
+	}
+	
+	if(! f.transDate.value.trim()) {
+		alert(" 양도 가능일을 입력해주세요! ");
+		f.transDate.focus();
+		return false;
+	}
+	
+	
+	f.action = "${pageContext.request.contextPath}/assignComm/${mode}";
+	f.submit();
 	
 }
 
@@ -114,11 +214,11 @@ $(function() {
 	
 	
 	$(".thumbnail-viewer").click(function() {
-		$("form[name=contactForm] input[name=thumbnailFile]").trigger("click");
+		$("form[name=detailForm] input[name=thumbnailFile]").trigger("click");
 	});
 	
 	// change : 값이 바뀔경우
-	$("form[name=contactForm] input[name=thumbnailFile]").change(function() {
+	$("form[name=detailForm] input[name=thumbnailFile]").change(function() {
 		
 		let file = this.files[0];
 		
@@ -167,14 +267,12 @@ $(function() {
 	let sel_files = [];
 	let count = 0;
 	
-	$("body").on("click", ".img-add", function() {
-		$("form[name=contactForm] input[name=imgFiles]").trigger("click");
+	$("body").on("click", ".img-update", function() {
+		$("form[name=detailForm] input[name=imgFiles]").trigger("click");
 	});
 	
-	$("form[name=contactForm] input[name=imgFiles]").change(function(){
-		
-		
-		
+	$("form[name=detailForm] input[name=imgFiles]").change(function(){
+			
 		// 현재 고른  파일이 없다면
 		if(! this.files) {
 			let dt = new DataTransfer();
@@ -184,7 +282,7 @@ $(function() {
 			}
 			
 			// 기존 저장된 파일들 다시 저장
-			document.contactForm.imgFiles.files = dt.files;
+			document.detailForm.imgFiles.files = dt.files;
 			
 			return false;
 			
@@ -208,7 +306,7 @@ $(function() {
 			sel_files.push(file);
 			
 			const reader = new FileReader();
-			const $img = $("<img>", {"class":"item img-item"});
+			const $img = $("<img>", {"class":"item img-li"});
 			$img.attr("data-filename", file.name);
 			
 			reader.onload = e => {
@@ -226,11 +324,11 @@ $(function() {
 			dt.items.add(f);
 		}
 		
-		document.contactForm.imgFiles.files = dt.files;
+		document.detailForm.imgFiles.files = dt.files;
 		
 	});
 	
-	$("body").on("click", ".img-item", function() {
+	$("body").on("click", ".img-li", function() {
 		if(! confirm("선택한 파일을 삭제하시겠습니까 ? ")) {
 			return false;
 		}
@@ -253,7 +351,7 @@ $(function() {
 			dt.items.add(f);
 		}
 		
-		document.contactForm.imgFiles.files = dt.files;
+		document.detailForm.imgFiles.files = dt.files;
 		
 		$(this).remove();
 		
@@ -268,16 +366,16 @@ $(function() {
 <body>
 
 <!-- form Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static">
+<div class="modal fade" id="detailModal" tabindex="-1" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">상가 양도 작성 폼</h5>
+        <h5 class="modal-title" id="detailModalLabel">상가 양도 작성 폼</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         	<div class="container">
-	        	<form method="post" id="contactForm" name="contactForm" class="contactForm" enctype="multipart/form-data">
+	        	<form method="post" id="detailForm" name="detailForm" class="detailForm" enctype="multipart/form-data">
 				<div class="row justify-content-center">
 					<div class="col-md-12">
 						<div class="wrapper">
@@ -300,32 +398,25 @@ $(function() {
 														</div>
 													</div>
 													
-													<c:if test="${mode=='update'}">
-														<div class="col-md-10">
-															<div class="form-group" id="subImg">
-																<label class="label" for="imgName">추가 이미지</label>
-															    <div class="img-flex">
-															    	<c:forEach var="img" items="${imgList}">
-															      		<img class="item img-add" src="${pageContext.request.contextPath}/uploads/image/${img.imgName}" class="d-block w-100">
-															    	</c:forEach>
-															    </div>
-														    </div>
-														</div>
-														<input type="file" class="form-control" name="imgFiles" id="imgName" accept="image/*" multiple="multiple" 
-																value="${pageContext.request.contextPath}/uploads/image/${dto.imgName}" style="display: none;">
-													</c:if>
-													<!-- 
+													 
+												<input type="hidden" name="num" value="${dto.num}">
+												<c:if test="${mode=='update'}">
 													<div class="col-md-10">
 														<div class="form-group" id="subImg">
 															<label class="label" for="imgName">추가 이미지</label>
-															<div class="img-flex">
-																<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
-															</div>
-															<input type="file" class="form-control" name="imgFiles" id="imgName" accept="image/*" multiple="multiple" 
-																value="${pageContext.request.contextPath}/uploads/image/${dto.imgName}" style="display: none;">
-														</div>
+														    <div class="img-flex">
+														    	<img class="item img-update" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+														    	<c:forEach var="img" items="${imgList}">
+														      		<img class="item img-li" src="${pageContext.request.contextPath}/uploads/image/${img.imgName}" class="d-block w-100">
+														    		<input type="hidden" name="imgNum" value="${img.imgNum}">	
+														    	</c:forEach>
+														    </div>
+													    </div>
 													</div>
-													-->
+													<input type="file" class="form-control" name="imgFiles" id="imgName" accept="image/*" multiple="multiple" 
+															value="${pageContext.request.contextPath}/uploads/image/${dto.imgName}" style="display: none;">
+												</c:if>
+													
 												</div>
 									          	<p style="margin-bottom: 0; margin-left: 8px;">위치정보</p>
 												<div class="col-md-6">
@@ -511,10 +602,7 @@ $(function() {
 								        					</select> -
 															<input style="width:63px;" type="text" class="form-control" name="pNum2" value="${dto.pNum2}"> -
 															<input style="width:63px;" type="text" class="form-control" name="pNum3" value="${dto.pNum3}">
-															<c:if test="${mode == 'update'}">
-																<input type="hidden" name="num" value="${dto.num}">
-																 
-															</c:if>
+															
 														</div>
 													</div>
 									          	</div>
@@ -562,9 +650,12 @@ $(function() {
 		<br>
 		
 		<div style="display: flex; justify-content: flex-end;">
+			<c:if test="${sessionScope.member.userId != dto.userId && !empty sessionScope.member.userId}">
+				<a data-bs-toggle="modal" data-bs-target="#myDialogModal"><i style="margin-left: -30px;" class="fa-regular fa-comments"></i></a>
+			</c:if>
 			<c:if test="${sessionScope.member.userId == dto.userId}">
 				<li class="my-button"><button type="button" data-bs-toggle="modal"
-					data-bs-target="#exampleModal" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></button></li>
+					data-bs-target="#detailModal" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></button></li>
 				<li class="my-button" style="margin-left: 5px; margin-right: 5px;"><button type="button" onclick="deleteComm();" class="btn btn-primary"><i class="fa-regular fa-trash-can"></i></button></li>
 			</c:if>
 		</div>
@@ -597,6 +688,40 @@ $(function() {
 		
 	</div>
 </article>
+
+<!-- 쪽지 보내기 모달 -->
+<div class="modal fade" id="myDialogModal" tabindex="-1" 
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="myDialogModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form class="noteForm" name="noteForm" action="${pageContext.request.contextPath}/assignComm/noteSubmit" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myDialogModalLabel">받는 사람&nbsp; ${dto.userId}</h5>
+					<input type="hidden" name="receiverId" value="${dto.userId}">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="col-md-12">
+						<div style="margin-top: 10px;" class="form-group">
+							<label class="label" for="editor2" style="margin-left: 8px;">쪽지내용 </label>
+							<textarea name="content" class="form-control" id="editor2" cols="30" rows="4"  
+								placeholder="개인정보 및 상대방을 비하하거나 욕하는 글은 처벌 받을 수 있습니다."></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary btnClose">닫기</button>
+						<button type="submit" class="btn btn-primary btnAdd">전송</button>
+					</div>	
+				</div>
+			<script>
+		    	ClassicEditor.create( document.querySelector( '#editor2' ) );
+		    </script>
+			</div>
+		</form>		
+	</div>
+</div>
+
 
 </body>
 </html>

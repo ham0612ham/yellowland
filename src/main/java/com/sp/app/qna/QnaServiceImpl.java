@@ -85,21 +85,19 @@ public class QnaServiceImpl implements QnaService {
 		}
 	}
 
+	
 	@Override
-	public List<Reply> listReply(Map<String, Object> map) {
-		Qna dto = null; 
+	public Qna readAnswer(long num) {
+		Qna dto = null;
 		
 		try {
-			dto = dao.selectOne("qna.readAnswer", map);
+			dto = dao.selectOne("qna.readAnswer", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		return null;
+		return dto;
 	}
-
-
 
 		
 }

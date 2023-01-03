@@ -87,4 +87,9 @@
 		
 	</select>
 	
+	<insert id="insertNote" parameterType="com.sp.app.assignComm.Note">
+		INSERT INTO note(num, senderId, receiverId, content, sendDay) 
+			VALUES(NOTE_SEQ.NEXTVAL, #{senderId}, #{receiverId}, #{content}, SYSDATE)
+	</insert>
+	
 </mapper>

@@ -452,9 +452,6 @@ $(function() {
 						<div class="assign-set">
 							<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
 							&emsp;&emsp;&emsp;&emsp;&emsp;
-								<c:if test="${sessionScope.member.userId != dto.userId && !empty sessionScope.member.userId}">
-									<a data-bs-toggle="modal" data-bs-target="#myDialogModal"><i class="fa-regular fa-comments"></i></a>
-								</c:if>
 							</div>
 							<div>관리비 ${dto.expense}만원</div>
 							<div>전용면적 ${dto.area}㎡</div>
@@ -531,16 +528,16 @@ $(function() {
 
 
 
-
-<div>
-	<a class="float" onclick="loginCheck();" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
-</div>
-
+<c:if test="${mode == 'write'}">
+	<div>
+		<a class="float" onclick="loginCheck();" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
+	</div>
+</c:if>
 
 <!-- form Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static">
+<div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content main-modal">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">상가 양도 작성 폼</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -755,8 +752,8 @@ $(function() {
 								        				<p style="width:125px; margin-bottom: 1px;">연락처</p>
 								        				<div class="sub" style="display: flex; margin-top: 2px;">
 								        					<select name="pNum1">
-								        						<option value="010" ${pNum1=="010" ? "selected='selected'":""}>010</option>
-								        						<option value="02"  ${pNum1=="02"  ? "selected='selected'":""}>02</option>
+								        						<option value="010" ${dto.pNum1=="010" ? "selected='selected'":""}>010</option>
+								        						<option value="02"  ${dto.pNum1=="02"  ? "selected='selected'":""}>02</option>
 								        						<option value="011" ${pNum1=="011" ? "selected='selected'":""}>011</option>
 								        						<option value="016" ${pNum1=="016" ? "selected='selected'":""}>016</option>
 								        						<option value="017" ${pNum1=="017" ? "selected='selected'":""}>017</option>
@@ -775,7 +772,7 @@ $(function() {
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="main-modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 			        <button type="button" onclick="check();" class="btn btn-primary">작성완료</button>
 		      	</div>
@@ -788,44 +785,7 @@ $(function() {
 
 
 
-<!-- 쪽지 보내기 모달 -->
-<div class="modal fade" id="myDialogModal" tabindex="-1" 
-		data-bs-backdrop="static" data-bs-keyboard="false"
-		aria-labelledby="myDialogModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="myDialogModalLabel">받는 사람</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-auto p-1">
-						<select name="condition" id="condition" class="form-select">
-							<option value="userName">이름</option>
-							<option value="userId">아이디</option>
-						</select>
-					</div>
-					<div class="col-auto p-1">
-						<input type="text" name="keyword" id="keyword" class="form-control">
-					</div>
-					<div class="col-auto p-1">
-						<button type="button" class="btn btn-light btnReceiverFind"> <i class="bi bi-search"></i> </button>
-					</div>				
-				</div>
-				<div class="row p-1">
-					<div class="border p-1 dialog-receiver-list">
-						<ul></ul>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary btnClose">닫기</button>
-				<button type="button" class="btn btn-primary btnAdd">추가</button>
-			</div>			
-		</div>
-	</div>
-</div>
+
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}&libraries=services,clusterer"></script>
 
