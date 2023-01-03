@@ -56,13 +56,6 @@ $(function(){
 	        show: false,
 	        position: 'center'
 	      },
-	      emphasis: {
-	        label: {
-	          show: true,
-	          fontSize: 40,
-	          fontWeight: 'bold'
-	        }
-	      },
 	      data: [
 	        { value: 530310, name: '일반점포' },
 	        { value: 44729, name: '프랜차이즈' }
