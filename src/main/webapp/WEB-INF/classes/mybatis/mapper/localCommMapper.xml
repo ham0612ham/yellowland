@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="localComm">
+	<select id="seq" resultType="Long">
+		SELECT localComm_seq.NEXTVAL FROM dual
+	</select>
+	
+
+	<insert id="insertLocalComm" parameterType="com.sp.app.localComm.LocalComm" >
+		 INSERT INTO localComm(num, subject, content,  hitCount, 
+		 		regDate, userId, siguNum, dongNum)
+			VALUES (localComm_seq.NEXTVAL,  #{subject},  #{content} ,#{hitCount},
+				 SYSDATE, #{userId}, #{siguNum}, {#dongNum}); 
+	</insert>
+	
+	<!-- 모든 시군구(번호, 이름) -->
+	<select id="readSigu">
+		  SELECT siguNum, siguName 
+              FROM CATEGORYGU
+	</select>
+
+	<!-- 시군구의 동(번호, 이름): 조건 시군구번호  -->
+	<select id="readDong">
+		   SELECT g.siguNum, g.siguName, dongNum, dongName
+              FROM CATEGORYGU g
+           JOIN DONG d ON d.siguNum =  g.siguNum
+           WHERE siguNum = #{num}
+	</select>
+	
+</mapper>

@@ -123,7 +123,7 @@
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
 								<td>
-									<c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId == 'admin';}">
+									<c:if test="${dto.userId == sessionScope.member.userId && sessionScope.member.membership > 50}">
 										<a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</a>
 									</c:if>
 									<c:if test="${dto.userId != sessionScope.member.userId}">

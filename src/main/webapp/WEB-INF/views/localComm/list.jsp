@@ -224,9 +224,17 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="sendButton">
-				<button type="button" class="btn btn-primary" style="margin-left: 740px;">글 작성</button>
-			</div>
+
+			<c:choose>
+				<c:when test="${sessionScope.member.userId ne null}">
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/localCommunity/write';" style="margin-left: 740px;">글 작성</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login';">글 작성</button>
+				</c:otherwise>
+			</c:choose>
+
+
 
 			<br>
 			
