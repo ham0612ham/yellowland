@@ -18,7 +18,6 @@
 			VALUES(assignCommImg_seq.NEXTVAL, ASSIGNCOMM_SEQ.CURRVAL, #{imgName}) 
 	</insert>
 	
-	
 	<update id="updateComm" parameterType="com.sp.app.assignComm.Community">
 		UPDATE assignComm SET subject=#{subject}, content=#{content}, thumbnail=#{thumbnail}, 
 			zip=#{zip}, addr1=#{addr1}, addr2=#{addr2}, pNum=#{pNum}, updateDate=SYSDATE

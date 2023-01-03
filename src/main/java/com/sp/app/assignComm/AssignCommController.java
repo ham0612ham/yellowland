@@ -81,12 +81,8 @@ public class AssignCommController {
 			
 			imgList = service.readCommImg(num);
 			
-			
 			model.addAttribute("dto", dto);
 			model.addAttribute("imgList", imgList);
-			model.addAttribute("mode", "update");
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +103,6 @@ public class AssignCommController {
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 		
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,7 +126,7 @@ public class AssignCommController {
 		}
 		
 		
-		return "redirect:/assignComm/detail";
+		return "redirect:/assignComm/main";
 	}
 	
 	@GetMapping("delete")
@@ -166,4 +161,26 @@ public class AssignCommController {
 		
 		return "redirect:/assignComm/main";
 	}
+	
+	// ajax - html
+	@GetMapping(value = "dtoJsonDetail")
+	public String dtoJsonDetail(@RequestParam long num, Model model) throws Exception {
+		
+		Community dto = null;
+		
+		try {
+		
+			dto = service.readComm(num);
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("mode", "update");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "assignComm/updateForm";
+	}
+	
 }

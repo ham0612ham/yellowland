@@ -65,7 +65,7 @@ public class AssignCommServiceImpl implements AssignCommService {
 			dto.setThumbnail(thumbnail);
 			
 			dao.updateData("assignComm.updateComm", dto);
-			dao.updateData("assignComm.updateCommImg", dto);
+			dao.updateData("assignComm.updateCommDetail", dto);
 			
 			// 추가 이미지가 있으면
 			if(dto.getImgFiles().size() != 0) {
