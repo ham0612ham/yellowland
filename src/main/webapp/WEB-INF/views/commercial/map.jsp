@@ -156,7 +156,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <div class="container" style="margin: 0px;">
 	<div class="body-container">
 	
-		<div id="analysis-banner">
+		<div id="analysis-banner" style="display:none">
 			<div id="green-div" class="d-flex justify-content-between">
 				<span>분석 리포트</span>
 				<span style="width: 350px;">&nbsp;</span>
@@ -178,158 +178,226 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			
 		</div>
 			
-		<div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+		<div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style="display:none">
 			<div>&nbsp;</div>
 			<div class="analysis-div" id="list-item-1">
 				<div class="analy-title">점포수</div>
-				<div class="analy-big-txt">점포수는 <span class="analy-green-txt" id="zumposu-result">101개</span> 입니다.</div>
-				<div class="analy-graph" id="zumposu"></div>
+				<div class="analy-big-txt">점포수는 <span class="analy-green-txt" id="zumposu-result"></span> 입니다.</div>
+				<div class="analy-graph" id="zumposu">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">개업수</div>
-				<div class="analy-big-txt">개업수는 <span class="analy-green-txt" id="geupsu-result">2개</span> 입니다.</div>
+				<div class="analy-big-txt">개업수는 <span class="analy-green-txt" id="geupsu-result"></span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-quart-count">↓ 1개</span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-quart-count"></span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="fl-right" id="geupsu-year-count">↑ 5개</span>
+						<span>전분기 대비</span><span class="fl-right" id="geupsu-year-count"></span>
 					</div>
 				</div>
-				<div class="analy-graph" id="geupsu"></div>
+				<div class="analy-graph" id="geupsu">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">폐업수</div>
-				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt" id="pyeupsu-result">3개</span> 입니다.</div>
+				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt" id="pyeupsu-result"></span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="fl-right" id="pyeupsu-year-count">↓ 6개</span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="pyeupsu-year-count"></span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="fl-right" id="pyeupsu-quart-count">↓ 1개</span>
+						<span>전분기 대비</span><span class="fl-right" id="pyeupsu-quart-count"></span>
 					</div>
 				</div>
-				<div class="analy-graph" id="pyeupsu"></div>
+				<div class="analy-graph" id="pyeupsu">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">업종분포 현황</div>
-				<div class="analy-big-txt"><span class="analy-green-txt upzongbunpo-job-first">소매업</span>이 가장 많고 <span class="analy-green-txt upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</div>
+				<div class="analy-big-txt"><span class="analy-green-txt upzongbunpo-job-first"></span>이 가장 많고 <span class="analy-green-txt upzongbunpo-job-grow"></span>이 증가 추세입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span><span class="gr-text" class="upzongbunpo-job">소매업</span>이 가장 많고, <span class="gr-text upzongbunpo-job-grow">외식업</span>이 증가 추세입니다.</span>
+						<span><span class="gr-text" class="upzongbunpo-job"></span>이 가장 많고, <span class="gr-text upzongbunpo-job-grow"></span>이 증가 추세입니다.</span>
 					</div>
 				</div>
-				<div class="analy-graph" id="upzongbunpo" style="padding: 10px; height: 250px;"></div>
+				<div class="analy-graph" id="upzongbunpo" style="padding: 10px; height: 250px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 110px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div" id="list-item-2">
 				<div class="analy-title">매출액</div>
-				<div class="analy-big-txt">점포당 월평균 매출액은 <span class="analy-green-txt" id="mechulak-ave">932만원</span> 입니다.</div>
+				<div class="analy-big-txt">점포당 월평균 매출액은 <span class="analy-green-txt" id="mechulak-ave"></span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="fl-right" id="mechulak-quart">↓ 54만원</span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="mechulak-quart"></span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="fl-right" id="mechulak-year">↑ 0만원</span>
+						<span>전분기 대비</span><span class="fl-right" id="mechulak-year"></span>
 					</div>
 				</div>
-				<div class="analy-graph" id="mechulak" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="mechulak" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 110px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">매출건수</div>
-				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt" id="mechulgunsu-month-ave">438건</span> 입니다.</div>
+				<div class="analy-big-txt">월평균 매출건수는 <span class="analy-green-txt" id="mechulgunsu-month-ave"></span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right" id="mechulgunsu-quart">↓ 14건</span>
+						<span>전년 동분기 대비</span><span class="gr-text fl-right" id="mechulgunsu-quart"></span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="red-text fl-right" id="mechulgunsu-year">↑ 13건</span>
+						<span>전분기 대비</span><span class="red-text fl-right" id="mechulgunsu-year"></span>
 					</div>
 				</div>
-				<div class="analy-graph" id="mechulgunsu" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="mechulgunsu" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 110px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">요일별 매출</div>
-				<div class="analy-big-txt">선택상권은 <span class="gr-text yoilbyul-muchul-yoil">금요일</span>에 가장 고객이 많았습니다.</div>
+				<div class="analy-big-txt">선택상권은 <span class="gr-text yoilbyul-muchul-yoil"></span>에 가장 고객이 많았습니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span><span class="gr-text yoilbyul-muchul-yoil">금요일</span>에 가장 매출이 높습니다.</span>
+						<span><span class="gr-text yoilbyul-muchul-yoil"></span>에 가장 매출이 높습니다.</span>
 					</div>
 				</div>
-				<div class="analy-graph" id="yoilbyul-muchul" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="yoilbyul-muchul" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 110px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">시간대별 매출</div>
-				<div class="analy-big-txt"><span class="gr-text sigandebuel-mechul-highest">17~21시</span>매출이 가장 높아요.</div>
+				<div class="analy-big-txt"><span class="gr-text sigandebuel-mechul-highest"></span>매출이 가장 높아요.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span><span class="gr-text sigandebuel-mechul-highest">17~21시</span> 매출이 가장 높습니다.</span>
+						<span><span class="gr-text sigandebuel-mechul-highest"></span> 매출이 가장 높습니다.</span>
 					</div>
 				</div>
-				<div class="analy-graph" id="sigandebuel-mechul" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="sigandebuel-mechul" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 110px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">성별 매출</div>
-				<div class="analy-big-txt"><span class="gr-text sungbuel-mechul-result">남성</span><span class="gr-text sungbuel-mechul-percent">(52.6%)</span> 매출이 높아요</div>
+				<div class="analy-big-txt"><span class="gr-text sungbuel-mechul-result"></span><span class="gr-text sungbuel-mechul-percent"></span> 매출이 높아요</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>선택 상권은<span class="gr-text sungbuel-mechul-result">남성</span><span class="gr-text sungbuel-mechul-percent">(52.6%)</span> 고객이 많은 상권입니다. <span class="gr-text sungbuel-mechul-result">남성</span> 고객의 방문에 도움이 되는 요소에보다 많은 투자를 고려하세요.</span>
+						<span>선택 상권은<span class="gr-text sungbuel-mechul-result"></span><span class="gr-text sungbuel-mechul-percent"></span> 고객이 많은 상권입니다. <span class="gr-text sungbuel-mechul-result">남성</span> 고객의 방문에 도움이 되는 요소에보다 많은 투자를 고려하세요.</span>
 					</div>
 				</div>
-				<div class="analy-graph" id="sungbuel-mechul" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="sungbuel-mechul" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 110px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 				<div class="d-flex justify-content-between" style="margin-top: -25px; position: relative; top: 25px;">
 					<div class="analy-graph-3div-noline" style="padding-top: 10px;"><span>외식업</span></div>
 					<div class="analy-graph-3div-noline" style="padding-top: 10px;"><span>서비스업</span></div>
 					<div class="analy-graph-3div-noline" style="padding-top: 10px;"><span>소매업</span></div>
 				</div>
 				<div class="d-flex justify-content-between" style="margin-top: 2px;">
-					<div class="analy-graph-3div" id="sungbuel-mechul-food" style="padding-top: 10px;"></div>
-					<div class="analy-graph-3div" id="sungbuel-mechul-service" style="padding-top: 10px;"></div>
-					<div class="analy-graph-3div" id="sungbuel-mechul-retail" style="padding-top: 10px;"></div>
+					<div class="analy-graph-3div" id="sungbuel-mechul-food" style="padding-top: 10px;">
+						<div class="d-flex justify-content-center" style="position: relative; top: 50px;">
+							<div class="spinner-border text-primary" role="status"></div>
+						</div>
+					</div>
+					<div class="analy-graph-3div" id="sungbuel-mechul-service" style="padding-top: 10px;">
+						<div class="d-flex justify-content-center" style="position: relative; top: 50px;">
+							<div class="spinner-border text-primary" role="status"></div>
+						</div>
+					</div>
+					<div class="analy-graph-3div" id="sungbuel-mechul-retail" style="padding-top: 10px;">
+						<div class="d-flex justify-content-center" style="position: relative; top: 50px;">
+							<div class="spinner-border text-primary" role="status"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">연령대별 매출</div>
-				<div class="analy-big-txt">선택상권의 <span class="gr-text">외식업의 </span><span class="gr-text yoenryungbyul-mechul-age">50대</span><span class="gr-text yoenryungbyul-mechul-percent">(29.1%)</span>에 가장 고객이 많았습니다.</div>
+				<div class="analy-big-txt">선택상권의 <span class="gr-text yoenryungbyul-mechul-cate"></span><span class="gr-text yoenryungbyul-mechul-age"></span><span class="gr-text yoenryungbyul-mechul-percent"></span>에 가장 고객이 많았습니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>선택상권의 <span class="gr-text">외식업</span>은 <span class="gr-text yoenryungbyul-mechul-age">50대</span><span class="gr-text yoenryungbyul-mechul-percent">(29.1%)</span>가 가장 활발한 소비를 보입니다.</span>
+						<span>선택상권의 <span class="gr-text yoenryungbyul-mechul-cate2"></span>은 <span class="gr-text yoenryungbyul-mechul-age"></span><span class="gr-text yoenryungbyul-mechul-percent"></span>가 가장 활발한 소비를 보입니다.</span>
 					</div>
 				</div>
 				<div class="analy-graph-title" style="margin-top: -15px;">외식업</div>
-				<div class="analy-graph" id="yoenryungbyul-mechul" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="yoenryungbyul-mechul-food" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 				<div class="analy-graph-title">서비스업</div>
-				<div class="analy-graph" id="yoenryungbyul-mechul-service" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="yoenryungbyul-mechul-service" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 				<div class="analy-graph-title">소매업</div>
-				<div class="analy-graph" id="yoenryungbyul-mechul-retail" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="yoenryungbyul-mechul-retail" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div" id="list-item-3">
 				<div class="analy-title">성별, 연령별 유동인구</div>
-				<div class="analy-big-txt"><span class="gr-text sungbyul-yoenryungbyul-yudongingu-gender">여성</span><span class="gr-text">, </span><span class="gr-text sungbyul-yoenryungbyul-yudongingu-percent">(32.4%)</span>유동인구가 가장 많아요.</div>
-				<div class="analy-graph" id="sungbyul-yoenryungbyul-yudongingu" style="padding-top: 10px; height: 400px;"></div>
+				<div class="analy-big-txt"><span class="gr-text sungbyul-yoenryungbyul-yudongingu-gender"></span><span class="gr-text sungbyul-yoenryungbyul-yudongingu-age"></span><span class="gr-text sungbyul-yoenryungbyul-yudongingu-percent"></span>유동인구가 가장 많아요.</div>
+				<div class="analy-graph" id="sungbyul-yoenryungbyul-yudongingu" style="padding-top: 10px; height: 400px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 160px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="analysis-div">
 				<div class="analy-title">주거인구 수</div>
-				<div class="analy-big-txt">주거인구 수는 <span class="analy-green-txt" id="gugeoingu-su-result">14,305</span><span class="analy-green-txt">명</span>입니다.</div>
+				<div class="analy-big-txt">주거인구 수는 <span class="analy-green-txt" id="gugeoingu-su-result"></span>입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="gr-text fl-right">↓ <span id="gugeoingu-su-quart">14</span>명</span>
+						<span>전년 동분기 대비</span><span class="gr-text fl-right" id="gugeoingu-su-year"></span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="red-text fl-right">↑ <span id="gugeoingu-su-year">13</span>명</span>
+						<span>전분기 대비</span><span class="red-text fl-right" id="gugeoingu-su-quart"></span>
 					</div>
 				</div>
-				<div class="analy-graph" id="gugeoingu-su" style="padding-top: 10px;"></div>
+				<div class="analy-graph" id="gugeoingu-su" style="padding-top: 10px;">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
 			</div>
 			
 			<div style="height: 70px;"></div>
@@ -348,7 +416,32 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			<div class="justify-content-center" style="width: 100%;">
 				<div>
 					<select name="categoryGu" class="form-select selectGu" id="select-Gu">
-						
+						<option value="all">자치구 전체</option>
+						<option value="11110">종로구</option>
+						<option value="11140">중구</option>
+						<option value="11170">용산구</option>
+						<option value="11200">성동구</option>
+						<option value="11215">광진구</option>
+						<option value="11230">동대문구</option>
+						<option value="11260">중랑구</option>
+						<option value="11290">성북구</option>
+						<option value="11305">강북구</option>
+						<option value="11320">도봉구</option>
+						<option value="11350">노원구</option>
+						<option value="11380">은평구</option>
+						<option value="11410">서대문구</option>
+						<option value="11440">마포구</option>
+						<option value="11470">양천구</option>
+						<option value="11500">강서구</option>
+						<option value="11530">구로구</option>
+						<option value="11545">금천구</option>
+						<option value="11560">영등포구</option>
+						<option value="11590">동작구</option>
+						<option value="11620">관악구</option>
+						<option value="11650">서초구</option>
+						<option value="11680">강남구</option>
+						<option value="11710">송파구</option>
+						<option value="11740">강동구</option>
 					</select>
 				</div>
 				<div class="d-flex justify-content-center">
@@ -452,76 +545,19 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			</div>
 			<div class="rank-dis" style="margin-top: 3px;"><span class="hole-rank-title">전체</span><span class="hole-rank-quarter">2022년 3분기 기준</span></div>
 			<div class="rank-div" id="rank-lists">
-				<div class='ranks d-flex flex-row'>
+				<div class="d-flex justify-content-center">
+					<div class="spinner-border text-primary" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div>
+				<!-- <div class='ranks d-flex flex-row'>
 					<div class='rank'>1</div>
 					<div class='rank-region'>일일동</div>
 					<div class='rank-value'>100억</div>
 					<div class='rank-percent'>3.6% ↑</div>
 				</div>
 				<hr class='horiz'>
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
-				<div class="ranks d-flex flex-row">
-					<div class="rank">1</div>
-					<div class="rank-region">일일동</div>
-					<div class="rank-value">100억</div>
-					<div class="rank-percent">3.6% ↑</div>
-				</div>
-				<hr class="horiz">
+				-->
 			</div>
 		</div>
 <%-- 	 	<div class='marker' data-val=''>
@@ -636,6 +672,7 @@ $(function(){
 		let dongNum = $(this).attr("data-val");
 		
 		makeMap(3, lat1, long1, obj);
+		
 		makeReport(dongNum);
 	});
 	
@@ -674,7 +711,7 @@ $(function(){
 });
 
 // 자치구 리스트 가져옴
-$(function(){
+/* $(function(){
 	let url = "${pageContext.request.contextPath}/bringcate/categoryGu";
 	let query;
 	let innerHtml;
@@ -688,13 +725,19 @@ $(function(){
 	}
 	
 	ajaxFun(url, "post", query, "json", fn);
-});
+}); 
+*/
 
 $(function(){
 	$("#selPlace").hide;
 	
 	$("#allJob").click(function(){
 		$("select[name=selectWork]").val("all");
+	});
+	
+	$(".selectMenu").click(function(){
+		$("#analysis").hide();
+		$("#analysis-banner").hide();
 	});
 	
 	$("#stoCou-lav").click(function(){

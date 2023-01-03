@@ -326,4 +326,111 @@ public class CommEchartController {
 		
 		return model;
 	}
+
+	@RequestMapping(value="yoenryungbyulMechul")
+	@ResponseBody
+	public Map<String, Object> yoenryungbyulMechul(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Double> list = null;
+		try {
+			list = service.yoenryungbyulMechul(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<Object> series;
+		Map<String, Object> map;
+		Map<String, Object> colorMap;
+		String color = "";
+		
+		List<Map<String, Object>> data;
+		
+		// 전체 최대
+		int max = 0;
+		for(int j=0; j<list.size()-1; j++) {
+			max = list.get(max) > list.get(j+1) ? max : j+1;
+		}
+		
+		for(int n=1; n<=3; n++) {
+			series = new ArrayList<>();
+			data = new ArrayList<>();
+			// 카테고리별 최대
+			int maxi = 0;
+			for(int j=6*(n-1); j<6*n-1; j++) {
+				maxi = list.get(maxi) > list.get(j+1) ? maxi : j+1;
+			}
+			
+			for(int i=6*(n-1); i<6*n; i++) {
+				map = new HashMap<>();
+				map.put("value", list.get(i));
+				
+				colorMap = new HashMap<>();
+				color = i == maxi ? "#36C88A" : "#A9A9A9";
+				colorMap.put("color", color);
+				
+				map.put("itemStyle", colorMap);
+				
+				data.add(map);
+			}
+			
+			map = new HashMap<>();
+			map.put("data", data);
+			
+			map.put("type", "bar");
+			series.add(map);
+			model.put("series"+n, series);
+		}
+		
+		model.put("cate", max/6);
+		model.put("age", max%6);
+		model.put("percent", list.get(max));
+		
+		return model;
+	}	
+	
+	@RequestMapping(value="sungbyulYoenryungbyulYudongingu")
+	@ResponseBody
+	public Map<String, Object> sungbyulYoenryungbyulYudongingu(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Double> list = null;
+		try {
+			list = service.sungbyulYoenryungbyulYudongingu(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int max = 0;
+		for(int j=0; j<list.size()-1; j++) {
+			max = list.get(max) > list.get(j+1) ? max : j+1;
+		}
+		
+		model.put("male", list.subList(0, 6));
+		model.put("female", list.subList(6, 12));
+		model.put("gender", max/6);
+		model.put("age", max%6);
+		model.put("percent", list.get(max));
+		
+		return model;
+	}
+	
+
+	@RequestMapping(value="gugeoinguSu")
+	@ResponseBody
+	public Map<String, Object> gugeoinguSu(@RequestParam long dongNum){
+		Map<String, Object> model = new HashMap<String, Object>();
+		List<Long> list = null;
+		try {
+			list = service.gugeoinguSu(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("dong", list.subList(0, 5));
+		model.put("sigu", list.subList(5, 10));
+		model.put("seoul", list.subList(6, 15));
+		model.put("ingu", list.get(4));
+		model.put("yChai", (list.get(4)-list.get(9))/10000);
+		model.put("qChai", (list.get(4)-list.get(3))/10000);
+		
+		return model;
+	}
+	
 }

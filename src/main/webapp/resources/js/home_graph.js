@@ -31,6 +31,7 @@ $(function() {
 
 	option && myChart.setOption(option);
 });
+
 $(function(){
 	var chartDom = document.getElementById('graph1-chart');
 	var myChart = echarts.init(chartDom);
@@ -48,7 +49,6 @@ $(function(){
 	      radius: ['70%'],
 	      avoidLabelOverlap: false,
 	      itemStyle: {
-	        borderRadius: 10,
 	        borderColor: '#fff',
 	        borderWidth: 2
 	      },

@@ -14,4 +14,7 @@ public interface CommEchartService {
 	public List<Double> sigandebuelMechul(long dongNum);
 	public List<Double> sungbuelMechul(long dongNum);
 	public List<Double> sungbuelMechulThree(long dongNum);
+	public List<Double> yoenryungbyulMechul(long dongNum);
+	public List<Double> sungbyulYoenryungbyulYudongingu(long dongNum);
+	public List<Long> gugeoinguSu(long dongNum);
 }

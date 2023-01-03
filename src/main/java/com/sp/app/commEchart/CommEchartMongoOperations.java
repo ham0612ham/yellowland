@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
+import com.sp.app.commercial.Sg_citizen;
+import com.sp.app.commercial.Sg_float;
 import com.sp.app.commercial.Sg_sales;
 import com.sp.app.commercial.Sg_store;
 
@@ -290,7 +292,7 @@ public class CommEchartMongoOperations {
 				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				result = result1.getMappedResults();
 				
-				list.add((double)(result.get(0).getTot() * 100 / sum)/10*10);
+				list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -330,7 +332,7 @@ public class CommEchartMongoOperations {
 				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				result = result1.getMappedResults();
 				
-				list.add((double)(result.get(0).getTot() * 100 / sum)/10*10);
+				list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -370,7 +372,7 @@ public class CommEchartMongoOperations {
 				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 				result = result1.getMappedResults();
 				
-				list.add((double)(result.get(0).getTot() * 100 / sum)/10*10);
+				list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -397,7 +399,6 @@ public class CommEchartMongoOperations {
 			for(int n=0; n<cate.length; n++) {
 				sum = 0;
 				for(int i=0; i<gender.length; i++) {
-					System.out.println(i);
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum).and("cateJobNum").is(cate[n]));
 					groupOperation = Aggregation.group("dongNum").sum(gender[i]).as("tot");
 					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
@@ -406,7 +407,6 @@ public class CommEchartMongoOperations {
 					
 					sum += sumResult.get(0).getTot();
 				}
-				
 				for(int i=0; i<gender.length; i++) {
 					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum).and("cateJobNum").is(cate[n]));
 					groupOperation = Aggregation.group("dongNum").sum(gender[i]).as("tot");
@@ -414,8 +414,135 @@ public class CommEchartMongoOperations {
 					result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
 					result = result1.getMappedResults();
 					
-					list.add((double)(result.get(0).getTot() * 100 / sum)/10*10);
+					list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
 				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Double> yoenryungbyulMechul(long dongNum){
+		List<Double> list = new ArrayList<Double>();
+		String[] cate = {"CS1", "CS2", "CS3"};
+		String[] age = {"salesCost_10", "salesCost_20", "salesCost_30", "salesCost_40", "salesCost_50", "salesCost_60" };
+		List<Sg_sales> result = null;
+		List<Sg_sales> sumResult = null;
+		
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_sales> result1 = null;
+		AggregationResults<Sg_sales> sumResult1 = null;
+		
+		try {
+			for(int n=0; n<cate.length; n++) {
+				long sum = 0;
+				for(int i=0; i<6; i++) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum).and("cateJobNum").is(cate[n]));
+					groupOperation = Aggregation.group("dongNum").sum(age[i]).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					sumResult1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
+					sumResult = sumResult1.getMappedResults();
+					
+					sum += sumResult.get(0).getTot();
+				}
+				
+				for(int i=0; i<6; i++) {
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum).and("cateJobNum").is(cate[n]));
+					groupOperation = Aggregation.group("dongNum").sum(age[i]).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
+					result = result1.getMappedResults();
+					
+					list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<Double> sungbyulYoenryungbyulYudongingu(long dongNum){
+		List<Double> list = new ArrayList<Double>();
+		String[] genderAge = {"floSu_10_male", "floSu_20_male", "floSu_30_male", "floSu_40_male", "floSu_50_male", "floSu_60_male"
+				,"floSu_10_female", "floSu_20_female", "floSu_30_female", "floSu_40_female", "floSu_50_female", "floSu_60_female"};
+		List<Sg_float> result = null;
+		List<Sg_float> sumResult = null;
+		long sum = 0;
+		
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_float> result1 = null;
+		AggregationResults<Sg_float> sumResult1 = null;
+		
+		try {
+			for(int i=0; i<12; i++) {
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum));
+				groupOperation = Aggregation.group("dongNum").sum(genderAge[i]).as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				sumResult1 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+				sumResult = sumResult1.getMappedResults();
+				
+				sum += sumResult.get(0).getTot();
+			}
+			
+			for(int i=0; i<12; i++) {
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum));
+				groupOperation = Aggregation.group("dongNum").sum(genderAge[i]).as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+				result = result1.getMappedResults();
+				
+				list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<Long> gugeoinguSu(long dongNum) {
+		List<Long> list = new ArrayList<Long>();
+		List<Sg_citizen> result = null;
+		MatchOperation matchOperation = null;
+		GroupOperation groupOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_citizen> result1 = null;
+		
+		long siguNum = dongNum / 1000;
+		try {
+			for(int i=0; i<5; i++) { // 선택 상권
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(yCode[i]).and("qCode").is(qCode[i]).and("dongNum").is(dongNum));
+				groupOperation = Aggregation.group("dongNum").sum("citizenSu").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_citizen", Sg_citizen.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0).getTot());
+			}
+			for(int i=0; i<5; i++) { // 자치구
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(yCode[i]).and("qCode").is(qCode[i]).and("siguNum").is(siguNum));
+				groupOperation = Aggregation.group("siguNum").sum("citizenSu").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_citizen", Sg_citizen.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0).getTot());
+			}
+			for(int i=0; i<5; i++) { // 서울시
+				matchOperation = Aggregation.match(Criteria.where("yCode").is(yCode[i]).and("qCode").is(qCode[i]));
+				groupOperation = Aggregation.group().sum("citizenSu").as("tot");
+				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+				result1 = mongo.aggregate(aggregation, "sg_citizen", Sg_citizen.class);
+				result = result1.getMappedResults();
+				
+				list.add(result.get(0).getTot());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

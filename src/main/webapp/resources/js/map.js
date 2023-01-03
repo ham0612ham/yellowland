@@ -9,8 +9,10 @@ function makeReport(dongNum){
 	sigandebuelMechul(dongNum);
 	sungbuelMechul(dongNum);
 	sungbuelMechulThree(dongNum);
+	yoenryungbyulMechul(dongNum);
+	sungbyulYoenryungbyulYudongingu(dongNum);
+	gugeoinguSu(dongNum);
 };
-
 
 function zumposu(dongNum) {
 	let url = "/app/commEchart/zumposu";
@@ -210,20 +212,20 @@ function mechulak(dongNum) {
 		};
 
 		option && myChart.setOption(option);
-		$("#mechulak-ave").text(data.ave + "만원");
+		$("#mechulak-ave").text(data.ave.toLocaleString() + "만원");
 		
 		if(data.qChai < 0) {
-			$("#mechulak-quart").text("↓ "+Math.abs(data.qChai)+"만원");
+			$("#mechulak-quart").text("↓ "+Math.abs(data.qChai).toLocaleString()+"만원");
 			$("#mechulak-quart").css("color", "#e02171")
 		} else {
-			$("#mechulak-quart").text("↑ "+data.qChai+"만원");
+			$("#mechulak-quart").text("↑ "+data.qChai.toLocaleString()+"만원");
 			$("#mechulak-quart").css("color", "#36C88A")
 		}
 		if(data.yChai < 0) {
-			$("#mechulak-year").text("↓ "+Math.abs(data.yChai)+"만원");
+			$("#mechulak-year").text("↓ "+Math.abs(data.yChai).toLocaleString()+"만원");
 			$("#mechulak-year").css("color", "#e02171")
 		} else {
-			$("#mechulak-year").text("↑ "+data.yChai+"만원");
+			$("#mechulak-year").text("↑ "+data.yChai.toLocaleString()+"만원");
 			$("#mechulak-year").css("color", "#36C88A")
 		}
 	};
@@ -276,20 +278,20 @@ function mechulgunsu(dongNum) {
 		};
 		
 		option && myChart.setOption(option);
-		$("#mechulgunsu-month-ave").text(data.ave + "건");
+		$("#mechulgunsu-month-ave").text(data.ave.toLocaleString() + "건");
 		
 		if(data.qChai < 0) {
-			$("#mechulgunsu-quart").text("↓ "+Math.abs(data.qChai)+"건");
+			$("#mechulgunsu-quart").text("↓ "+Math.abs(data.qChai).toLocaleString()+"건");
 			$("#mechulgunsu-quart").css("color", "#e02171")
 		} else {
-			$("#mechulgunsu-quart").text("↑ "+data.qChai+"건");
+			$("#mechulgunsu-quart").text("↑ "+data.qChai.toLocaleString()+"건");
 			$("#mechulgunsu-quart").css("color", "#36C88A")
 		}
 		if(data.yChai < 0) {
-			$("#mechulgunsu-year").text("↓ "+Math.abs(data.yChai)+"건");
+			$("#mechulgunsu-year").text("↓ "+Math.abs(data.yChai).toLocaleString()+"건");
 			$("#mechulgunsu-year").css("color", "#e02171")
 		} else {
-			$("#mechulgunsu-year").text("↑ "+data.yChai+"건");
+			$("#mechulgunsu-year").text("↑ "+data.yChai.toLocaleString()+"건");
 			$("#mechulgunsu-year").css("color", "#36C88A")
 		}
 	};
@@ -332,7 +334,6 @@ function sigandebuelMechul(dongNum) {
 		var chartDom = document.getElementById('sigandebuel-mechul');
 		var myChart = echarts.init(chartDom);
 		var option;
-		console.log(data.series)
 		option = {
 			tooltip : {
 				trigger : 'axis',
@@ -381,7 +382,7 @@ function sigandebuelMechul(dongNum) {
 function sungbuelMechul(dongNum) {
 	let url = "/app/commEchart/sungbuelMechul";
 	let query = "dongNum="+dongNum;
-	let gender = ['남성', '여성'];
+	let gender = [ '남성', '여성'];
 	const fn = function(data) {
 		var chartDom = document.getElementById('sungbuel-mechul');
 		var myChart = echarts.init(chartDom);
@@ -430,16 +431,15 @@ function sungbuelMechulThree(dongNum) {
 	const fn = function(data) {
 		sungbuelMechulFood(data);
 		sungbuelMechulService(data);
+		sungbuelMechulRetail(data);
 	};
 	ajaxFun(url, "get", query, "json", fn);
 };
-
 
 function sungbuelMechulFood(data){
 	var chartDom = document.getElementById('sungbuel-mechul-food');
 	var myChart = echarts.init(chartDom);
 	var option;
-	
 	
 	option = {
 			tooltip : {
@@ -468,7 +468,6 @@ function sungbuelMechulFood(data){
 	
 	option && myChart.setOption(option);
 };	
-
 
 function sungbuelMechulService(data){
 	var chartDom = document.getElementById('sungbuel-mechul-service');
@@ -540,63 +539,25 @@ function sungbuelMechulRetail(data){
 	
 };
 
-$(function() {
-	var chartDom = document.getElementById('yoenryungbyul-mechul');
-	var myChart = echarts.init(chartDom);
-	var option;
-
-	option = {
-		xAxis : {
-			type : 'category',
-			data : [ '10대', '20대', '30대', '40대', '50대', '60대 이상' ]
-		},
-		yAxis : {
-			type : 'value'
-		},
-		tooltip : {
-			trigger : 'axis'
-		},
-		series : [ {
-			data : [ {
-				value : 0.4,
-				itemStyle : {
-					color : '#BBBBBB'
-				}
-			}, {
-				value : 8.6,
-				itemStyle : {
-					color : '#BBBBBB'
-				}
-			}, {
-				value : 15.2,
-				itemStyle : {
-					color : '#BBBBBB'
-				}
-			}, {
-				value : 25.4,
-				itemStyle : {
-					color : '#BBBBBB'
-				}
-			}, {
-				value : 29.1,
-				itemStyle : {
-					color : '#36C88A'
-				}
-			}, {
-				value : 21.1,
-				itemStyle : {
-					color : '#BBBBBB'
-				}
-			} ],
-			type : 'bar'
-		} ]
+function yoenryungbyulMechul(dongNum){
+	let url = "/app/commEchart/yoenryungbyulMechul";
+	let query = "dongNum="+dongNum;
+	let age = ['10대', '20대', '30대', '40대', '50대', '60대 이상'];
+	let cate = ['외식업', '서비스업', '소매업'];
+	const fn = function(data) {
+		yoenryungbyulMechulFood(data);
+		yoenryungbyulMechulService(data);
+		yoenryungbyulMechulRetail(data);
+		$(".yoenryungbyul-mechul-cate").text(cate[data.cate]+", ");
+		$(".yoenryungbyul-mechul-cate2").text(cate[data.cate]);
+		$(".yoenryungbyul-mechul-age").text(age[data.age]);
+		$(".yoenryungbyul-mechul-percent").text("("+data.percent+"%)");
 	};
+	ajaxFun(url, "get", query, "json", fn);
+}
 
-	option && myChart.setOption(option);
-});
-
-$(function() {
-	var chartDom = document.getElementById('yoenryungbyul-mechul');
+function yoenryungbyulMechulFood(data){
+	var chartDom = document.getElementById('yoenryungbyul-mechul-food');
 	var myChart = echarts.init(chartDom);
 	var option;
 	
@@ -611,46 +572,12 @@ $(function() {
 			tooltip : {
 				trigger : 'axis'
 			},
-			series : [ {
-				data : [ {
-					value : 0.4,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 8.6,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 15.2,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 25.4,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 29.1,
-					itemStyle : {
-						color : '#36C88A'
-					}
-				}, {
-					value : 21.1,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				} ],
-				type : 'bar'
-			} ]
+			series : data.series1
 	};
-	
 	option && myChart.setOption(option);
-});
+};
 
-$(function() {
+function yoenryungbyulMechulService(data){
 	var chartDom = document.getElementById('yoenryungbyul-mechul-service');
 	var myChart = echarts.init(chartDom);
 	var option;
@@ -666,46 +593,12 @@ $(function() {
 			tooltip : {
 				trigger : 'axis'
 			},
-			series : [ {
-				data : [ {
-					value : 0.2,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 3.0,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 9.4,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 24.9,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 29.3,
-					itemStyle : {
-						color : '#36C88A'
-					}
-				}, {
-					value : 32.3,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				} ],
-				type : 'bar'
-			} ]
+			series : data.series2
 	};
-	
 	option && myChart.setOption(option);
-});
+};
 
-$(function() {
+function yoenryungbyulMechulRetail(data){
 	var chartDom = document.getElementById('yoenryungbyul-mechul-retail');
 	var myChart = echarts.init(chartDom);
 	var option;
@@ -721,150 +614,149 @@ $(function() {
 			tooltip : {
 				trigger : 'axis'
 			},
-			series : [ {
-				data : [ {
-					value : 0.2,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 6.1,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 10.9,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 20,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				}, {
-					value : 25.5,
-					itemStyle : {
-						color : '#36C88A'
-					}
-				}, {
-					value : 37.3,
-					itemStyle : {
-						color : '#BBBBBB'
-					}
-				} ],
-				type : 'bar'
-			} ]
+			series : data.series3
 	};
+	option && myChart.setOption(option);
+};
+
+function sungbyulYoenryungbyulYudongingu(dongNum) {
+	let url = "/app/commEchart/sungbyulYoenryungbyulYudongingu";
+	let query = "dongNum="+dongNum;
+	let gender = ['남성', '여성'];
+	let age = ['10대', '20대', '30대', '40대', '50대', '60대 이상'];
 	
-	option && myChart.setOption(option);
-});
-$(function() {
-	var chartDom = document.getElementById('sungbyul-yoenryungbyul-yudongingu');
-	var myChart = echarts.init(chartDom);
-	var option;
+	const fn = function(data) {
+		var chartDom = document.getElementById('sungbyul-yoenryungbyul-yudongingu');
+		var myChart = echarts.init(chartDom);
+		var option;
 
-	option = {
-	  tooltip: {
-	    trigger: 'axis'
-	  },
-	  legend: {
-	    data: ['남성', '여성']
-	  },
-	  calculable: true,
-	  xAxis: [
-	    {
-	      type: 'category',
-	      data: ['10대', '20대', '30대', '40대', '50대', '60대 이상']
-	    }
-	  ],
-	  yAxis: [
-	    {
-	      type: 'value'
-	    }
-	  ],
-	  series: [
-	    {
-	      name: '남성',
-	      type: 'bar',
-	      color: '#756EF2',
-	      data: [18.3, 12, 11.2, 16.2, 17.7, 24.6],
-	      markPoint: {
-	        data: [
-	          { type: 'max', name: 'Max' },
-	          { type: 'min', name: 'Min' }
-	        ]
-	      },
-	      markLine: {
-	        data: [{ type: 'average', name: 'Avg' }]
-	      }
-	    },
-	    {
-	      name: '여성',
-	      type: 'bar',
-	      color: '#36C88A',
-	      data: [13.7, 10.5, 10.7, 14.5, 18.2, 32.4],
-	      markPoint: {
-	        data: [
-	          { type: 'max', name: 'Max' },
-	          { type: 'min', name: 'Min' }
-	        ]
-	      },
-	      markLine: {
-	        data: [{ type: 'average', name: 'Avg' }]
-	      }
-	    }
-	  ]
+		option = {
+		  tooltip: {
+		    trigger: 'axis'
+		  },
+		  legend: {
+		    data: ['남성', '여성']
+		  },
+		  calculable: true,
+		  xAxis: [
+		    {
+		      type: 'category',
+		      data: age
+		    }
+		  ],
+		  yAxis: [
+		    {
+		      type: 'value'
+		    }
+		  ],
+		  series: [
+		    {
+		      name: '남성',
+		      type: 'bar',
+		      color: '#756EF2',
+		      data: data.male,
+		      markPoint: {
+		        data: [
+		          { type: 'max', name: 'Max' },
+		          { type: 'min', name: 'Min' }
+		        ]
+		      },
+		      markLine: {
+		        data: [{ type: 'average', name: 'Avg' }]
+		      }
+		    },
+		    {
+		      name: '여성',
+		      type: 'bar',
+		      color: '#36C88A',
+		      data: data.female,
+		      markPoint: {
+		        data: [
+		          { type: 'max', name: 'Max' },
+		          { type: 'min', name: 'Min' }
+		        ]
+		      },
+		      markLine: {
+		        data: [{ type: 'average', name: 'Avg' }]
+		      }
+		    }
+		  ]
+		};
+		option && myChart.setOption(option);
+		$(".sungbyul-yoenryungbyul-yudongingu-gender").text(gender[data.gender]+", ");
+		$(".sungbyul-yoenryungbyul-yudongingu-age").text(age[data.age]);
+		$(".sungbyul-yoenryungbyul-yudongingu-percent").text(" ("+data.percent+"%)");
 	};
+	ajaxFun(url, "get", query, "json", fn);
+}
 
-	option && myChart.setOption(option);
-});
+function gugeoinguSu(dongNum) {
+	let url = "/app/commEchart/gugeoinguSu";
+	let query = "dongNum="+dongNum;
+	
+	const fn = function(data) {
+		var chartDom = document.getElementById('gugeoingu-su');
+		var myChart = echarts.init(chartDom);
+		var option;
 
-$(function() {
-	var chartDom = document.getElementById('gugeoingu-su');
-	var myChart = echarts.init(chartDom);
-	var option;
+		option = {
+			tooltip : {
+				trigger : 'axis'
+			},
+			legend : {
+				data : [ '선택 상권', '자치구', '서울시' ]
+			},
+			grid : {
+				left : '3%',
+				right : '4%',
+				bottom : '3%',
+				containLabel : true
+			},
+			xAxis : {
+				type : 'category',
+				boundaryGap : false,
+				data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
+						'2022년 3분기' ]
+			},
+			yAxis : {
+				type : 'value'
+			},
+			color : [ '#756EF2', '#49B3FF', '#36C88A' ],
+			series : [ {
+				name : '선택 상권',
+				type : 'line',
+				stack : 'Total',
+				data : data.dong
+			}, {
+				name : '자치구',
+				type : 'line',
+				stack : 'Total',
+				data : data.sigu
+			}, {
+				name : '서울시',
+				type : 'line',
+				stack : 'Total',
+				data : data.seoul
+			} ]
+		};
+		$("#gugeoingu-su-result").text(data.ingu.toLocaleString()+"명");
 
-	option = {
-		tooltip : {
-			trigger : 'axis'
-		},
-		legend : {
-			data : [ '선택 상권', '자치구', '서울시' ]
-		},
-		grid : {
-			left : '3%',
-			right : '4%',
-			bottom : '3%',
-			containLabel : true
-		},
-		xAxis : {
-			type : 'category',
-			boundaryGap : false,
-			data : [ '2021년 3분기', '2021년 4분기', '2022년 1분기', '2022년 2분기',
-					'2022년 3분기' ]
-		},
-		yAxis : {
-			type : 'value'
-		},
-		color : [ '#756EF2', '#49B3FF', '#36C88A' ],
-		series : [ {
-			name : '선택 상권',
-			type : 'line',
-			stack : 'Total',
-			data : [ 150, 232, 201, 154, 190 ]
-		}, {
-			name : '자치구',
-			type : 'line',
-			stack : 'Total',
-			data : [ 320, 332, 301, 334, 390 ]
-		}, {
-			name : '서울시',
-			type : 'line',
-			stack : 'Total',
-			data : [ 820, 932, 901, 934, 1290 ]
-		} ]
+		if(data.qChai < 0) {
+			$("#gugeoingu-su-quart").text("↓ "+Math.abs(data.qChai).toLocaleString()+"명");
+			$("#gugeoingu-su-quart").css("color", "#e02171")
+		} else {
+			$("#gugeoingu-su-quart").text("↑ "+data.qChai.toLocaleString()+"명");
+			$("#gugeoingu-su-quart").css("color", "#36C88A")
+		}
+		if(data.yChai < 0) {
+			$("#gugeoingu-su-year").text("↓ "+Math.abs(data.yChai).toLocaleString()+"명");
+			$("#gugeoingu-su-year").css("color", "#e02171")
+		} else {
+			$("#gugeoingu-su-year").text("↑ "+data.yChai.toLocaleString()+"명");
+			$("#gugeoingu-su-year").css("color", "#36C88A")
+		}
+		option && myChart.setOption(option);
 	};
+	ajaxFun(url, "get", query, "json", fn);
+}
 
-	option && myChart.setOption(option);
-});

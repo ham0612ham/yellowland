@@ -155,4 +155,40 @@ public class CommEchartServiceImpl implements CommEchartService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Double> yoenryungbyulMechul(long dongNum) {
+		List<Double> list = null;
+		
+		try {
+			list = commEchartMongo.yoenryungbyulMechul(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Double> sungbyulYoenryungbyulYudongingu(long dongNum) {
+		List<Double> list = null;
+		
+		try {
+			list = commEchartMongo.sungbyulYoenryungbyulYudongingu(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Long> gugeoinguSu(long dongNum) {
+		List<Long> list = null;
+		
+		try {
+			list = commEchartMongo.gugeoinguSu(dongNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

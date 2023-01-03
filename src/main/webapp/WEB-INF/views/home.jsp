@@ -148,46 +148,47 @@
 		<div class="btn graph-title">서울시 상권 현황</div>
 		<div class="d-flex flex-row select-div justify-content-center">
 			<select name="#" class="form-select">
-				<option selected>자치구 전체</option>
-				<option value="">종로구</option>
-				<option value="">중구</option>
-				<option value="">용산구</option>
-				<option value="">성동구</option>
-				<option value="">광진구</option>
-				<option value="">동대문구</option>
-				<option value="">중랑구</option>
-				<option value="">성북구</option>
-				<option value="">강북구</option>
-				<option value="">도봉구</option>
-				<option value="">노원구</option>
-				<option value="">은평구</option>
-				<option value="">서대문구</option>
-				<option value="">마포구</option>
-				<option value="">양천구</option>
-				<option value="">강서구</option>
-				<option value="">구로구</option>
-				<option value="">금천구</option>
-				<option value="">영등포구</option>
-				<option value="">동작구</option>
-				<option value="">관악구</option>
-				<option value="">서초구</option>
-				<option value="">강남구</option>
-				<option value="">송파구</option>
-				<option value="">강동구</option>
+				<option value="all" selected>자치구 전체</option>
+				<option value="11110">종로구</option>
+				<option value="11140">중구</option>
+				<option value="11170">용산구</option>
+				<option value="11200">성동구</option>
+				<option value="11215">광진구</option>
+				<option value="11230">동대문구</option>
+				<option value="11260">중랑구</option>
+				<option value="11290">성북구</option>
+				<option value="11305">강북구</option>
+				<option value="11320">도봉구</option>
+				<option value="11350">노원구</option>
+				<option value="11380">은평구</option>
+				<option value="11410">서대문구</option>
+				<option value="11440">마포구</option>
+				<option value="11470">양천구</option>
+				<option value="11500">강서구</option>
+				<option value="11530">구로구</option>
+				<option value="11545">금천구</option>
+				<option value="11560">영등포구</option>
+				<option value="11590">동작구</option>
+				<option value="11620">관악구</option>
+				<option value="11650">서초구</option>
+				<option value="11680">강남구</option>
+				<option value="11710">송파구</option>
+				<option value="11740">강동구</option>
 			</select>
 			<select name="#" class="form-select">
 				<option selected>전체업종</option>
-				<option value="">외식업</option>
-				<option value="">서비스업</option>
-				<option value="">소매업</option>
+				<option value="CS1">외식업</option>
+				<option value="CS2">서비스업</option>
+				<option value="CS3">소매업</option>
 			</select>
 			<select name="#" class="form-select">
-				<option value="" selected>2022년 2분기</option>
-				<option value="">2022년 1분기</option>
-				<option value="">2021년 4분기</option>
-				<option value="">2021년 3분기</option>
-				<option value="">2021년 2분기</option>
-				<option value="">2021년 1분기</option>
+				<option value="2022,3" selected>2022년 3분기</option>
+				<option value="2022,2">2022년 2분기</option>
+				<option value="2022,1">2022년 1분기</option>
+				<option value="2021,4">2021년 4분기</option>
+				<option value="2021,3">2021년 3분기</option>
+				<option value="2021,2">2021년 2분기</option>
+				<option value="2021,1">2021년 1분기</option>
 			</select>
 		</div>
 		<div class="d-flex flex-row justify-content-center graphs-div">
