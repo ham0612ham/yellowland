@@ -67,7 +67,7 @@ function sendOk() {
 	const f = doctment.localCommForm;
 	let str;
 	
-	str = f.subject.valye.trim();
+	str = f.subject.value.trim();
 	if(!str) {
 		alert("제목을 입력하세요 !");
 		f.subject.focus();
@@ -85,35 +85,89 @@ function sendOk() {
 	
 	f.action = "${pageContext.request.contextPath}/qna/${mode}";
 	f.submit();
-	
+}
+</script>
+
+<script type="text/javascript">
+function login() {
+	location.href="${pageContext.request.contextPath}/member/login";
 }
 
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+$(function(){
+	$("form select[name=siguNum]").change(function(){
+		let siguNum = $(this).val();
+		$("form select[name=dongNum]").find('option').remove().end()
+				.append("<option value=''>행정동</option>");
+		
+		if(! siguNum) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/localComm/listDong";
+		let query = "siguNum="+siguNum;
+		
+		const fn = function(data) {
+			$.each(data.listDong, function(index, item){
+				let dongNum = item.dongNum;
+				let dongName = item.dongName;
+				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
+				$("form select[name=dongNum]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+	});
+});
 </script>
 
 
 <div class="container">
 	<div class="body-container">	
-		<h3 class="fw-semibold">업종별 커뮤니티 글 작성</h3>
+		<h3 class="fw-semibold">지역별 커뮤니티 글 작성</h3>
 		<hr>
 
 		<form name="localCommForm">	
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col" class="typeCkeck">업종 선택</th>
+						<th scope="col" class="typeCkeck">지역 선택</th>
 						<th scope="col" class="typeCkeck">
 							<div class="col-auto p-1" style="flex:1; float: left;">
 								<select name="siguNum" class="form-select" style="width: 80px;">
-									<option value="all" ${condition=="all"?"selected='selected'":""}>시군구</option>
-									<option value="content1" ${condition=="subject"?"selected='selected'":""}>시군구1</option>
-									<option value="content2" ${condition=="content"?"selected='selected'":""}>시군구2</option>
+									<option value="">:: 시군구 ::</option>
+									<c:forEach var="vo" items="${listSigu}">
+									<option value="${vo.siguNum}" ${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
 								<select name="dongNum" class="form-select" style="width: 80px;">
-									<option value="all" ${condition=="all"?"selected='selected'":""}>행정동</option>
-									<option value="content1" ${condition=="subject"?"selected='selected'":""}>행정동1</option>
-									<option value="content2" ${condition=="content"?"selected='selected'":""}>행정동2</option>
+									<option value="" ${condition=="all"?"selected='selected'":""}>행정동</option>
 								</select>
 							</div>
 						</th>
@@ -135,6 +189,14 @@ function sendOk() {
 						<td>
 							<div class="editor">${dto.content}</div>
 							<input type="hidden" name="content">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">첨부파일</th>
+						<td>
+						<td>
+							<div class="addFile"></div>
+							<input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
 						</td>
 					</tr>
 				</tbody>

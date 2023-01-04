@@ -13,7 +13,8 @@ public class LocalComm {
 	
 	private long siguNum; // insert 할 때 필요함 
 	private long dongNum; //  insert 할 때 필요함
-	private String sogunName; // select 할 때 필요함 
+	
+	private String siguName; // select 할 때 필요함 
 	private String dongName; // select 할 때 필요함
 	
 	private String saveFilename;
@@ -22,25 +23,71 @@ public class LocalComm {
 	
 	private int replyCount;
 	private int localCommLikeCount;
-	
-	
-	public long getSiguNum() {
-		return siguNum;
+	public long getNum() {
+		return num;
 	}
-	public void setSiguNum(long sigunNum) {
-		this.siguNum = sigunNum;
+	public void setNum(long num) {
+		this.num = num;
 	}
-	public String getSogunName() {
-		return sogunName;
+	public String getUserId() {
+		return userId;
 	}
-	public void setSogunName(String sogunName) {
-		this.sogunName = sogunName;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getRegDate() {
 		return regDate;
 	}
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+	}
+	public int getHitCount() {
+		return hitCount;
+	}
+	public void setHitCount(int hitCount) {
+		this.hitCount = hitCount;
+	}
+	public long getSiguNum() {
+		return siguNum;
+	}
+	public void setSiguNum(long siguNum) {
+		this.siguNum = siguNum;
+	}
+	public long getDongNum() {
+		return dongNum;
+	}
+	public void setDongNum(long dongNum) {
+		this.dongNum = dongNum;
+	}
+	public String getSiguName() {
+		return siguName;
+	}
+	public void setSiguName(String siguName) {
+		this.siguName = siguName;
+	}
+	public String getDongName() {
+		return dongName;
+	}
+	public void setDongName(String dongName) {
+		this.dongName = dongName;
 	}
 	public String getSaveFilename() {
 		return saveFilename;
@@ -71,56 +118,6 @@ public class LocalComm {
 	}
 	public void setLocalCommLikeCount(int localCommLikeCount) {
 		this.localCommLikeCount = localCommLikeCount;
-	}
-	public long getNum() {
-		return num;
-	}
-	public void setNum(long num) {
-		this.num = num;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	public int getHitCount() {
-		return hitCount;
-	}
-	public void setHitCount(int hitCount) {
-		this.hitCount = hitCount;
-	}
-
-	public long getDongNum() {
-		return dongNum;
-	}
-	public void setDongNum(long dongNum) {
-		this.dongNum = dongNum;
-	}
-
-	public String getDongName() {
-		return dongName;
-	}
-	public void setDongName(String dongName) {
-		this.dongName = dongName;
 	}
 	
 	

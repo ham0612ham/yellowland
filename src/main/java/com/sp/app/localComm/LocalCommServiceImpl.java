@@ -16,14 +16,7 @@ public class LocalCommServiceImpl implements LocalCommService {
 	
 	@Autowired
 	private FileManager fileManager;
-
-	@Override
-	public List<LocalComm> ListLocalCommunity(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
+	
 	@Override
 	public void insertLocalComm(LocalComm dto, String pathname) throws Exception {
 		try {
@@ -38,31 +31,52 @@ public class LocalCommServiceImpl implements LocalCommService {
 			e.printStackTrace();
 			throw e;
 		}
-	}
-	
-	
-	/*
-	@Override
-	public void readSiguNum(long siguNum) throws Exception {
-		LocalComm dto = null;
 		
+	}
+
+
+	@Override
+	public List<LocalComm> ListLocalComm(Map<String, Object> map) {
+		List<LocalComm> list = null;
+
 		try {
-			dto = dao.selectOne("localCommu.readSiguNum", siguNum);
+			list = dao.selectList("localComm.ListLocalComm", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+		return list;
 	}
-	*/
-	
 	
 
 	@Override
-	public List<LocalComm> listComm(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LocalComm> listDong(long siguNum) throws Exception {
+
+		List<LocalComm> listDong = null;
+
+		try {
+			listDong = dao.selectList("localComm.listDong", siguNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listDong;
+	}
+	
+
+	@Override
+	public List<LocalComm> listSigu() throws Exception {
+		List<LocalComm> listSigu = null;
+
+		try {
+			listSigu = dao.selectList("localComm.listSigu");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listSigu;
 	}
 
+	
 	@Override
 	public int dataCount(Map<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -152,23 +166,6 @@ public class LocalCommServiceImpl implements LocalCommService {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	@Override
-	public List<LocalComm> listSigu() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public List<LocalComm> listDong(long siguNum) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 
 
 }

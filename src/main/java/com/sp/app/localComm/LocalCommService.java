@@ -5,7 +5,6 @@ import java.util.Map;
 
 public interface LocalCommService {
 	public void insertLocalComm(LocalComm dto, String pathname) throws Exception;
-	public List<LocalComm> listComm(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);
 	public LocalComm readLocalComm(long num);
 	public void updateHitCount(long num) throws Exception;
@@ -14,7 +13,7 @@ public interface LocalCommService {
 	public void updateLocalComm(LocalComm dto, String pathname) throws Exception;
 	public void deleteLocalComm(long num, String pathname, String userId) throws Exception;
 	
-	public List<LocalComm> ListLocalCommunity(Map<String, Object> map);
+	public List<LocalComm> ListLocalComm(Map<String, Object> map);
 	
 	public void insertLocalCommLike(Map<String, Object> map) throws Exception;
 	public void deleteLocalCommLike(Map<String, Object> map) throws Exception;
@@ -26,6 +25,7 @@ public interface LocalCommService {
 	public int replyCount(Map<String, Object> map);
 	public void deleteReply(Map<String, Object> map) throws Exception;
 	
+	// 시군구
 	public List<LocalComm> listSigu () throws Exception;
 	public List<LocalComm> listDong (long siguNum) throws Exception;
 

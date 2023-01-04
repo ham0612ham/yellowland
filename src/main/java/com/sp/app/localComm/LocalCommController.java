@@ -2,6 +2,7 @@ package com.sp.app.localComm;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.member.SessionInfo;
 
@@ -28,20 +31,27 @@ public class LocalCommController {
 
 	@GetMapping(value = "write")
 	public String writeForm(Model model) throws Exception {
+
 		// 시군구 목록 가져오기
-				
-		Map<String, Object> map = new HashMap<String, Object>();
+		List<LocalComm> listSigu = service.listSigu();
 		
-		/*
-		LocalComm readSiguNumdto = service.readSiguNum(map);
-		
-		model.addAttribute("readSiguNumdto", readSiguNumdto);
-		*/
 		model.addAttribute("mode", "write");
-		
-	
+		model.addAttribute("listSigu", listSigu);
 		
 		return ".localComm.write";
+	}
+
+	@GetMapping(value = "listDong")
+	@ResponseBody
+	public Map<String, Object> listDong(@RequestParam long siguNum) throws Exception {
+
+		// 시군구의 동 목록 가져오기
+		List<LocalComm> listDong = service.listDong(siguNum);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("listDong", listDong);
+		
+		return model;
 	}
 	
 	@PostMapping(value = "write")
@@ -58,7 +68,7 @@ public class LocalCommController {
 		}
 		
 		
-		return "redirect:/bbs/list";
+		return "redirect:/localComm/list";
 	}
 	
 	@RequestMapping(value = "article")

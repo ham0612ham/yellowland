@@ -5,7 +5,6 @@
 	<select id="seq" resultType="Long">
 		SELECT localComm_seq.NEXTVAL FROM dual
 	</select>
-	
 
 	<insert id="insertLocalComm" parameterType="com.sp.app.localComm.LocalComm" >
 		 INSERT INTO localComm(num, subject, content,  hitCount, 
@@ -15,17 +14,19 @@
 	</insert>
 	
 	<!-- 모든 시군구(번호, 이름) -->
-	<select id="readSigu">
+	<select id="listSigu" resultType="com.sp.app.localComm.LocalComm">
 		  SELECT siguNum, siguName 
               FROM CATEGORYGU
 	</select>
 
 	<!-- 시군구의 동(번호, 이름): 조건 시군구번호  -->
-	<select id="readDong">
+	<select id="listDong" resultType="com.sp.app.localComm.LocalComm" parameterType="Long">
 		   SELECT g.siguNum, g.siguName, dongNum, dongName
-              FROM CATEGORYGU g
+           FROM CATEGORYGU g
            JOIN DONG d ON d.siguNum =  g.siguNum
-           WHERE siguNum = #{num}
-	</select>
+           WHERE d.siguNum = #{siguNum}
+	</select> 
+
+	
 	
 </mapper>
