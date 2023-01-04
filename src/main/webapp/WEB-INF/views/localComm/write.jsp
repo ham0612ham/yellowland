@@ -64,8 +64,22 @@ element.style {
 <script type="text/javascript">
 
 function sendOk() {
-	const f = doctment.localCommForm;
+	const f = document.localCommForm;
 	let str;
+
+	str = f.siguNum.value;
+	if(!str) {
+		alert("시군구를 선택하세요 !");
+		f.siguNum.focus();
+		return;
+	}
+	
+	str = f.dongNum.value;
+	if(!str) {
+		alert("행정동을 선택하세요 !");
+		f.dongNum.focus();
+		return;
+	}
 	
 	str = f.subject.value.trim();
 	if(!str) {
@@ -83,7 +97,7 @@ function sendOk() {
 	
 	f.content.value = str; 
 	
-	f.action = "${pageContext.request.contextPath}/qna/${mode}";
+	f.action = "${pageContext.request.contextPath}/localComm/${mode}";
 	f.submit();
 }
 </script>
@@ -145,20 +159,19 @@ $(function(){
 });
 </script>
 
-
 <div class="container">
 	<div class="body-container">	
 		<h3 class="fw-semibold">지역별 커뮤니티 글 작성</h3>
 		<hr>
 
-		<form name="localCommForm">	
+		<form name="localCommForm"  method="post">	
 			<table class="table">
 				<thead>
 					<tr>
 						<th scope="col" class="typeCkeck">지역 선택</th>
 						<th scope="col" class="typeCkeck">
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="siguNum" class="form-select" style="width: 80px;">
+								<select name="siguNum" class="form-select" style="width: 125px;">
 									<option value="">:: 시군구 ::</option>
 									<c:forEach var="vo" items="${listSigu}">
 									<option value="${vo.siguNum}" ${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
@@ -166,7 +179,7 @@ $(function(){
 								</select>
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="dongNum" class="form-select" style="width: 80px;">
+								<select name="dongNum" class="form-select" style="width: 125px;">
 									<option value="" ${condition=="all"?"selected='selected'":""}>행정동</option>
 								</select>
 							</div>
@@ -189,14 +202,6 @@ $(function(){
 						<td>
 							<div class="editor">${dto.content}</div>
 							<input type="hidden" name="content">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">첨부파일</th>
-						<td>
-						<td>
-							<div class="addFile"></div>
-							<input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
 						</td>
 					</tr>
 				</tbody>

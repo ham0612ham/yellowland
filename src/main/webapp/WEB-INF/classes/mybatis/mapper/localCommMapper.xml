@@ -10,7 +10,7 @@
 		 INSERT INTO localComm(num, subject, content,  hitCount, 
 		 		regDate, userId, siguNum, dongNum)
 			VALUES (localComm_seq.NEXTVAL,  #{subject},  #{content} ,#{hitCount},
-				 SYSDATE, #{userId}, #{siguNum}, {#dongNum}); 
+				 SYSDATE, #{userId}, #{siguNum}, #{dongNum})
 	</insert>
 	
 	<!-- 모든 시군구(번호, 이름) -->

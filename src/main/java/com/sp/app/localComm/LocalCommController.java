@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,6 +42,25 @@ public class LocalCommController {
 		return ".localComm.write";
 	}
 
+
+	@PostMapping(value = "write")
+	public String writeSubmit(LocalComm dto, HttpSession session) throws Exception {
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "notice";
+
+			dto.setUserId(info.getUserId());
+			service.insertLocalComm(dto, pathname);
+		} catch (Exception e) {
+		}
+		
+		return "redirect:/localComm/list";
+	}
+	
+	
 	@GetMapping(value = "listDong")
 	@ResponseBody
 	public Map<String, Object> listDong(@RequestParam long siguNum) throws Exception {
@@ -52,23 +72,6 @@ public class LocalCommController {
 		model.put("listDong", listDong);
 		
 		return model;
-	}
-	
-	@PostMapping(value = "write")
-	public String writeSubmit(LocalComm dto, HttpSession session) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "bbs";
-		
-		try {
-			dto.setUserId(info.getUserId());
-			service.insertLocalComm(dto, pathname);
-		} catch (Exception e) {
-		}
-		
-		
-		return "redirect:/localComm/list";
 	}
 	
 	@RequestMapping(value = "article")

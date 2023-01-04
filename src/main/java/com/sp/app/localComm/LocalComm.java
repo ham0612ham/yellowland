@@ -1,5 +1,7 @@
 package com.sp.app.localComm;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class LocalComm {
@@ -19,10 +21,22 @@ public class LocalComm {
 	
 	private String saveFilename;
 	private String originalFilename;
-	private MultipartFile selectFile; // <input type='file' name='selectFile' ..
+	// private MultipartFile selectFile; // <input type='file' name='selectFile' ..
+	private long fileNum;
+	
+	private List<MultipartFile> selectFile; // 스프링에서 파일 받기
+	private long gap;
 	
 	private int replyCount;
 	private int localCommLikeCount;
+	
+	
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
 	public long getNum() {
 		return num;
 	}
@@ -101,12 +115,6 @@ public class LocalComm {
 	public void setOriginalFilename(String originalFilename) {
 		this.originalFilename = originalFilename;
 	}
-	public MultipartFile getSelectFile() {
-		return selectFile;
-	}
-	public void setSelectFile(MultipartFile selectFile) {
-		this.selectFile = selectFile;
-	}
 	public int getReplyCount() {
 		return replyCount;
 	}
@@ -119,6 +127,17 @@ public class LocalComm {
 	public void setLocalCommLikeCount(int localCommLikeCount) {
 		this.localCommLikeCount = localCommLikeCount;
 	}
-	
+	public List<MultipartFile> getSelectFile() {
+		return selectFile;
+	}
+	public void setSelectFile(List<MultipartFile> selectFile) {
+		this.selectFile = selectFile;
+	}
+	public long getGap() {
+		return gap;
+	}
+	public void setGap(long gap) {
+		this.gap = gap;
+	}
 	
 }

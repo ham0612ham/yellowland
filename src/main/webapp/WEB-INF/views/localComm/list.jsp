@@ -227,7 +227,7 @@
 
 			<c:choose>
 				<c:when test="${sessionScope.member.userId ne null}">
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/localCommunity/write';" style="margin-left: 740px;">글 작성</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/localComm/write';" style="margin-left: 740px;">글 작성</button>
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login';">글 작성</button>
@@ -238,19 +238,10 @@
 
 			<br>
 			
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+			<div class="page-navigation">
+				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+			</div>
+
 
 
 			<div class="search">

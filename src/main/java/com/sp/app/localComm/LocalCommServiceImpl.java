@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
@@ -19,14 +20,33 @@ public class LocalCommServiceImpl implements LocalCommService {
 	
 	@Override
 	public void insertLocalComm(LocalComm dto, String pathname) throws Exception {
+		
 		try {
-			String saveFilename = fileManager.doFileUpload(dto.getSelectFile(), pathname);
-			if (saveFilename != null) {
-				dto.setSaveFilename(saveFilename);
-				dto.setOriginalFilename(dto.getSelectFile().getOriginalFilename());
-			}
+			long seq = dao.selectOne("notice.seq");
+			dto.setNum(seq);
+			
+			dao.insertData("localComm.insertLocalComm", dto);
+			
+			// 파일 업로드 하기
+			if(! dto.getSelectFile().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if (saveFilename == null) {
+						continue;
+					}
 
-			dao.insertData("localCommu.insertLocalCommu", dto);
+					String originalFilename = mf.getOriginalFilename();
+					long fileSize = mf.getSize();
+
+					dto.setOriginalFilename(originalFilename);
+					dto.setSaveFilename(saveFilename);
+					
+					// 파일 인서트 
+					dao.insertData("localComm.insertFile", dto);
+
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
