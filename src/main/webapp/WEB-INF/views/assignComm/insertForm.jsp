@@ -39,99 +39,7 @@ function kakaopostIn() {
 }
 
 
-function checkIn() {
-	
-	const f = document.detailForm;
-	
-	if(! f.subject.value.trim()) {
-		alert(" 제목을 입력해주세요! ");
-		f.subject.focus();
-		return false;
-	}
-	
 
-	if(! f.pNum2.value.trim()) {
-		alert(" 휴대폰 번호를 입력해주세요! ");
-		f.pNum2.focus();
-		return false;
-	} else if(! f.pNum3.value.trim()) {
-		alert(" 휴대폰 번호를 입력해주세요! ");
-		f.pNum3.focus();
-		return false;
-	}
-	
-	if(! f.zip.value.trim()) {
-		alert(" 우편 번호를 입력해주세요! ");
-		f.zip.focus();
-		return false;
-	}
-	
-	if(! f.addr1.value.trim()) {
-		alert(" 기본 주소를 입력해주세요! ");
-		f.addr1.focus();
-		return false;
-	}
-	
-	if(! f.addr2.value.trim()) {
-		alert(" 상세 주소를 입력해주세요! ");
-		f.addr2.focus();
-		return false;
-	}
-	
-	if(! f.thumbnailFile.value.trim()) {
-		alert(" 기본 이미지를 업로드해주세요! ");
-		f.thumbnailFile.focus();
-		return false;
-	}
-	
-	if(! f.deposit.value.trim()) {
-		alert(" 보증금을 입력해주세요! ");
-		f.deposit.focus();
-		return false;
-	}
-	
-	if(! f.monthly.value.trim()) {
-		alert(" 월세를 입력해주세요! ");
-		f.monthly.focus();
-		return false;
-	}
-	
-	if(! f.expense.value.trim()) {
-		alert(" 관리비를 입력해주세요! ");
-		f.expense.focus();
-		return false;
-	}
-	
-	if(! f.area.value.trim()) {
-		alert(" 전용면적을 입력해주세요! ");
-		f.area.focus();
-		return false;
-	}
-	
-	
-	if(! f.parking.value.trim()) {
-		alert(" 주차 가능 여부를 입력해주세요! ");
-		f.parking.focus();
-		return false;
-	}
-	
-	if(! f.elevator.value.trim()) {
-		alert(" 엘리베이터 유무를 입력해주세요! ");
-		f.elevator.focus();
-		return false;
-	}
-	
-	if(! f.transDate.value.trim()) {
-		alert(" 양도 가능일을 입력해주세요! ");
-		f.transDate.focus();
-		return false;
-	}
-	
-	
-	f.action = "${pageContext.request.contextPath}/assignComm/write";
-	f.submit();
-	
-}
 
 //메인 이미지
 $(function() {
@@ -365,7 +273,7 @@ $(function() {
 												
 												<div class="col-md-12">
 													<div class="form-group">
-														<input type="text" id="addr1-in" class="form-control addr1" name="addr1" placeholder="기본 주소" value="${dto.addr1}">
+														<input type="text" readonly="readonly" id="addr1-in" class="form-control addr1" name="addr1" placeholder="기본 주소" value="${dto.addr1}">
 													</div>
 												</div>
 												

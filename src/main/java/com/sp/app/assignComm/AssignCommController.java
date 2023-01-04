@@ -1,11 +1,15 @@
 package com.sp.app.assignComm;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +29,38 @@ public class AssignCommController {
 	@Autowired
 	private AssignCommService service;
 	
-	
+	@GetMapping("jsonFileWriter")
+	public void jsonFileWriter(HttpSession session, @RequestParam double lat, @RequestParam double lng) throws Exception {
+		
+		try {
+			
+			// 위도, 경도를 JSON 객체로 만들어 배열에 담기
+			JSONObject jo = new JSONObject();
+			jo.put("lat", lat);
+			jo.put("lng", lng);
+			String jsonObStr = jo.toString();
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.put(jsonObStr);
+			String jsonArrStr = jsonArray.toString();
+			
+			String root = session.getServletContext().getRealPath("/");
+			
+			 //경로에 json 파일 생성 후 json 배열을 파일에 수정(추가)
+			File jsonFile = new File( root + "resources" + File.separator + "jsonData"+ File.separator +"positions.json" );
+			BufferedWriter bw = new BufferedWriter(new FileWriter(jsonFile));
+			bw.write(jsonArrStr);
+			bw.flush();
+			bw.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 	
 	@GetMapping(value = "main")
-	public String main(Model model) throws Exception {
+	public String main(HttpSession session, Model model) throws Exception {
 		
 		PropReader propReader = new PropReader();
 		
@@ -37,6 +69,7 @@ public class AssignCommController {
 		List<Community> list = service.listComm();
 		
 		long count = service.listCommCount();
+
 		
 		model.addAttribute("daumKey", daumKey);
 		model.addAttribute("list", list);
@@ -60,6 +93,7 @@ public class AssignCommController {
 			String path = root + "uploads" + File.separator + "image";
 			
 			service.insertAllComm(dto, path);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

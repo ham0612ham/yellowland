@@ -11,6 +11,11 @@
 
 <script type="text/javascript">
 
+function addrFindLatLng() {
+	
+	
+}
+
 function login() {
 	location.href = "${pageContext.request.contextPath}/member/login";
 }
@@ -23,6 +28,225 @@ function loginCheck() {
 		
 		login();
 	} 
+	
+}
+
+function checkIn() {
+	
+	const f = document.detailForm;
+	
+	if(! f.subject.value.trim()) {
+		alert(" 제목을 입력해주세요! ");
+		f.subject.focus();
+		return false;
+	}
+	
+
+	if(! f.pNum2.value.trim()) {
+		alert(" 휴대폰 번호를 입력해주세요! ");
+		f.pNum2.focus();
+		return false;
+	} else if(! f.pNum3.value.trim()) {
+		alert(" 휴대폰 번호를 입력해주세요! ");
+		f.pNum3.focus();
+		return false;
+	}
+	
+	if(! f.zip.value.trim()) {
+		alert(" 우편 번호를 입력해주세요! ");
+		f.zip.focus();
+		return false;
+	}
+	
+	if(! f.addr1.value.trim()) {
+		alert(" 기본 주소를 입력해주세요! ");
+		f.addr1.focus();
+		return false;
+	}
+	
+	if(! f.addr2.value.trim()) {
+		alert(" 상세 주소를 입력해주세요! ");
+		f.addr2.focus();
+		return false;
+	}
+	
+	if(! f.thumbnailFile.value.trim()) {
+		alert(" 기본 이미지를 업로드해주세요! ");
+		f.thumbnailFile.focus();
+		return false;
+	}
+	
+	if(! f.deposit.value.trim()) {
+		alert(" 보증금을 입력해주세요! ");
+		f.deposit.focus();
+		return false;
+	}
+	
+	if(! f.monthly.value.trim()) {
+		alert(" 월세를 입력해주세요! ");
+		f.monthly.focus();
+		return false;
+	}
+	
+	if(! f.expense.value.trim()) {
+		alert(" 관리비를 입력해주세요! ");
+		f.expense.focus();
+		return false;
+	}
+	
+	if(! f.area.value.trim()) {
+		alert(" 전용면적을 입력해주세요! ");
+		f.area.focus();
+		return false;
+	}
+	
+	
+	if(! f.parking.value.trim()) {
+		alert(" 주차 가능 여부를 입력해주세요! ");
+		f.parking.focus();
+		return false;
+	}
+	
+	if(! f.elevator.value.trim()) {
+		alert(" 엘리베이터 유무를 입력해주세요! ");
+		f.elevator.focus();
+		return false;
+	}
+	
+	if(! f.transDate.value.trim()) {
+		alert(" 양도 가능일을 입력해주세요! ");
+		f.transDate.focus();
+		return false;
+	}
+	
+	
+	let addr = f.addr1.value.trim();
+	
+	let geocoder = new kakao.maps.services.Geocoder();
+	
+
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+	
+    	// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
+	
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        alert(addr);
+			alert("위도: "+ result[0].y +"경도: "+ result[0].x);
+	        
+	        let lat = result[0].y;
+	        let lng = result[0].x;
+	        
+	        let url = "${pageContext.request.contextPath}/assignComm/jsonFileWriter";
+	        let query = "lat=" + lat + "&lng=" + lng;
+	        
+	        const fn = function(data) {
+	        	console.log("파일 저장 성공");
+	        }
+	        
+	        ajaxFun(url, "get", query, "html", fn);
+	    } 
+	});
+	
+	
+	f.action = "${pageContext.request.contextPath}/assignComm/write";
+	f.submit();
+	
+}
+
+function checkUp() {
+	
+	const f = document.updateForm;
+	
+	if(! f.subject.value.trim()) {
+		alert(" 제목을 입력해주세요! ");
+		f.subject.focus();
+		return false;
+	}
+	
+
+	if(! f.pNum2.value.trim()) {
+		alert(" 휴대폰 번호를 입력해주세요! ");
+		f.pNum2.focus();
+		return false;
+	} else if(! f.pNum3.value.trim()) {
+		alert(" 휴대폰 번호를 입력해주세요! ");
+		f.pNum3.focus();
+		return false;
+	}
+	
+	if(! f.zip.value.trim()) {
+		alert(" 우편 번호를 입력해주세요! ");
+		f.zip.focus();
+		return false;
+	}
+	
+	if(! f.addr1.value.trim()) {
+		alert(" 기본 주소를 입력해주세요! ");
+		f.addr1.focus();
+		return false;
+	}
+	
+	if(! f.addr2.value.trim()) {
+		alert(" 상세 주소를 입력해주세요! ");
+		f.addr2.focus();
+		return false;
+	}
+	
+	if(! f.thumbnailFile.value.trim()) {
+		alert(" 기본 이미지를 업로드해주세요! ");
+		f.thumbnailFile.focus();
+		return false;
+	}
+	
+	if(! f.deposit.value.trim()) {
+		alert(" 보증금을 입력해주세요! ");
+		f.deposit.focus();
+		return false;
+	}
+	
+	if(! f.monthly.value.trim()) {
+		alert(" 월세를 입력해주세요! ");
+		f.monthly.focus();
+		return false;
+	}
+	
+	if(! f.expense.value.trim()) {
+		alert(" 관리비를 입력해주세요! ");
+		f.expense.focus();
+		return false;
+	}
+	
+	if(! f.area.value.trim()) {
+		alert(" 전용면적을 입력해주세요! ");
+		f.area.focus();
+		return false;
+	}
+	
+	
+	if(! f.parking.value.trim()) {
+		alert(" 주차 가능 여부를 입력해주세요! ");
+		f.parking.focus();
+		return false;
+	}
+	
+	if(! f.elevator.value.trim()) {
+		alert(" 엘리베이터 유무를 입력해주세요! ");
+		f.elevator.focus();
+		return false;
+	}
+	
+	if(! f.transDate.value.trim()) {
+		alert(" 양도 가능일을 입력해주세요! ");
+		f.transDate.focus();
+		return false;
+	}
+	
+	
+	f.action = "${pageContext.request.contextPath}/assignComm/update";
+	f.submit();
 	
 }
 
@@ -366,6 +590,9 @@ function overall(data, latitude, longitude) {
 	
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
+	
+	
+	
 
 
     // 마커 클러스터러를 생성할 때 disableClickZoom 값을 true로 지정하지 않은 경우
@@ -383,7 +610,7 @@ function overall(data, latitude, longitude) {
 	
 	// 데이터를 가져오기 위해 jQuery를 사용합니다
     // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-    $.get('${pageContext.request.contextPath}/resources/jsonData/borough.json', function(data) {
+    $.get('${pageContext.request.contextPath}/resources/jsonData/positions.json', function(data) {
     // 데이터에서 좌표 값을 가지고 마커를 표시합니다
     // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
 	    var markersGu = $(data.positions).map(function(i, position) {
@@ -485,7 +712,7 @@ function overall(data, latitude, longitude) {
 	
 	// 주소로 좌표를 검색합니다
 	geocoder.addressSearch(data, function(result, status) {
-
+	
     	// 정상적으로 검색이 완료됐으면 
 		if (status === kakao.maps.services.Status.OK) {
 	
