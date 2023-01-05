@@ -29,26 +29,36 @@ public class AssignCommController {
 	@Autowired
 	private AssignCommService service;
 	
-	@GetMapping("jsonFileWriter")
-	public void jsonFileWriter(HttpSession session, @RequestParam double lat, @RequestParam double lng) throws Exception {
+	
+	public void jsonFileWriter(HttpSession session, List<Community> list) throws Exception {
 		
 		try {
 			
-			// 위도, 경도를 JSON 객체로 만들어 배열에 담기
-			JSONObject jo = new JSONObject();
-			jo.put("lat", lat);
-			jo.put("lng", lng);
-			String jsonObStr = jo.toString();
-			JSONArray jsonArray = new JSONArray();
-			jsonArray.put(jsonObStr);
-			String jsonArrStr = jsonArray.toString();
-			
 			String root = session.getServletContext().getRealPath("/");
 			
-			 //경로에 json 파일 생성 후 json 배열을 파일에 수정(추가)
-			File jsonFile = new File( root + "resources" + File.separator + "jsonData"+ File.separator +"positions.json" );
+			File jsonFile = new File(root + "resources" + File.separator + "jsonData"+ File.separator +"positions.json");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(jsonFile));
-			bw.write(jsonArrStr);
+			
+			// json 파일의 메인 객체와 배열
+			JSONObject jsonObject = new JSONObject();
+			JSONArray jsonArray = new JSONArray();
+			
+			// 위도, 경도를 JSON 객체로 만들어 배열에 담기
+			for(Community dto : list) {
+				
+				JSONObject jo = new JSONObject();
+				jo.put("lat", dto.getLat());
+				jo.put("lng", dto.getLng());
+				
+				jsonArray.put(jo);
+			
+			}
+			
+			jsonObject.put("positions", jsonArray);
+			
+			String jsonObStr = jsonObject.toString();
+			
+			bw.write(jsonObStr);
 			bw.flush();
 			bw.close();
 			
@@ -59,6 +69,8 @@ public class AssignCommController {
 		
 	}
 	
+	
+	
 	@GetMapping(value = "main")
 	public String main(HttpSession session, Model model) throws Exception {
 		
@@ -68,9 +80,11 @@ public class AssignCommController {
 		
 		List<Community> list = service.listComm();
 		
-		long count = service.listCommCount();
-
+		// 상가에 위도와 경도를 가진 json 파일을 만들어 지도에 클러스터 표시
+		jsonFileWriter(session, list);
 		
+		long count = service.listCommCount();
+	
 		model.addAttribute("daumKey", daumKey);
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);

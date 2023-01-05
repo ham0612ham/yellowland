@@ -41,8 +41,23 @@ public class Community {
 	private int elevator;       // 엘리베이터
 	private String transDate;   // 양도 가능일
 	
+	private String lat;			// 위도
+	private String lng;			// 경도
 	
 	
+	
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
 	public long getImgNum() {
 		return imgNum;
 	}
