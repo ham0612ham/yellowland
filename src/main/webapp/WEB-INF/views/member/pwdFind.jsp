@@ -44,7 +44,7 @@ function sendOk() {
                             <input type="text" name="userId" class="form-control form-control-lg" placeholder="아이디">
                         </div>
                         <div class="d-grid">
-                            <button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">확인 <i class="bi bi-check2"></i> </button>
+                            <button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">확인</button>
                         </div>
                     </form>
                 </div>

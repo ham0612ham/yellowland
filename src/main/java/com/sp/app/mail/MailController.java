@@ -23,10 +23,10 @@ public class MailController {
 	@RequestMapping(value="send", method=RequestMethod.POST)
 	public String sendSubmit(Mail dto, 
 			final RedirectAttributes reAttr) throws Exception {
-
+		
 		boolean b=mailSender.mailSend(dto);
 		
-		String msg="<span style='color:blue;'>"+dto.getReceiverEmail()+"</span> 님에게<br>";
+		String msg="<span style='color:'#36C88A';'>"+dto.getReceiverEmail()+"</span> 님에게<br>";
 		if(b) {
 			msg+="메일을 성공적으로 전송 했습니다.";
 		} else {
@@ -41,10 +41,7 @@ public class MailController {
 	@RequestMapping(value="complete")
 	public String complete(@ModelAttribute("message") String message) throws Exception{
 		
-		// 컴플릿 페이지(complete.jsp)의 출력되는 message와 title는 RedirectAttributes 값이다. 
-		// F5를 눌러 새로 고침을 하면 null이 된다.
-		
-		if(message==null || message.length()==0) // F5를 누른 경우
+		if(message==null || message.length()==0)
 			return "redirect:/";
 		
 		return ".mail.complete";

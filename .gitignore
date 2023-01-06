@@ -2,3 +2,5 @@
 /target/
 jdbc.properties
 keyList.properties
+MailSender.java
+Mail.java

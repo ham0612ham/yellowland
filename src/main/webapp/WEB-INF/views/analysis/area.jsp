@@ -5,7 +5,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 900px;
+	max-width: 1100px;
 	min-height: 900px;
 	margin: auto;
 	margin-top: 100px;

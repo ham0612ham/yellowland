@@ -137,7 +137,7 @@ $(function(){
 		let qCondition = $("#qCondition").val();
 		let induM = $("#induM").val();
 		let fileName = "";
-		if(val === "population" || val === "income" || val === "rent") {
+		if(val === "population" || val === "income") {
 			fileName = "dist"+selectBusinessArea+val+yCode+qCode+qCondition;
 		} else {
 			fileName = "dist"+selectBusinessArea+val+yCode+qCode+qCondition+induM;

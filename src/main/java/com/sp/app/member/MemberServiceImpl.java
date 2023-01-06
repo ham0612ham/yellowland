@@ -49,18 +49,13 @@ public class MemberServiceImpl implements MemberService {
 			long memberSeq = dao.selectOne("member.memberSeq");
 			dto.setMemberIdx(memberSeq);
 			
-			// 패스워드 암호화
 			String encPassword = bcrypt.encode(dto.getUserPwd());
 			dto.setUserPwd(encPassword);
 
-			// 회원정보 저장
 			dao.insertData("member.insertMember", memberSeq);
 
-			// dao.insertData("member.insertMember1", dto);
-			// dao.insertData("member.insertMember2", dto);
-			dao.updateData("member.insertMember12", dto); // member1, member2 테이블 동시에
+			dao.updateData("member.insertMember12", dto);
 			
-			// 권한 저장
 			dto.setAuthority("ROLE_USER");
 			dao.insertData("member.insertAuthority", dto);
 			
@@ -160,8 +155,6 @@ public class MemberServiceImpl implements MemberService {
 			
 			boolean bPwdUpdate = ! isPasswordCheck(dto.getUserId(), dto.getUserPwd());
 			if( bPwdUpdate ) {
-				// 패스워드가 변경된 경우에만 member1 수정(바꾸는 패스워드가 이전 패스워드와 다를 경우)
-				// 이렇게 해야 똑같은 패스워드로 바꾸려고 하는 경우에는 패스워드 변경 날짜가 바뀌지 않음.
 				String encPassword = bcrypt.encode(dto.getUserPwd());
 				dto.setUserPwd(encPassword);
 				
@@ -201,16 +194,32 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		String result;
-		result = dto.getUserId() + "님의 새로 발급된 임시 패스워드는 <b>"
-				+ sb.toString()
-				+ "</b> 입니다.<br>"
-				+ "로그인 후 반드시 패스워드를 변경 하시기 바랍니다.";
+		StringBuilder sb2 = new StringBuilder();
+		sb2.append("<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; background-color: #fff;\">");
+		sb2.append("<tbody><tr><td><div style=\"margin: 0 auto; max-width: 720px; background-color: #fff; font-family: Malgun Gothic, Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;\">");
+		sb2.append("<table cellpadding=\"0\" cellspacing=\"0\"style=\"width: 100%; margin: 0 auto; background-color: #fff; text-align: left; letter-spacing: -0.8px;\">");
+		sb2.append("<tbody><tr><td colspan=\"3\" height=\"24\"></td></tr><tr><td colspan=\"3\" height=\"40\"></td></tr><tr><td width=\"16\"></td><td><table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; margin: 0; padding: 0\">");
+		sb2.append("<tbody><tr><td style=\"font-weight: 300; font-size: 26px; color: #000; line-height: 36px; \">예매내역 안내 메일입니다.</td></tr><tr><td style=\"padding-top: 24px; font-weight: 400; font-size: 14px; font-family: 'Noto Sans KR'; color: #666; line-height: 22px; letter-spacing: -0.8px;\">");
+		sb2.append("안녕하세요. ㈜부릉 입니다. <br> <br> 고객님의 예매번호 안내드립니다. 회원이신 고객님께서는 로그인을 통해 예매내역 조회가 가능합니다. 비회원이신 고객님께서는 아래 예매번호와 본 메일주소를 통해 예매내역 조회가 가능합니다. 본 메일은 예매정보에 기재하신 내용대로 발행되었으며, 잘못된 정보가 적혀있을 경우, 고객센터나 1:1문의를 통해 문의 부탁드립니다. 고객님들의 편안한 여정을 함께하겠습니다.");
+		sb2.append("</td></tr></tbody></table></td><td width=\"16\"></td></tr><tr><td colspan=\"3\" height=\"40\"></td></tr><tr><td width=\"16\"></td><td><table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; margin: 0; padding: 0\">");
+		sb2.append("<tbody><tr><td height=\"1\" style=\"background-color: #ccc;\"></td></tr></tbody></table></td><td width=\"16\"></td></tr><tr><td width=\"16\"></td><td><table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; margin: 0; padding: 0\">");
+		sb2.append("<tbody><tr><td valign=\"top\" width=\"104\" style=\"padding-top: 9px; padding-right: 10px; padding-bottom: 9px; padding-left: 10px; font-weight: 400; font-size: 14px; font-family: 'Noto Sans KR'; color: #000; line-height: 22px; letter-spacing: -0.8px; background-color: #fbfbfb;\">예매번호</td>");
+		sb2.append("<td style=\"padding-top: 9px; padding-right: 10px; padding-bottom: 9px; padding-left: 14px; font-weight: 400; font-size: 14px; font-family: 'Noto Sans KR'; color: #666; line-height: 22px; letter-spacing: -0.8px;\">");
+		sb2.append("<span style=\"font-family: 'Roboto'; font-size: 15px; letter-spacing: 0;\">"+s+"</span><!-- 예매번호 --></td></tr><tr><tr><td colspan=\"2\" height=\"1\" style=\"background-color: #eee;\"></td>");
+		sb2.append("</tr></tbody></table></td><td width=\"16\"></td></tr><tr><td colspan=\"3\" height=\"48\"></td></tr><tr><td width=\"16\"></td><td><a href=\"http://localhost:9090/vroom/member/login.do\" style=\"display: block; padding-top: 12px; padding-bottom: 12px; font-weight: 700; font-size: 16px; font-family: 'noto sans kr'; color: #fff; text-align: center; line-: 24px; letter-spacing: -0.8px; background-color: #0E6EFD; border-radius: 24px; text-decoration: none;\" target=\"_blank\" rel=\"noreferrer noopener\">부릉 로그인하기</a>");
+		sb2.append("</td><td width=\"16\"></td></tr><tr><td colspan=\"3\" height=\"48\"></td></tr><tr><td width=\"16\"></td><td><table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; margin: 0; padding: 0\">");
+		sb2.append("<tbody><tr><td style=\"font-weight: 400; font-size: 14px; font-family: 'Noto Sans KR'; color: #666; line-height: 22px; letter-spacing: -0.8px;\">자세한 예매내역은 부릉홈페이지에서 확인 가능합니다. 탑승시간 24시간 전 까지 환불 가능합니다. <br>");
+		sb2.append("<br> <strong>환불을 원하시는 경우,</strong><br> 탑승시간을 확인하시어 환불 부탁드리며, 비회원이신 경우 예매번호가 필수적으로 요구됩니다.</td></tr></tbody></table></td><td width=\"16\"></td></tr><tr><td colspan=\"3\" height=\"60\"></td>");
+		sb2.append("</tr><tr><td colspan=\"3\" height=\"1\" style=\"background-color: #eee\"></td></tr><tr><td width=\"16\"></td><td><table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; margin: 0; padding: 0\"><tbody>");
+		sb2.append("<tr><td height=\"23\"></td></tr><tr><td style=\"font-weight: 400; font-size: 12px; font-family: 'Noto Sans KR'; color: #888; line-height: 20px; letter-spacing: -0.8px;\">본 메일은 발신전용으로 회신이되지 않습니다.<br> 문의사항은 부릉 고객센터(<a href=\"tel:18119997\" name=\"ANCHOR4083\" style=\"font-weight: 700; text-decoration: underline;\" target=\"_blank\" rel=\"noreferrer noopener\"><font color=\"#888\">1121-0909</font></a>)를 이용해 주시기 바랍니다.");
+		sb2.append("</td></tr></tbody></table></td><td width=\"16\"></td></tr></tbody></table></div></td></tr></tbody></table>");
+		result = sb2.toString();
 
 		Mail mail = new Mail();
 		mail.setReceiverEmail(dto.getEmail());
 
-		mail.setSenderEmail("보내는사람이메일@도메인");
-		mail.setSenderName("관리자");
+		mail.setSenderEmail(dto.getEmail());
+		mail.setSenderName("yellowland");
 		mail.setSubject("임시 패스워드 발급");
 		mail.setContent(result);
 

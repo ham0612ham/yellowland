@@ -5,7 +5,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 900px;
+	max-width: 1100px;
 	min-height: 900px;
 	margin: auto;
 	margin-top: 100px;
@@ -50,7 +50,8 @@ form[name=selectForm] { margin-bottom: 40px; }
 #button-table tr { border: 0px; }
 #button-table tr td { border: 0.5px solid #e1e1e1; border-collapse: collapse; }
 #button-table tr td:hover { border: 0.5px solid #36C88A; }
-.uPart { font-size: 10px; }
+.uPart { font-size: 10px; margin: 0px; }
+#table1 > thead > tr th:first-child, #table1 > tbody > tr td:first-child { max-width: 120px; text-overflow: ellipsis; }
 </style>
 
 <script type="text/javascript"
