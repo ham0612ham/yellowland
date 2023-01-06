@@ -38,6 +38,40 @@ function kakaopostIn() {
     }).open();
 }
 
+function latLngAddrIn() {
+	
+	const f = document.detailForm;
+	
+	let addr = f.addr1.value.trim();
+	
+	let geocoder = new kakao.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+	
+    	// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
+	
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        
+	        let latitude  = result[0].y;
+	        let longitude = result[0].x;
+	        
+	      	//$(".lat").attr('value', latitude);
+	        //$(".lng").attr('value', longitude);
+	        
+	        //document.querySelector("#lat-in").setAttribute("value", latitude);
+	        //document.querySelector("#lng-in").setAttribute("value", longitude);
+	        
+	        document.getElementById("lat-in").value = latitude;
+	        document.getElementById("lng-in").value = longitude;
+	        
+	      	// alert("lat-in: " + document.querySelector("#lat-in").value + " lng-in: " + document.querySelector("#lng-in").value);
+	        
+	    } 
+	});
+}
+
 function checkIn() {
 	
 	const f = document.detailForm;
@@ -69,7 +103,7 @@ function checkIn() {
 		alert(" 기본 주소를 입력해주세요! ");
 		f.addr1.focus();
 		return false;
-	}
+	} 
 	
 	if(! f.addr2.value.trim()) {
 		alert(" 상세 주소를 입력해주세요! ");
@@ -127,29 +161,7 @@ function checkIn() {
 	}
 	
 	
-	let addr = f.addr1.value.trim();
 	
-	let geocoder = new kakao.maps.services.Geocoder();
-	
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch(addr, function(result, status) {
-	
-    	// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) {
-	
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	        
-	        let lat = result[0].y;
-	        let lng = result[0].x;
-	        
-	        // .value는 읽기만 가능, 수정은 불가
-	        document.querySelector("#detailForm .lat").setAttribute("value", lat);
-	        document.querySelector("#detailForm .lng").setAttribute("value", lng);
-	        
-	        alert("위도: " + document.querySelector(".lat").value + " 경도: " + document.querySelector(".lng").value);
-	        
-	    } 
-	});
 	
 	f.action = "${pageContext.request.contextPath}/assignComm/write";
  	f.submit();
@@ -382,7 +394,7 @@ $(function() {
 												<div class="col-md-6">
 													<div class="form-group" style="display: flex;">
 														<input type="text" id="zip-in" class="form-control zip" name="zip"  placeholder="우편번호" value="${dto.zip}">
-														<input class="btn btn-primary" style="margin-left: 3px;" type="button" value="우편번호찾기" onclick="kakaopostIn()">
+														<input class="btn btn-primary" style="margin-left: 3px;" type="button" value="우편번호찾기" onclick="kakaopostIn();">
 													</div>
 												</div>
 												
@@ -393,13 +405,13 @@ $(function() {
 												</div>
 												
 												<div>
-													<input type="hidden" class="lat" name="lat" value="">
-													<input type="hidden" class="lng" name="lng" value="">
+													<input type="hidden" id="lat-in" class="lat" name="lat">
+													<input type="hidden" id="lng-in" class="lng" name="lng">
 												</div>
 												
 												<div class="col-md-12">
 													<div class="form-group">
-														<input type="text" class="form-control addr2" name="addr2" placeholder="상세 주소" value="${dto.addr2}">
+														<input type="text" onclick="latLngAddrIn();" class="form-control addr2" name="addr2" placeholder="상세 주소" value="${dto.addr2}">
 													</div> 
 												</div>
 												

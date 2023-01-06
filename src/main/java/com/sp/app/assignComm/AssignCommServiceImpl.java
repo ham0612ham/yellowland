@@ -80,7 +80,7 @@ public class AssignCommServiceImpl implements AssignCommService {
 					
 					dto.setImgName(imgName);
 					
-					dao.updateData("assignComm.updateCommImg", dto);
+					dao.insertData("assignComm.insertCommImg", dto);
 				}
 				
 			}

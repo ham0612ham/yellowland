@@ -46,6 +46,7 @@ public class Community {
 	
 	
 	
+	
 	public String getLat() {
 		return lat;
 	}

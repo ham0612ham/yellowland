@@ -171,6 +171,7 @@ public class AssignCommController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 		
 		
