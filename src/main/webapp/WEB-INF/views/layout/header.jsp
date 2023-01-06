@@ -14,8 +14,8 @@
 				<li><a href="${pageContext.request.contextPath}/matching/main" class="main-menu-a">상권 매칭</a></li>
 				<li><a href="${pageContext.request.contextPath}/analysis/main" class="main-menu-a">상권 현황</a>
 					<ul class="sub-menu" style="z-index: 100">
-						<li><a href="" aria-label="subemnu">지역별 현황</a></li>
-						<li><a href="#" aria-label="subemnu">상권별 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/analysis/area/main" aria-label="subemnu">지역별 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/analysis/dist/main" aria-label="subemnu">상권별 현황</a></li>
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/assignComm/main" class="main-menu-a">상가 양도</a></li>

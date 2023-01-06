@@ -544,7 +544,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<span class="show-hide-btn"><img style='width: 12px;' src='${pageContext.request.contextPath}/resources/images/hide_btn.png'></span>
 			</div>
 			<div class="rank-dis" style="margin-top: 3px;"><span class="hole-rank-title">전체</span><span class="hole-rank-quarter">2022년 3분기 기준</span></div>
-			<div class="rank-div" id="rank-lists">
+			<div class="rank-div" id="rank-lists" style="max-height: 150px; overflow: scroll;">
 				<div class="d-flex justify-content-center">
 					<div class="spinner-border text-primary" role="status">
 						<span class="visually-hidden">Loading...</span>
@@ -717,24 +717,6 @@ $(function(){
 		$("#analysis-banner").hide();
 	});
 });
-
-// 자치구 리스트 가져옴
-/* $(function(){
-	let url = "${pageContext.request.contextPath}/bringcate/categoryGu";
-	let query;
-	let innerHtml;
-	
-	const fn = function(data) {
-		innerHtml += "<option value='all'>자치구 전체</option>";
-		for(let dto of data.siguList) {
-			innerHtml += "<option value='"+dto.siguNum+"'>"+dto.siguName+"</option>";
-		}
-		$("#select-Gu").html(innerHtml);
-	}
-	
-	ajaxFun(url, "post", query, "json", fn);
-}); 
-*/
 
 $(function(){
 	$("#selPlace").hide;

@@ -11,6 +11,10 @@
 		WHERE cateJobNum = #{cateJobNum}
 	</select>
 	
+	<select id="allJob" resultType="com.sp.app.bringcate.Bringcate">
+		SELECT jobNum, jobName, cateJobNum FROM job
+	</select>
+	
 	<select id="categoryGu" resultType="com.sp.app.bringcate.Bringcate">
 		SELECT siguNum, siguName FROM categoryGu
 	</select>

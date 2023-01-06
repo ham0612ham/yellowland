@@ -30,7 +30,11 @@ public class BringcateServiceImpl implements BringcateService {
 		List<Bringcate> list = null;
 		
 		try {
-			list = dao.selectList("bringcate.job", cateJobNum);
+			if(cateJobNum.equals("all")) {
+				list = dao.selectList("bringcate.allJob");
+			} else {
+				list = dao.selectList("bringcate.job", cateJobNum);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
