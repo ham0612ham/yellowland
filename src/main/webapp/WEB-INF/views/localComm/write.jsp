@@ -164,7 +164,7 @@ $(function(){
 		<h3 class="fw-semibold">지역별 커뮤니티 글 작성</h3>
 		<hr>
 
-		<form name="localCommForm"  method="post">	
+		<form name="localCommForm" method="post" enctype="multipart/form-data">	
 			<table class="table">
 				<thead>
 					<tr>
@@ -198,10 +198,16 @@ $(function(){
 						<td>${sessionScope.member.userName}</td>
 					</tr>
 					<tr>
-						<th scope="row" >글 내용</th>
+						<th scope="row">글 내용</th>
 						<td>
-							<div class="editor">${dto.content}</div>
-							<input type="hidden" name="content">
+							<div class="editor">${dto.content}</div> <input type="hidden"
+							name="content">
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">첨부파일</th>
+						<td>
+							<input type="file" name="selectFile" multiple="multiple">
 						</td>
 					</tr>
 				</tbody>
@@ -221,6 +227,7 @@ $(function(){
 							
 						<c:if test="${mode=='update'}">
 							<input type="hidden" name="num" value="${dto.num}">
+							
 						</c:if>
 					</td>
 				</tr>

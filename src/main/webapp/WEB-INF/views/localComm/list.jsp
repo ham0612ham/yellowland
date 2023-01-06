@@ -42,12 +42,15 @@
 
 
 .pagination {
-	margin-left: 320px; 
 	--bs-pagination-hover-bg: #36C88A; 
 	--bs-pagination-focus-bg: #36C88A; 
 	--bs-pagination-focus-color: #ffffff;
 	--bs-pagination-hover-color: #ffffff;
 	}
+
+.page-navigation {
+	margin-bottom: 50px;
+}
 
 .form-select {
 	border: solid 0.5px;
@@ -100,6 +103,67 @@
 
 </style>
 
+<script type="text/javascript">
+function sendSearch() {
+	
+}
+
+function login() {
+	location.href="${pageContext.request.contextPath}/member/login";
+}
+
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+$(function(){
+	$("form select[name=siguNum]").change(function(){
+		let siguNum = $(this).val();
+		$("form select[name=dongNum]").find('option').remove().end()
+				.append("<option value=''>행정동</option>");
+		
+		if(! siguNum) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/localComm/listDong";
+		let query = "siguNum="+siguNum;
+		
+		const fn = function(data) {
+			$.each(data.listDong, function(index, item){
+				let dongNum = item.dongNum;
+				let dongName = item.dongName;
+				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
+				$("form select[name=dongNum]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+	});
+});
+</script>
+
 <div class="container">
 	<div class="table1">
 		<h3 class="fw-semibold">커뮤니티</h3>
@@ -118,25 +182,30 @@
 			<h6 class="semiTitle">&nbsp;지역 기준</h6>
 			
 			<form class="typeSelectorForm">
-				<div class="typeSelectorLarge">
-					<select class="form-select" aria-label="Default select example">
-						<option selected>지역 선택</option>
-						<option value="1">지역1</option>
-						<option value="2">지역2</option>
-						<option value="3">지역3</option>
-					</select>
-				</div>
-				<div class="typeSelectorSmall">
-					<select name="condition" class="form-select">
-						<option selected>세부지역 선택</option>
-						<option value="1">세부지역1</option>
-						<option value="2">세부지역2</option>
-						<option value="3">세부지역3</option>
-					</select>
-				</div>
+				<thead>
+					<tr>
+						<th scope="col" class="typeCkeck"></th>
+						<th scope="col" class="typeCkeck">
+							<div class="col-auto p-1" style="flex: 1; float: left;">
+								<select name="siguNum" class="form-select" style="width: 125px;">
+									<option value="">:: 시군구 ::</option>
+									<c:forEach var="vo" items="${listSigu}">
+										<option value="${vo.siguNum}"
+											${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-auto p-1" style="flex: 1; float: left;">
+								<select name="dongNum" class="form-select" style="width: 125px;">
+									<option value="" ${condition=="all"?"selected='selected'":""}>행정동</option>
+								</select>
+							</div>
+						</th>
+					</tr>
+				</thead>
 			</form>
 			
-			<button type="button" class="btn btn-primary ">조회</button>
+			<button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 3px;" onclick="sendSearch();">조회</button>
 			<br>
 			<hr class="division">
 			<div class="container text-center" id="board" style="margin-left: 28px;">
@@ -147,80 +216,23 @@
 							<th scope="col">제목</th>
 							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
+							<th scope="col">조회수</th>
 							<th scope="col">좋아요 수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>서울시가 다양한 상권정보를 알려드립니다.</td>
-							<td>2022-01-01</td>
-							<td>김*준</td>
-							<td>0</td>
-						</tr>
+						<c:forEach var="dto" items="${list}" varStatus="status">
+							<tr>
+								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
+								<td>
+									<a href="${articleUrl}&num=${dto.num}" style="text-decoration:none; color:black;">${dto.subject}</a>
+								</td>
+								<td>${dto.regDate}</td>
+								<td>${dto.userName}</td>
+								<td>${dto.hitCount}</td>
+								<td>0</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -230,7 +242,7 @@
 					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/localComm/write';" style="margin-left: 740px;">글 작성</button>
 				</c:when>
 				<c:otherwise>
-					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login';">글 작성</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/login';" style="margin-left: 740px;">글 작성</button>
 				</c:otherwise>
 			</c:choose>
 

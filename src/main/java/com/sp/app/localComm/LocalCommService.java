@@ -28,5 +28,11 @@ public interface LocalCommService {
 	// 시군구
 	public List<LocalComm> listSigu () throws Exception;
 	public List<LocalComm> listDong (long siguNum) throws Exception;
-
+	
+	// 파일
+	public void insertFile(LocalComm dto) throws Exception;
+	public List<LocalComm> listFile(long num);
+	public LocalComm readFile(long fileNum);
+	public void deleteFile(Map<String, Object> map) throws Exception;
+	
 }

@@ -64,7 +64,33 @@ function sendOk() {
     f.submit();
 }
 
+$(function(){
+	$("form select[name=siguNum]").change(function(){
+		let siguNum = $(this).val();
+		$("form select[name=dongNum]").find('option').remove().end()
+				.append("<option value=''>행정동</option>");
+		
+		if(! siguNum) {
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/localComm/listDong";
+		let query = "siguNum="+siguNum;
+		
+		const fn = function(data) {
+			$.each(data.listDong, function(index, item){
+				let dongNum = item.dongNum;
+				let dongName = item.dongName;
+				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
+				$("form select[name=dongNum]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+	});
+});
+
 </script>
+
 
 
 <div class="container">
