@@ -1,5 +1,6 @@
 package com.sp.app.localComm;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class LocalCommServiceImpl implements LocalCommService {
 	public void insertLocalComm(LocalComm dto, String pathname) throws Exception {
 		
 		try {
-			long seq = dao.selectOne("notice.seq");
+			long seq = dao.selectOne("localComm.seq");
 			dto.setNum(seq);
 			
 			dao.insertData("localComm.insertLocalComm", dto);
@@ -37,11 +38,12 @@ public class LocalCommServiceImpl implements LocalCommService {
 
 					String originalFilename = mf.getOriginalFilename();
 					long fileSize = mf.getSize();
-
+					
 					dto.setOriginalFilename(originalFilename);
 					dto.setSaveFilename(saveFilename);
+					dto.setFileSize(fileSize);
 					
-					// 파일 인서트 
+					// 파일 인서트 insertFile(dto);
 					dao.insertData("localComm.insertFile", dto);
 
 				}
@@ -60,7 +62,7 @@ public class LocalCommServiceImpl implements LocalCommService {
 		List<LocalComm> list = null;
 
 		try {
-			list = dao.selectList("localComm.ListLocalComm", map);
+			list = dao.selectList("localComm.listLocalComm", map);	// 여기 !! 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,43 +101,120 @@ public class LocalCommServiceImpl implements LocalCommService {
 	
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("localComm.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override
 	public LocalComm readLocalComm(long num) {
-		// TODO Auto-generated method stub
-		return null;
+		LocalComm dto = null;
+		
+		try {
+			dto = dao.selectOne("localComm.readLocalComm", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 
 	@Override
 	public void updateHitCount(long num) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("localComm.updateHitCount", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public LocalComm preReadLocalComm(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		LocalComm dto = null;
+		
+		try {
+			dto = dao.selectOne("localComm.preReadLocalComm", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 
 	@Override
 	public LocalComm nextReaLocalComm(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		LocalComm dto = null;
+		
+		try {
+			dto = dao.selectOne("localComm.nextReaLocalComm", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 
 	@Override
 	public void updateLocalComm(LocalComm dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("localComm.updateLocalComm", dto);
+			
+			if( ! dto.getSelectFile().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if(saveFilename == null) {
+						continue;
+					}
+					
+					String originalFilename = mf.getOriginalFilename();
+					long fileSize = mf.getSize();
+					
+					dto.setOriginalFilename(originalFilename);
+					dto.setSaveFilename(saveFilename);
+					dto.setFileSize(fileSize);
+					
+					// insertFile(dto); 
+					dao.insertData("localCOmm.insertFile", dto);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public void deleteLocalComm(long num, String pathname, String userId) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			// 파일 지우기
+			List<LocalComm> listFile = listFile(num);
+			if (listFile != null) {
+				for (LocalComm dto : listFile) {
+					fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+				}
+			}
+			
+			// 파일 테이블의 내용 지우기
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("field", "num");
+			map.put("num", num);
+			deleteFile(map);
+			
+			dao.deleteData("localComm.deleteLocalComm", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
@@ -184,6 +263,57 @@ public class LocalCommServiceImpl implements LocalCommService {
 	@Override
 	public void deleteReply(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void insertFile(LocalComm dto) throws Exception {
+		try {
+			dao.insertData("localComm.insertFile", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
+	@Override
+	public List<LocalComm> listFile(long num) {
+		List<LocalComm> listFile = null;
+		
+		try {
+			listFile = dao.selectList("localComm.listFile", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+ 		return listFile;
+	}
+
+
+	@Override
+	public LocalComm readFile(long fileNum) {
+		LocalComm dto = null;
+		
+		try {
+			dto = dao.selectOne("localComm.readFile", fileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+
+	@Override
+	public void deleteFile(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("localComm.deleteFile", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 

@@ -2,23 +2,12 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="localComm">
-	<select id="seq" resultType="Long">
-		SELECT localComm_seq.NEXTVAL FROM dual
-	</select>
-
-	<insert id="insertLocalComm" parameterType="com.sp.app.localComm.LocalComm" >
-		 INSERT INTO localComm(num, subject, content,  hitCount, 
-		 		regDate, userId, siguNum, dongNum)
-			VALUES (localComm_seq.NEXTVAL,  #{subject},  #{content} ,#{hitCount},
-				 SYSDATE, #{userId}, #{siguNum}, #{dongNum})
-	</insert>
-	
 	<!-- 모든 시군구(번호, 이름) -->
 	<select id="listSigu" resultType="com.sp.app.localComm.LocalComm">
 		  SELECT siguNum, siguName 
               FROM CATEGORYGU
 	</select>
-
+	
 	<!-- 시군구의 동(번호, 이름): 조건 시군구번호  -->
 	<select id="listDong" resultType="com.sp.app.localComm.LocalComm" parameterType="Long">
 		   SELECT g.siguNum, g.siguName, dongNum, dongName
@@ -27,6 +16,138 @@
            WHERE d.siguNum = #{siguNum}
 	</select> 
 
+	<!-- 등록 -->
+	<select id="seq" resultType="Long">
+		SELECT localComm_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertLocalComm" parameterType="com.sp.app.localComm.LocalComm" >
+		 INSERT INTO localComm(num, subject, content,  hitCount, 
+		 		regDate, userId, siguNum, dongNum)
+			VALUES (#{num},  #{subject},  #{content} ,#{hitCount},
+				 SYSDATE, #{userId}, #{siguNum}, #{dongNum})
+	</insert>
 	
+	<!-- 파일 -->
+	<insert id="insertFile" parameterType="com.sp.app.localComm.LocalComm">
+		INSERT INTO localCommFile(fileNum, originalFilename ,num, saveFilename,fileSize )
+		VALUES (localCommFile_seq.NEXTVAL, #{originalFilename},#{num},#{saveFilename},#{fileSize} )
+	</insert>
+	
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM localCommFile
+		WHERE num=#{num}  
+	</select>
+	
+	<select id="readFile" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM localCommFile
+	    WHERE fileNum=#{fileNum}      
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM localCommFile WHERE ${field} = #{num}
+	</delete>
+
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='reg_date' ">
+			( TO_CHAR(reg_date, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(reg_date, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+	
+	<!-- 데이터 갯수  -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM localComm l
+		JOIN member1 m ON l.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword!=''  ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 리스트 -->
+	<select id="listLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
+		SELECT l.num,subject, l.userId, userName,  hitCount, 
+			   TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount
+		FROM localComm l
+		JOIN member1 m ON m.userId=l.userId
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileCount FROM localCommFile
+			GROUP BY num
+		) f ON l.num=f.num
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 글보기 -->
+	<select id="readLocalComm" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
+		SELECT num, userId, userName, subject, content, regDate, hitCount
+		FROM localComm l
+		JOIN member1 m ON l.userId=m.userId 
+		WHERE num = #{num}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE localComm SET hitCount=hitCount+1 WHERE num = #{num}
+	</update>
+	
+	<!-- 이전글 -->
+	<select id="preReadLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
+		SELECT num, subject
+		FROM localComm l
+		JOIN member1 m ON l.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+    
+    <select id="nextReaLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
+    	SELECT num, subject
+		FROM localComm n
+		JOIN member1 m ON l.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+    
+    <!-- 수정 -->
+    <update id="updateLocalComm" parameterType="com.sp.app.localComm.LocalComm">
+    	UPDATE localComm SET subject=#{subject},
+			content=#{content}
+		WHERE num=#{num}
+    </update>
+
+	<!-- 삭제 -->
+	<delete id="deleteLocalComm" parameterType="Long">
+		DELETE FROM localComm WHERE num=#{num}
+	</delete>
 	
 </mapper>
