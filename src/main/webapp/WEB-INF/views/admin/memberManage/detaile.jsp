@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style type="text/css">
-.text-center.bg-light{background-color: #36C88A;}
+.bg-light{background-color: #36C88A;}
 </style>
 <h3 style="font-size: 15px; padding-top: 10px;"><i class="fa-solid fa-angles-right"></i> 회원 정보</h3>
 <table class="table td-border mx-auto my-10" style="width: 99%;">

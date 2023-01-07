@@ -17,7 +17,7 @@ input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
 label:hover { color: #18BD77; cursor: pointer; }
 input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
 .up-btn { padding: 8px 30px; }
-.fw-semibold { height: 50px; width: 150px; }
+.fw-semibold {  height: 50px; width: 150px; font-size: 30px;}
 .row { height: 200px; width: 180px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 700px; text-align: left;}
@@ -75,6 +75,12 @@ function searchList() {
 	const f = document.searchForm;
 	f.enabled.value=$("#selectEnabled").val();
 	f.action = "${pageContext.request.contextPath}/admin/memberManage/list";
+	f.submit();
+}
+
+function searchContent() {
+	const f = document.searchForm;
+	
 	f.submit();
 }
 	
@@ -277,6 +283,8 @@ function selectStateChange() {
 					<div>
 						<input type="text" name="keyword" value="${keyword}"
 							class="form-control" id="keyword-input">
+						<input type="hidden" name="enabled" value="${enabled}">
+							<input type="hidden" name="page" value="1">
 					</div>
 					<div>
 						<div class="btn btn-primary search-btn" onclick="searchList()">
@@ -297,8 +305,8 @@ function selectStateChange() {
 
 		</div>
 
-
-	
 </div>
+	
+
 
 <div id="member-dialog" style="display: none;"></div>
