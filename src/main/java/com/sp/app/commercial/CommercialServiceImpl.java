@@ -303,7 +303,7 @@ public class CommercialServiceImpl implements CommercialService {
 			if (!siguNum.equals("all")) {
 				for (int i = 1; i < list.size(); i++) {
 					for (int j = 0; j < list.size() - i; j++) {
-						if (list.get(j).getChai() < list.get(j + 1).getChai()) {
+						if (list.get(j).getRatio() < list.get(j + 1).getRatio()) {
 							Collections.swap(list, j, j + 1);
 						}
 					}

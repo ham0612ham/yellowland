@@ -279,7 +279,7 @@ public class CommercialMongoOperations {
 				for(int i=0; i<list1.size(); i++) {
 					Sg_store dto1 = list1.get(i);
 					Sg_store dto2 = list2.get(i);
-					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setChai(dto1.getTot());
 					top10.setDongNum(dong);
 					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
 					top10.setRatio(ratio);
@@ -341,7 +341,7 @@ public class CommercialMongoOperations {
 				for(int i=0; i<list1.size(); i++) {
 					Sg_sales dto1 = list1.get(i);
 					Sg_sales dto2 = list2.get(i);
-					top10.setChai(dto1.getTot()-dto2.getTot());
+					top10.setChai(dto1.getTot());
 					top10.setDongNum(dong);
 					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
 					top10.setRatio(ratio);
@@ -353,7 +353,6 @@ public class CommercialMongoOperations {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(list.size());
 		return list;
 	}
 	
@@ -362,6 +361,8 @@ public class CommercialMongoOperations {
 		List<Sg_float_top10> list = new ArrayList<Sg_float_top10>();
 		List<Sg_float> list1 = null;
 		List<Sg_float> list2 = null;
+		List<Sg_float> list3 = null;
+		List<Sg_float> list4 = null;
 		Sg_float_top10 top10 = null;
 		
 		String gender = form.getGender();
@@ -373,39 +374,88 @@ public class CommercialMongoOperations {
 		age = age.equals("ageAll") ? "" : "_"+age.substring(3);
 		
 		String sum = "floSu"+age+week+gender;
+		String sum1 = "floSu"+age+week+"_male";
+		String sum2 = "floSu"+age+week+"_female";
 		
 		MatchOperation matchOperation = null;
 		GroupOperation groupOperation = null;
 		Aggregation aggregation = null;
 		AggregationResults<Sg_float> result1 = null;
 		AggregationResults<Sg_float> result2 = null;
+		AggregationResults<Sg_float> result3 = null;
+		AggregationResults<Sg_float> result4 = null;
 		
 		try {
-			for(Long dong : dongList) {
-				top10 = new Sg_float_top10();
-				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
-				groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
-				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
-				result1 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
-				list1 = result1.getMappedResults();
-				
-				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
-				groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
-				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
-				result2 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
-				list2 = result2.getMappedResults();
-				
-				for(int i=0; i<list1.size(); i++) {
-					Sg_float dto1 = list1.get(i);
-					Sg_float dto2 = list2.get(i);
-					top10.setChai(dto1.getTot()-dto2.getTot());
-					top10.setDongNum(dong);
-					float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
-					top10.setRatio(ratio);
+			if(! gender.equals("")) {
+				for(Long dong : dongList) {
+					top10 = new Sg_float_top10();
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
+					groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result1 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+					list1 = result1.getMappedResults();
+					
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
+					groupOperation = Aggregation.group("dongNum").sum(sum).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result2 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+					list2 = result2.getMappedResults();
+					
+					for(int i=0; i<list1.size(); i++) {
+						Sg_float dto1 = list1.get(i);
+						Sg_float dto2 = list2.get(i);
+						top10.setChai(dto1.getTot());
+						top10.setDongNum(dong);
+						float ratio = (float)(Math.round((float)(dto1.getTot()-dto2.getTot())*100/dto2.getTot()*10)/10.0);
+						top10.setRatio(ratio);
+					}
+					
+					if(top10.getDongNum() != 0) {
+						list.add(top10);
+					}
 				}
-				
-				if(top10.getDongNum() != 0) {
-					list.add(top10);
+			} else {
+				for(Long dong : dongList) {
+					top10 = new Sg_float_top10();
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
+					groupOperation = Aggregation.group("dongNum").sum(sum1).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result1 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+					list1 = result1.getMappedResults();
+					
+					top10 = new Sg_float_top10();
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dong));
+					groupOperation = Aggregation.group("dongNum").sum(sum2).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result3 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+					list3 = result3.getMappedResults();
+					
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
+					groupOperation = Aggregation.group("dongNum").sum(sum1).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result2 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+					list2 = result2.getMappedResults();
+					
+					matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(2).and("dongNum").is(dong));
+					groupOperation = Aggregation.group("dongNum").sum(sum2).as("tot");
+					aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
+					result4 = mongo.aggregate(aggregation, "sg_float", Sg_float.class);
+					list4 = result4.getMappedResults();
+					
+					for(int i=0; i<list1.size(); i++) {
+						Sg_float dto1 = list1.get(i);
+						Sg_float dto2 = list2.get(i);
+						Sg_float dto3 = list3.get(i);
+						Sg_float dto4 = list4.get(i);
+						top10.setChai(dto1.getTot()+dto3.getTot());
+						top10.setDongNum(dong);
+						float ratio = (float)(Math.round((float)((dto1.getTot()+dto3.getTot())-(dto2.getTot()+dto4.getTot()))*100/(dto2.getTot()+dto4.getTot())*10)/10.0);
+						top10.setRatio(ratio);
+					}
+					
+					if(top10.getDongNum() != 0) {
+						list.add(top10);
+					}
 				}
 			}
 		} catch (Exception e) {

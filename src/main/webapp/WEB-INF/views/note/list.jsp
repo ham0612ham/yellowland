@@ -47,6 +47,13 @@ td { height: 40px; overflow: hidden; text-overflow: ellipsis; border: 0px;}
 .date-td { font-size: 13px; margin-top: 10px; }
 .pagination { margin-top: 30px; }
 .toast { width: 400px; height: 200px; }
+#message-img { 
+	position: absolute; top: 160px; right: 15%; z-index: -2; width: 180px; 
+}
+#table-div { 
+	-webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); 
+	background: rgba(255, 255, 255, 0.3);
+}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -135,6 +142,7 @@ $(function(){
 			</div>
 			<hr style="margin-bottom: 0px;">
 			<form name="listForm" method="post">
+				<div id="table-div">
 				<table class="table note-table">
 					<thead>
 						<tr>
@@ -167,6 +175,7 @@ $(function(){
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
 				<input type="hidden" name="page" value="${page}">
 				<input type="hidden" name="condition" value="${condition}">
 				<input type="hidden" name="keyword" value="${keyword}">
@@ -222,6 +231,8 @@ $(function(){
 		</div>
 	</div>
 </div>
+
+<img id="message-img" src="${pageContext.request.contextPath}/resources/images/note_2.png">
 
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none">
   쪽지2
