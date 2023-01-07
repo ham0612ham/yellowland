@@ -27,6 +27,7 @@ function deleteOk() {
   	  location.href = url;
     }
 }
+
 </c:if>
 </script>
 
