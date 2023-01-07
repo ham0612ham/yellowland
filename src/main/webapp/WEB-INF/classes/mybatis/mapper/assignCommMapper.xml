@@ -15,24 +15,19 @@
 	
 	<insert id="insertCommImg" parameterType="com.sp.app.assignComm.Community">
 		INSERT INTO assignCommImg(imgNum, num, imgName) 
-			VALUES(assignCommImg_seq.NEXTVAL, ASSIGNCOMM_SEQ.CURRVAL, #{imgName}) 
+			VALUES(assignCommImg_seq.NEXTVAL, #{num}, #{imgName}) 
 	</insert>
 	
 	<update id="updateComm" parameterType="com.sp.app.assignComm.Community">
-		UPDATE assignComm SET subject=#{subject}, content=#{content}, thumbnail=#{thumbnail}, 
-			zip=#{zip}, addr1=#{addr1}, addr2=#{addr2}, pNum=#{pNum}, updateDate=SYSDATE, lat=#{lat}, lng=#{lng}
+		UPDATE assignComm SET subject=#{subject}, content=#{content}, zip=#{zip}, thumbnail=#{thumbnail}, 
+			addr1=#{addr1}, addr2=#{addr2}, pNum=#{pNum}, lat=#{lat}, lng=#{lng}
 		WHERE num = #{num}
 	</update>
 	
 	<update id="updateCommDetail" parameterType="com.sp.app.assignComm.Community">
 		UPDATE assignCommDetail SET deposit=#{deposit}, monthly=#{monthly}, expense=#{expense}, area=#{area}, 
-			bFloor=#{bFloor}, floor=#{floor}, parking=#{parking}, elevator=#{elevator}, transDate=#{transDate}, lat=#{lat}, lng=#{lng}
+			bFloor=#{bFloor}, floor=#{floor}, parking=#{parking}, elevator=#{elevator}, transDate=#{transDate}
 		WHERE num = #{num}
-	</update>
-	
-	<update id="updateCommImg" parameterType="com.sp.app.assignComm.Community">
-		UPDATE assignCommImg SET imgName = #{imgName}
-			WHERE imgNum = #{imgNum} AND num = #{num}
 	</update>
 	
 	<delete id="deleteComm" parameterType="long">
@@ -42,7 +37,7 @@
 	
 	<select id="readComm" parameterType="long" resultType="com.sp.app.assignComm.Community">
 		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate, pNum, zip, addr1, addr2, thumbnail,
-			deposit, monthly, expense, area, floor, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate
+			deposit, monthly, expense, area, floor, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate, lat, lng
 		FROM assignComm a
         JOIN assignCommDetail ad ON a.num = ad.num
 		WHERE a.num = #{num}

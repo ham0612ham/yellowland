@@ -20,6 +20,40 @@ function kakaopostUp() {
     }).open();
 }
 
+function latLngAddrUp() {
+	
+	const f = document.updateForm;
+	
+	let addr = f.addr1.value.trim();
+	
+	let geocoder = new kakao.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+	
+    	// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
+	
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        
+	        let latitude  = result[0].y;
+	        let longitude = result[0].x;
+	        
+	      	//$(".lat").attr('value', latitude);
+	        //$(".lng").attr('value', longitude);
+	        
+	        //document.querySelector("#lat-in").setAttribute("value", latitude);
+	        //document.querySelector("#lng-in").setAttribute("value", longitude);
+	        
+	        document.getElementById("lat-up").value = latitude;
+	        document.getElementById("lng-up").value = longitude;
+	        
+	      	// alert("lat-in: " + document.querySelector("#lat-in").value + " lng-in: " + document.querySelector("#lng-in").value);
+	        
+	    } 
+	});
+}
+
 function checkUp() {
 	
 	const f = document.updateForm;
@@ -29,12 +63,12 @@ function checkUp() {
 		f.subject.focus();
 		return false;
 	}
-	
 
 	if(! f.pNum2.value.trim()) {
 		alert(" 휴대폰 번호를 입력해주세요! ");
 		f.pNum2.focus();
 		return false;
+		
 	} else if(! f.pNum3.value.trim()) {
 		alert(" 휴대폰 번호를 입력해주세요! ");
 		f.pNum3.focus();
@@ -108,29 +142,6 @@ function checkUp() {
 		return false;
 	}
 	
-	let addr = f.addr1.value.trim();
-	
-	let geocoder = new kakao.maps.services.Geocoder();
-	
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch(addr, function(result, status) {
-	
-    	// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) {
-	
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	        
-	        let lat = result[0].y;
-	        let lng = result[0].x;
-	        
-	        // .value는 읽기만 가능, 수정은 불가
-	        document.querySelector("#updateForm .lat").setAttribute("value", lat);
-	        document.querySelector("#updateForm .lng").setAttribute("value", lng);
-	        
-	        alert("위도: " + document.querySelector(".lat").value + " 경도: " + document.querySelector(".lng").value);
-	        
-	    } 
-	});
 	
 	f.action = "${pageContext.request.contextPath}/assignComm/update";
 	f.submit();
@@ -146,7 +157,8 @@ $(function() {
 	// 로컬에 이미지를 업로드 했다면
 	if( img ) {
 		// 메인이미지 로컬 저장 경로
-		img = "${pageContext.request.contextPath}/uploads/image/" + img;
+		// img = "${pageContext.request.contextPath}/uploads/image/" + img;
+		img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
 		
 	} else {
 		
@@ -372,13 +384,13 @@ $(function() {
 												</div>
 												
 												<div>
-													<input type="hidden" class="lat" name="lat" value="${dto.lat}">
-													<input type="hidden" class="lng" name="lng" value="${dto.lng}">
+													<input type="hidden" id="lat-up" class="lat" name="lat" value="${dto.lat}">
+													<input type="hidden" id="lng-up" class="lng" name="lng" value="${dto.lng}">
 												</div>
 												
 												<div class="col-md-12">
 													<div class="form-group">
-														<input type="text" class="form-control addr2" name="addr2" placeholder="상세 주소" value="${dto.addr2}">
+														<input type="text" onclick="latLngAddrUp();" class="form-control addr2" name="addr2" placeholder="상세 주소" value="${dto.addr2}">
 													</div> 
 												</div>
 												
