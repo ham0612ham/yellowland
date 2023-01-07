@@ -1,11 +1,18 @@
-package com.sp.app.admin.qna;
+package com.sp.app.admin.faqManage;
 
-public class Qna {
+public class Faq {
 	private long num;
 	private String subject;
 	private String content;
-	private String reg_date;
+	private String regdate;
 	private String userId;
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public long getNum() {
 		return num;
 	}
@@ -24,11 +31,11 @@ public class Qna {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getReg_date() {
-		return reg_date;
+	public String getRegdate() {
+		return regdate;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 	public String getUserId() {
 		return userId;

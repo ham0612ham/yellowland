@@ -17,7 +17,7 @@ input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
 label:hover { color: #18BD77; cursor: pointer; }
 input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
 .up-btn { padding: 8px 30px; }
-.fw-semibold { height: 50px; width: 150px; }
+.fw-semibold {  height: 50px; width: 150px; font-size: 30px;}
 .row { height: 200px; width: 180px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 700px; text-align: left;}
@@ -70,85 +70,19 @@ function ajaxFun(url, method, query, dataType, fn) {
 
 function searchList() {
 	const f = document.searchForm;
-	f.enabled.value=$("#selectEnabled").val();
-	f.action = "${pageContext.request.contextPath}/admin/faq/list";
+	
 	f.submit();
 }
-	
-function faqWrite(userId) {
-	let dlg = $("#faq-dialog").dialog({
-		  autoOpen: false,
-		  modal: true,
-		  buttons: {
-		       " 수정 " : function() {
-		    	   updateOk(); 
-		       },
-		       " 삭제 " : function() {
-		    	   deleteOk(userId);
-			   },
-		       " 닫기 " : function() {
-		    	   $(this).dialog("close");
-		       }
-		  },
-		  height: 550,
-		  width: 800,
-		  title: "자주하는질문관리",
-		  close: function(event, ui) {
-		  }
-	});
-
-	let url = "${pageContext.request.contextPath}/admin/faq/detaile";
-	let query = "num="+num;
-	
-	const fn = function(data){
-		$('#faq-dialog').html(data);
-		dlg.dialog("open");
-	};
-	ajaxFun(url, "post", query, "html", fn);
-}
-	
-function updateOk() {
-	const f = document.faqwriteForm;
-	
-	if(! f.stateCode.value) {
-		f.stateCode.focus();
-		return;
-	}
-	if(! $.trim(f.memo.value)) {
-		f.memo.focus();
-		return;
-	}
-	
-	let url = "${pageContext.request.contextPath}/admin/faq/updateMemberState";
-	let query=$("#deteailedMemberForm").serialize();
-
-	const fn = function(data){
-		$("form input[name=page]").val("${page}");
-		searchList();
-	};
-	ajaxFun(url, "post", query, "json", fn);
-		
-	$('#faq-dialog').dialog("close");
-}
-
-function deleteOk(userId) {
-	if(confirm("선택한  자주하는 질문을 삭제 하시겠습니까 ?")) {
-
-	}
-	
-	$('faq-dialog').dialog("close");
-}
-
 
 </script>
 <div class="container">
 	<div class="table1">
 		<h3 class="fw-semibold">관리자메뉴</h3>
 		<div class="row row-cols-auto">
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="text-decoration-none" style="color:#C2C2C2">공지사항관리</a></div>
-			<div class="colNoticeTitle">
-				<div>자주하는질문관리</div>
-			</div>
+		<div class="colNoticeTitle">
+				<div>공지사항관리</div>
+			</div>	
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/faqManage/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/qnaManage/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/board/list" class="text-decoration-none" style="color:#C2C2C2">게시글관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/memberManage/list" class="text-decoration-none" style="color:#C2C2C2">회원관리</a></div>
@@ -157,7 +91,7 @@ function deleteOk(userId) {
 	</div>
 	<div class="body-container">
 		<div class="table2">
-			<h3 class="title1">자주하는질문관리</h3>
+			<h3 class="title1">공지사항관리</h3>
 			<div class="body-main">
     	
 	<div class="container text-center">
@@ -167,7 +101,8 @@ function deleteOk(userId) {
 				<tr>
 					<td align="left" width="50%">
 						${dataCount}개(${page}/${total_page} 페이지)
-					</td>					
+					</td>
+					
 				</tr>
 			</table>
 			
@@ -175,32 +110,36 @@ function deleteOk(userId) {
 			<table class="table note-table">
 				<thead>
 					<tr> 
-						<th class="wx-120"> 번호 </th>
-						<th class="wx-240">제목</th>
-						<th>  </th>
+						<th class="wx-120">번호</th>						
+						<th class="wx-200">제목</th>
+						<th class="wx-200">작성자</th>
+						<th class="wx-200">작성일</th>
+						
 					</tr>
-					<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							
-							<td class="pd" style="padding: 10px 0;">비밀번호변경은 어디서하나요</td>
-							
-							<td class="pd" style="color:#4F4F4F padding: 10px 0;"><input type="hidden" value="${dto.num}">수정|삭제</td>
-							
-						</tr>
-						
-						
+									
 				</thead>
 				
 				<tbody>
-					<c:forEach var="dto" items="${list}" varStatus="status">
-						<tr class="hover" onclick="faqWrite('${dto.num}');"> 
-							<td>${dataCount - (page-1) * size - status.index}</td>
-							<td>${dto.subject}</td>
-							
-						</tr>
-					</c:forEach>
+				
+										
+						<c:forEach var="dto" items="${list}" varStatus="status">
+							<tr>
+								<td>${dataCount - (page-1) * size - status.index}</td>
+								<td class="left">
+									<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</a>
+						       <!--  <c:if test="${dto.gap < 10}">
+										<span class="badge text-bg-primary">New</span>
+									</c:if>  -->
+								</td>
+								<td>${dto.userId}</td>
+								<td>${dto.reg_date}</td>
+								<td>
+									<c:if test="${dto.fileCount != 0}">
+										<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}" class="text-reset"><i class="bi bi-file-arrow-down"></i></a>
+									</c:if>
+								</td>
+							</tr>
+						</c:forEach>
 				</tbody>
 			</table>
 		</form>		 
@@ -209,33 +148,43 @@ function deleteOk(userId) {
 			</div>
 			
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
-				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/list';">
+				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/list';">
 					새로고침
 				</button>
 				<form class="d-flex justify-content-between" name="searchForm"
 					class="d-flex justify-content-between"
-					action="${pageContext.request.contextPath}/admin/faqManage/list" method="post">
+					action="${pageContext.request.contextPath}/admin/noticeManage/list" method="post">
 					<div>
 						<select name="condition" class="form-select" id="sel-condition">
-							<option value="userId"
-								${condition=="userId" ? "selected='selected'":""}>제목</option>
+							<option value="subject"
+								${condition=="subject" ? "selected='selected'":""}>제목</option>
+							<c:choose>
+								<c:when test="${menuItem=='receive'}">
+									<option value="content"   ${condition=="content" ? "selected='selected'":""}>내용</option>
+									<option value="date"   ${condition=="date" ? "selected='selected'":""}>작성일</option>
+									
+								</c:when>
+								<c:otherwise>
+									<option value="content"   ${condition=="content" ? "selected='selected'":""}>내용</option>
+									<option value="date"   ${condition=="date" ? "selected='selected'":""}>작성일</option>
+								</c:otherwise>
+							</c:choose>
 						</select>
 					</div>
 					<div>
 						<input type="text" name="keyword" value="${keyword}"
 							class="form-control" id="keyword-input">
 					</div>
-					
+					<div>
 						<div class="btn btn-primary search-btn" onclick="searchList()">
 							검색
-						</div>		
-				
+						</div>
+					</div>
 				</form>
-				  <button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;"
-						onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';">
+				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;"
+						onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/write';">
 						작성하기
 					</button>
-				
 				<div style="width:30px;">&nbsp;</div>
 			</div>
 		

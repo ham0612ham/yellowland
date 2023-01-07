@@ -17,7 +17,7 @@ input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
 label:hover { color: #18BD77; cursor: pointer; }
 input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
 .up-btn { padding: 8px 30px; }
-.fw-semibold { height: 50px; width: 150px; }
+.fw-semibold {  height: 50px; width: 150px; font-size: 30px;}
 .row { height: 200px; width: 180px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 700px; text-align: left;}
@@ -70,115 +70,24 @@ function ajaxFun(url, method, query, dataType, fn) {
 
 function searchList() {
 	const f = document.searchForm;
-	f.enabled.value=$("#selectEnabled").val();
-	f.action = "${pageContext.request.contextPath}/admin/memberManage/list";
+	f.isReply.value=$("#selectisReply").val();
+	f.action = "${pageContext.request.contextPath}/admin/qnaManage/list";
 	f.submit();
 }
-	
-function detailedMember(userId) {
-	let dlg = $("#member-dialog").dialog({
-		  autoOpen: false,
-		  modal: true,
-		  buttons: {
-		       " 수정 " : function() {
-		    	   updateOk(); 
-		       },
-		       " 삭제 " : function() {
-		    	   deleteOk(userId);
-			   },
-		       " 닫기 " : function() {
-		    	   $(this).dialog("close");
-		       }
-		  },
-		  height: 550,
-		  width: 800,
-		  title: "회원상세정보",
-		  close: function(event, ui) {
-		  }
-	});
 
-	let url = "${pageContext.request.contextPath}/admin/memberManage/detaile";
-	let query = "userId="+userId;
-	
-	const fn = function(data){
-		$('#member-dialog').html(data);
-		dlg.dialog("open");
-	};
-	ajaxFun(url, "post", query, "html", fn);
-}
-	
-function updateOk() {
-	const f = document.deteailedMemberForm;
-	
-	if(! f.stateCode.value) {
-		f.stateCode.focus();
-		return;
-	}
-	if(! $.trim(f.memo.value)) {
-		f.memo.focus();
-		return;
-	}
-	
-	let url = "${pageContext.request.contextPath}/admin/memberManage/updateMemberState";
-	let query=$("#deteailedMemberForm").serialize();
 
-	const fn = function(data){
-		$("form input[name=page]").val("${page}");
-		searchList();
-	};
-	ajaxFun(url, "post", query, "json", fn);
-		
-	$('#member-dialog').dialog("close");
-}
 
-function deleteOk(userId) {
-	if(confirm("선택한 계정을 삭제 하시겠습니까 ?")) {
-
-	}
-	
-	$('#member-dialog').dialog("close");
-}
-
-function memberStateDetaileView() {
-	$('#memberStateDetaile').dialog({
-		  modal: true,
-		  minHeight: 100,
-		  maxHeight: 450,
-		  width: 750,
-		  title: '계정상태 상세',
-		  close: function(event, ui) {
-			   $(this).dialog("destroy"); // 이전 대화상자가 남아 있으므로 필요
-		  }
-	  });	
-}
-
-function selectStateChange() {
-	const f = document.deteailedMemberForm;
-	
-	let s = f.stateCode.value;
-	let txt = f.stateCode.options[f.stateCode.selectedIndex].text;
-	
-	f.memo.value = "";	
-	if(! s) {
-		return;
-	}
-
-	if(s!=="0" && s!=="6") {
-		f.memo.value = txt;
-	}
-	
-	f.memo.focus();
-}
 </script>
 <div class="container">
 	<div class="table1">
 		<h3 class="fw-semibold">관리자메뉴</h3>
 		<div class="row row-cols-auto">
-		<div class="colNoticeTitle">
-				<div>공지사항관리</div>
-			</div>	
+		
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="text-decoration-none" style="color:#C2C2C2">공지사항관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/faqManage/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문관리</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/qnaManage/list" class="text-decoration-none" style="color:#C2C2C2">1:1 문의관리</a></div>
+			<div class="colNoticeTitle">
+				<div>1대1문의관리</div>
+			</div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/board/list" class="text-decoration-none" style="color:#C2C2C2">게시글관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/memberManage/list" class="text-decoration-none" style="color:#C2C2C2">회원관리</a></div>
 			
@@ -186,7 +95,7 @@ function selectStateChange() {
 	</div>
 	<div class="body-container">
 		<div class="table2">
-			<h3 class="title1">공지사항관리</h3>
+			<h3 class="title1">1대1문의관리</h3>
 			<div class="body-main">
     	
 	<div class="container text-center">
@@ -197,7 +106,14 @@ function selectStateChange() {
 					<td align="left" width="50%">
 						${dataCount}개(${page}/${total_page} 페이지)
 					</td>
-					
+					<!-- 
+					<td align="right">
+						<select id="selectisReply" class="form-select" onchange="searchList();">
+							<option value="" ${isReply=="" ? "selected='selected'":""}>::답변여부::</option>
+							<option value="0" ${isReply="0" ? "selected='selected'":""}>답변완료</option>
+							<option value="1" ${isReply="1" ? "selected='selected'":""}>답변미완료</option>
+						</select>
+					</td> -->
 				</tr>
 			</table>
 			
@@ -205,68 +121,59 @@ function selectStateChange() {
 			<table class="table note-table">
 				<thead>
 					<tr> 
-						<th class="wx-120">번호</th>						
-						<th class="wx-200">제목</th>
-						<th class="wx-200">작성일</th>
+						<th class="wx-60">번호</th>											
+						<th class="wx-120">제목</th>
+						<th class="wx-120">이름</th>	
+						<th class="wx-100">답변여부</th>	
+						<th class="wx-120">작성일</th>
 						
 					</tr>
 					
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">공지사항입니다</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">2022-12-31</td>
-							
-							
-							
-						</tr>
-						<tr>
-							<td class="pd" style="padding: 10px 0;">
-								12
-							</td>
-							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
-								<span>
-									<a href="#" class="text-reset">안녕하세요</a>
-								</span>
-							</td>
-							<td class="pd" style="padding: 10px 0;">2022-10-21</td>					
-						</tr>						
+						
+						
 				</thead>
-				
+			
 				<tbody>
-				
+				<c:forEach var="dto" items="${list}" varStatus="status">
+							<tr>
+								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
+								<td><a href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</a></td>
+								
+								<td>${dto.userName}</td>
+								<td>${dto.isReply!=0?"답변완료":"-"}</td>
+								
+								<td>${dto.regDate}</td>
+							</tr>
+				</c:forEach>
 				</tbody>
 			</table>
+			<input type="hidden" name="page" value="${page}">
+			<input type="hidden" name="condition" value="${condition}">
+			<input type="hidden" name="keyword" value="${keyword}">
 		</form>		 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
 			
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
-				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/list';">
+				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/admin/qnaManage/list';">
 					새로고침
 				</button>
 				<form class="d-flex justify-content-between" name="searchForm"
 					class="d-flex justify-content-between"
-					action="${pageContext.request.contextPath}/admin/noticeManage/list" method="post">
+					action="${pageContext.request.contextPath}/admin/qnaManage/list" method="post">
 					<div>
 						<select name="condition" class="form-select" id="sel-condition">
 							<option value="subject"
 								${condition=="subject" ? "selected='selected'":""}>제목</option>
 							<c:choose>
 								<c:when test="${menuItem=='receive'}">
-									
-									<option value="date"   ${condition=="date" ? "selected='selected'":""}>작성일</option>
-									
+									<option value="regDate"   ${condition=="regDate" ? "selected='selected'":""}>작성일</option>
+									<option value="userName"   ${condition=="content" ? "selected='selected'":""}>이름</option>
 								</c:when>
 								<c:otherwise>
-									<option value="date"   ${condition=="date" ? "selected='selected'":""}>작성일</option>
-									
+									<option value="regDate"   ${condition=="regDate" ? "selected='selected'":""}>작성일</option>									
+									<option value="userName"   ${condition=="content" ? "selected='selected'":""}>이름</option>
 								</c:otherwise>
 							</c:choose>
 						</select>
@@ -274,6 +181,8 @@ function selectStateChange() {
 					<div>
 						<input type="text" name="keyword" value="${keyword}"
 							class="form-control" id="keyword-input">
+						<input type="hidden" name="isReply" value="${isReply}">
+							<input type="hidden" name="page" value="1">
 					</div>
 					<div>
 						<div class="btn btn-primary search-btn" onclick="searchList()">
@@ -281,10 +190,6 @@ function selectStateChange() {
 						</div>
 					</div>
 				</form>
-				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;"
-						onclick="location.href='${pageContext.request.contextPath}/admin/noticeManage/write';">
-						작성하기
-					</button>
 				<div style="width:30px;">&nbsp;</div>
 			</div>
 		

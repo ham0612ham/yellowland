@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnaManage">
+	
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='regDate' ">
+			( TO_CHAR(regDate, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(regDate, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+			<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			
+		</where> 
+	</select>
+	
+
+	<select id="listQna" parameterType="map" resultType="com.sp.app.admin.qnaManage.Qna">
+		SELECT q.num, m.userName, q.userId, q.subject,
+			TO_CHAR(q.regDate, 'YYYY-MM-DD') regDate, q.content, NVL(r.num, 0) isReply
+		FROM INQUIRYBOARD q
+        JOIN member1 m ON q.userId=m.userId
+        LEFT OUTER JOIN INQUIRYREPLY r ON q.num = r.num
+        <where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			
+		</where> 
+		ORDER BY q.num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	
+	<select id="readQna" parameterType="Long" resultType="com.sp.app.admin.qnaManage.Qna">
+	SELECT q.num, m.userName, q.userId, q.subject,
+			TO_CHAR(q.regDate, 'YYYY-MM-DD') regDate, q.content, NVL(r.num, 0) isReply,r.regDate,r.content,r.regDate
+		FROM INQUIRYBOARD q
+        JOIN member1 m ON q.userId=m.userId
+        LEFT OUTER JOIN INQUIRYREPLY r ON q.num = r.num
+        	WHERE q.num = #{num}
+	</select>
+	
+	<!-- 답변 달기 -->
+	<insert id="answerQna" parameterType="com.sp.app.admin.qnaManage.Qna">
+		insert into inquiryReply (num,userId,content,regDate)
+			values(#{num},#{userId},#{content},SYSDATE)
+	</insert>
+      
+      <select id="readAnswer" parameterType="Long" resultType="com.sp.app.admin.qnaManage.Qna">
+		SELECT m.userName, r.regDate, r.content
+			FROM INQUIRYREPLY r 
+			JOIN member1 m ON m.userId = r.userId
+			WHERE num = #{num}
+	</select>
+      
+	<delete id="deleteAnswer" parameterType="Long">
+		DELETE FROM INQUIRYREPLY
+		WHERE num = #{num}
+	</delete>
+
+	<delete id="deleteQna" parameterType="Long">
+		  DELETE FROM INQUIRYBOARD 
+		  	WHERE num = #{num}
+	</delete>
+	
+	
+</mapper>

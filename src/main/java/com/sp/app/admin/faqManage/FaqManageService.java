@@ -1,9 +1,11 @@
-package com.sp.app.admin.faq;
+package com.sp.app.admin.faqManage;
 
 import java.util.List;
 import java.util.Map;
 
 public interface FaqManageService {
+	public void insertFaq(Faq dto, String pathname)throws Exception;
+	
 	public int dataCount(Map<String, Object>map);
 	public List<Faq> listFaq(Map<String, Object>map);
 	
