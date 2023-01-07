@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="event">
+
+	<select id="dataCount" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+	</select>
+
+	<insert id="insertEvent" parameterType="com.sp.app.event.Event">
+		INSERT INTO event(num, userId, subject, imageFilename, content, reg_date)
+		VALUES (event_seq.NEXTVAL, #{userId}, #{subject}, #{imageFilename}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="listEvent" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, e.userId, userName, subject, imageFilename, TO_CHAR(reg_date, 'yyyy.mm.dd') as reg_date
+		FROM event e
+		JOIN member1 m ON e.userId = m.userId
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="readEvent" parameterType="Long" resultType="com.sp.app.event.Event">
+		SELECT num, e.userId, userName, subject, imageFilename, content, TO_CHAR(reg_date, 'yyyy.mm.dd') as reg_date
+		FROM event e
+		JOIN member1 m ON e.userId = m.userId
+		WHERE num = #{num}
+	</select>
+	
+	<select id="preReadEvent" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, subject
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="nextReadEvent" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, subject
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateEvent" parameterType="com.sp.app.event.Event">
+		UPDATE event SET subject=#{subject}, imageFilename=#{imageFilename},
+			content=#{content}
+		WHERE num=#{num}
+	</update>
+	
+	<delete id="deleteEvent" parameterType="Long">
+		DELETE FROM event WHERE num = #{num}
+	</delete>
+</mapper>

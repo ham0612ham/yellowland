@@ -28,6 +28,7 @@
 		<intercept-url pattern="/member/pwdFind" access="permitAll"/>
 		<intercept-url pattern="/member/expired" access="permitAll"/>
 				
+		<intercept-url pattern="/event/**" access="permitAll"/>
 		<intercept-url pattern="/note/countMessage" access="permitAll"/>
 		<intercept-url pattern="/analysisFile/**" access="permitAll"/>
 		<intercept-url pattern="/analysis/**" access="permitAll"/>

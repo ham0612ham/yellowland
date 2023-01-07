@@ -32,6 +32,8 @@
 						<li><a href="${pageContext.request.contextPath}/qna/list" aria-label="subemnu">1:1문의</a></li>
 					</ul>
 				</li>
+				<li><a href="${pageContext.request.contextPath}/event/list" class="main-menu-a">이벤트</a>
+				</li>
 				<c:if test="${sessionScope.member.membership==99}">
 					<li><a href="${pageContext.request.contextPath}/admin/notice/list" class="main-menu-a">관리자 메뉴</a>
 						<ul class="sub-menu" style="z-index: 100">
