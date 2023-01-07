@@ -309,6 +309,7 @@ public class CommercialServiceImpl implements CommercialService {
 					}
 				}
 			}
+			
 			if (list.size() > 10) {
 				list = list.subList(0, 10);
 			}
