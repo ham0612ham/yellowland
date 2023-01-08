@@ -120,4 +120,51 @@ public class EventServiceImpl implements EventService {
 			throw e;
 		}
 	}
+
+	@Override
+	public int disDataCount() {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("event.disDataCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Event> disListEvent(Map<String, Object> map) {
+		List<Event> list = null;
+		try {
+			list = dao.selectList("event.disListEvent", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Event disPreReadEvent(Map<String, Object> map) {
+		Event dto = null;
+		
+		try {
+			dto = dao.selectOne("event.disPreReadEvent", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public Event disNextReadEvent(Map<String, Object> map) {
+		Event dto = null;
+		
+		try {
+			dto = dao.selectOne("event.disNextReadEvent", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 }

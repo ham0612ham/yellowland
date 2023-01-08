@@ -17,7 +17,7 @@
 	max-width: 97%;
 }
 .ck-editor__editable {
-    min-height: 250px;
+    min-height: 500px;
 }
 .ck-content .image>figcaption {
 	min-height: 25px;
@@ -34,20 +34,31 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 
 <script type="text/javascript">
+$(function(){
+	$("#enable-btn").change(function(){
+		if($(this).is(":checked") == true){
+			$("input[name=enable]").val(0);
+		} else {
+			$("input[name=enable]").val(1);
+		}
+	});
+	
+});
+
 function sendOk() {
     const f = document.eventForm;
 	let str;
 	
     str = f.subject.value.trim();
     if(!str) {
-        alert("제목을 입력하세요. ");
+        alert("제목을 입력하세요.");
         f.subject.focus();
         return;
     }
 
 	str = window.editor.getData().trim();
     if(! str) {
-        alert("내용을 입력하세요. ");
+        alert("내용을 입력하세요.");
         window.editor.focus();
         return;
     }
@@ -55,7 +66,7 @@ function sendOk() {
     
     let mode = "${mode}";
     if( (mode === "write") && (!f.selectFile.value) ) {
-        alert("이미지 파일을 추가 하세요. ");
+        alert("이미지 파일을 추가 하세요.");
         f.selectFile.focus();
         return;
 	}
@@ -120,6 +131,16 @@ $(function() {
 					</tr>
 					
 					<tr>
+						<td class="table-light col-sm-2 center-text align-middle" scope="row">기간 만료</td>
+						<td>
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" role="switch" id="enable-btn">
+	  							<label class="form-check-label" for="flexSwitchCheckChecked"></label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
 						<td class="table-light col-sm-2 center-text align-middle" scope="row">이미지</td>
 						<td>
 							<div class="img-viewer"></div>
@@ -128,8 +149,7 @@ $(function() {
 					</tr>
 					
 					<tr>
-						<td class="table-light col-sm-2 center-text align-middle" scope="row">내용</td>
-						<td>
+						<td colspan="2" style="width: 100%; height: 500px;">
 							<div class="editor">${dto.content}</div>
 							<input type="hidden" name="content">
 						</td>
@@ -152,6 +172,7 @@ $(function() {
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" name="enable" value="1">
 			</form>
 		
 		</div>

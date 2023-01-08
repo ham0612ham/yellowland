@@ -7,17 +7,35 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
+		WHERE enable = 1
+	</select>
+	
+	<select id="disDataCount" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		WHERE enable = 0
 	</select>
 
 	<insert id="insertEvent" parameterType="com.sp.app.event.Event">
-		INSERT INTO event(num, userId, subject, imageFilename, content, reg_date)
-		VALUES (event_seq.NEXTVAL, #{userId}, #{subject}, #{imageFilename}, #{content}, SYSDATE)
+		INSERT INTO event(num, userId, subject, imageFilename, content, reg_date, enable)
+		VALUES (event_seq.NEXTVAL, #{userId}, #{subject}, #{imageFilename}, #{content}, SYSDATE, #{enable})
 	</insert>
 	
 	<select id="listEvent" parameterType="map" resultType="com.sp.app.event.Event">
 		SELECT num, e.userId, userName, subject, imageFilename, TO_CHAR(reg_date, 'yyyy.mm.dd') as reg_date
 		FROM event e
 		JOIN member1 m ON e.userId = m.userId
+		WHERE enable = 1
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="disListEvent" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, e.userId, userName, subject, imageFilename, TO_CHAR(reg_date, 'yyyy.mm.dd') as reg_date
+		FROM event e
+		JOIN member1 m ON e.userId = m.userId
+		WHERE enable = 0
 		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
@@ -33,6 +51,7 @@
 		SELECT num, subject
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
+		WHERE enable = 1
 		ORDER BY num ASC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -41,13 +60,32 @@
 		SELECT num, subject
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
+		WHERE enable = 1
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="disPreReadEvent" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, subject
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		WHERE enable = 0
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="disNextReadEvent" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, subject
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		WHERE enable = 0
 		ORDER BY num DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
 	<update id="updateEvent" parameterType="com.sp.app.event.Event">
 		UPDATE event SET subject=#{subject}, imageFilename=#{imageFilename},
-			content=#{content}
+			content=#{content}, enable = #{enable}
 		WHERE num=#{num}
 	</update>
 	

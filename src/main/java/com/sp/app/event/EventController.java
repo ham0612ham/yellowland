@@ -27,7 +27,7 @@ public class EventController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	@RequestMapping("list")
+	@RequestMapping(value="list", method = RequestMethod.GET)
 	public String eventList(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			HttpServletRequest req,
 			Model model) throws Exception {
@@ -69,6 +69,94 @@ public class EventController {
 		model.addAttribute("paging", paging);
 		
 		return ".event.list";
+	}
+	
+	@RequestMapping(value="enlist", method = RequestMethod.GET)
+	public String eventEnList(@RequestParam(value = "page", defaultValue = "1") int current_page,
+			HttpServletRequest req,
+			Model model) throws Exception {
+		
+		String cp = req.getContextPath();
+		
+		int size = 6;
+		int total_page;
+		int dataCount;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		dataCount = service.dataCount();
+		total_page = myUtil.pageCount(dataCount, size);
+		
+		if(total_page < current_page) {
+			current_page = total_page;
+		}
+		
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<Event> list = service.listEvent(map) ;
+		
+		String listUrl = cp + "/event/list";
+		String articleUrl = cp + "/event/article?page="+current_page;
+		
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("size", size);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("articleUrl", articleUrl);
+		model.addAttribute("page", current_page);
+		model.addAttribute("paging", paging);
+		
+		return ".event.lists";
+	}
+	
+	@RequestMapping(value="dislist", method = RequestMethod.GET)
+	public String eventDislist(@RequestParam(value = "page", defaultValue = "1") int current_page,
+			HttpServletRequest req,
+			Model model) throws Exception {
+		
+		String cp = req.getContextPath();
+		
+		int size = 6;
+		int total_page;
+		int dataCount;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		dataCount = service.disDataCount();
+		total_page = myUtil.pageCount(dataCount, size);
+		
+		if(total_page < current_page) {
+			current_page = total_page;
+		}
+		
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<Event> list = service.disListEvent(map) ;
+		
+		String listUrl = cp + "/event/list";
+		String articleUrl = cp + "/event/disarticle?page="+current_page;
+		
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("size", size);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("articleUrl", articleUrl);
+		model.addAttribute("page", current_page);
+		model.addAttribute("paging", paging);
+		
+		return "/event/lists";
 	}
 	
 	@RequestMapping("write")
@@ -120,13 +208,35 @@ public class EventController {
 		return ".event.article";
 	}
 	
+	@RequestMapping(value="disarticle", method=RequestMethod.GET)
+	public String disarticle(@RequestParam long num,
+			@RequestParam(value = "page", defaultValue = "1") String page, Model model) throws Exception {
+		
+		Event dto = service.readEvent(num);
+		if(dto == null) {
+			return "redirect:/event/list";
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("num", num);
+		
+		Event preReadDto = service.disPreReadEvent(map);
+		Event nextReadDto = service.disNextReadEvent(map);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("preReadDto", preReadDto);
+		model.addAttribute("nextReadDto", nextReadDto);
+		
+		model.addAttribute("page", page);
+		
+		return ".event.article";
+	}
+	
 	@RequestMapping(value="update", method=RequestMethod.GET)
 	public String updateEvent(@RequestParam long num,
 			@RequestParam String page,
 			HttpSession session,
 			Model model) throws Exception {
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		Event dto = service.readEvent(num);
 		if(dto == null) {

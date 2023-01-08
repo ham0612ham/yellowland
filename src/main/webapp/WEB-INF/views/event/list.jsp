@@ -47,7 +47,7 @@ td { height: 40px; overflow: hidden; text-overflow: ellipsis; border: 0px;}
 .date-td { font-size: 13px; margin-top: 10px; }
 .pagination { margin-top: 30px; }
 
-#table-div { 
+.table-div { 
 	-webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); 
 	background: rgba(255, 255, 255, 0.3);
 }
@@ -63,42 +63,97 @@ td { height: 40px; overflow: hidden; text-overflow: ellipsis; border: 0px;}
 .btn-func { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
 .btn-func:clicked { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
 .btn-func:hover { color: #36C88A; border: 0.5px solid #36C88A; }
+#tab-div {margin-bottom: 30px;}
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
 <script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+$(function(){
+	$("#home-tab").click(function(){
+		let url = "${pageContext.request.contextPath}/event/enlist";
+		let query = "";
+		
+		const fn = function(data){
+			$("#lists-div").html(data);
+		}
+		
+		ajaxFun(url, "get", query, "html", fn);
+	});
+});
+$(function(){
+	$("#profile-tab").click(function(){
+		let url = "${pageContext.request.contextPath}/event/dislist";
+		let query = "";
+		
+		const fn = function(data){
+			$("#lists-div").html(data);
+		}
+		
+		ajaxFun(url, "get", query, "html", fn);
+	});
+});
 </script>
 
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title" style="margin-bottom: 12px;">
 			<div id="this-title">이벤트</div>
-			</div>
-			
-			<div class="body-main">
-				<form name="listForm" method="post">
-					<div id="table-div" class="d-flex flex-wrap">
-						<c:forEach var="dto" items="${list}" varStatus="status">
-						 	<div class="one-div">
-						 		<a href="${articleUrl}&num=${dto.num}" title="${dto.subject}">
-						 			<img class="event-image" src="${pageContext.request.contextPath}/uploads/photo/${dto.imageFilename}">
-						 		</a>
-						 		<div class="event-div">
-							 		<div class="event-title">${dto.subject}</div>
-							 		<div class="event-date">${dto.reg_date}</div>
-						 		</div>
-							</div>
-					 	
-					 	</c:forEach>
-					</div>
-				</form>
-				<c:if test="${sessionScope.member.userId=='admin'}">
-					<div style="float:right">
-						<button type="button" class="btn btn-func" onclick="location.href='${pageContext.request.contextPath}/event/write';">글쓰기</button>
-					</div>
-				</c:if>
-			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
-			</div>
+		</div>
+		<div id="tab-div">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+	  			<li class="nav-item" role="presentation">
+	    			<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"
+	    				onclick="location.href='${pageContext.request.contextPath}/event/list'">
+	    				진행중 이벤트
+	    			</button>
+	  			</li>
+	  			<li class="nav-item" role="presentation">
+	    			<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+	    				완료된 이벤트
+	    			</button>
+	  			</li>
+			</ul>
+		</div>
+		<div class="body-main" id="lists-div">
+			<form name="listForm" method="post">
+				<div class="d-flex flex-wrap table-div">
+					<c:forEach var="dto" items="${list}" varStatus="status">
+					 	<div class="one-div">
+					 		<a href="${articleUrl}&num=${dto.num}" title="${dto.subject}">
+					 			<img class="event-image" src="${pageContext.request.contextPath}/uploads/photo/${dto.imageFilename}">
+					 		</a>
+					 		<div class="event-div">
+						 		<div class="event-title">${dto.subject}</div>
+						 		<div class="event-date">${dto.reg_date}</div>
+					 		</div>
+						</div>
+				 	</c:forEach>
+				</div>
+			</form>
+			<c:if test="${sessionScope.member.userId=='admin'}">
+				<div style="float:right">
+					<button type="button" class="btn btn-func" onclick="location.href='${pageContext.request.contextPath}/event/write';">글쓰기</button>
+				</div>
+			</c:if>
+			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}</div>
 		</div>
 	</div>
 </div>

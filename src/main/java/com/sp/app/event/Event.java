@@ -10,6 +10,7 @@ public class Event {
 	private String content;
 	private String imageFilename;
 	private String reg_date;
+	private int enable;
 	private MultipartFile selectFile;
 	
 	public long getNum() {
@@ -53,6 +54,12 @@ public class Event {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public int getEnable() {
+		return enable;
+	}
+	public void setEnable(int enable) {
+		this.enable = enable;
 	}
 	public MultipartFile getSelectFile() {
 		return selectFile;
