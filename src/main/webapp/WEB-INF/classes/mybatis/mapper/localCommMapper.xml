@@ -37,8 +37,8 @@
 	<select id="listFile" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
 		SELECT fileNum, num, saveFilename, originalFilename, fileSize
 		FROM localCommFile
-		WHERE num=#{num}  
-	</select>
+		WHERE num=#{num} 
+	 </select>
 	
 	<select id="readFile" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
 		SELECT fileNum, num, saveFilename, originalFilename, fileSize
@@ -98,7 +98,7 @@
 	
 	<!-- 글보기 -->
 	<select id="readLocalComm" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
-		SELECT num, userId, userName, subject, content, regDate, hitCount
+		SELECT num, l.userId, userName, subject, content, regDate, hitCount
 		FROM localComm l
 		JOIN member1 m ON l.userId=m.userId 
 		WHERE num = #{num}
