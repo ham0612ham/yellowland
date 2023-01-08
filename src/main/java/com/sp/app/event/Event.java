@@ -14,6 +14,7 @@ public class Event {
 	private MultipartFile selectFile;
 	private String staDate;
 	private String endDate;
+	private int likeCount;
 	
 	public long getNum() {
 		return num;
@@ -80,5 +81,11 @@ public class Event {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 }

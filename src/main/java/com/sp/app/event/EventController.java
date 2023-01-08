@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.MyUtil;
 import com.sp.app.member.SessionInfo;
@@ -186,8 +189,10 @@ public class EventController {
 	
 	@RequestMapping(value="article", method=RequestMethod.GET)
 	public String article(@RequestParam long num,
+			HttpSession session,
 			@RequestParam(value = "page", defaultValue = "1") String page, Model model) throws Exception {
 		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		Event dto = service.readEvent(num);
 		if(dto == null) {
 			return "redirect:/event/list";
@@ -196,22 +201,34 @@ public class EventController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("num", num);
 		
+		int likeCount = service.eventLikeCount(num);
 		Event preReadDto = service.preReadEvent(map);
 		Event nextReadDto = service.nextReadEvent(map);
+		
+		boolean userEventLiked = false;
+		if(info != null) {
+			map.put("userId", info.getUserId());
+			userEventLiked = service.userEventLiked(map);
+		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
 		
+		model.addAttribute("userEventLiked", userEventLiked);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("likeCount", likeCount);
 		
 		return ".event.article";
 	}
 	
 	@RequestMapping(value="disarticle", method=RequestMethod.GET)
 	public String disarticle(@RequestParam long num,
+			HttpSession session,
 			@RequestParam(value = "page", defaultValue = "1") String page, Model model) throws Exception {
 		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		Event dto = service.readEvent(num);
 		if(dto == null) {
 			return "redirect:/event/list";
@@ -220,14 +237,24 @@ public class EventController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("num", num);
 		
+		int likeCount = service.eventLikeCount(num);
 		Event preReadDto = service.disPreReadEvent(map);
 		Event nextReadDto = service.disNextReadEvent(map);
+		
+		boolean userEventLiked = false;
+		if(info != null) {
+			map.put("userId", info.getUserId());
+			userEventLiked = service.userEventLiked(map);
+		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
 		
+		model.addAttribute("userEventLiked", userEventLiked);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("likeCount", likeCount);
 		
 		return ".event.article";
 	}
@@ -282,6 +309,41 @@ public class EventController {
 		}
 		
 		return "redirect:/event/list?page="+page;
+	}
+	
+	@PostMapping("insertEventLike")
+	@ResponseBody
+	public Map<String, Object> insertEventLike(@RequestParam long num,
+			@RequestParam boolean like,
+			HttpSession session) {
+		
+		String state = "true";
+		int likeCount = 0;
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("num", num);
+		paramMap.put("userId", info.getUserId());
+		
+		try {
+			if(like) {
+				service.deleteEventLike(paramMap);
+			} else {
+				service.insertEventLike(paramMap);
+			}
+			
+			likeCount = service.eventLikeCount(num);
+		} catch (DuplicateKeyException e) {
+			state = "liked";
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		model.put("likeCount", likeCount);
+
+		return model;
 	}
 	
 }

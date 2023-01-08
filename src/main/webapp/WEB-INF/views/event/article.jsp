@@ -18,6 +18,32 @@
 </style>
 
 <script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패 했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
 <c:if test="${sessionScope.member.userId==dto.userId}">
 function deleteOk() {
 	let query = "num=${dto.num}&imageFilename=${dto.imageFilename}";
@@ -27,8 +53,46 @@ function deleteOk() {
   	  location.href = url;
     }
 }
-
 </c:if>
+
+$(function(){
+	$(".btnSendEventLike").click(function(){
+		if(!'${sessionScope.member.userId}') {
+			alert("공감은 회원만 가능합니다.");
+			return false;			
+		}
+		
+		let color = "";
+		const $i = $(this).find("i");
+		let like = $i.hasClass("bi-heart-fill");
+		
+		let url = "${pageContext.request.contextPath}/event/insertEventLike";
+		let num = "${dto.num}";
+		let query = "num=" + num + "&like=" + like;
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === "true") {
+				if( like ) {
+					$i.removeClass("bi-heart-fill").addClass("bi-heart");
+					color = "#A3A6AD";
+				} else {
+					$i.removeClass("bi-heart").addClass("bi-heart-fill");
+					color = "#FF4F99";
+				}
+				$i.css("color", color);
+				let count = data.likeCount;
+				$("#eventLikeCount").text(count);
+			} else if(state === "liked") {
+				alert("좋아요는 한 번만 가능합니다");
+			} else if(state === "false") {
+				alert("공감 여부 처리가 실패했습니다.");
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);
+	});
+});
 </script>
 
 <div class="container">
@@ -59,8 +123,17 @@ function deleteOk() {
 				</tr>
 										
 				<tr>
-					<td colspan="2">
+					<td colspan="2" style="border: none;">
 						${dto.content}
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" class="text-center p-3">
+						 <button type="button" class="btn btnSendEventLike" title="좋아요" style="border-color: #A3A6AD">
+						 	<i class="bi ${userEventLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userEventLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
+						 	<span id="eventLikeCount" style="color: #A3A6AD">${likeCount}</span>
+						 </button>
 					</td>
 				</tr>
 					

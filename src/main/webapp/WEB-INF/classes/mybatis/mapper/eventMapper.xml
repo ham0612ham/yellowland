@@ -41,11 +41,11 @@
 	</select>
 	
 	<select id="readEvent" parameterType="Long" resultType="com.sp.app.event.Event">
-		SELECT num, e.userId, userName, subject, imageFilename, content
+		SELECT e.num, e.userId, userName, subject, imageFilename, content
 			, TO_CHAR(staDate, 'yyyy.mm.dd') as staDate, TO_CHAR(endDate, 'yyyy.mm.dd') as endDate, TO_CHAR(reg_date, 'yyyy.mm.dd') as reg_date
 		FROM event e
 		JOIN member1 m ON e.userId = m.userId
-		WHERE num = #{num}
+		WHERE e.num = #{num}
 	</select>
 	
 	<select id="preReadEvent" parameterType="map" resultType="com.sp.app.event.Event">
@@ -93,4 +93,20 @@
 	<delete id="deleteEvent" parameterType="Long">
 		DELETE FROM event WHERE num = #{num}
 	</delete>
+	
+	<select id="eventLikeCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM eventLike WHERE num=#{num}
+	</select>
+	
+	<insert id="insertEventLike" parameterType="map">
+		INSERT INTO eventLike(num, userId) VALUES (#{num}, #{userId})
+	</insert>
+
+	<delete id="deleteEventLike" parameterType="map">
+		DELETE FROM eventLike WHERE num = #{num} AND userId = #{userId}
+	</delete>
+	
+	<select id="userEventLiked" parameterType="map" resultType="com.sp.app.event.Event">
+		SELECT num, userId FROM eventLike WHERE num = #{num} AND userId = #{userId}
+	</select>
 </mapper>

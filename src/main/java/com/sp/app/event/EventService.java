@@ -18,4 +18,9 @@ public interface EventService {
 	public List<Event> disListEvent(Map<String, Object> map);
 	public Event disPreReadEvent(Map<String, Object> map);
 	public Event disNextReadEvent(Map<String, Object> map);
+	
+	public int eventLikeCount(long num);
+	public void insertEventLike(Map<String, Object> map) throws Exception;
+	public void deleteEventLike(Map<String, Object> map) throws Exception;
+	public boolean userEventLiked(Map<String, Object> map);
 }

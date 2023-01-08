@@ -167,4 +167,52 @@ public class EventServiceImpl implements EventService {
 		}
 		return dto;
 	}
+
+	@Override
+	public int eventLikeCount(long num) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("event.eventLikeCount", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void insertEventLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("event.insertEventLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void deleteEventLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("event.deleteEventLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public boolean userEventLiked(Map<String, Object> map) {
+		boolean result = false;
+		
+		try {
+			Event dto = dao.selectOne("event.userEventLiked", map);
+			if(dto != null) {
+				result = true; 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
