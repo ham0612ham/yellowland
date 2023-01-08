@@ -142,7 +142,7 @@ $(function(){
 					 		</a>
 					 		<div class="event-div">
 						 		<div class="event-title">${dto.subject}</div>
-						 		<div class="event-date">${dto.reg_date}</div>
+						 		<div class="event-date">${dto.staDate} ~ ${dto.endDate}</div>
 					 		</div>
 						</div>
 				 	</c:forEach>

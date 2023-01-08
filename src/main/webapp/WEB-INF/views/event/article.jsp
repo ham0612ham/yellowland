@@ -48,8 +48,8 @@ function deleteOk() {
 					<td width="50%">
 						이름 : ${dto.userName}						
 					</td>
-					<td align="right">
-						${dto.reg_date}
+					<td align="right" style="color: #A3A6AD">
+						${dto.staDate} ~ ${dto.endDate}
 					</td>
 				</tr>
 				<tr>

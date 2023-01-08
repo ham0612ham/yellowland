@@ -131,7 +131,7 @@ $(function() {
 					</tr>
 					
 					<tr>
-						<td class="table-light col-sm-2 center-text align-middle" scope="row">기간 만료</td>
+						<td class="table-light col-sm-2 center-text align-middle" scope="row">중지 여부</td>
 						<td>
 							<div class="form-check form-switch">
 								<input class="form-check-input" type="checkbox" role="switch" id="enable-btn">
@@ -145,6 +145,18 @@ $(function() {
 						<td>
 							<div class="img-viewer"></div>
 							<input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
+						</td>
+					</tr>
+					<tr>
+						<td class="table-light col-sm-2 center-text align-middle" scope="row">시작일</td>
+						<td>
+							<input type="date" name="staDate" id="staDate" class="form-control" value="${dto.staDate}" style="width: 50%">
+						</td>
+					</tr>
+					<tr>
+						<td class="table-light col-sm-2 center-text align-middle" scope="row">종료일</td>
+						<td>
+							<input type="date" name="endDate" id="endDate" class="form-control" value="${dto.endDate}" style="width: 50%">
 						</td>
 					</tr>
 					

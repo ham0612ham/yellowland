@@ -12,6 +12,8 @@ public class Event {
 	private String reg_date;
 	private int enable;
 	private MultipartFile selectFile;
+	private String staDate;
+	private String endDate;
 	
 	public long getNum() {
 		return num;
@@ -66,5 +68,17 @@ public class Event {
 	}
 	public void setSelectFile(MultipartFile selectFile) {
 		this.selectFile = selectFile;
+	}
+	public String getStaDate() {
+		return staDate;
+	}
+	public void setStaDate(String staDate) {
+		this.staDate = staDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 }
