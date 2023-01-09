@@ -55,7 +55,7 @@ function sendLogin() {
                                 <input class="form-check-input" type="checkbox" id="rememberMe">
                                 <label class="form-check-label" for="rememberMe" style="font-size: 14px;"> 아이디 저장</label>
                                 <div style="float: right">
-	                        	<a href="#" class="text-decoration-none me-2 text-right" style="font-size: 14px;">아이디 찾기</a>
+	                        	<a href="${pageContext.request.contextPath}/member/idFind" class="text-decoration-none me-2 text-right" style="font-size: 14px;">아이디 찾기</a>
 	                        	<a href="${pageContext.request.contextPath}/member/pwdFind" class="text-decoration-none me-2 text-right" style="font-size: 14px;">패스워드 찾기</a>
 	                        	<a href="${pageContext.request.contextPath}/member/member" class="text-decoration-none text-right" style="font-size: 14px;">회원가입</a>
 	                        	</div>
