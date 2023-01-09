@@ -33,9 +33,9 @@ function ajaxFun(url, method, query, dataType, fn) {
 function sendOk() {
 	const f = document.pwdForm;
 
-	let id = f.userId.value.trim();
-	if(!id) {
-		alert("아이디를 입력하세요. ");
+	let userName = f.userName.value.trim();
+	if(!userName) {
+		alert("성함을 입력하세요. ");
 		f.userId.focus();
 		return;
 	}
@@ -47,20 +47,20 @@ function sendOk() {
 		return;
 	}
 
-	let url = "${pageContext.request.contextPath}/member/confirmIdTel";
-	let query = "userId="+id+"&tel="+tel;
+	let url = "${pageContext.request.contextPath}/member/confirmNameTel";
+	let query = "userName="+userName+"&tel="+tel;
 	
 	const fn = function(data){
 		if(data.state === "true") {
-			if(confirm("확인을 누르면 임시 패스워드가 회원정보의 이메일로 전송됩니다.\n이대로 진행하시겠습니까?")){
-				f.action = "${pageContext.request.contextPath}/member/pwdFind";
-				f.submit();
-			};
+			let userId = data.userId;
+			$("input[name=userId]").val(userId);
+			f.action = "${pageContext.request.contextPath}/member/idFind";
+			f.submit();
 		} else {
 			alert("정보가 일치하지 않습니다.");
-			$("input[name=userId]").text('');
+			$("input[name=name]").text('');
 			$("input[name=tel]").text('');
-			$("input[name=userId]").focus();
+			$("input[name=name]").focus();
 		}
 	}
 	
@@ -75,14 +75,14 @@ function sendOk() {
             <div class="col-md-7">
                 <div class="border mt-5 p-4">
                     <form name="pwdForm" method="post" class="row g-3">
-                        <h3 class="text-center fw-bold">패스워드 찾기</h3>
+                        <h3 class="text-center fw-bold">아이디 찾기</h3>
                         
 		                <div class="d-grid">
-							<p class="form-control-plaintext text-center">회원정보에 있는 아이디와 연락처를 입력해주세요.</p>
+							<p class="form-control-plaintext text-center">회원정보에 있는 성함과 연락처를 입력해주세요.</p>
 		                </div>
                         
                         <div class="d-grid">
-                            <input type="text" name="userId" class="form-control form-control-lg" placeholder="아이디">
+                            <input type="text" name="userName" class="form-control form-control-lg" placeholder="성함">
                         </div>
                         <div class="d-grid">
                             <input type="text" name="tel" class="form-control form-control-lg" placeholder="연락처(숫자만 입력)">
@@ -90,6 +90,7 @@ function sendOk() {
                         <div class="d-grid">
                             <button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">확인</button>
                         </div>
+                        <input name="userId" type="hidden" value="">
                     </form>
                 </div>
 

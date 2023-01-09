@@ -55,6 +55,18 @@ function sendOk() {
         f.subject.focus();
         return;
     }
+    
+    if(!f.staDate.value) {
+        alert("시작일을 입력하세요.");
+        f.subject.focus();
+        return;
+    }
+    
+    if(!f.endDate.value) {
+        alert("종료일을 입력하세요.");
+        f.subject.focus();
+        return;
+    }
 
 	str = window.editor.getData().trim();
     if(! str) {

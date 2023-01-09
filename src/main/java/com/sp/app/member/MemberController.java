@@ -77,13 +77,11 @@ public class MemberController {
 		return ".member.login";
 	}
 	
-	// 접근 권한이 없는 경우
 	@GetMapping("noAuthorized")
 	public String noAuthorized() {
 		return ".member.noAuthorized";
 	}
 
-	// 세션이 만료된 경우
 	@GetMapping("expired")
 	public String expired() {
 		return ".member.expired";
@@ -142,7 +140,6 @@ public class MemberController {
 			return "redirect:/member/complete";
 		}
 
-		// 회원정보수정폼
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode", "update");
 		return ".member.member";
@@ -168,7 +165,6 @@ public class MemberController {
 		return "redirect:/member/complete";
 	}
 
-	// @ResponseBody : 자바 객체를 HTTP 응답 몸체로 전송(AJAX에서 JSON 전송 등에 사용)
 	@RequestMapping(value = "userIdCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> idCheck(@RequestParam String userId) throws Exception {
@@ -184,7 +180,6 @@ public class MemberController {
 		return model;
 	}
 	
-	// 패스워드 찾기
 	@RequestMapping(value="pwdFind", method=RequestMethod.GET)
 	public String pwdFindForm(HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -249,4 +244,81 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value = "confirmIdTel", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> confirmIdTel(@RequestParam String userId,
+			@RequestParam String tel) {
+		Map<String, Object> mem = new HashMap<String, Object>();
+		String state = null;
+		mem.put("userId", userId);
+		mem.put("tel", tel);
+		
+		try {
+			state = service.confirmIdTel(mem);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		
+		return model; 
+	}
+	
+	@RequestMapping(value = "confirmNameTel", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> confirmNameTel(@RequestParam String userName,
+			@RequestParam String tel) {
+		Map<String, Object> mem = new HashMap<String, Object>();
+		Map<String, Object> map = null;
+		mem.put("userName", userName);
+		mem.put("tel", tel);
+		
+		try {
+			map = service.confirmNameTel(mem);
+			System.out.println(map.get("userId"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", map.get("state"));
+		model.put("userId", map.get("userId"));
+		
+		return model; 
+	}
+	
+	@RequestMapping(value="idFind", method=RequestMethod.GET)
+	public String idFind(HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		if(info != null) {
+			return "redirect:/";
+		}
+		
+		return ".member.idFind";
+	}
+	
+	@RequestMapping(value = "idFind", method = RequestMethod.POST)
+	public String idFindSubmit(@RequestParam String userName,
+			@RequestParam String tel,
+			@RequestParam String userId,
+			RedirectAttributes reAttr,
+			Model model) throws Exception {
+		System.out.println("실행중....");
+		
+		try {
+			service.sendMail(userId);
+		} catch (Exception e) {
+			model.addAttribute("message", "이메일 전송이 실패했습니다.");
+			return ".member.idFind";
+		}
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append("회원님의 이메일로 아이디를 전송했습니다.<br>");
+		
+		reAttr.addFlashAttribute("title", "아이디 찾기");
+		reAttr.addFlashAttribute("message", sb.toString());
+		
+		return "redirect:/member/complete";
+	}
 }

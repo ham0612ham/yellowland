@@ -21,5 +21,56 @@ public class PropReader {
 		}
 		
 		return key;
+	} 
+	
+	public String readNaverEmail() {
+		String key = null;
+		try {
+			String propFile = this.getClass().getResource("keyList.properties").getPath();
+			Properties props = new Properties();
+			FileInputStream fis = new FileInputStream(propFile);
+			props.load(new BufferedInputStream(fis));
+			
+			key = props.getProperty("naverEmail");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return key;
+	}
+	
+	public String readNaverId() {
+		String key = null;
+		try {
+			String propFile = this.getClass().getResource("keyList.properties").getPath();
+			Properties props = new Properties();
+			FileInputStream fis = new FileInputStream(propFile);
+			props.load(new BufferedInputStream(fis));
+			
+			key = props.getProperty("naverId");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return key;
+	}
+	
+	public String readnaverPwd() {
+		String key = null;
+		try {
+			String propFile = this.getClass().getResource("keyList.properties").getPath();
+			Properties props = new Properties();
+			FileInputStream fis = new FileInputStream(propFile);
+			props.load(new BufferedInputStream(fis));
+			
+			key = props.getProperty("naverPwd");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return key;
 	}
 }

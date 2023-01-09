@@ -19,14 +19,12 @@ public class Mail {
 		return receiverEmail;
 	}
 	public void setReceiverEmail(String receiverEmail) {
-		receiverEmail = "이메일@naver.com";
 		this.receiverEmail = receiverEmail;
 	}
 	public String getSenderEmail() {
 		return senderEmail;
 	}
 	public void setSenderEmail(String senderEmail) {
-		senderEmail = "이메일@naver.com";
 		this.senderEmail = senderEmail;
 	}
 	public String getSenderName() {

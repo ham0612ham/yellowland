@@ -25,4 +25,8 @@ public interface MemberService {
 	public void updateFailureCountReset(String userId) throws Exception;
 	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
 	public void insertMemberState(Member dto) throws Exception;
+	
+	public String confirmIdTel(Map<String, Object> map) throws Exception;
+	public Map<String, Object> confirmNameTel(Map<String, Object> map) throws Exception;
+	public void sendMail(String userId) throws Exception;
 }

@@ -25,9 +25,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sp.app.common.FileManager;
+import com.sp.app.prop.PropReader;
 
 @Service("mail.myMailSender")
 public class MailSender {
+	
+	
 	@Autowired
 	private FileManager fileManager;
 	
@@ -46,10 +49,11 @@ public class MailSender {
 	}
 
 	private class SMTPAuthenticator extends javax.mail.Authenticator {
+		PropReader prop = new PropReader();
 		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
-			String username = "이메일@naver.com"; 
-			String password = "패스워드"; // 패스워드;
+			String username = prop.readNaverEmail();
+			String password = prop.readnaverPwd(); // 패스워드;
 			return new PasswordAuthentication(username, password);
 		}
 	}
@@ -102,11 +106,12 @@ public class MailSender {
 	}
 
 	public boolean mailSend(Mail dto) {
+		PropReader prop = new PropReader();
 		boolean b = false;
 
 		Properties p = new Properties();
 		
-		p.put("mail.smtp.user", "아이디");
+		p.put("mail.smtp.user", prop.readNaverId());
 		
 		String host = "smtp.naver.com";
 		

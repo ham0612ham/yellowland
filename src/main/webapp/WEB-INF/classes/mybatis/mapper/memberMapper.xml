@@ -133,4 +133,15 @@
 		VALUES (memberState_seq.NEXTVAL, #{userId}, #{stateCode}, #{memo}, #{registerId}, SYSDATE)
 	</insert>
 	
+	<select id="confirmIdTel" parameterType="map" resultType="com.sp.app.member.Member">
+		SELECT userId, tel FROM member2 where userId = #{userId} AND REPLACE(tel, '-') = #{tel}
+	</select>
+	
+	<select id="confirmNameTel" parameterType="map" resultType="com.sp.app.member.Member">
+		SELECT RPAD(SUBSTR(m1.userId, 0, 4), LENGTH(m1.userId),'*') userId, userName, tel
+		FROM member1 m1
+		JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE userName = #{userName} AND REPLACE(tel, '-') = #{tel}
+	</select>
+	
 </mapper>
