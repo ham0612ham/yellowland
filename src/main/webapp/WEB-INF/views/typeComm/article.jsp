@@ -44,42 +44,13 @@
 <script type="text/javascript">
 <c:if test="${sessionScope.member.userId==dto.userId}">
 function deleteOk(num) {
-    if(confirm("글을 삭제 하시겠습니까 ? ")) {
+    if(confirm("글을 삭제 하시 겠습니까 ? ")) {
     	let query = "num="+num+"&page=${page}";
 	    let url = "${pageContext.request.contextPath}/localComm/delete?" + query;
     	location.href = url;
     }
 }
 </c:if>
-</script>
-
-<script type="text/javascript">
-function ajaxFun(url, method, query, dataType, fn) {
-	$.ajax({
-		type:method,
-		url:url,
-		data:query,
-		dataType:dataType,
-		success:function(data) {
-			fn(data);
-		},
-		beforeSend:function(jqXHR) {
-			jqXHR.setRequestHeader("AJAX", true);
-		},
-		error:function(jqXHR) {
-			if(jqXHR.status === 403) {
-				login();
-				return false;
-			} else if(jqXHR.status === 400) {
-				alert("요청 처리가 실패 했습니다.");
-				return false;
-			}
-	    	
-			console.log(jqXHR.responseText);
-		}
-	});
-}
-
 
 // 페이징 처리
 $(function(){
@@ -87,7 +58,7 @@ $(function(){
 });
 
 function listPage(page) {
-	let url = "${pageContext.request.contextPath}/localComm/listReply";
+	let url = "${pageContext.request.contextPath}/localComm/listReply.do";
 	let query = "num=${dto.num}&pageNo="+page;
 	let selector = "#listReply";
 	
@@ -97,8 +68,7 @@ function listPage(page) {
 	ajaxFun(url, "get", query, "html", fn);
 }
 
-
-
+// 댓글 등록
 $(function(){
 	$(".btnSendReply").click(function(){
 		let num = "${dto.num}";
@@ -112,7 +82,7 @@ $(function(){
 		content = encodeURIComponent(content);
 		
 		let url = "${pageContext.request.contextPath}/localComm/insertReply";
-		let query = "num="+num+"&content="+content;
+		let query = "num="+num+"&content="+content + "&answer=0";
 		
 		const fn = function(data){
 			$tb.find("textarea").val("");
@@ -126,6 +96,28 @@ $(function(){
 		};
 		
 		ajaxFun(url, "post", query, "json", fn);
+	});
+});
+
+//삭제
+$(function(){
+	$("body").on("click", ".reply-dropdown", function(){
+		const $menu = $(this).next(".reply-menu");
+		if($menu.is(':visible')) {
+			$menu.fadeOut(100);
+		} else {
+			$(".reply-menu").hide();
+			$menu.fadeIn(100);
+
+			let pos = $(this).offset();
+			$menu.offset( {left:pos.left-70, top:pos.top+20} );
+		}
+	});
+	$("body").on("click", function() {
+		if($(event.target.parentNode).hasClass("reply-dropdown")) {
+			return false;
+		}
+		$(".reply-menu").hide();
 	});
 });
 
@@ -154,44 +146,40 @@ $(function(){
 
 // 게시글 공감 여부
 $(function(){
-	$(".btnSendLocalLike").click(function(){
-		if(!'${sessionScope.member.userId}') {
-			alert("공감은 회원만 가능합니다.");
-			return false;			
-		}
-		
-		let color = "";
-		const $i = $(this).find("i");
-		let like = $i.hasClass("bi-heart-fill");
-		
-		let url = "${pageContext.request.contextPath}/localComm/insertLocalCommLike";
-		let num = "${dto.num}";
-		let query = "num=" + num + "&like=" + like;
-		
-		const fn = function(data){
-			let state = data.state;
-			if(state === "true") {
-				if( like ) {
-					$i.removeClass("bi-heart-fill").addClass("bi-heart");
-					color = "#A3A6AD";
-				} else {
-					$i.removeClass("bi-heart").addClass("bi-heart-fill");
-					color = "#FF4F99";
-				}
-				$i.css("color", color);
-				let count = data.likeCount;
-				$("#localCommLikeCount").text(count);
-			} else if(state === "liked") {
-				alert("좋아요는 한 번만 가능합니다");
-			} else if(state === "false") {
-				alert("공감 여부 처리가 실패했습니다.");
+	$(".btnSendBoardLike").click(function(){
+			const $i = $(this).find("i");
+			let userLocalCommLiked = $i.hasClass("bi-hand-thumbs-up-fill");
+			let msg = userLocalCommLiked ? "게시글 공감을 취소하시겠습니까 ? " : "게시글에 공감하십니까 ? ";
+			
+			if(! confirm( msg )) {
+				return false;
 			}
-		};
-		
-		ajaxFun(url, "post", query, "json", fn);
-	});
+			
+			let url = "${pageContext.request.contextPath}/localComm/insertLocalCommLike";
+			let num = "${dto.num}";
+			let query = "num="+num+"&userLocalCommLiked="+userLocalCommLiked;
+			
+			const fn = function(data){
+				let state = data.state;
+				if(state === "true") {
+					if( userLiked ) {
+						$i.removeClass("bi-hand-thumbs-up-fill").addClass("bi-hand-thumbs-up");
+					} else {
+						$i.removeClass("bi-hand-thumbs-up").addClass("bi-hand-thumbs-up-fill");
+					}
+					
+					var count = data.localCommLikeCount;
+					$("#localCommLikeCount").text(count);
+				} else if(state === "liked") {
+					alert("게시글 공감은 한번만 가능합니다. !!!");
+				} else if(state === "false") {
+					alert("게시물 공감 여부 처리가 실패했습니다. !!!");
+				}
+			};
+			
+			ajaxFun(url, "post", query, "json", fn);
+		});
 });
-
 </script>
 
 <div class="container">
@@ -224,17 +212,15 @@ $(function(){
 					</tr>
 					
 					<tr>
-						<td colspan="2" valign="top" height="200" style="min-height: 500px; overflow-wrap: anywhere; border-bottom: none;">
+						<td colspan="2" valign="top" height="200" style="min-height: 500px; overflow-wrap: anywhere;">
 							${dto.content}
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center p-3">
-							 <button type="button" class="btn btnSendLocalLike" title="좋아요" style="border-color: #A3A6AD">
-							 	<i class="bi ${userLocalCommLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userLocalCommLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
-							 	<span id="localCommLikeCount" style="color: #A3A6AD">${likeCount}</span>
-							 </button>
-						</td>
+							 <button type="button" class="btn btn-outline-secondary btnSendBoardLike" title="좋아요">&nbsp;<i class="bi bi-heart"> </i>&nbsp;<span id="localCommLikeCount">${dto.localCommLikeCount}</span></button>
+							</td>
+						</tr>
 					<tr>
 						<td colspan="2" >
 							이전글 :
@@ -268,7 +254,7 @@ $(function(){
 						</c:choose>
 				    	
 						<c:choose>
-				    		<c:when test="${sessionScope.member.userId==dto.userId}">
+				    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
 				    			<button type="button" class="btn btn-light" onclick="deleteOk(${dto.num});">삭제</button>
 				    		</c:when>
 				    		<c:otherwise>
@@ -285,6 +271,10 @@ $(function(){
 			<!-- 댓글 -->
 			<div class="reply">
 				<form name="replyForm" method="post">
+					<div class='form-header'>
+						<span class="bold">댓글&nbsp;${dto.replyCount}개</span>
+					</div>
+					
 					<div id="listReply"></div>
 					
 					<table class="table table-borderless reply-form">
@@ -295,7 +285,7 @@ $(function(){
 						</tr>
 						<tr>
 						   <td align='right'>
-						        <button type='button' class='btn btn-primary btnSendReply'>댓글 등록</button>
+						        <button type='button' class='btn btn-light btnSendReply'>답글 등록</button>
 						    </td>
 						 </tr>
 					</table>

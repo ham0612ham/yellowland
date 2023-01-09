@@ -64,22 +64,11 @@ element.style {
 <script type="text/javascript">
 
 function sendOk() {
-	const f = document.localCommForm;
+	const f = document.typeCommForm;
 	let str;
-
-	str = f.siguNum.value;
-	if(!str) {
-		alert("시군구를 선택하세요 !");
-		f.siguNum.focus();
-		return;
-	}
 	
-	str = f.dongNum.value;
-	if(!str) {
-		alert("행정동을 선택하세요 !");
-		f.dongNum.focus();
-		return;
-	}
+	str = f.
+
 	
 	str = f.subject.value.trim();
 	if(!str) {
@@ -97,7 +86,7 @@ function sendOk() {
 	
 	f.content.value = str; 
 	
-	f.action = "${pageContext.request.contextPath}/localComm/${mode}";
+	f.action = "${pageContext.request.contextPath}/typeComm/${mode}";
 	f.submit();
 }
 </script>
@@ -133,46 +122,23 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 
-$(function(){
-	$("form select[name=siguNum]").change(function(){
-		let siguNum = $(this).val();
-		$("form select[name=dongNum]").find('option').remove().end()
-				.append("<option value=''>행정동</option>");
-		
-		if(! siguNum) {
-			return false;
-		}
-		
-		let url = "${pageContext.request.contextPath}/localComm/listDong";
-		let query = "siguNum="+siguNum;
-		
-		const fn = function(data) {
-			$.each(data.listDong, function(index, item){
-				let dongNum = item.dongNum;
-				let dongName = item.dongName;
-				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
-				$("form select[name=dongNum]").append(s);
-			});
-		};
-		ajaxFun(url, "get", query, "json", fn);
-	});
-});
+
 </script>
 
 <div class="container">
 	<div class="body-container">	
-		<h3 class="fw-semibold">지역별 커뮤니티 글 작성</h3>
+		<h3 class="fw-semibold">업종별 커뮤니티 글 작성</h3>
 		<hr>
 
-		<form name="localCommForm" method="post" enctype="multipart/form-data">	
+		<form name="typeCommForm" method="post" enctype="multipart/form-data">	
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col" class="typeCkeck">지역 선택</th>
+						<th scope="col" class="typeCkeck">업종 선택</th>
 						<th scope="col" class="typeCkeck">
 							<div class="col-auto p-1" style="flex:1; float: left;">
 								<select name="siguNum" class="form-select" style="width: 125px;">
-									<option value="">:: 시군구 ::</option>
+									<option value="">:: 대분류 ::</option>
 									<c:forEach var="vo" items="${listSigu}">
 									<option value="${vo.siguNum}" ${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
 									</c:forEach>
@@ -180,7 +146,7 @@ $(function(){
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
 								<select name="dongNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>행정동</option>
+									<option value="" ${condition=="all"?"selected='selected'":""}>소분류</option>
 								</select>
 							</div>
 						</th>
@@ -221,7 +187,7 @@ $(function(){
 									class="bi bi-check2"></i>
 						</button>
 						<button type="button" class="btn btn-light"
-								onclick="location.href='${pageContext.request.contextPath}/localComm/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i
+								onclick="location.href='${pageContext.request.contextPath}/typeComm/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i
 									class="bi bi-x"></i>
 						</button>
 							

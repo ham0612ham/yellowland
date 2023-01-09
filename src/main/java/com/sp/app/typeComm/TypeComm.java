@@ -1,10 +1,10 @@
-package com.sp.app.localComm;
+package com.sp.app.typeComm;
 
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class LocalComm {
+public class TypeComm {
 	private long num;
 	private String userId;
 	private String userName;
@@ -13,16 +13,10 @@ public class LocalComm {
 	private String regDate;
 	private	int hitCount;
 	
+	
 	private int replyCount;
-	private int localCommLikeCount;
+	private int typeCommLikeCount;
 	private int likeCount;
-	
-	
-	private long siguNum; // insert 할 때 필요함 
-	private long dongNum; //  insert 할 때 필요함
-	
-	private String siguName; // select 할 때 필요함 
-	private String dongName; // select 할 때 필요함
 	
 	// 파일
 	private long fileNum;
@@ -98,44 +92,12 @@ public class LocalComm {
 		this.replyCount = replyCount;
 	}
 
-	public int getLocalCommLikeCount() {
-		return localCommLikeCount;
+	public int getTypeCommLikeCount() {
+		return typeCommLikeCount;
 	}
 
-	public void setLocalCommLikeCount(int localCommLikeCount) {
-		this.localCommLikeCount = localCommLikeCount;
-	}
-
-	public long getSiguNum() {
-		return siguNum;
-	}
-
-	public void setSiguNum(long siguNum) {
-		this.siguNum = siguNum;
-	}
-
-	public long getDongNum() {
-		return dongNum;
-	}
-
-	public void setDongNum(long dongNum) {
-		this.dongNum = dongNum;
-	}
-
-	public String getSiguName() {
-		return siguName;
-	}
-
-	public void setSiguName(String siguName) {
-		this.siguName = siguName;
-	}
-
-	public String getDongName() {
-		return dongName;
-	}
-
-	public void setDongName(String dongName) {
-		this.dongName = dongName;
+	public void setTypeCommLikeCount(int typeCommLikeCount) {
+		this.typeCommLikeCount = typeCommLikeCount;
 	}
 
 	public long getFileNum() {
@@ -186,12 +148,5 @@ public class LocalComm {
 		this.selectFile = selectFile;
 	}
 
-	public int getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
 	
 }

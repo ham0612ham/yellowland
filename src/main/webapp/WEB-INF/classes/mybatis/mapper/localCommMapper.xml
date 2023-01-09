@@ -85,20 +85,25 @@
 	<!-- 리스트 -->
 	<select id="listLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
 		SELECT l.num,subject, l.userId, userName,  hitCount, 
-			   TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount
+			   TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount, 
+			   NVL(likeCount, 0) likeCount
 		FROM localComm l
 		JOIN member1 m ON m.userId=l.userId
 		LEFT OUTER JOIN (
 			SELECT num, COUNT(*) fileCount FROM localCommFile
 			GROUP BY num
 		) f ON l.num=f.num
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) likeCount FROM localCommLike
+			GROUP BY num
+		) lc ON l.num=lc.num		
 		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
-	
+
 	<!-- 글보기 -->
 	<select id="readLocalComm" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
-		SELECT num, l.userId, userName, subject, content, regDate, hitCount
+		SELECT num, l.userId, userName, subject, content, TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, hitCount
 		FROM localComm l
 		JOIN member1 m ON l.userId=m.userId 
 		WHERE num = #{num}
@@ -124,9 +129,9 @@
 		FETCH FIRST 1 ROWS ONLY
     </select>
     
-    <select id="nextReaLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
+    <select id="nextReadLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
     	SELECT num, subject
-		FROM localComm n
+		FROM localComm l
 		JOIN member1 m ON l.userId=m.userId
 		<where>
 			<if test="keyword != null and keyword != '' ">
@@ -149,5 +154,52 @@
 	<delete id="deleteLocalComm" parameterType="Long">
 		DELETE FROM localComm WHERE num=#{num}
 	</delete>
+	
+	<!-- 댓글 -->
+	<insert id="insertReply" parameterType="com.sp.app.localComm.Reply">
+		INSERT INTO localCommReply(replyNum, num, userId, content, regDate)
+			VALUES (localCommReply_seq.NEXTVAL, #{num}, #{userId}, #{content}, SYSDATE)
+	</insert>	
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.app.localComm.Reply">
+		SELECT r.replyNum, r.userId, userName, num, content, r.regDate 
+		FROM localCommReply r
+		JOIN member1 m ON r.userId = m.userId
+		WHERE num=#{num}
+		ORDER BY r.replyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM localCommReply
+		WHERE num=#{num}
+	</select>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM localCommReply
+		WHERE replyNum = #{replyNum}
+	</delete>
+	
+	<!-- 공감(좋아요) -->
+	<!-- 게시 글 좋아요 추가 -->
+	<insert id="insertLocalCommLike" parameterType="map">
+		INSERT INTO localCommLike(num, userId) VALUES (#{num}, #{userId})
+	</insert>
+
+	<!-- 게시 글 좋아요 삭제 -->
+	<delete id="deleteLocalCommLike" parameterType="map">
+		DELETE FROM localCommLike WHERE num = #{num} AND userId = #{userId}
+	</delete>
+      
+	<!-- 게시글 좋아요 개수 -->
+	<select id="localCommLikeCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM localCommLike WHERE num=#{num}
+	</select>
+
+	<!-- 게시글 좋아요 여부 -->
+	<select id="userLocalCommLiked" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
+		SELECT num, userId FROM localCommLike WHERE num = #{num} AND userId = #{userId}
+	</select>
+      
 	
 </mapper>

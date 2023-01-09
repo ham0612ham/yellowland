@@ -1,4 +1,4 @@
-package com.sp.app.localComm;
+package com.sp.app.typeComm;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,28 +26,44 @@ import com.sp.app.common.FileManager;
 import com.sp.app.common.MyUtil;
 import com.sp.app.member.SessionInfo;
 
-@Controller("localComm.localCommController")
-@RequestMapping("/localComm/*")
-public class LocalCommController {
+@Controller("typeComm.typeCommController")
+@RequestMapping("/typeComm/*")
+public class TypeCommController {
 	@Autowired
-	private LocalCommService service;
+	private TypeCommService service;
 	@Autowired 
 	private MyUtil myUtil;
 	@Autowired
 	private FileManager FileManager;
 	
+	/*
+	@RequestMapping(value = "list")
+	public String list(Model model) throws Exception {
+		return ".typeComm.list";
+	}
+	
+	@RequestMapping(value = "write")
+	public String writeForm(Model model) throws Exception {
+		return ".typeComm.write";
+	}
+	
+	@RequestMapping(value = "article")
+	public String article(Model model) throws Exception {
+		return ".typeComm.article";
+	}
+	*/
+	
+
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpServletRequest req,
-			// @RequestParam long siguNum,
 			Model model) throws Exception {
 		
 		int size = 10; // 한 화면에 보여주는 게시물 수
 		int total_page = 0;
 		int dataCount = 0;
-		
 		
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 			keyword = URLDecoder.decode(keyword, "utf-8");
@@ -77,31 +92,24 @@ public class LocalCommController {
 		map.put("size", size);
 		
 		// 글 리스트
-		List<LocalComm> list = service.ListLocalComm(map);
-		// 시군구 리스트
-		List<LocalComm> listSigu = service.listSigu();
-		// (시군구)동 리스트
-		//List<LocalComm> listDong = service.listDong(siguNum);
-		
-		
+		List<TypeComm> list = service.ListTypeComm(map);
+				
 		String cp = req.getContextPath();
 		String query = "";
-		String listUrl = cp + "/localComm/list";
-		String articleUrl = cp + "/localComm/article?page=" + current_page;
+		String listUrl = cp + "/typeComm/list";
+		String articleUrl = cp + "/typeComm/article?page=" + current_page;
 		if (keyword.length() != 0) {
 			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
 		}
 
 		if (query.length() != 0) {
-			listUrl = cp + "/localComm/list?" + query;
-			articleUrl = cp + "/localComm/article?page=" + current_page + "&" + query;
+			listUrl = cp + "/typeComm/list?" + query;
+			articleUrl = cp + "/typeComm/article?page=" + current_page + "&" + query;
 		}
 
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 				
 		model.addAttribute("list", list);
-		model.addAttribute("listSigu", listSigu);
-		//model.addAttribute("listDong", listDong);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("size", size);
@@ -113,62 +121,43 @@ public class LocalCommController {
 		model.addAttribute("keyword", keyword);
 		
 		
-		return ".localComm.list";
+		return ".typeComm.list";
 	}
 
 	@GetMapping(value = "write")
 	public String writeForm(Model model) throws Exception {
 
-		// 시군구 목록 가져오기
-		List<LocalComm> listSigu = service.listSigu();
-		
 		model.addAttribute("mode", "write");
-		model.addAttribute("listSigu", listSigu);
-		
-		return ".localComm.write";
+	
+		return ".typeComm.write";
 	}
 
 
 	@PostMapping(value = "write")
-	public String writeSubmit(LocalComm dto, HttpSession session) throws Exception {
+	public String writeSubmit(TypeComm dto, HttpSession session) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
 		try {
 			String root = session.getServletContext().getRealPath("/");
-			String pathname = root + "uploads" + File.separator + "localComm";
+			String pathname = root + "uploads" + File.separator + "typeComm";
 
 			dto.setUserId(info.getUserId());
-			service.insertLocalComm(dto, pathname);
+			service.insertTypeComm(dto, pathname);
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/localComm/list";
+		return "redirect:/typeComm/list";
 	}
 	
-	
-	@GetMapping(value = "listDong")
-	@ResponseBody
-	public Map<String, Object> listDong(@RequestParam long siguNum) throws Exception {
-
-		// 시군구의 동 목록 가져오기
-		List<LocalComm> listDong = service.listDong(siguNum);
-		
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("listDong", listDong);
-		
-		return model;
-	}
 	
 	@RequestMapping(value = "article")
 	public String article(@RequestParam long num,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
-			HttpSession session,
 			Model model) throws Exception {
 		
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query = "page=" + page;
@@ -178,9 +167,9 @@ public class LocalCommController {
 		
 		service.updateHitCount(num);
 		
-		LocalComm dto = service.readLocalComm(num);
+		TypeComm dto = service.readTypeComm(num);
 		if(dto == null) {
-			return "redirect:/localComm/list?" + query;
+			return "redirect:/typeComm/list?" + query;
 		}
 		
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
@@ -191,28 +180,20 @@ public class LocalCommController {
 		map.put("keyword", keyword);
 		map.put("num", num);
 		
-		LocalComm preReadDto = service.preReadLocalComm(map);
-		LocalComm nextReadDto = service.nextReadLocalComm(map);
+		TypeComm preReadDto = service.preReadTypeComm(map);
+		TypeComm nextReadDto = service.nextReadTypeComm(map);
 		
 		// 파일
-		List<LocalComm> listFile = service.listFile(num);
-		
-		// 게시글 좋아요 여부
-		map.put("userId", info.getUserId());
-		boolean userLocalCommLiked = service.userLocalCommLiked(map);
-		
+		List<TypeComm> listFile = service.listFile(num);
+	
 		model.addAttribute("dto", dto);
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
-		
 		model.addAttribute("listFile", listFile);
-		
-		model.addAttribute("userLocalCommLiked", userLocalCommLiked);
-		
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		
-		return ".localComm.article";
+		return ".typeComm.article";
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
@@ -222,66 +203,68 @@ public class LocalCommController {
 			Model model) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
-		LocalComm dto = service.readLocalComm(num);
+		TypeComm dto = service.readTypeComm(num);
 		if (dto == null || ! info.getUserId().equals(dto.getUserId())) {
-			return "redirect:/localComm/list?page=" + page;
+			return "redirect:/typeComm/list?page=" + page;
 		}
 
-		List<LocalComm> listFile = service.listFile(num);
+		List<TypeComm> listFile = service.listFile(num);
 
 		model.addAttribute("mode", "update");
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
 		model.addAttribute("listFile", listFile);
 
-		return ".localComm.write";
+		return ".typeComm.write";
 	}
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String updateSubmit(LocalComm dto,
+	public String updateSubmit(TypeComm dto,
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		if (info.getMembership() < 51) {
-			return "redirect:/localComm/list?page=" + page;
+			return "redirect:/typeComm/list?page=" + page;
 		}
 
 		try {
 			String root = session.getServletContext().getRealPath("/");
-			String pathname = root + File.separator + "uploads" + File.separator + "localComm";
+			String pathname = root + File.separator + "uploads" + File.separator + "typeComm";
 
 			dto.setUserId(info.getUserId());
-			service.updateLocalComm(dto, pathname);
+			service.updateTypeComm(dto, pathname);
 		} catch (Exception e) {
 		}
 
-		return "redirect:/localComm/list?page=" + page;
+		return "redirect:/typeComm/list?page=" + page;
 	}
 	
-	@RequestMapping(value = "delete")
 	public String delete(@RequestParam long num,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {
-		// SessionInfo info = (SessionInfo) session.getAttribute("member");
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
 		keyword = URLDecoder.decode(keyword, "utf-8");
-		String query = "page="+page;
-		
+		String query = "page=" + page;
 		if (keyword.length() != 0) {
 			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
 		}
 
+		if (info.getMembership() < 51) {
+			return "redirect:/typeComm/list?" + query;
+		}
+
 		try {
 			String root = session.getServletContext().getRealPath("/");
-			String pathname = root + "uploads" + File.separator + "localComm";
-			service.deleteLocalComm(num, pathname);
+			String pathname = root + "uploads" + File.separator + "typeComm";
+			service.deleteTypeComm(num, pathname);
 		} catch (Exception e) {
 		}
 
-		return "redirect:/localComm/list?" + query;
+		return "redirect:/typeComm/list?" + query;
 	}
 	
 
@@ -290,11 +273,11 @@ public class LocalCommController {
 			HttpServletResponse resp,
 			HttpSession session) throws Exception {
 		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "localComm";
+		String pathname = root + "uploads" + File.separator + "typeComm";
 
 		boolean b = false;
 
-		LocalComm dto = service.readFile(fileNum);
+		TypeComm dto = service.readFile(fileNum);
 		if (dto != null) {
 			String saveFilename = dto.getSaveFilename();
 			String originalFilename = dto.getOriginalFilename();
@@ -317,11 +300,11 @@ public class LocalCommController {
 			HttpServletResponse resp,
 			HttpSession session) throws Exception {
 		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "localComm";
+		String pathname = root + "uploads" + File.separator + "typeComm";
 
 		boolean b = false;
 
-		List<LocalComm> listFile = service.listFile(num);
+		List<TypeComm> listFile = service.listFile(num);
 		if (listFile.size() > 0) {
 			String[] sources = new String[listFile.size()];
 			String[] originals = new String[listFile.size()];
@@ -350,9 +333,9 @@ public class LocalCommController {
 	public Map<String, Object> deleteFile(@RequestParam long fileNum, HttpSession session) throws Exception {
 
 		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "localComm";
+		String pathname = root + "uploads" + File.separator + "typeComm";
 
-		LocalComm dto = service.readFile(fileNum);
+		TypeComm dto = service.readFile(fileNum);
 		if (dto != null) {
 			FileManager.doFileDelete(dto.getSaveFilename(), pathname);
 		}
@@ -414,7 +397,7 @@ public class LocalCommController {
 			model.addAttribute("total_page", total_page);
 			model.addAttribute("paging", paging);
 
-			return "localComm/listReply";
+			return "typeComm/listReply";
 		}
 
 		// 댓글 등록 : AJAX-JSON
@@ -451,41 +434,6 @@ public class LocalCommController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("state", state);
 			return map;
-		}
-		
-		// 게시글 좋아요 추가/삭제 
-		@PostMapping("insertLocalCommLike")
-		@ResponseBody
-		public Map<String, Object> insertLocalCommLike(@RequestParam long num,
-				@RequestParam boolean like,
-				HttpSession session) {
-			String state = "true";
-			int localCommLikeCount = 0;
-			SessionInfo info = (SessionInfo) session.getAttribute("member");
-			
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("num", num);
-			paramMap.put("userId", info.getUserId());
-			
-			try {
-				if(like) {
-					service.deleteLocalCommLike(paramMap);
-				} else {
-					service.insertLocalCommLike(paramMap);
-				}
-			} catch (DuplicateKeyException e) {
-				state = "liked";
-			} catch (Exception e) {
-				state = "false";
-			}
-			
-			localCommLikeCount = service.localCommLikeCount(num);
-			
-			Map<String, Object> model = new HashMap<>();
-			model.put("state", state);
-			model.put("localCommLikeCount", localCommLikeCount);
-			
-			return model;
 		}
 		
 }

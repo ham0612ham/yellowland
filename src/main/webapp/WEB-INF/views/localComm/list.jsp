@@ -169,7 +169,7 @@ $(function(){
 		<h3 class="fw-semibold">커뮤니티</h3>
 		<div class="row row-cols-auto">
 			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">커뮤니티 홈</a></div>
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">업종별 커뮤니티</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/typeComm/list" class="text-decoration-none" style="color:#C2C2C2">업종별 커뮤니티</a></div>
 			<div class="colNoticeTitle" style="margin-bottom: 15px;">
 				<div>지역별 커뮤니티</div>
 			</div>
@@ -230,7 +230,7 @@ $(function(){
 								<td>${dto.regDate}</td>
 								<td>${dto.userName}</td>
 								<td>${dto.hitCount}</td>
-								<td>0</td>
+								<td>${dto.likeCount}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
