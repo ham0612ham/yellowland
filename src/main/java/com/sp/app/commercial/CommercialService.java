@@ -12,5 +12,6 @@ public interface CommercialService {
 	public List<Sg_sales_top10> list_sg_sales_top10(Sg_sales_top10 sg);
 	public List<Sg_float_top10> list_sg_float_top10(Sg_float_top10 sg);
 	public List<Sg_citizen_top10> list_sg_citizen_top10(Sg_citizen_top10 sg);
+	public List<Sg_rent_dong_top10> list_sg_rent_dong_top10(String siguNum);
 	public Position getSiguLatLong(String siguNum);
 }

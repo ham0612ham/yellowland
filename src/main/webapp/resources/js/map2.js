@@ -1,15 +1,15 @@
 $(function(){
 	let menu = $(this).val();
 	let dan = "개";
-		
+	
 	let url = "/app/commercial/sg_store_top10";
-		
+	
 	let level = 8;
 	let lat1 = 37.5729503;
 	let long1 = 126.9793579;
 	let innerHtml = '';
 	let query = "siguNum=all";
-		
+	
 	const fn = function(data) {
 		let obj2 = new Array();
 		$(data.list).each(function(index, item){
@@ -26,7 +26,7 @@ $(function(){
 				+color+".png'></div><div class='marker-rank-text'><p>"
 				+(index+1)+"</p></div></div><div class='marker-region-name'>"
 				+item.dongName+"</div><div class='marker-sales-total'>"
-				+item.chai+dan+"</div></div>";
+				+item.chai.toLocaleString()+dan+"</div></div>";
 			} else {
 				objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"
 				+item.dongName+"' data-lat='"
@@ -35,15 +35,15 @@ $(function(){
 				+color+".png'></div><div class='marker-rank-text' style='left: 41%;'><p>"
 				+(index+1)+"</p></div></div><div class='marker-region-name'>"
 				+item.dongName+"</div><div class='marker-sales-total'>"
-				+item.chai+dan+"</div></div>";
+				+item.chai.toLocaleString()+dan+"</div></div>";
 			}
 			
 			objs.latlng = new kakao.maps.LatLng(item.latitude, item.longitude)
 			obj2.push(objs);
-				
+			
 			innerHtml += "<div class='ranks d-flex flex-row'><div class='rank'>"
 				+(index+1)+"</div><div class='rank-region'>"+item.dongName
-				+"</div><div class='rank-value'>"+item.chai
+				+"</div><div class='rank-value'>"+item.chai.toLocaleString()
 				+dan+"</div><div class='rank-percent'>"+item.ratio+"% "+ud+"</div></div><hr class='horiz'>";
 		});
 		$("#rank-lists").html(innerHtml);
@@ -90,7 +90,7 @@ $(function(){
 					+color+".png'></div><div class='marker-rank-text'><p>"
 					+(index+1)+"</p></div></div><div class='marker-region-name'>"
 					+item.dongName+"</div><div class='marker-sales-total'>"
-					+item.chai+dan+"</div></div>";
+					+item.chai.toLocaleString()+dan+"</div></div>";
 				} else {
 					objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"
 					+item.dongName+"' data-lat='"
@@ -99,7 +99,7 @@ $(function(){
 					+color+".png'></div><div class='marker-rank-text' style='left: 41%;'><p>"
 					+(index+1)+"</p></div></div><div class='marker-region-name'>"
 					+item.dongName+"</div><div class='marker-sales-total'>"
-					+item.chai+dan+"</div></div>";
+					+item.chai.toLocaleString()+dan+"</div></div>";
 				}
 				
 				objs.latlng = new kakao.maps.LatLng(item.latitude, item.longitude)
@@ -107,7 +107,7 @@ $(function(){
 				
 				innerHtml += "<div class='ranks d-flex flex-row'><div class='rank'>"
 					+(index+1)+"</div><div class='rank-region'>"+item.dongName
-					+"</div><div class='rank-value'>"+item.chai
+					+"</div><div class='rank-value'>"+item.chai.toLocaleString()
 					+dan+"</div><div class='rank-percent "+pcolor+"'>"+item.ratio+"% "+ud+"</div></div><hr class='horiz'>";
 			});
 			if (siguNum !== "all") {
@@ -174,3 +174,4 @@ $(function(){
 		ajaxFun(url, "get", query, "json", fn);
 	});
 });
+

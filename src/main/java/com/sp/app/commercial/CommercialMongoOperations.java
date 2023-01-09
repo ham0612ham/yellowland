@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
@@ -502,6 +503,52 @@ public class CommercialMongoOperations {
 					top10.setChai(dto.getTot());
 					top10.setDongNum(dong);
 					top10.setRatio(0);
+				}
+				
+				if(top10.getDongNum() != 0) {
+					list.add(top10);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Sg_rent_dong_top10> list_sg_rent_dong_top10(String siguNum) {
+		List<Sg_rent_dong_top10> list = null;
+		
+		try {
+			BasicQuery query = new BasicQuery("{}");
+			list = mongo.find(query, Sg_rent_dong_top10.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<Sg_rent_dong_top10> list_sg_rent_dong_top10(List<Long> dongList){
+		List<Sg_rent_dong_top10> list = new ArrayList<Sg_rent_dong_top10>();
+		List<Sg_rent_dong_h> list1 = null;
+		Sg_rent_dong_top10 top10 = null;
+		MatchOperation matchOperation = null;
+		Aggregation aggregation = null;
+		AggregationResults<Sg_rent_dong_h> result1 = null;
+		try {
+			for(Long dong : dongList) {
+				top10 = new Sg_rent_dong_top10();
+				matchOperation = Aggregation.match(Criteria.where("dongNum").is(dong));
+				aggregation = Aggregation.newAggregation(matchOperation);
+				result1 = mongo.aggregate(aggregation, "sg_rent_dong_h", Sg_rent_dong_h.class);
+				list1 = result1.getMappedResults();
+				
+				for(Sg_rent_dong_h dto:list1) {
+					top10.setDongNum(dong);
+					top10.setDongName(dto.getDongName());
+					top10.setSiguNum(dto.getSiguNum());
+					top10.setSiguName(dto.getSiguName());
+					top10.setQ20223(dto.getQ20223());
 				}
 				
 				if(top10.getDongNum() != 0) {

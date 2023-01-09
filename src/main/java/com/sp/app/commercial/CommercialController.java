@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -244,6 +245,32 @@ public class CommercialController {
 			if( !siguNum.equals("all") ) {
 				pos = service.getSiguLatLong(siguNum);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		
+		if(! siguNum.equals("all")) {
+			map.put("level", 6);
+			map.put("lat1", pos.getLatitude());
+			map.put("long1", pos.getLongitude());
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value="getRentRankList")
+	@ResponseBody
+	public Map<String, Object> getRentRankList(@RequestParam String siguNum) throws Exception {
+		List<Sg_rent_dong_top10> list = new ArrayList<Sg_rent_dong_top10>();
+		Position pos = new Position();
+		
+		try {
+			list = service.list_sg_rent_dong_top10(siguNum);
+			
+			pos = service.getSiguLatLong(siguNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

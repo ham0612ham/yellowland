@@ -359,5 +359,45 @@ public class CommercialServiceImpl implements CommercialService {
 		
 		return list;
 	}
+
+	@Override
+	public List<Sg_rent_dong_top10> list_sg_rent_dong_top10(String siguNum) {
+		List<Sg_rent_dong_top10> list = null;
+		
+		try {
+			if(siguNum.equals("all")) {
+				list = commercialMongo.list_sg_rent_dong_top10(siguNum);
+			}  else {
+				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
+				list = commercialMongo.list_sg_rent_dong_top10(dongList);
+			}
+			
+			for(int i=0; i<list.size(); i++) {
+				Position po = dao.selectOne("commercial.getLongLat_dong", list.get(i).getDongNum());
+				if(po != null) {
+					list.get(i).setLatitude(po.getLatitude());
+					list.get(i).setLongitude(po.getLongitude());
+					list.get(i).setDongName(po.getDongName());
+				}
+			}
+			
+			for (int i = 1; i < list.size(); i++) {
+				for (int j = 0; j < list.size() - i; j++) {
+					if (list.get(j).getQ20223() > list.get(j + 1).getQ20223()) {
+						Collections.swap(list, j, j + 1);
+					}
+				}
+			}
+			
+			if (list.size() > 10) {
+				list = list.subList(0, 10);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 }

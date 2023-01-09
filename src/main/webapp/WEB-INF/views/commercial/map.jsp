@@ -92,7 +92,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .ranks > div { font-size: 13px; }
 .rank { width: 20px; text-align: center; }
 .rank-region { width: 140px; }
-.rank-value { width: 90px; font-weight: 600; text-align: right; padding-right: 5px; }
+.rank-value { width: 120px; font-weight: 600; text-align: right; padding-right: 5px; }
 .rank-percent { min-width: 60px; text-align: right; color: #36C88A; }
 .rank-per-red{ color:#e02171 }
 .horiz { margin: 3px 0; }
@@ -146,6 +146,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map3.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
 <script type="text/javascript">
 	
@@ -195,10 +196,10 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-big-txt">개업수는 <span class="analy-green-txt" id="geupsu-result"></span> 입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-quart-count"></span>
+						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-year-count"></span>
 					</div>
 					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="fl-right" id="geupsu-year-count"></span>
+						<span>전분기 대비</span><span class="fl-right" id="geupsu-quart-count"></span>
 					</div>
 				</div>
 				<div class="analy-graph" id="geupsu">
@@ -382,7 +383,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				</div>
 			</div>
 			
-			<div class="analysis-div">
+<!-- 			<div class="analysis-div">
 				<div class="analy-title">주거인구 수</div>
 				<div class="analy-big-txt">주거인구 수는 <span class="analy-green-txt" id="gugeoingu-su-result"></span>입니다.</div>
 				<div class="analy-discribe">
@@ -398,7 +399,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 						<div class="spinner-border text-primary" role="status"></div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			
 			<div style="height: 70px;"></div>
 			
@@ -447,10 +448,10 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="d-flex justify-content-center">
 					<input id="hotDong" type="radio" name="selectOne" checked>
 					<label for="hotDong" class="div-2" ><span>뜨는 동네</span></label>
-					<input id="hotArea" type="radio" name="selectOne">
-					<label for="hotArea" class="div-2"><span>뜨는 상권</span></label>
+					<input id="rentDong" type="radio" name="selectOne">
+					<label for="rentDong" class="div-2"><span>임대료 분석</span></label>
 				</div>
-				<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist">
+				<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist" id="select-radio">
 					<input class="nav-link active" id="stoCou" type="radio" role="tab" aria-controls="v-pills-home" name="selectMenu" value="stoCou" checked>
 				    <label for="stoCou" class="div-4 selectMenu" id="stoCou-lav">점포수</label>
 				    <input class="nav-link" id="sales" type="radio" role="tab" name="selectMenu" value="sales">
@@ -463,7 +464,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			</div>
 		</div>
 		
-		<div class="check-area">
+		<div class="check-area check-area-2">
 		
 			<div id="form-stoCou-sales">
 				<form name="form-stoCou-sales">
