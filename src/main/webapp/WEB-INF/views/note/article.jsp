@@ -95,7 +95,7 @@ function deleteNote() {
 					<td align="left" width="50%" style="    padding-left: 0px;">
 						<c:if test="${menuItem=='receive'}">
 							<button type="button" class="btn btn-primary btnReplyNote">답장 보내기</button>
-							<button type="button" class="btn btn-primary btnSpam">스팸신고</button>
+							<!-- <button type="button" class="btn btn-primary btnSpam">스팸신고</button> -->
 						</c:if>
 					</td>
 					<td align="right">

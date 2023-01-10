@@ -33,6 +33,9 @@
 						<li><a href="${pageContext.request.contextPath}/qna/list" aria-label="subemnu">1:1문의</a></li>
 					</ul>
 				</li>
+				<li>
+					<a href="${pageContext.request.contextPath}/event/list" class="main-menu-a">이벤트</a>
+				</li>
 				<c:if test="${sessionScope.member.membership==99}">
 					<li><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="main-menu2-a">관리자 메뉴</a>
 						<ul class="sub-menu2">
@@ -40,6 +43,7 @@
 							<li><a href="${pageContext.request.contextPath}/admin/faqManage/list" aria-label="subemnu">자주하는질문관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/qnaManage/list" aria-label="subemnu">1:1문의 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/board/list" aria-label="subemnu">게시글 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/eventManage/list" aria-label="subemnu">이벤트 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/memberManage/list" aria-label="subemnu">회원 관리</a></li>
 						</ul>
 					</li>

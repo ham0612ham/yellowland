@@ -47,7 +47,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 <c:if test="${sessionScope.member.userId==dto.userId}">
 function deleteOk() {
 	let query = "num=${dto.num}&imageFilename=${dto.imageFilename}";
-    let url = "${pageContext.request.contextPath}/event/delete?" + query;
+    let url = "${pageContext.request.contextPath}/admin/eventManage/delete?" + query;
 
     if(confirm("해당 이벤트를 삭제하시겠습니까?")) {
   	  location.href = url;
@@ -55,44 +55,6 @@ function deleteOk() {
 }
 </c:if>
 
-$(function(){
-	$(".btnSendEventLike").click(function(){
-		if(!'${sessionScope.member.userId}') {
-			alert("공감은 회원만 가능합니다.");
-			return false;			
-		}
-		
-		let color = "";
-		const $i = $(this).find("i");
-		let like = $i.hasClass("bi-heart-fill");
-		
-		let url = "${pageContext.request.contextPath}/event/insertEventLike";
-		let num = "${dto.num}";
-		let query = "num=" + num + "&like=" + like;
-		
-		const fn = function(data){
-			let state = data.state;
-			if(state === "true") {
-				if( like ) {
-					$i.removeClass("bi-heart-fill").addClass("bi-heart");
-					color = "#A3A6AD";
-				} else {
-					$i.removeClass("bi-heart").addClass("bi-heart-fill");
-					color = "#FF4F99";
-				}
-				$i.css("color", color);
-				let count = data.likeCount;
-				$("#eventLikeCount").text(count);
-			} else if(state === "liked") {
-				alert("좋아요는 한 번만 가능합니다");
-			} else if(state === "false") {
-				alert("공감 여부 처리가 실패했습니다.");
-			}
-		};
-		
-		ajaxFun(url, "post", query, "json", fn);
-	});
-});
 </script>
 
 <div class="container">
@@ -162,7 +124,7 @@ $(function(){
 				<td width="50%">
 					<c:choose>
 						<c:when test="${sessionScope.member.userId==dto.userId}">
-							<button type="button" class="btn btn-func" onclick="location.href='${pageContext.request.contextPath}/event/update?num=${dto.num}&page=${page}';">수정</button>
+							<button type="button" class="btn btn-func" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/update?num=${dto.num}&page=${page}';">수정</button>
 						</c:when>
 						<c:otherwise>
 							<button type="button" class="btn btn-func" disabled="disabled">수정</button>
@@ -180,7 +142,7 @@ $(function(){
 				</td>
 				</c:if>
 				<td class="text-end">
-					<button type="button" class="btn btn-func" onclick="location.href='${pageContext.request.contextPath}/event/list?page=${page}';">리스트</button>
+					<button type="button" class="btn btn-func" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/list?page=${page}';">리스트</button>
 				</td>
 			</tr>
 		</table>

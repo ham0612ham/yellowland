@@ -32,16 +32,18 @@
 						<li><a href="${pageContext.request.contextPath}/qna/list" aria-label="subemnu">1:1문의</a></li>
 					</ul>
 				</li>
-				<li><a href="${pageContext.request.contextPath}/event/list" class="main-menu-a">이벤트</a>
+				<li>
+					<a href="${pageContext.request.contextPath}/event/list" class="main-menu-a">이벤트</a>
 				</li>
 				<c:if test="${sessionScope.member.membership==99}">
-					<li><a href="${pageContext.request.contextPath}/admin/notice/list" class="main-menu-a">관리자 메뉴</a>
+					<li><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="main-menu-a">관리자 메뉴</a>
 						<ul class="sub-menu" style="z-index: 100">
-							<li><a href="${pageContext.request.contextPath}/admin/notice/list" aria-label="subemnu">공지사항 관리</a></li>
-							<li><a href="${pageContext.request.contextPath}/admin/faq/list" aria-label="subemnu">자주하는 질문 관리</a></li>
-							<li><a href="${pageContext.request.contextPath}/admin/qna/list" aria-label="subemnu">1:1문의 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/noticeManage/list" aria-label="subemnu">공지사항 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/faqManage/list" aria-label="subemnu">자주하는 질문 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/qnaManage/list" aria-label="subemnu">1:1문의 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/eventManage/list" aria-label="subemnu">이벤트 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/board/list" aria-label="subemnu">게시글 관리</a></li>
-							<li><a href="${pageContext.request.contextPath}/admin/member/list" aria-label="subemnu">회원 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/memberManage/list" aria-label="subemnu">회원 관리</a></li>
 						</ul>
 					</li>
 				</c:if>

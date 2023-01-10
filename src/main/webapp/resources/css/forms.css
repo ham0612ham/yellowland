@@ -34,19 +34,19 @@
 }
 
 .btn-primary {
-    background: #106eea;
-	border:1px solid #00a6eb;
+    background: #36C88A;
+	border:1px solid #36C88A;
     color:#fff;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-    background: #3284f1;
-    border:1px solid #00a6eb;
+    background: #18BD77;
+    border:1px solid #36C88A;
     color:#fff;
 }
 
 .btnConfirm {
-	background: #106eea;
-	border: solid 1px #00a6eb;
+	background: #36C88A;
+	border: solid 1px #36C88A;
     color: #fff;
     font-size: 17px;
     padding: 15px 10px;
@@ -58,15 +58,15 @@
 }
 .btnConfirm:hover, .btnConfirm:focus, .btnConfirm:active {
 	font-weight: 400;
-	background: #3284f1;
-	border: solid 1px #00a6eb;
+	background: #18BD77;
+	border: solid 1px #36C88A;
 }
 
 .btn-dark { background: #424951; border:1px solid #2f3741; color:#fff; }
 .btn-dark:hover, .btn-dark:active, .btn-dark:focus { background: #333; border:1px solid #222; color:#fff; }
 
-.btn-primary { background: #106eea; border:1px solid #00a6eb; color:#fff; }
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus { background: #3284f1; border:1px solid #00a6eb; color:#fff; }
+.btn-primary { background: #36C88A; border:1px solid #36C88A; color:#fff; }
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus { background: #18BD77; border:1px solid #36C88A; color:#fff; }
 
 /* form */
 .form-control {

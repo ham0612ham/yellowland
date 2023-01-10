@@ -163,7 +163,7 @@ $(function(){
 							</td>
 							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
 								<span>
-									<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.content}</a>
+									<a href="${articleUrl}&num=${dto.num}" class="text-reset text-truncate">${dto.content}</a>
 								</span>
 							</td>
 							<td class="pd" style="padding: 10px 0;">${menuItem=="receive"?dto.senderName:dto.receiverName}</td>

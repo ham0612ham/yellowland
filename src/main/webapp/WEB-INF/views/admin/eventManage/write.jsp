@@ -83,7 +83,7 @@ function sendOk() {
         return;
 	}
 
-    f.action = "${pageContext.request.contextPath}/event/${mode}";
+    f.action = "${pageContext.request.contextPath}/admin/eventManage/${mode}";
     f.submit();
 }
 

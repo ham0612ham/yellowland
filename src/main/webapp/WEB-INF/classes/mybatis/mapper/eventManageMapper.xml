@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="eventManage">
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>		
+	</select>
+	
+	<insert id="insertEvent" parameterType="com.sp.app.admin.eventManage.Event">
+		INSERT INTO event(num, userId, subject, imageFilename, content, reg_date, enable, staDate, endDate)
+		VALUES (event_seq.NEXTVAL, #{userId}, #{subject}, #{imageFilename}, #{content}, SYSDATE, #{enable}, TO_DATE(#{staDate}, 'YYYY-MM-DD'), TO_DATE(#{endDate}, 'YYYY-MM-DD'))
+	</insert>
+
+	<sql id="where-list">
+		<if test="condition=='all'">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject'">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content'">
+			INSTR(content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName'">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='reg_date'">
+			( TO_CHAR(e.reg_date, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(e.reg_date, 'YYYY.MM.DD') = #{keyword}
+				OR TO_CHAR(e.reg_date, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+	
+	<select id="listEvent" parameterType="map" resultType="com.sp.app.admin.eventManage.Event">
+		SELECT num, e.userId, userName, subject, imageFilename, enable,
+			TO_CHAR(staDate, 'yyyy.mm.dd') as staDate, 
+			TO_CHAR(endDate, 'yyyy.mm.dd') as endDate
+		FROM event e
+		JOIN member1 m ON e.userId = m.userId
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="readEvent" parameterType="Long" resultType="com.sp.app.admin.eventManage.Event">
+		SELECT e.num, e.userId, userName, subject, imageFilename, content
+			, TO_CHAR(staDate, 'yyyy.mm.dd') as staDate, TO_CHAR(endDate, 'yyyy.mm.dd') as endDate, TO_CHAR(reg_date, 'yyyy.mm.dd') as reg_date
+		FROM event e
+		JOIN member1 m ON e.userId = m.userId
+		WHERE e.num = #{num}
+	</select>
+	
+	<select id="eventLikeCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM eventLike WHERE num=#{num}
+	</select>
+	
+	<select id="preReadEvent" parameterType="map" resultType="com.sp.app.admin.eventManage.Event">
+		SELECT num, subject
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="nextReadEvent" parameterType="map" resultType="com.sp.app.admin.eventManage.Event">
+		SELECT num, subject
+		FROM event e
+		JOIN member1 m ON e.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateEvent" parameterType="com.sp.app.admin.eventManage.Event">
+		UPDATE event SET subject=#{subject}, imageFilename=#{imageFilename},
+			content=#{content}, enable = #{enable}, staDate = TO_DATE(#{staDate}, 'YYYY-MM-DD'), endDate = TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		WHERE num=#{num}
+	</update>
+	
+	<delete id="deleteEvent" parameterType="Long">
+		DELETE FROM event WHERE num = #{num}
+	</delete>
+		
+</mapper>
