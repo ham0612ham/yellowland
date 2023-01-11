@@ -544,7 +544,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<span>순위 TOP 10</span>
 				<span class="show-hide-btn"><img style='width: 12px;' src='${pageContext.request.contextPath}/resources/images/hide_btn.png'></span>
 			</div>
-			<div class="rank-dis" style="margin-top: 3px;"><span class="hole-rank-title">전체</span><span class="hole-rank-quarter">2022년 3분기 기준</span></div>
+			<div class="rank-dis" style="margin-top: 3px;"><span class="hole-rank-title">전체</span><span class="hole-rank-quarter" id="kijun">2022년 3분기 기준</span></div>
 			<div class="rank-div" id="rank-lists" style="max-height: 150px; overflow: scroll;">
 				<div class="d-flex justify-content-center">
 					<div class="spinner-border text-primary" role="status">

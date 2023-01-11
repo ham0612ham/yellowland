@@ -41,8 +41,8 @@
 							<li><a href="${pageContext.request.contextPath}/admin/noticeManage/list" aria-label="subemnu">공지사항 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/faqManage/list" aria-label="subemnu">자주하는 질문 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/qnaManage/list" aria-label="subemnu">1:1문의 관리</a></li>
-							<li><a href="${pageContext.request.contextPath}/admin/eventManage/list" aria-label="subemnu">이벤트 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/board/list" aria-label="subemnu">게시글 관리</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/eventManage/list" aria-label="subemnu">이벤트 관리</a></li>
 							<li><a href="${pageContext.request.contextPath}/admin/memberManage/list" aria-label="subemnu">회원 관리</a></li>
 						</ul>
 					</li>

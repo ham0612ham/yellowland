@@ -88,7 +88,7 @@ textarea.form-control { height: 170px; resize : none; }
 .form-select[readonly] { background-color:#f8f9fa; }
 
 .form-check-input { width: 1em; height: 1em; vertical-align: middle; background-color: #fff; border: 1px solid rgba(0,0,0,.25); margin-top: 7px; margin-bottom: 7px; }
-.form-check-input:checked { background-color: #0d6efd; border-color: #0d6efd; }
+.form-check-input:checked { background-color: #36C88A; border-color: #36C88A; }
 .form-check-input[type=checkbox] { border-radius: 0.25em; }
 .form-check-label { cursor: pointer; vertical-align: middle; margin-top: 7px; margin-bottom: 7px; }
 

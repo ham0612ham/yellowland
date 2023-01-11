@@ -2,6 +2,7 @@ $(function(){
 	$("#rentDong").click(function(){
 		$(".selectMenu").hide();
 		$(".check-area-2").hide();
+		$("#kijun").text("3.3㎡당 월 임대료, 2022년 3분기 기준");
 	});
 	
 	$("#hotDong").click(function(){

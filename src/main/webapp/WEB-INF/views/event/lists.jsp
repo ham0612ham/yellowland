@@ -10,7 +10,7 @@
 					 			<img class="event-image" src="${pageContext.request.contextPath}/uploads/photo/${dto.imageFilename}">
 					 		</a>
 					 		<div class="event-div">
-						 		<div class="event-title">${dto.subject}</div>
+						 		<div class="event-title text-truncate">${dto.subject}</div>
 						 		<div class="event-date">${dto.staDate} ~ ${dto.endDate}</div>
 					 		</div>
 						</div>
