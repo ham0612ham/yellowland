@@ -35,6 +35,9 @@
 				<li>
 					<a href="${pageContext.request.contextPath}/event/list" class="main-menu-a">이벤트</a>
 				</li>
+				<li>
+					<a href="${pageContext.request.contextPath}/tendency/main" class="main-menu-a">성향 테스트</a>
+				</li>
 				<c:if test="${sessionScope.member.membership==99}">
 					<li><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="main-menu-a">관리자 메뉴</a>
 						<ul class="sub-menu" style="z-index: 100">
