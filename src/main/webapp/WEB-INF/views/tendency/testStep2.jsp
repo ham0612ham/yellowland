@@ -45,15 +45,13 @@
 }
 .q-mark { text-align: left; font-size: 30px; font-weight: 600; color: #49B3FF; }
 .q-disc { font-size: 20px; }
-.choice-div { padding: 30px; }
-.choice-tags { 
-	width: 200px; height: 200px; border-radius: 100px; 
-	text-align: center; color: #fff; font-size: 30px;
-	font-weight: 600; padding-top: 75px; cursor: pointer;
+.choice-border { border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; }
+.choice-border:hover { 
+	border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; cursor: pointer; 
+	background-color: #DDDDDD;
 }
-.food { background-color: #36C88A; box-shadow: 0px 0px 15px rgb(54, 200, 138); }
-.service { background-color: #49B3FF; box-shadow: 0px 0px 15px rgb(73, 179, 255); }
-.retail { background-color: #756EF2; box-shadow: 0px 0px 15px rgb(117, 110, 242); }
+.choice-border:first-child { margin-top: 40px; }
+.choice-tags { padding: 10px 30px; }
 
 .food:hover { background-color: #18BD77; box-shadow: 0px 0px 15px rgb(54, 200, 138); }
 .service:hover { background-color: #389FE9; box-shadow: 0px 0px 15px rgb(73, 179, 255); }
@@ -68,14 +66,25 @@
 	width: 20px; height: 20px; background-color: #000; color: #fff;
 	font-size: 12px; padding: auto; text-align: center; padding-top: 2px;
 }
+.pre-btn { text-align: right; margin-top: 30px; color: #A3A6AD; }
+.pre-btn:hover { color: #36C88A; }
 </style>
 
 <script type="text/javascript">
+$(function(){
+	$(".pre-btn").click(function(){
+		location.href='${pageContext.request.contextPath}/tendency/testStep1';
+	});
+});
 
 $(function(){
 	$(".choice-tags").click(function(){
-		let cateJobNum = $(this).attr("data-val");
-		location.href = '${pageContext.request.contextPath}/tendency/testStep2?cateJobNum='+cateJobNum;
+		let val = $(this).attr("data-val");
+		$("input[name=independent]").val(val);
+		
+		const f = document.listForm;
+		f.action = "${pageContext.request.contextPath}/tendency/testStep3";
+		f.submit();
 	});
 });
 </script>
@@ -84,8 +93,8 @@ $(function(){
 	<div class="body-container show">
 		<div class="title-div">성향 테스트</div>
 		<div class="progress-div d-flex justify-content-betwee">
-			<span class="circle number-circle">1</span>
 			<span class="circle"></span>
+			<span class="circle number-circle">2</span>
 			<span class="circle"></span>
 			<span class="circle"></span>
 			<span class="circle"></span>
@@ -96,11 +105,15 @@ $(function(){
 			<span class="circle"></span>
 		</div>
 		<div class="question-div move">
-			<div><span class="q-mark">Q. </span><span class="q-disc"> 사업을 추진하려는 당신, 다음중 더 끌리는 업종을 선택해주세요.</span></div>
-			<div class='choice-div d-flex justify-content-between'>
-				<div class="choice-tags food" data-val="CS1" onclick="">외식업</div>
-				<div class="choice-tags service" data-val="CS2">서비스업</div>
-				<div class="choice-tags retail" data-val="CS3">소매업</div>
+			<div><span class="q-mark">Q. </span><span class="q-disc"> 사업을 추진하려는 당신, 다음중 어떤 항목이 더 끌리는지 선택해주세요.</span></div>
+			<div class='choice-div'>
+				<div class="choice-border"><div class="choice-tags" data-val="objective">정해진 길을 그대로 따르는 것이 좋다.</div></div>
+				<div class="choice-border"><div class="choice-tags" data-val="subjective">나만의 독창적인 아이이디어로 꾸며나가는 것이 좋다.</div></div>
+				<div class="pre-btn">이전 선택지</div>
+				<form name="listForm" method="post">
+					<input type="hidden" name="cateJobNum" value="${dto.cateJobNum}">
+					<input type="hidden" name="independent" value="">
+				</form>
 			</div>
 		</div>
 	</div>
