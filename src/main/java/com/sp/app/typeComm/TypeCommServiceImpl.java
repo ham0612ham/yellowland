@@ -327,5 +327,31 @@ public class TypeCommServiceImpl implements TypeCommService {
 			throw e;
 		}
 	}
+
+	@Override
+	public List<TypeComm> listCategory() throws Exception {
+		List<TypeComm> listCategory = null;
+		
+		try {
+			listCategory = dao.selectList("typeComm.listCategory");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listCategory;
+	}
+
+	@Override
+	public List<TypeComm> listJob(String catejobNum) throws Exception {
+	List<TypeComm> listJob = null;
+		
+		try {
+			listJob = dao.selectList("typeComm.listJob", catejobNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listJob;
+	}
 	
 }	

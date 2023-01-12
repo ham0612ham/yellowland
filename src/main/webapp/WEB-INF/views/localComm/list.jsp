@@ -104,8 +104,14 @@
 </style>
 
 <script type="text/javascript">
-function sendSearch() {
-	
+function searchRegion() {
+	let f = document.typeSelectorForm;
+	f.submit();
+}
+
+function searchCondtion() {
+	const f = document.searchForm;
+	f.submit();
 }
 
 function login() {
@@ -155,13 +161,23 @@ $(function(){
 			$.each(data.listDong, function(index, item){
 				let dongNum = item.dongNum;
 				let dongName = item.dongName;
-				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
+				
+				let ss = "${dongNum}" == dongNum ? "selected = 'selected'" : ""
+						
+				let s = "<option value='"+dongNum+"' " + ss + ">"+dongName+"</option>";
 				$("form select[name=dongNum]").append(s);
 			});
 		};
 		ajaxFun(url, "get", query, "json", fn);
 	});
+	
+	let siguNum = "${siguNum}"
+	if(siguNum) {
+		$("form select[name=siguNum]").trigger("change");
+	}	
+	
 });
+
 </script>
 
 <div class="container">
@@ -181,32 +197,26 @@ $(function(){
 			
 			<h6 class="semiTitle">&nbsp;지역 기준</h6>
 			
-			<form class="typeSelectorForm">
-				<thead>
-					<tr>
-						<th scope="col" class="typeCkeck"></th>
-						<th scope="col" class="typeCkeck">
-							<div class="col-auto p-1" style="flex: 1; float: left;">
-								<select name="siguNum" class="form-select" style="width: 125px;">
-									<option value="">:: 시군구 ::</option>
-									<c:forEach var="vo" items="${listSigu}">
-										<option value="${vo.siguNum}"
-											${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
-									</c:forEach>
-								</select>
-							</div>
-							<div class="col-auto p-1" style="flex: 1; float: left;">
-								<select name="dongNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>행정동</option>
-								</select>
-							</div>
-						</th>
-					</tr>
-				</thead>
+			<form name="typeSelectorForm" method="post" action="${pageContext.request.contextPath}/localComm/list">
+				<div class="col-auto p-1" style="flex: 1; float: left;">
+					<select name="siguNum" class="form-select" style="width: 125px;">
+						<option value="">:: 시군구 ::</option>
+						<c:forEach var="vo" items="${listSigu}">
+							<option value="${vo.siguNum}"
+								${vo.siguNum==siguNum?"selected='selected'":""}>${vo.siguName}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-auto p-1" style="flex: 1; float: left;">
+					<select name="dongNum" class="form-select" style="width: 125px;">
+						<option value="">행정동</option>
+					</select>
+				</div>
+				<div class="col-auto">
+					<button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 3px;" onclick="searchRegion();">조회</button>
+				</div>
 			</form>
 			
-			<button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 3px;" onclick="sendSearch();">조회</button>
-			<br>
 			<hr class="division">
 			<div class="container text-center" id="board" style="margin-left: 28px;">
 				<table class="table">
@@ -225,7 +235,12 @@ $(function(){
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
 								<td>
-									<a href="${articleUrl}&num=${dto.num}" style="text-decoration:none; color:black;">${dto.subject}</a>
+									<c:if test="${empty sessionScope.member.userId}">
+										<a href="${pageContext.request.contextPath}/member/login"; style="color:black; text-decoration: none;">${dto.subject}</a>
+									</c:if> 
+									<c:if test="${not empty sessionScope.member.userId}">
+										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none;">${dto.subject}</a>
+									</c:if>
 								</td>
 								<td>${dto.regDate}</td>
 								<td>${dto.userName}</td>
@@ -257,20 +272,21 @@ $(function(){
 
 
 			<div class="search">
-				<form action="">
+				<form name="searchForm" action="${pageContext.request.contextPath}/localComm/list" method="post">
 					<div class="searchCondition" style="margin-left: 220px; margin-bottom: 20px;">
-						<select class="form-select" id="condition">
-								<option selected>전체</option>
-								<option value="1">제목</option>
-								<option value="2">제목+내용</option>
-								<option value="3">내용</option>
+						<select class="form-select" id="condition" name="condition">
+								<option selected value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
+								<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+								<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
 					</div>
 					<div class="searchInput">
-						<input type="text" class="form-control" id="searchComm">
+						<input type="text" class="form-control" id="searchComm" value="${keyword}">
 					</div>
 					<div class="searchButton">
-						<button type="button" class="btn btn-primary ">검색</button>
+						<input type="hidden" name = "siguNum" value="${siguNum}">
+						<input type="hidden" name = "dongNum" value="${dongNum}">
+						<button type="button" class="btn btn-primary" onclick="searchCondtion()">검색</button>
 					</div>
 				</form>
 			</div>

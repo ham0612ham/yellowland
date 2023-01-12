@@ -39,6 +39,20 @@
 	    --bs-btn-active-border-color: #18bd77;
 }  
   
+.articleWriterCircle {display: inline; color: #36C88A;}  
+  
+.row reply-writer {
+	height: 20px;
+}  
+  
+.image image_resized {
+	 max-width: 100%;
+  height: auto;
+  display: block;
+}  
+  
+div#ckEditor img { max-width: 100%; height: auto; }
+  
 </style>
 
 <script type="text/javascript">
@@ -93,10 +107,15 @@ function listPage(page) {
 	
 	const fn = function(data){
 		$(selector).html(data);
+		
+		$(".articleWriterCircle").each(function(){
+			if($(this).attr("data-userId") == "${dto.userId}") {
+				$(this).css("color", "#36C88A");
+			}
+		});
 	};
 	ajaxFun(url, "get", query, "html", fn);
 }
-
 
 
 $(function(){
@@ -129,7 +148,6 @@ $(function(){
 	});
 });
 
-
 //댓글 삭제
 $(function(){
 	$("body").on("click", ".deleteReply", function(){
@@ -151,6 +169,8 @@ $(function(){
 		ajaxFun(url, "post", query, "json", fn);
 	});
 });
+
+
 
 // 게시글 공감 여부
 $(function(){
@@ -179,7 +199,7 @@ $(function(){
 					color = "#FF4F99";
 				}
 				$i.css("color", color);
-				let count = data.likeCount;
+				let count = data.localCommLikeCount;
 				$("#localCommLikeCount").text(count);
 			} else if(state === "liked") {
 				alert("좋아요는 한 번만 가능합니다");
@@ -192,6 +212,88 @@ $(function(){
 	});
 });
 
+// ckEditor 이미지 사이즈 조절
+/*
+CKEDITOR.on('instanceReady', function (ev) {
+ev.editor.dataProcessor.htmlFilter.addRules(
+    {
+        elements:
+        {
+            $: function (element) {
+                // Output dimensions of images as width and height
+                if (element.name == 'img') {
+                    var style = element.attributes.style;
+
+                    if (style) {
+                        // Get the width from the style.
+                        var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
+                            width = match && match[1];
+
+                        // Get the height from the style.
+                        match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
+                        var height = match && match[1];
+
+                        if (width) {
+                            element.attributes.style = element.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
+                            element.attributes.width = width;
+                        }
+
+                        if (height) {
+                            element.attributes.style = element.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
+                            element.attributes.height = height;
+                        }
+                    }
+                }
+
+
+
+                if (!element.attributes.style)
+                    delete element.attributes.style;
+
+                return element;
+            }
+        }
+    });
+});
+*/
+
+// 이름 마스킹 처리
+let maskingFunc = {
+	checkNull : function (str){
+		if(typeof str == "undefined" || str == null || str == ""){
+			return true;
+		}
+		else{
+			return false;
+		}
+	},
+	/*
+	※ 이름 마스킹
+	ex1) 원본 데이터 : 갓댐희, 변경 데이터 : 갓댐*
+	ex2) 원본 데이터 : 하늘에수, 변경 데이터 : 하늘**
+	ex3) 원본 데이터 : 갓댐, 변경 데이터 : 갓*
+	*/
+	name : function(userName){
+		let originStr = userName;
+		let maskingStr;
+		let strLength;
+		
+		if(this.checkNull(originStr) == true){
+			return originStr;
+		}
+		
+		strLength = originStr.length;
+		
+		if(strLength < 3){
+			maskingStr = originStr.replace(/(?<=.{1})./gi, "*");
+		}else {
+			maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
+		}
+		
+		return maskingStr;
+	}
+}
+
 </script>
 
 <div class="container">
@@ -201,7 +303,7 @@ $(function(){
 		</div>
 		
 		<div class="category-title">
-		  ${dto.siguName}시구이름 >  ${dto.dongName}동이름 </div>
+		  ${dto.siguName} >  ${dto.dongName} </div>
 		<div class="body-main">
  			<hr style="border: 0; height: 2px; background: black; margin-bottom: 0px;">
 			<table class="table mb-0">
@@ -216,7 +318,7 @@ $(function(){
 				<tbody>
 					<tr>
 						<td width="50%">
-							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName}
+							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName} {maskingStr}
 						</td>
 						<td colspan="2" width="50%" style="text-align: right;">
 						    <p style="display: inline; color: #696969; ">작성일자 </p><p style="display: inline; font-weight: 500;">${dto.regDate}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline; color: #696969;">조회</p> <p style="display: inline; font-weight: 500;">${dto.hitCount}</p>
@@ -224,7 +326,7 @@ $(function(){
 					</tr>
 					
 					<tr>
-						<td colspan="2" valign="top" height="200" style="min-height: 500px; overflow-wrap: anywhere; border-bottom: none;">
+						<td colspan="2" valign="top" height="200" style="max-width: 500px; overflow-wrap: anywhere; border-bottom: none;" id="ckEditor">
 							${dto.content}
 						</td>
 					</tr>

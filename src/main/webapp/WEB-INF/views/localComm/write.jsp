@@ -57,6 +57,8 @@ element.style {
 	border: 2px;
 }
 
+  
+div#ckEditor img { max-width: 100%; height: auto; }
 
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
@@ -145,18 +147,34 @@ $(function(){
 		
 		let url = "${pageContext.request.contextPath}/localComm/listDong";
 		let query = "siguNum="+siguNum;
-		
+
 		const fn = function(data) {
 			$.each(data.listDong, function(index, item){
 				let dongNum = item.dongNum;
 				let dongName = item.dongName;
-				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
+				
+				let ss = "${dto.dongNum}" == dongNum ? "selected = 'selected'" : ""
+			
+				let s = "<option value='"+dongNum+"' " + ss + ">"+dongName+"</option>";
 				$("form select[name=dongNum]").append(s);
 			});
 		};
 		ajaxFun(url, "get", query, "json", fn);
 	});
+
+	let mode = "${mode}"
+	if(mode == "update") {
+		$("form select[name=siguNum]").trigger("change");
+	}
 });
+
+//ckEditor 이미지 사이즈 조절
+/*
+CKEDITOR.replace( 'editor1', {
+    disallowedContent : 'img{width,height}'
+} );
+*/
+
 </script>
 
 <div class="container">
@@ -200,7 +218,7 @@ $(function(){
 					<tr>
 						<th scope="row">글 내용</th>
 						<td>
-							<div class="editor">${dto.content}</div> <input type="hidden"
+							<div class="editor" id="ckEditor">${dto.content}</div> <input type="hidden"
 							name="content">
 						</td>
 					</tr>
@@ -227,6 +245,7 @@ $(function(){
 							
 						<c:if test="${mode=='update'}">
 							<input type="hidden" name="num" value="${dto.num}">
+							<input type="hidden" name="page" value="${page}">
 							
 						</c:if>
 					</td>

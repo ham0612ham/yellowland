@@ -20,6 +20,10 @@ public interface TypeCommService {
 	public int typeCommLikeCount(long num);
 	public boolean userTypeCommLiked(Map<String, Object> map);
 	
+	// 업종
+	public List<TypeComm> listCategory() throws Exception;
+	public List<TypeComm> listJob(String catejobNum) throws Exception;
+	
 	// 댓글
 	public void insertReply(Reply dto) throws Exception;
 	public List<Reply> listReply(Map<String, Object> map);

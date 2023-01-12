@@ -93,11 +93,14 @@ public class TypeCommController {
 		
 		// 글 리스트
 		List<TypeComm> list = service.ListTypeComm(map);
+		// 업종 리스트
+		List<TypeComm> listCategory = service.listCategory();
 				
 		String cp = req.getContextPath();
 		String query = "";
 		String listUrl = cp + "/typeComm/list";
 		String articleUrl = cp + "/typeComm/article?page=" + current_page;
+		
 		if (keyword.length() != 0) {
 			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
 		}
@@ -110,6 +113,7 @@ public class TypeCommController {
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 				
 		model.addAttribute("list", list);
+		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("size", size);
@@ -127,6 +131,10 @@ public class TypeCommController {
 	@GetMapping(value = "write")
 	public String writeForm(Model model) throws Exception {
 
+		// 업종 목록 가져오기
+		List<TypeComm> listCategory = service.listCategory();
+		
+		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("mode", "write");
 	
 		return ".typeComm.write";
@@ -150,14 +158,28 @@ public class TypeCommController {
 		return "redirect:/typeComm/list";
 	}
 	
+	@GetMapping(value = "listJob")
+	@ResponseBody
+	public Map<String, Object> listJob(@RequestParam String catejobNum) throws Exception {
+		// 업종 대분류의 소분류 목록 가져오기
+		List<TypeComm> listJob = service.listJob(catejobNum);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("listJob", listJob);
+		
+		return model;
+	}
+	
 	
 	@RequestMapping(value = "article")
 	public String article(@RequestParam long num,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
+			HttpSession session,
 			Model model) throws Exception {
 		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query = "page=" + page;
@@ -171,6 +193,8 @@ public class TypeCommController {
 		if(dto == null) {
 			return "redirect:/typeComm/list?" + query;
 		}
+		
+		int likeCount = service.typeCommLikeCount(num);
 		
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		
@@ -186,10 +210,19 @@ public class TypeCommController {
 		// 파일
 		List<TypeComm> listFile = service.listFile(num);
 	
+		// 게시글 좋아요 여부
+		map.put("userid", info.getUserId());
+		boolean userTypeCommLiked = service.userTypeCommLiked(map);
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
+		
 		model.addAttribute("listFile", listFile);
+		
+		model.addAttribute("userTypeCommLiked", userTypeCommLiked);
+		model.addAttribute("likeCount", likeCount);
+		
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		
@@ -207,9 +240,13 @@ public class TypeCommController {
 		if (dto == null || ! info.getUserId().equals(dto.getUserId())) {
 			return "redirect:/typeComm/list?page=" + page;
 		}
-
+		
+		// 파일 리스트
 		List<TypeComm> listFile = service.listFile(num);
-
+		// 업종 리스트
+		List<TypeComm> listCategory = service.listCategory();
+		
+		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("mode", "update");
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
@@ -224,9 +261,6 @@ public class TypeCommController {
 			HttpSession session) throws Exception {
 
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		if (info.getMembership() < 51) {
-			return "redirect:/typeComm/list?page=" + page;
-		}
 
 		try {
 			String root = session.getServletContext().getRealPath("/");

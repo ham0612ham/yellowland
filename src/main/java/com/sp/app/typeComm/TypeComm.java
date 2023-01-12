@@ -13,6 +13,12 @@ public class TypeComm {
 	private String regDate;
 	private	int hitCount;
 	
+	// 업종 
+	private String catejobNum; 
+	private long jobNum;
+	
+	private String catejobName;
+	private String jobName;
 	
 	private int replyCount;
 	private int typeCommLikeCount;
@@ -84,6 +90,38 @@ public class TypeComm {
 		this.hitCount = hitCount;
 	}
 
+	public String getCatejobNum() {
+		return catejobNum;
+	}
+
+	public void setCatejobNum(String catejobNum) {
+		this.catejobNum = catejobNum;
+	}
+
+	public long getJobNum() {
+		return jobNum;
+	}
+
+	public void setJobNum(long jobNum) {
+		this.jobNum = jobNum;
+	}
+
+	public String getCatejobName() {
+		return catejobName;
+	}
+
+	public void setCatejobName(String catejobName) {
+		this.catejobName = catejobName;
+	}
+
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+
 	public int getReplyCount() {
 		return replyCount;
 	}
@@ -98,6 +136,14 @@ public class TypeComm {
 
 	public void setTypeCommLikeCount(int typeCommLikeCount) {
 		this.typeCommLikeCount = typeCommLikeCount;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public long getFileNum() {
@@ -148,5 +194,6 @@ public class TypeComm {
 		this.selectFile = selectFile;
 	}
 
+	
 	
 }

@@ -3,49 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <div class='reply-info'>
-	<span class='reply-count'>댓글 ${replyCount}개</span>
-	<span>[목록, ${pageNo}/${total_page} 페이지]</span>
+	<span class='reply-count' style="font-weight: bold; color: #36C88A; margin-left: 10px;">댓글 ${replyCount}개</span>
 </div>
 
 <table class='table table-borderless'>
 	<c:forEach var="vo" items="${listReply}">
-		<tr class='border bg-light'>
-			<td width='50%'>
-				<div class='row reply-writer'>
-					<div class='col-1'><i class='bi bi-person-circle text-muted icon'></i></div>
-					<div class='col-auto align-self-center'>
-						<div class='name'>${vo.userName}</div>
-						<div class='date'>${vo.regDate}</div>
-					</div>
-				</div>
-			</td>
-			<td width='50%' align='right' class='align-middle'>
-				<span class='reply-dropdown'><i class='bi bi-three-dots-vertical'></i></span>
-				<div class="reply-menu">
+		<tr class='border'>
+			<td width='90%'>
+				<div class='row reply-writer' style="width:100%; height: 40px;">
+					<h4 class="articleWriterCircle" data-userId="${vo.userId}" style="display: inline; color: #756EF2; width: 35px;" >●&nbsp;</h4>${dto.userName}
+					<div class='name' style="float: left; width: 70px; margin-right: 0px; font-weight: bold; padding:0px; padding-left: 10px; text-align: inherit; height: 30px;">${vo.userName}</div>
+					<div class='date' style="float: left; width: 200px; color: #9B9898;  padding:0px; height: 30px;" >${vo.regDate}</div>
 					<c:choose>
 						<c:when test="${sessionScope.member.userId==vo.userId}">
-							<div class='deleteReply reply-menu-item' data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
+							<div class='deleteReply reply-menu-item' style="width: 35px; margin-left:438px; display: inline; padding: 0px;" data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
 						</c:when>
-						<c:when test="${sessionScope.member.membership > 50}">
-							<div class='deleteReply reply-menu-item' data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
-							<div class='blockReply reply-menu-item'>차단</div>
-						</c:when>
-						<c:otherwise>
-							<div class='notifyReply reply-menu-item'>신고</div>
-							<div class='blockReply reply-menu-item'>차단</div>
-						</c:otherwise>
 					</c:choose>
+			
+				</div>
+				<div>
+					<div class='content' style="float: left; margin-left: 40px; width: 85%">${vo.content}</div>
 				</div>
 			</td>
 		</tr>
-		<tr>
-			<td colspan='2' valign='top'>${vo.content}</td>
-		</tr>
-
 	</c:forEach>
 </table>
 
 <div class="page-navigation">
 	${paging}
-</div>			
+</div>	

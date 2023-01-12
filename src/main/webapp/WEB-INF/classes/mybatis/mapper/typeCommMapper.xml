@@ -2,6 +2,20 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="typeComm">
+	<!-- 모든 업종(번호, 이름) -->
+	<select id="listCategory" resultType="com.sp.app.typeComm.TypeComm">
+		SELECT catejobNum, catejobName
+		FROM CATEGORYJOB
+	</select>
+	
+	<!-- 업종 대분류의 소분류(번호, 이름): 조건 업종 대분류 코드(String형) -->
+	<select id="listJob" resultType="com.sp.app.localComm.LocalComm" parameterType="String" >
+		SELECT c.catejobNum, c.catejobName, jobNum, jobName
+		FROM CATEGORYJOB C
+		JOIN JOB J ON c.catejobNum = j.catejobNum
+		WHERE j.catejobNum = #{catejobNum}
+	</select>
+	
 	<!-- 등록 -->
 	<select id="seq" resultType="Long">
 		SELECT typeComm_seq.NEXTVAL FROM dual
@@ -9,9 +23,9 @@
 
 	<insert id="insertTypeComm" parameterType="com.sp.app.typeComm.TypeComm" >
 		 INSERT INTO typeComm(num, subject, content,  hitCount, 
-		 		regDate, userId)
+		 		regDate, userId, catejobNum, jobNum)
 			VALUES (#{num},  #{subject},  #{content} ,#{hitCount},
-				 SYSDATE, #{userId})
+				 SYSDATE, #{userId}, #{catejobNum}, #{catejobNum})
 	</insert>
 	
 	<!-- 파일 -->
@@ -50,7 +64,7 @@
 		<if test="condition=='userName' ">
 			userName=#{keyword}
 		</if>
-		<if test="condition=='reg_date' ">
+		<if test="condition=='regDate' ">
 			( TO_CHAR(reg_date, 'YYYY-MM-DD') = #{keyword}
 				OR TO_CHAR(reg_date, 'YYYYMMDD') = #{keyword} )
 		</if>
@@ -69,24 +83,32 @@
 	</select>
 	
 	<!-- 리스트 -->
-	<select id="listLocalComm" parameterType="map" resultType="com.sp.app.typeComm.TypeComm">
+	<select id="listTypeComm" parameterType="map" resultType="com.sp.app.typeComm.TypeComm">
 		SELECT t.num,subject, t.userId, userName,  hitCount, 
-			   TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount
+			   TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount,
+			   NVL(likeCount, 0) likeCount
 		FROM typeComm t
 		JOIN member1 m ON m.userId=t.userId
 		LEFT OUTER JOIN (
 			SELECT num, COUNT(*) fileCount FROM typeCommFile
 			GROUP BY num
 		) f ON t.num=f.num
+		 LEFT OUTER JOIN (
+         SELECT num, COUNT(*) likeCount FROM typeCommLike
+         GROUP BY num
+      ) tc ON t.num=tc.num  
 		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<!-- 글보기 -->
-	<select id="readLocalComm" parameterType="Long" resultType="com.sp.app.typeComm.TypeComm">
-		SELECT num, t.userId, userName, subject, content, TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, hitCount
+	<select id="readTypeComm" parameterType="Long" resultType="com.sp.app.typeComm.TypeComm">
+		SELECT num, t.userId, userName, subject, content, TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, 
+			hitCount, t.catejobNum, t.jobNum, catejobName, jobName
 		FROM typeComm t
-		JOIN member1 m ON t.userId=m.userId 
+		JOIN member1 m ON t.userId=m.userId
+		JOIN categoryjob c ON t.catejobNum = c.catejobNum
+		JOIN job j ON t.jobNum = j.jobNum
 		WHERE num = #{num}
 	</select>
 	

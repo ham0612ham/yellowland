@@ -41,6 +41,8 @@ public class LocalCommController {
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "") String siguNum, 
+			@RequestParam(defaultValue = "") String dongNum, 
 			HttpServletRequest req,
 			// @RequestParam long siguNum,
 			Model model) throws Exception {
@@ -58,6 +60,8 @@ public class LocalCommController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("siguNum", siguNum);
+		map.put("dongNum", dongNum);
 		
 		dataCount = service.dataCount(map);
 		if (dataCount != 0) {
@@ -91,6 +95,21 @@ public class LocalCommController {
 		if (keyword.length() != 0) {
 			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
 		}
+		
+		if(siguNum.length() != 0) {
+			if(query.length() == 0) {
+				query = "siguNum="+siguNum;
+			} else {
+				query += "&siguNum="+siguNum;
+			}
+		}
+		if(dongNum.length() != 0) {
+			if(query.length() == 0) {
+				query = "dongNum="+dongNum;
+			} else {
+				query += "&dongNum="+dongNum;
+			}
+		}
 
 		if (query.length() != 0) {
 			listUrl = cp + "/localComm/list?" + query;
@@ -111,6 +130,9 @@ public class LocalCommController {
 
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+
+		model.addAttribute("siguNum", siguNum);
+		model.addAttribute("dongNum", dongNum);
 		
 		
 		return ".localComm.list";
@@ -183,6 +205,9 @@ public class LocalCommController {
 			return "redirect:/localComm/list?" + query;
 		}
 		
+		int likeCount = service.localCommLikeCount(num);
+		
+		
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		
 		// 이전 글, 다음 글
@@ -208,6 +233,7 @@ public class LocalCommController {
 		model.addAttribute("listFile", listFile);
 		
 		model.addAttribute("userLocalCommLiked", userLocalCommLiked);
+		model.addAttribute("likeCount", likeCount);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
@@ -228,7 +254,9 @@ public class LocalCommController {
 		}
 
 		List<LocalComm> listFile = service.listFile(num);
-
+		List<LocalComm> listSigu = service.listSigu();
+		
+		model.addAttribute("listSigu", listSigu);
 		model.addAttribute("mode", "update");
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
@@ -243,9 +271,6 @@ public class LocalCommController {
 			HttpSession session) throws Exception {
 
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		if (info.getMembership() < 51) {
-			return "redirect:/localComm/list?page=" + page;
-		}
 
 		try {
 			String root = session.getServletContext().getRealPath("/");

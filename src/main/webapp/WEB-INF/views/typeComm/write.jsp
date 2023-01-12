@@ -67,7 +67,20 @@ function sendOk() {
 	const f = document.typeCommForm;
 	let str;
 	
-	str = f.
+	str = f.catejobNum.value;
+	if(!str) {
+		alert("업종을 선택하세요 !");
+		f.catejobNum.focus();
+		return;
+	}
+	
+	str = f.jobNum.value;
+	if(!str) {
+		alert("세부업종을 선택하세요 !");
+		f.jobNum.focus();
+		return;
+	}
+
 
 	
 	str = f.subject.value.trim();
@@ -122,6 +135,31 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 
+$(function(){
+	$("form select[name=catejobNum]").change(function(){
+		let catejobNum = $(this).val();
+		$("form select[name=jobNum]").find('option').remove().end()
+				.append("<option value=''>세부 업종</option>");
+		
+		if(! catejobNum) {
+			return false;
+		}
+
+		let url = "${pageContext.request.contextPath}/typeComm/listJob";
+		let query = "catejobNum="+catejobNum;
+		
+		const fn = function(data) {
+			$.each(data.listJob, function(index, item){
+				let jobNum = item.jobNum;
+				let jobName = item.jobName;
+				let s = "<option value='"+jobNum+"'>"+jobName+"</option>";
+				$("form select[name=jobNum]").append(s);
+			});
+		};
+		ajaxFun(url, "get", query, "json", fn);
+	});
+});
+
 
 </script>
 
@@ -137,16 +175,16 @@ function ajaxFun(url, method, query, dataType, fn) {
 						<th scope="col" class="typeCkeck">업종 선택</th>
 						<th scope="col" class="typeCkeck">
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="siguNum" class="form-select" style="width: 125px;">
-									<option value="">:: 대분류 ::</option>
-									<c:forEach var="vo" items="${listSigu}">
-									<option value="${vo.siguNum}" ${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
+								<select name="catejobNum" class="form-select" style="width: 125px;">
+									<option value="">:: 업종 ::</option>
+									<c:forEach var="vo" items="${listCategory}">
+									<option value="${vo.catejobNum}" ${vo.catejobNum==dto.catejobNum?"selected='selected'":""}>${vo.catejobName}</option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="dongNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>소분류</option>
+								<select name="jobNum" class="form-select" style="width: 125px;">
+									<option value="" ${condition=="all"?"selected='selected'":""}>세부 업종</option>
 								</select>
 							</div>
 						</th>
