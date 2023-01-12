@@ -20,7 +20,7 @@ import com.sp.app.common.MyUtil;
 import com.sp.app.member.SessionInfo;
 
 
-@Controller("qna.qnaManageController")
+@Controller("qnaManage.qnaManageController")
 @RequestMapping(value="/admin/qnaManage/*")
 
 public class QnaManageController {

@@ -41,7 +41,6 @@
 		FROM assignComm a
         JOIN assignCommDetail ad ON a.num = ad.num
 		WHERE a.num = #{num}
-		
 	</select>
 	
 	<select id="readCommImg" parameterType="long" resultType="com.sp.app.assignComm.Community">
@@ -78,7 +77,6 @@
         JOIN assignCommDetail ad ON a.num = ad.num
         WHERE userId = #{userId}
         ORDER BY regDate DESC
-		
 	</select>
 	
 	<insert id="insertNote" parameterType="com.sp.app.assignComm.Note">

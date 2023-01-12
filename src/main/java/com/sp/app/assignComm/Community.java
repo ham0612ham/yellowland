@@ -45,8 +45,6 @@ public class Community {
 	private String lng;			// 경도
 	
 	
-	
-	
 	public String getLat() {
 		return lat;
 	}
