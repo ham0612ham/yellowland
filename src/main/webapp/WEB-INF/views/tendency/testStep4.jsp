@@ -44,7 +44,7 @@
 	margin-bottom: 20px;
 }
 .q-mark { text-align: left; font-size: 30px; font-weight: 600; color: #49B3FF; }
-.q-disc { font-size: 20px; }
+.q-disc { font-size: 20px; font-weight: 600 }
 .choice-border { border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; }
 .choice-border:hover { 
 	border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; cursor: pointer; 
@@ -68,6 +68,7 @@
 }
 .pre-btn { text-align: right; margin-top: 30px; color: #A3A6AD; }
 .pre-btn:hover { color: #36C88A; }
+.choice-img { width: 18px; position: absolute; padding-top: 2px; margin-left: 3px; }
 </style>
 
 <script type="text/javascript">
@@ -75,7 +76,7 @@
 $(function(){
 	$(".pre-btn").click(function(){
 		const f = document.listForm;
-		f.action = "${pageContext.request.contextPath}/tendency/testStep2";
+		f.action = "${pageContext.request.contextPath}/tendency/testStep3";
 		f.submit();
 	});
 });
@@ -85,9 +86,8 @@ $(function(){
 		let val = $(this).attr("data-val");
 		$("input[name=study]").val(val);
 		
-		alert($("form[name=listForm]").serialize());
 		const f = document.listForm;
-		f.action = "${pageContext.request.contextPath}/tendency/testStep4";
+		f.action = "${pageContext.request.contextPath}/tendency/testStep5";
 		f.submit();
 	});
 });
@@ -111,8 +111,16 @@ $(function(){
 		<div class="question-div move">
 			<div><span class="q-mark">Q. </span><span class="q-disc"> 배움엔 끝이 없다! 공부하는 당신이 공부하는 모습을 상상해보세요. 가게의 발전을 위해 배우는 것은?</span></div>
 			<div class='choice-div'>
-				<div class="choice-border"><div class="choice-tags" data-val="body">뭐든 실전이지! 현장에서 구르고 부딪혀서 몸에 익히는 기술!</div></div>
-				<div class="choice-border"><div class="choice-tags" data-val="head">데굴데굴.. 머리 굴리는 소리! 공부하면서 익히는 기술!</div></div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="body">
+						뭐든 실전이지! 현장에서 구르고 부딪혀서 몸에 익히는 기술!
+					</div>
+				</div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="head">
+						데굴데굴.. 머리 굴리는 소리! 공부하면서 익히는 기술!
+					</div>
+				</div>
 				<div class="pre-btn">이전 선택지</div>
 				<form name="listForm" method="post">
 					<input type="hidden" name="cateJobNum" value="${dto.cateJobNum}">

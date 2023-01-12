@@ -44,7 +44,7 @@
 	margin-bottom: 20px;
 }
 .q-mark { text-align: left; font-size: 30px; font-weight: 600; color: #49B3FF; }
-.q-disc { font-size: 20px; }
+.q-disc { font-size: 20px; font-weight: 600 }
 .choice-border { border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; }
 .choice-border:hover { 
 	border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; cursor: pointer; 
@@ -68,6 +68,7 @@
 }
 .pre-btn { text-align: right; margin-top: 30px; color: #A3A6AD; }
 .pre-btn:hover { color: #36C88A; }
+.choice-img { width: 18px; position: absolute; padding-top: 2px; margin-left: 3px; }
 </style>
 
 <script type="text/javascript">
@@ -109,8 +110,16 @@ $(function(){
 		<div class="question-div move">
 			<div><span class="q-mark">Q. </span><span class="q-disc"> 일하고 있는 당신을 상상해보세요. 어떤것이 먼저 떠오르나요?</span></div>
 			<div class='choice-div'>
-				<div class="choice-border"><div class="choice-tags" data-val="active">바쁘다 바빠 현대사회! 가게 안을 이리저리 돌아다니며 할 일을 하고있는 모습.</div></div>
-				<div class="choice-border"><div class="choice-tags" data-val="inactive">산은 산이요.. 물은 물이로다.. 한가하게 가게가 돌아가는 모습을 관망하는 모습.</div></div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="active">
+						바쁘다 바빠 현대사회! 가게 안을 이리저리 돌아다니며 할 일을 하고있는 모습.
+					</div>
+				</div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="inactive">
+						산은 산이요.. 물은 물이로다.. 한가하게 가게가 돌아가는 모습을 관망하는 모습.
+					</div>
+				</div>
 				<div class="pre-btn">이전 선택지</div>
 				<form name="listForm" method="post">
 					<input type="hidden" name="cateJobNum" value="${dto.cateJobNum}">

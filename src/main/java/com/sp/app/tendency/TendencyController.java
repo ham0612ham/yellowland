@@ -52,4 +52,60 @@ public class TendencyController {
 		
 		return ".tendency.testStep4";
 	}
+	
+	@RequestMapping(value="testStep5", method = RequestMethod.POST)
+	public String testStep5(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.testStep5";
+	}
+	
+	@RequestMapping(value="testStep6", method = RequestMethod.POST)
+	public String testStep6(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.testStep6";
+	}
+	
+	@RequestMapping(value="testStep7", method = RequestMethod.POST)
+	public String testStep7(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.testStep7";
+	}
+	
+	@RequestMapping(value="testStep8", method = RequestMethod.POST)
+	public String testStep8(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.testStep8";
+	}
+	
+	@RequestMapping(value="testStep9", method = RequestMethod.POST)
+	public String testStep9(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.testStep9";
+	}
+	
+	@RequestMapping(value="testStep10", method = RequestMethod.POST)
+	public String testStep10(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.testStep10";
+	}
+	
+	@RequestMapping(value="result", method = RequestMethod.POST)
+	public String testResult(Tendency dto, Model model) {
+		
+		model.addAttribute("dto", dto);
+		
+		return ".tendency.result";
+	}
 }

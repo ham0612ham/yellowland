@@ -44,7 +44,7 @@
 	margin-bottom: 20px;
 }
 .q-mark { text-align: left; font-size: 30px; font-weight: 600; color: #49B3FF; }
-.q-disc { font-size: 20px; }
+.q-disc { font-size: 20px; font-weight: 600 }
 .choice-border { border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; }
 .choice-border:hover { 
 	border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; cursor: pointer; 
@@ -68,6 +68,7 @@
 }
 .pre-btn { text-align: right; margin-top: 30px; color: #A3A6AD; }
 .pre-btn:hover { color: #36C88A; }
+.choice-img { width: 18px; position: absolute; padding-top: 2px; margin-left: 3px; }
 </style>
 
 <script type="text/javascript">
@@ -107,8 +108,16 @@ $(function(){
 		<div class="question-div move">
 			<div><span class="q-mark">Q. </span><span class="q-disc"> 사업을 추진하려는 당신, 다음중 어떤 항목이 더 끌리는지 선택해주세요.</span></div>
 			<div class='choice-div'>
-				<div class="choice-border"><div class="choice-tags" data-val="objective">정해진 길을 그대로 따르는 것이 좋다.</div></div>
-				<div class="choice-border"><div class="choice-tags" data-val="subjective">나만의 독창적인 아이이디어로 꾸며나가는 것이 좋다.</div></div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="objective">
+						정해진 길을 그대로 따르는 것이 좋다.
+					</div>
+				</div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="subjective">
+						나만의 독창적인 아이이디어로 꾸며나가는 것이 좋다.
+					</div>
+				</div>
 				<div class="pre-btn">이전 선택지</div>
 				<form name="listForm" method="post">
 					<input type="hidden" name="cateJobNum" value="${dto.cateJobNum}">

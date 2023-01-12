@@ -45,15 +45,13 @@
 }
 .q-mark { text-align: left; font-size: 30px; font-weight: 600; color: #49B3FF; }
 .q-disc { font-size: 20px; font-weight: 600 }
-.choice-div { padding: 30px; }
-.choice-tags { 
-	width: 200px; height: 200px; border-radius: 100px; 
-	text-align: center; color: #fff; font-size: 30px;
-	font-weight: 600; padding-top: 75px; cursor: pointer;
+.choice-border { border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; }
+.choice-border:hover { 
+	border: 0.5px solid #A3A6AD; border-radius: 10px; margin-top: 10px; cursor: pointer; 
+	background-color: #DDDDDD;
 }
-.food { background-color: #36C88A; box-shadow: 0px 0px 15px rgb(54, 200, 138); }
-.service { background-color: #49B3FF; box-shadow: 0px 0px 15px rgb(73, 179, 255); }
-.retail { background-color: #756EF2; box-shadow: 0px 0px 15px rgb(117, 110, 242); }
+.choice-border:first-child { margin-top: 40px; }
+.choice-tags { padding: 10px 30px; }
 
 .food:hover { background-color: #18BD77; box-shadow: 0px 0px 15px rgb(54, 200, 138); }
 .service:hover { background-color: #389FE9; box-shadow: 0px 0px 15px rgb(73, 179, 255); }
@@ -68,15 +66,29 @@
 	width: 20px; height: 20px; background-color: #000; color: #fff;
 	font-size: 12px; padding: auto; text-align: center; padding-top: 2px;
 }
-.choice-img { width: 18px; position: absolute; padding-top: 2px; margin-left: 3px; }
+.pre-btn { text-align: right; margin-top: 30px; color: #A3A6AD; }
+.pre-btn:hover { color: #36C88A; }
+.choice-img { width: 18px; position: absolute; padding-top: 3px; margin-left: 3px; }
 </style>
 
 <script type="text/javascript">
 
 $(function(){
+	$(".pre-btn").click(function(){
+		const f = document.listForm;
+		f.action = "${pageContext.request.contextPath}/tendency/testStep8";
+		f.submit();
+	});
+});
+
+$(function(){
 	$(".choice-tags").click(function(){
-		let cateJobNum = $(this).attr("data-val");
-		location.href = '${pageContext.request.contextPath}/tendency/testStep2?cateJobNum='+cateJobNum;
+		let val = $(this).attr("data-val");
+		$("input[name=age]").val(val);
+		
+		const f = document.listForm;
+		f.action = "${pageContext.request.contextPath}/tendency/testStep10";
+		f.submit();
 	});
 });
 </script>
@@ -85,7 +97,6 @@ $(function(){
 	<div class="body-container show">
 		<div class="title-div">성향 테스트</div>
 		<div class="progress-div d-flex justify-content-betwee">
-			<span class="circle number-circle">1</span>
 			<span class="circle"></span>
 			<span class="circle"></span>
 			<span class="circle"></span>
@@ -94,14 +105,39 @@ $(function(){
 			<span class="circle"></span>
 			<span class="circle"></span>
 			<span class="circle"></span>
+			<span class="circle number-circle">9</span>
 			<span class="circle"></span>
 		</div>
 		<div class="question-div move">
-			<div><span class="q-mark">Q. </span><span class="q-disc"> 사업을 추진하려는 당신, 다음중 더 끌리는 업종을 선택해주세요.</span></div>
-			<div class='choice-div d-flex justify-content-between'>
-				<div class="choice-tags food" data-val="CS1" onclick="">외식업</div>
-				<div class="choice-tags service" data-val="CS2">서비스업</div>
-				<div class="choice-tags retail" data-val="CS3">소매업</div>
+			<div><span class="q-mark">Q. </span><span class="q-disc"> 어서오세요~ 당신이 인사를 건낸 손님의 연령대는?</span></div>
+			<div class='choice-div'>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="allAge">
+						연령층이 너무 많이 떠올라! 전 연령층
+					</div>
+				</div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="young">
+						여긴 mz가 접수한다! 어린 고객층
+					</div>
+				</div>
+				<div class="choice-border">
+					<div class="choice-tags" data-val="old">
+						x세대라고 들어는 봤나? 나이 많은 고객층
+					</div>
+				</div>
+				<div class="pre-btn">이전 선택지</div>
+				<form name="listForm" method="post">
+					<input type="hidden" name="cateJobNum" value="${dto.cateJobNum}">
+					<input type="hidden" name="independent" value="${dto.independent}">
+					<input type="hidden" name="active" value="${dto.active}">
+					<input type="hidden" name="study" value="${dto.study}">
+					<input type="hidden" name="certificate" value="${dto.certificate}">
+					<input type="hidden" name="dayNight" value="${dto.dayNight}">
+					<input type="hidden" name="gender" value="${dto.gender}">
+					<input type="hidden" name="friendly" value="${dto.friendly}">
+					<input type="hidden" name="age" value="">
+				</form>
 			</div>
 		</div>
 	</div>
