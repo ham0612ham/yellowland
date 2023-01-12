@@ -17,7 +17,7 @@
 .image-btn { margin: 30px 4px; cursor: pointer }
 
 @keyframes box-ani {
-	0% { transform: translate(0, 100px); }
+	0% { transform: translate(0, 60px); }
 	100% { transform: translate(0, 0); }
 }
 @keyframes fadeIn {
@@ -31,14 +31,10 @@
 }
 
 .move {
-	animation: box-ani 1s;
+	animation: box-ani 0.7s;
 }
 .show {
-	animation: fadeIn 1s;
-}
-.hide {
-	opacity: 0;
-	animation: fadeOut 0.5s;	
+	animation: fadeIn 0.7s;
 }
 </style>
 
@@ -54,7 +50,7 @@ function kakaoShare() {
     objectType: 'feed',
     content: {
       title: '[노른자] 사장님 성향 테스트',
-      description: '내 사업 유형은? 어떤 사업이 어울릴까',
+      description: '내 사업 유형은? 어떤 사업이 어울릴까?',
       imageUrl: 'https://k.kakaocdn.net/14/dn/btrVZN5yaRF/mwCrmBLt4LcEXUECxCmn11/o.jpg',
       link: {
         mobileWebUrl: 'http://localhost:9090/app/tendency/main',

@@ -16,7 +16,7 @@
 	box-shadow: 10px 10px 15px rgb(0,0,0,0.2);
 }
 @keyframes box-ani {
-	0% { transform: translate(0, 100px); }
+	0% { transform: translate(0, 60px); }
 	100% { transform: translate(0, 0); }
 }
 @keyframes fadeIn {
@@ -30,14 +30,10 @@
 }
 
 .move {
-	animation: box-ani 1s;
+	animation: box-ani 0.7s;
 }
 .show {
-	animation: fadeIn 1s;
-}
-.hide {
-	opacity: 0;
-	animation: fadeOut 0.5s;	
+	animation: fadeIn 0.7s;
 }
 .title-div { 
 	font-size: 30px; color: #fff; font-weight: 600; margin-left: 10px; 

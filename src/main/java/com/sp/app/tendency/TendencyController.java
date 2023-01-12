@@ -1,15 +1,24 @@
 package com.sp.app.tendency;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sp.app.common.APISerializer;
 import com.sp.app.prop.PropReader;
 
 @Controller("tendency.tendencyController")
 @RequestMapping("/tendency/*")
 public class TendencyController {
+	
+	@Autowired
+	private APISerializer apiSerializer;
 	
 	@RequestMapping("main")
 	public String tendencyMain(Model model) {
@@ -101,10 +110,40 @@ public class TendencyController {
 		return ".tendency.testStep10";
 	}
 	
-	@RequestMapping(value="result", method = RequestMethod.POST)
-	public String testResult(Tendency dto, Model model) {
+	@RequestMapping("resultEcho")
+	public String flask(Tendency dto, Model model) {
+		try {
+			String spec = "http://localhost:5000/resultEcho/"+dto.getCateJobNum()+"?independent="
+					+dto.getIndependent()+"&active="+dto.getActive()+"&study="+dto.getStudy()
+					+"&certificate="+dto.getCertificate()+"&dayNight="+dto.getDayNight()
+					+"&gender="+dto.getGender()+"&friendly="+dto.getFriendly()
+					+"&age="+dto.getAge()+"&hotplace="+dto.getHotplace();
+			String stringJson = apiSerializer.receiveToString(spec);
+			JSONObject job = new JSONObject(stringJson);
+			
+			model.addAttribute("first", job.getString("first"));
+			model.addAttribute("second", job.getString("second"));
+			model.addAttribute("third", job.getString("third"));
+			model.addAttribute("fourth", job.getString("fourth"));
+			model.addAttribute("fifth", job.getString("fifth"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		model.addAttribute("dto", dto);
+		model.addAttribute("cateJobNum", dto.getCateJobNum());
+		
+		return ".tendency.result";
+	}
+	
+	@RequestMapping(value="result")
+	public String testResult(Model model) {
+		
+		PropReader propReader = new PropReader();
+		
+		String daumKey = propReader.readDaumKey();
+		
+		model.addAttribute("daumKey", daumKey);
 		
 		return ".tendency.result";
 	}
