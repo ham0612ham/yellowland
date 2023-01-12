@@ -39,18 +39,61 @@
 	    --bs-btn-active-border-color: #18bd77;
 }  
   
+.articleWriterCircle {display: inline; color: #36C88A;}  
+  
+.row reply-writer {
+	height: 20px;
+}  
+  
+.image image_resized {
+	 max-width: 100%;
+  height: auto;
+  display: block;
+}  
+  
+div#ckEditor img { max-width: 100%; height: auto; }
+  
 </style>
 
 <script type="text/javascript">
 <c:if test="${sessionScope.member.userId==dto.userId}">
 function deleteOk(num) {
-    if(confirm("글을 삭제 하시 겠습니까 ? ")) {
+    if(confirm("글을 삭제 하시겠습니까 ? ")) {
     	let query = "num="+num+"&page=${page}";
 	    let url = "${pageContext.request.contextPath}/localComm/delete?" + query;
     	location.href = url;
     }
 }
 </c:if>
+</script>
+
+<script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패 했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
 
 // 페이징 처리
 $(function(){
@@ -58,17 +101,23 @@ $(function(){
 });
 
 function listPage(page) {
-	let url = "${pageContext.request.contextPath}/localComm/listReply.do";
+	let url = "${pageContext.request.contextPath}/typeComm/listReply";
 	let query = "num=${dto.num}&pageNo="+page;
 	let selector = "#listReply";
 	
 	const fn = function(data){
 		$(selector).html(data);
+		
+		$(".articleWriterCircle").each(function(){
+			if($(this).attr("data-userId") == "${dto.userId}") {
+				$(this).css("color", "#36C88A");
+			}
+		});
 	};
 	ajaxFun(url, "get", query, "html", fn);
 }
 
-// 댓글 등록
+
 $(function(){
 	$(".btnSendReply").click(function(){
 		let num = "${dto.num}";
@@ -81,8 +130,8 @@ $(function(){
 		}
 		content = encodeURIComponent(content);
 		
-		let url = "${pageContext.request.contextPath}/localComm/insertReply";
-		let query = "num="+num+"&content="+content + "&answer=0";
+		let url = "${pageContext.request.contextPath}/typeComm/insertReply";
+		let query = "num="+num+"&content="+content;
 		
 		const fn = function(data){
 			$tb.find("textarea").val("");
@@ -99,29 +148,6 @@ $(function(){
 	});
 });
 
-//삭제
-$(function(){
-	$("body").on("click", ".reply-dropdown", function(){
-		const $menu = $(this).next(".reply-menu");
-		if($menu.is(':visible')) {
-			$menu.fadeOut(100);
-		} else {
-			$(".reply-menu").hide();
-			$menu.fadeIn(100);
-
-			let pos = $(this).offset();
-			$menu.offset( {left:pos.left-70, top:pos.top+20} );
-		}
-	});
-	$("body").on("click", function() {
-		if($(event.target.parentNode).hasClass("reply-dropdown")) {
-			return false;
-		}
-		$(".reply-menu").hide();
-	});
-});
-
-
 //댓글 삭제
 $(function(){
 	$("body").on("click", ".deleteReply", function(){
@@ -132,7 +158,7 @@ $(function(){
 		let replyNum = $(this).attr("data-replyNum");
 		let page = $(this).attr("data-pageNo");
 		
-		let url = "${pageContext.request.contextPath}/localComm/deleteReply";
+		let url = "${pageContext.request.contextPath}/typeComm/deleteReply";
 		let query = "replyNum=" + replyNum + "&mode=reply";
 		
 		const fn = function(data){
@@ -144,52 +170,96 @@ $(function(){
 	});
 });
 
+
+
 // 게시글 공감 여부
 $(function(){
-	$(".btnSendBoardLike").click(function(){
-			const $i = $(this).find("i");
-			let userLocalCommLiked = $i.hasClass("bi-hand-thumbs-up-fill");
-			let msg = userLocalCommLiked ? "게시글 공감을 취소하시겠습니까 ? " : "게시글에 공감하십니까 ? ";
-			
-			if(! confirm( msg )) {
-				return false;
-			}
-			
-			let url = "${pageContext.request.contextPath}/localComm/insertLocalCommLike";
-			let num = "${dto.num}";
-			let query = "num="+num+"&userLocalCommLiked="+userLocalCommLiked;
-			
-			const fn = function(data){
-				let state = data.state;
-				if(state === "true") {
-					if( userLiked ) {
-						$i.removeClass("bi-hand-thumbs-up-fill").addClass("bi-hand-thumbs-up");
-					} else {
-						$i.removeClass("bi-hand-thumbs-up").addClass("bi-hand-thumbs-up-fill");
-					}
-					
-					var count = data.localCommLikeCount;
-					$("#localCommLikeCount").text(count);
-				} else if(state === "liked") {
-					alert("게시글 공감은 한번만 가능합니다. !!!");
-				} else if(state === "false") {
-					alert("게시물 공감 여부 처리가 실패했습니다. !!!");
+	$(".btnSendTypeLike").click(function(){
+		if(!'${sessionScope.member.userId}') {
+			alert("공감은 회원만 가능합니다.");
+			return false;			
+		}
+		
+		let color = "";
+		const $i = $(this).find("i");
+		let like = $i.hasClass("bi-heart-fill");
+		
+		let url = "${pageContext.request.contextPath}/localComm/insertTypeCommLike";
+		let num = "${dto.num}";
+		let query = "num=" + num + "&like=" + like;
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === "true") {
+				if( like ) {
+					$i.removeClass("bi-heart-fill").addClass("bi-heart");
+					color = "#A3A6AD";
+				} else {
+					$i.removeClass("bi-heart").addClass("bi-heart-fill");
+					color = "#FF4F99";
 				}
-			};
-			
-			ajaxFun(url, "post", query, "json", fn);
-		});
+				$i.css("color", color);
+				let count = data.typeCommLikeCount;
+				$("#typeCommLikeCount").text(count);
+			} else if(state === "liked") {
+				alert("좋아요는 한 번만 가능합니다");
+			} else if(state === "false") {
+				alert("공감 여부 처리가 실패했습니다.");
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);
+	});
 });
+
+
+// 이름 마스킹 처리
+let maskingFunc = {
+	checkNull : function (str){
+		if(typeof str == "undefined" || str == null || str == ""){
+			return true;
+		}
+		else{
+			return false;
+		}
+	},
+	/*
+	※ 이름 마스킹
+	ex1) 원본 데이터 : 갓댐희, 변경 데이터 : 갓댐*
+	ex2) 원본 데이터 : 하늘에수, 변경 데이터 : 하늘**
+	ex3) 원본 데이터 : 갓댐, 변경 데이터 : 갓*
+	*/
+	name : function(userName){
+		let originStr = userName;
+		let maskingStr;
+		let strLength;
+		
+		if(this.checkNull(originStr) == true){
+			return originStr;
+		}
+		
+		strLength = originStr.length;
+		
+		if(strLength < 3){
+			maskingStr = originStr.replace(/(?<=.{1})./gi, "*");
+		}else {
+			maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
+		}
+		
+		return maskingStr;
+	}
+}
+
 </script>
 
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title">
-			<h3 class="localCommTitle"> 지역별 게시판 </h3>
+			<h3 class="localCommTitle"> 업종별 게시판 </h3>
 		</div>
 		
 		<div class="category-title">
-		  ${dto.siguName}시구이름 >  ${dto.dongName}동이름 </div>
+		  ${dto.catejobName} >  ${dto.jobName} </div>
 		<div class="body-main">
  			<hr style="border: 0; height: 2px; background: black; margin-bottom: 0px;">
 			<table class="table mb-0">
@@ -204,7 +274,7 @@ $(function(){
 				<tbody>
 					<tr>
 						<td width="50%">
-							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName}
+							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName} {maskingStr}
 						</td>
 						<td colspan="2" width="50%" style="text-align: right;">
 						    <p style="display: inline; color: #696969; ">작성일자 </p><p style="display: inline; font-weight: 500;">${dto.regDate}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline; color: #696969;">조회</p> <p style="display: inline; font-weight: 500;">${dto.hitCount}</p>
@@ -212,20 +282,22 @@ $(function(){
 					</tr>
 					
 					<tr>
-						<td colspan="2" valign="top" height="200" style="min-height: 500px; overflow-wrap: anywhere;">
+						<td colspan="2" valign="top" height="200" style="max-width: 500px; overflow-wrap: anywhere; border-bottom: none;" id="ckEditor">
 							${dto.content}
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center p-3">
-							 <button type="button" class="btn btn-outline-secondary btnSendBoardLike" title="좋아요">&nbsp;<i class="bi bi-heart"> </i>&nbsp;<span id="localCommLikeCount">${dto.localCommLikeCount}</span></button>
-							</td>
-						</tr>
+							 <button type="button" class="btn btnSendLocalLike" title="좋아요" style="border-color: #A3A6AD">
+							 	<i class="bi ${userTypeCommLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userTypeCommLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
+							 	<span id="typeCommLikeCount" style="color: #A3A6AD">${likeCount}</span>
+							 </button>
+						</td>
 					<tr>
 						<td colspan="2" >
 							이전글 :
 							<c:if test="${not empty preReadDto}">
-								<a href="${pageContext.request.contextPath}/localComm/article?${query}&num=${preReadDto.num}" style="text-decoration: none; color:black;">${preReadDto.subject}</a>
+								<a href="${pageContext.request.contextPath}/typeComm/article?${query}&num=${preReadDto.num}" style="text-decoration: none; color:black;">${preReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -233,7 +305,7 @@ $(function(){
 						<td colspan="2" style="text-decoration: none;">
 							다음글 :
 							<c:if test="${not empty nextReadDto}">
-								<a href="${pageContext.request.contextPath}/localComm/article?${query}&num=${nextReadDto.num}" style="text-decoration: none; color:black;">${nextReadDto.subject}</a>
+								<a href="${pageContext.request.contextPath}/typeComm/article?${query}&num=${nextReadDto.num}" style="text-decoration: none; color:black;">${nextReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -246,7 +318,7 @@ $(function(){
 						
 						<c:choose>
 							<c:when test="${sessionScope.member.userId==dto.userId}">
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/localComm/update?num=${dto.num}&page=${page}&size=${size}';">수정</button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/typeComm/update?num=${dto.num}&page=${page}&size=${size}';">수정</button>
 							</c:when>
 							<c:otherwise>
 								<button type="button" class="btn btn-light" disabled="disabled">수정</button>
@@ -254,7 +326,7 @@ $(function(){
 						</c:choose>
 				    	
 						<c:choose>
-				    		<c:when test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
+				    		<c:when test="${sessionScope.member.userId==dto.userId}">
 				    			<button type="button" class="btn btn-light" onclick="deleteOk(${dto.num});">삭제</button>
 				    		</c:when>
 				    		<c:otherwise>
@@ -263,7 +335,7 @@ $(function(){
 				    	</c:choose>
 					</td>
 					<td class="text-end">
-						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/localComm/list?${query}';">목록</button>
+						<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/typeComm/list?${query}';">목록</button>
 					</td>
 				</tr>
 			</table>
@@ -271,10 +343,6 @@ $(function(){
 			<!-- 댓글 -->
 			<div class="reply">
 				<form name="replyForm" method="post">
-					<div class='form-header'>
-						<span class="bold">댓글&nbsp;${dto.replyCount}개</span>
-					</div>
-					
 					<div id="listReply"></div>
 					
 					<table class="table table-borderless reply-form">
@@ -285,7 +353,7 @@ $(function(){
 						</tr>
 						<tr>
 						   <td align='right'>
-						        <button type='button' class='btn btn-light btnSendReply'>답글 등록</button>
+						        <button type='button' class='btn btn-primary btnSendReply'>댓글 등록</button>
 						    </td>
 						 </tr>
 					</table>

@@ -50,6 +50,7 @@
 
 .page-navigation {
 	margin-bottom: 50px;
+	text-align: center;
 }
 
 .form-select {
@@ -104,8 +105,14 @@
 </style>
 
 <script type="text/javascript">
-function sendSearch() {
-	
+function searchType() {
+	let f = document.typeSelectorForm;
+	f.submit();
+}
+
+function searchCondtion() {
+	const f = document.searchForm;
+	f.submit();
 }
 
 function login() {
@@ -139,28 +146,37 @@ function ajaxFun(url, method, query, dataType, fn) {
 }
 
 $(function(){
-	$("form select[name=siguNum]").change(function(){
-		let siguNum = $(this).val();
-		$("form select[name=dongNum]").find('option').remove().end()
-				.append("<option value=''>행정동</option>");
+	$("form select[name=catejobNum]").change(function(){
+		let catejobNum = $(this).val();
+		$("form select[name=jobNum]").find('option').remove().end()
+				.append("<option value=''>:: 세부업종 ::</option>");
 		
-		if(! siguNum) {
+		if(! catejobNum) {
 			return false;
 		}
 		
-		let url = "${pageContext.request.contextPath}/localComm/listDong";
-		let query = "siguNum="+siguNum;
+		let url = "${pageContext.request.contextPath}/typeComm/listJob";
+		let query = "catejobNum="+catejobNum;
 		
 		const fn = function(data) {
-			$.each(data.listDong, function(index, item){
-				let dongNum = item.dongNum;
-				let dongName = item.dongName;
-				let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
-				$("form select[name=dongNum]").append(s);
+			$.each(data.listJob, function(index, item){
+				let jobNum = item.jobNum;
+				let jobName = item.jobName;
+				
+				let ss = "${jobNum}" == jobNum ? "selected = 'selected'" : ""
+				
+				let s = "<option value='"+jobNum+"' " + ss + ">"+jobName+"</option>";
+				$("form select[name=jobNum]").append(s);
 			});
 		};
 		ajaxFun(url, "get", query, "json", fn);
 	});
+	
+	let catejobNum = "${catejobNum}"
+	if(catejobNum) {
+		$("form select[name=catejobNum]").trigger("change");
+	}
+	
 });
 </script>
 
@@ -181,31 +197,24 @@ $(function(){
 			
 			<h6 class="semiTitle">&nbsp;업종 기준</h6>
 			
-			<form class="typeSelectorForm">
-				<thead>
-					<tr>
-						<th scope="col" class="typeCkeck"></th>
-						<th scope="col" class="typeCkeck">
+			<form class="typeSelectorForm" name="typeSelectorForm"  method="post" action="${pageContext.request.contextPath}/typeComm/list">
 							<div class="col-auto p-1" style="flex: 1; float: left;">
-								<select name="siguNum" class="form-select" style="width: 125px;">
-									<option value="">:: 대분류 ::</option>
-									<c:forEach var="vo" items="${listSigu}">
-										<option value="${vo.siguNum}"
-											${vo.siguNum==dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
+								<select name="catejobNum" class="form-select" style="width: 115px;">
+									<option value="">:: 업종 ::</option>
+									<c:forEach var="vo" items="${listCategory}">
+										<option value="${vo.catejobNum}"
+											${vo.catejobNum==dto.catejobNum?"selected='selected'":""}>${vo.catejobName}</option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="col-auto p-1" style="flex: 1; float: left;">
-								<select name="dongNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>소분류</option>
+								<select name="jobNum" class="form-select" style="width: 160px;">
+									<option value="" ${condition=="all"?"selected='selected'":""}>:: 세부업종 ::</option>
 								</select>
-							</div>
-						</th>
-					</tr>
-				</thead>
+							</div>	
 			</form>
 			
-			<button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 3px;" onclick="sendSearch();">조회</button>
+			<button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 3px;" onclick="searchType();">조회</button>
 			<br>
 			<hr class="division">
 			<div class="container text-center" id="board" style="margin-left: 28px;">
@@ -257,20 +266,21 @@ $(function(){
 
 
 			<div class="search">
-				<form action="">
+				<form name="searchForm"  action="${pageContext.request.contextPath}/typeComm/list" method="post">
 					<div class="searchCondition" style="margin-left: 220px; margin-bottom: 20px;">
-						<select class="form-select" id="condition">
-								<option selected>전체</option>
-								<option value="1">제목</option>
-								<option value="2">제목+내용</option>
-								<option value="3">내용</option>
+						<select class="form-select" id="condition" name="condition">
+								<option selected value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
+								<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+								<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
 						</select>
 					</div>
 					<div class="searchInput">
-						<input type="text" class="form-control" id="searchComm">
+						<input type="text" class="form-control" id="searchComm"  name="keyword" value="${keyword}" >
 					</div>
 					<div class="searchButton">
-						<button type="button" class="btn btn-primary ">검색</button>
+						<input type="hidden" name = "siguNum" value="${catejobNum}">
+						<input type="hidden" name = "dongNum" value="${jobNum}">
+						<button type="button" class="btn btn-primary" onclick="searchCondtion()">검색</button>
 					</div>
 				</form>
 			</div>

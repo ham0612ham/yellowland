@@ -50,6 +50,7 @@
 
 .page-navigation {
 	margin-bottom: 50px;
+	text-align: center;
 }
 
 .form-select {
@@ -236,7 +237,7 @@ $(function(){
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
 								<td>
 									<c:if test="${empty sessionScope.member.userId}">
-										<a href="${pageContext.request.contextPath}/member/login"; style="color:black; text-decoration: none;">${dto.subject}</a>
+										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none;">${dto.subject}</a>
 									</c:if> 
 									<c:if test="${not empty sessionScope.member.userId}">
 										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none;">${dto.subject}</a>

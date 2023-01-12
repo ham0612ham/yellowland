@@ -58,6 +58,8 @@ public class TypeCommController {
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "") String catejobNum,
+			@RequestParam(defaultValue = "") String jobNum,
 			HttpServletRequest req,
 			Model model) throws Exception {
 		
@@ -73,6 +75,9 @@ public class TypeCommController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("catejobNum", catejobNum);
+		map.put("jobNum", jobNum);
+		
 		
 		dataCount = service.dataCount(map);
 		if (dataCount != 0) {
@@ -110,6 +115,22 @@ public class TypeCommController {
 			articleUrl = cp + "/typeComm/article?page=" + current_page + "&" + query;
 		}
 
+		if(catejobNum.length() != 0) {
+			if(query.length() == 0) {
+				query = "catejobNum="+catejobNum;
+			} else {
+				query += "&catejobNum="+catejobNum;
+			}
+		}
+		if(jobNum.length() != 0) {
+			if(query.length() == 0) {
+				query = "jobNum="+jobNum;
+			} else {
+				query += "&jobNum="+jobNum;
+			}
+		}
+		
+		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 				
 		model.addAttribute("list", list);
@@ -120,6 +141,9 @@ public class TypeCommController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
 		model.addAttribute("articleUrl", articleUrl);
+		
+		model.addAttribute("jobNum", jobNum);
+		model.addAttribute("catejobNum",catejobNum);
 
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
@@ -469,5 +493,10 @@ public class TypeCommController {
 			map.put("state", state);
 			return map;
 		}
+		
+		/*
+		// 게시글 좋아요 추가/삭제
+		public Map<String, Object> insertLocalCommLike() 
+		*/
 		
 }

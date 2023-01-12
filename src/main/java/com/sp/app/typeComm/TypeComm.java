@@ -15,7 +15,7 @@ public class TypeComm {
 	
 	// 업종 
 	private String catejobNum; 
-	private long jobNum;
+	private String jobNum;
 	
 	private String catejobName;
 	private String jobName;
@@ -98,11 +98,11 @@ public class TypeComm {
 		this.catejobNum = catejobNum;
 	}
 
-	public long getJobNum() {
+	public String getJobNum() {
 		return jobNum;
 	}
 
-	public void setJobNum(long jobNum) {
+	public void setJobNum(String jobNum) {
 		this.jobNum = jobNum;
 	}
 

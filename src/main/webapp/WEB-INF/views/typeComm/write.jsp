@@ -57,6 +57,8 @@ element.style {
 	border: 2px;
 }
 
+  
+div#ckEditor img { max-width: 100%; height: auto; }
 
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
@@ -66,22 +68,20 @@ element.style {
 function sendOk() {
 	const f = document.typeCommForm;
 	let str;
-	
+
 	str = f.catejobNum.value;
 	if(!str) {
-		alert("업종을 선택하세요 !");
+		alert("시군구를 선택하세요 !");
 		f.catejobNum.focus();
 		return;
 	}
 	
 	str = f.jobNum.value;
 	if(!str) {
-		alert("세부업종을 선택하세요 !");
+		alert("행정동을 선택하세요 !");
 		f.jobNum.focus();
 		return;
 	}
-
-
 	
 	str = f.subject.value.trim();
 	if(!str) {
@@ -139,27 +139,41 @@ $(function(){
 	$("form select[name=catejobNum]").change(function(){
 		let catejobNum = $(this).val();
 		$("form select[name=jobNum]").find('option').remove().end()
-				.append("<option value=''>세부 업종</option>");
+				.append("<option value=''>세부업종</option>");
 		
 		if(! catejobNum) {
 			return false;
 		}
-
+		
 		let url = "${pageContext.request.contextPath}/typeComm/listJob";
 		let query = "catejobNum="+catejobNum;
-		
+
 		const fn = function(data) {
 			$.each(data.listJob, function(index, item){
 				let jobNum = item.jobNum;
 				let jobName = item.jobName;
-				let s = "<option value='"+jobNum+"'>"+jobName+"</option>";
+				
+				let ss = "${dto.jobNum}" == jobNum ? "selected = 'selected'" : ""
+			
+				let s = "<option value='"+jobNum+"' " + ss + ">"+jobName+"</option>";
 				$("form select[name=jobNum]").append(s);
 			});
 		};
 		ajaxFun(url, "get", query, "json", fn);
 	});
+
+	let mode = "${mode}"
+	if(mode == "update") {
+		$("form select[name=catejobNum]").trigger("change");
+	}
 });
 
+//ckEditor 이미지 사이즈 조절
+/*
+CKEDITOR.replace( 'editor1', {
+    disallowedContent : 'img{width,height}'
+} );
+*/
 
 </script>
 
@@ -184,7 +198,7 @@ $(function(){
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
 								<select name="jobNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>세부 업종</option>
+									<option value="" ${condition=="all"?"selected='selected'":""}>세부업종</option>
 								</select>
 							</div>
 						</th>
@@ -204,7 +218,7 @@ $(function(){
 					<tr>
 						<th scope="row">글 내용</th>
 						<td>
-							<div class="editor">${dto.content}</div> <input type="hidden"
+							<div class="editor" id="ckEditor">${dto.content}</div> <input type="hidden"
 							name="content">
 						</td>
 					</tr>
@@ -231,6 +245,7 @@ $(function(){
 							
 						<c:if test="${mode=='update'}">
 							<input type="hidden" name="num" value="${dto.num}">
+							<input type="hidden" name="page" value="${page}">
 							
 						</c:if>
 					</td>
