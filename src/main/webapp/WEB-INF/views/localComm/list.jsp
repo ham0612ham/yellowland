@@ -281,7 +281,7 @@ $(function(){
 						</select>
 					</div>
 					<div class="searchInput">
-						<input type="text" class="form-control" id="searchComm" value="${keyword}">
+						<input type="text" class="form-control" id="searchComm"  name="keyword" value="${keyword}" >
 					</div>
 					<div class="searchButton">
 						<input type="hidden" name = "siguNum" value="${siguNum}">
