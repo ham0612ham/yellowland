@@ -105,7 +105,7 @@ $(function(){
 			<span class="circle"></span>
 		</div>
 		<div class="question-div move">
-			<div><span class="q-mark">Q. </span><span class="q-disc"> 배움엔 끝이 없다! 공부하는 당신이 공부하는 모습을 상상해보세요. 가게의 발전을 위해 배우는 것은?</span></div>
+			<div><span class="q-mark">Q. </span><span class="q-disc"> 배움엔 끝이 없다! 당신이 공부하는 모습을 상상해보세요. 가게의 발전을 위해 배우는 것은?</span></div>
 			<div class='choice-div'>
 				<div class="choice-border">
 					<div class="choice-tags" data-val="body">

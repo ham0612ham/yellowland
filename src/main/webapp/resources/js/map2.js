@@ -26,7 +26,7 @@ $(function(){
 				+color+".png'></div><div class='marker-rank-text'><p>"
 				+(index+1)+"</p></div></div><div class='marker-region-name'>"
 				+item.dongName+"</div><div class='marker-sales-total'>"
-				+item.chai.toLocaleString()+dan+"</div></div>";
+				+item.chai+dan+"</div></div>";
 			} else {
 				objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"
 				+item.dongName+"' data-lat='"
@@ -35,7 +35,7 @@ $(function(){
 				+color+".png'></div><div class='marker-rank-text' style='left: 41%;'><p>"
 				+(index+1)+"</p></div></div><div class='marker-region-name'>"
 				+item.dongName+"</div><div class='marker-sales-total'>"
-				+item.chai.toLocaleString()+dan+"</div></div>";
+				+item.chai+dan+"</div></div>";
 			}
 			
 			objs.latlng = new kakao.maps.LatLng(item.latitude, item.longitude)
@@ -90,7 +90,7 @@ $(function(){
 					+color+".png'></div><div class='marker-rank-text'><p>"
 					+(index+1)+"</p></div></div><div class='marker-region-name'>"
 					+item.dongName+"</div><div class='marker-sales-total'>"
-					+item.chai.toLocaleString()+dan+"</div></div>";
+					+item.chai+dan+"</div></div>";
 				} else {
 					objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"
 					+item.dongName+"' data-lat='"
@@ -99,7 +99,7 @@ $(function(){
 					+color+".png'></div><div class='marker-rank-text' style='left: 41%;'><p>"
 					+(index+1)+"</p></div></div><div class='marker-region-name'>"
 					+item.dongName+"</div><div class='marker-sales-total'>"
-					+item.chai.toLocaleString()+dan+"</div></div>";
+					+item.chai+dan+"</div></div>";
 				}
 				
 				objs.latlng = new kakao.maps.LatLng(item.latitude, item.longitude)
@@ -153,7 +153,25 @@ $(function(){
 				let pcolor = item.ratio >= 0 && item.chai >= 0 ? "" : "rank-per-red";
 				if(index < 3) color = "yellow";
 				let objs = new Object();
-				objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"+item.dongName+"' data-lat='"+item.latitude+"' data-long='"+item.longitude+"'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='/app/resources/images/rank_"+color+".png'></div><div class='marker-rank-text'><p>"+(index+1)+"</p></div></div><div class='marker-region-name'>"+item.dongName+"</div><div class='marker-sales-total'>"+item.chai+dan+"</div></div>";
+				if(index+1 < 10) {
+					objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"
+					+item.dongName+"' data-lat='"
+					+item.latitude+"' data-long='"
+					+item.longitude+"'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='/app/resources/images/rank_"
+					+color+".png'></div><div class='marker-rank-text'><p>"
+					+(index+1)+"</p></div></div><div class='marker-region-name'>"
+					+item.dongName+"</div><div class='marker-sales-total'>"
+					+item.chai+dan+"</div></div>";
+				} else {
+					objs.content = "<div class='marker' data-val='"+item.dongNum+"' data-name='"
+					+item.dongName+"' data-lat='"
+					+item.latitude+"' data-long='"
+					+item.longitude+"'><div class=''></div><div class='marker-rank'><div class='marker-rank-img'><img style='width: 18px;' src='/app/resources/images/rank_"
+					+color+".png'></div><div class='marker-rank-text' style='left: 41%;'><p>"
+					+(index+1)+"</p></div></div><div class='marker-region-name'>"
+					+item.dongName+"</div><div class='marker-sales-total'>"
+					+item.chai+dan+"</div></div>";
+				}
 				objs.latlng = new kakao.maps.LatLng(item.latitude, item.longitude)
 				obj2.push(objs);
 				

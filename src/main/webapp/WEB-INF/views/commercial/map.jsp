@@ -232,7 +232,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-big-txt"><span class="analy-green-txt upzongbunpo-job-first"></span>이 가장 많고 <span class="analy-green-txt upzongbunpo-job-grow"></span>이 증가 추세입니다.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span><span class="gr-text" class="upzongbunpo-job"></span>이 가장 많고, <span class="gr-text upzongbunpo-job-grow"></span>이 증가 추세입니다.</span>
+						<span><span class="gr-text upzongbunpo-job upzongbunpo-job-first"></span>이 가장 많고, <span class="gr-text upzongbunpo-job-grow"></span>이 증가 추세입니다.</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="upzongbunpo" style="padding: 10px; height: 250px;">
@@ -295,7 +295,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			
 			<div class="analysis-div">
 				<div class="analy-title">시간대별 매출</div>
-				<div class="analy-big-txt"><span class="gr-text sigandebuel-mechul-highest"></span>매출이 가장 높아요.</div>
+				<div class="analy-big-txt"><span class="gr-text sigandebuel-mechul-highest"></span> 매출이 가장 높아요.</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
 						<span><span class="gr-text sigandebuel-mechul-highest"></span> 매출이 가장 높습니다.</span>
@@ -313,7 +313,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="analy-big-txt"><span class="gr-text sungbuel-mechul-result"></span><span class="gr-text sungbuel-mechul-percent"></span> 매출이 높아요</div>
 				<div class="analy-discribe">
 					<div class="analy-disc-text">
-						<span>선택 상권은<span class="gr-text sungbuel-mechul-result"></span><span class="gr-text sungbuel-mechul-percent"></span> 고객이 많은 상권입니다. <span class="gr-text sungbuel-mechul-result">남성</span> 고객의 방문에 도움이 되는 요소에보다 많은 투자를 고려하세요.</span>
+						<span>선택 상권은 <span class="gr-text sungbuel-mechul-result"></span><span class="gr-text sungbuel-mechul-percent"></span> 고객이 많은 상권입니다. <span class="gr-text sungbuel-mechul-result">남성</span> 고객의 방문에 도움이 되는 요소에보다 많은 투자를 고려하세요.</span>
 					</div>
 				</div>
 				<div class="analy-graph" id="sungbuel-mechul" style="padding-top: 10px;">
