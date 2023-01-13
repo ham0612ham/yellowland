@@ -15,7 +15,7 @@
 
 .img-flex1 .item {
 	object-fit:cover;
-	width: 50px; height: 50px; border-radius: 10px;
+	width: 40px; height: 40px; border-radius: 10px;
 	cursor: pointer;
 }
 
@@ -350,7 +350,7 @@ $(function() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        	<div class="container">
+        	<div class="container" style="margin-top: 40px;">
 	        	<form method="post" id="detailForm" name="detailForm" class="detailForm" enctype="multipart/form-data">
 				<div class="row justify-content-center">
 					<div class="col-md-12">
@@ -380,7 +380,7 @@ $(function() {
 														<div class="form-group subImg">
 															<label class="label" for="imgName">추가 이미지</label>
 															<div class="img-flex1">
-																<img class="item img-insert" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+																<img style="width: 40px; height: 40px;" class="item img-insert" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
 															<!-- <c:forEach var="img" items="${imgList}">
 													      		<img class="item img-item" src="${pageContext.request.contextPath}/uploads/image/${img.imgName}" class="d-block w-100">
 													    	</c:forEach> -->
@@ -420,7 +420,7 @@ $(function() {
 														<label class="label" for="editorIn" style="margin-left: 8px;">상세설명</label>
 														<textarea name="content" class="form-control" id="editorIn" cols="30" rows="4"  
 															placeholder="소개하고 싶은 상가에 대한 설명과 특징을 입력해주세요. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#13;&#10;
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#13;&#10;
 																		상가의 위치와 교통 및 주변 시설 등 전체적인 상가의 느낌 등을 작성해주세요.">${dto.content}</textarea>
 													</div>
 												</div>
@@ -433,7 +433,7 @@ $(function() {
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
-									<div class="phone" class="info-wrap w-100 p-md-5 p-4">
+									<div class="phone" class="info-wrap w-100">
 							        	
 								          	<div class="dbox w-100 d-flex align-items-start">
 								        		<div class="icon d-flex align-items-center">
@@ -450,8 +450,8 @@ $(function() {
 								        		<div class="icon d-flex align-items-center">
 								        			<div class="col-md-6">
 								        				<div class="sub" style="display: flex;">
-								        					<p style="width: 216px;">월세</p>
-															<input type="text" class="form-control monthly" name="monthly" value="${dto.monthly}">
+								        					<p style="width: 216px; font-size: 16px;">월세</p>
+															<input type="text" class="form-control monthly"style=" font-size: 16px;"  name="monthly" value="${dto.monthly}">
 															<p class="unit" style="width: 85px;">만원</p>
 														</div>
 													</div>
@@ -484,7 +484,7 @@ $(function() {
 								        			<div class="col-md-6">
 								        				<div class="sub" style="display: flex;">
 								        					<p style="width: 211px;">건물 층</p>
-																<select name="bFloor">
+																<select class="form-select" name="bFloor">
 																	<option value="1" ${dto.bFloor=="1" ? "selected='selected'":""}>1층</option>
 																	<option value="2" ${dto.bFloor=="2" ? "selected='selected'":""}>2층</option>
 																	<option value="3" ${dto.bFloor=="3" ? "selected='selected'":""}>3층</option>
@@ -510,7 +510,7 @@ $(function() {
 														</div>
 														<div class="sub" style="display: flex;">
 								        					<p style="width:211px;">해당 층</p>
-																<select name="floor">
+																<select class="form-select" name="floor">
 																	<option value="1" ${dto.floor=="1" ? "selected=selected":""}>1층</option>
 																	<option value="2" ${dto.floor=="2" ? "selected=selected":""}>2층</option>
 																	<option value="3" ${dto.floor=="3" ? "selected=selected":""}>3층</option>

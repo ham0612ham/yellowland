@@ -173,7 +173,7 @@ function myList() {
 			<div class="search">
 				<div>주소 검색</div>
 				<input type="text" id="data" placeholder="ex) 마포구 월드컵북로 21">
-				<button id="aSearch" class="btn btn-primary" onclick="search();" type="button"><i class="fa-solid fa-magnifying-glass"></i></button> 
+				<button id="aSearch" class="btn btn-primary" onclick="search();" type="button"><i class="fa-solid fa-magnifying-glass searchBtn-cls"></i></button> 
 			</div>
 		</div>
 		<div class="tri-menu">
@@ -190,7 +190,7 @@ function myList() {
 	    </div>
         <div class="assign-class">
 			<ul class="assign-ul">
-				<li class="assign-count">지역 목록 ${count}개 </li>
+				<li class="assign-count">지역 목록 ${count}개</li>
 				<c:if test="${!empty sessionScope.member.userId}">
 					<li class="my-title"><button type="button" onclick="myList();" class="btn btn-primary">내 게시글</button></li>
 				</c:if>
@@ -198,13 +198,13 @@ function myList() {
 					<li class="assign-list" onclick="detailPage(${dto.num});"> 
 						<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 						<div class="assign-set">
+							<div class="transDate-div">양도 가능일 ${dto.transDate}</div>
 							<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
 							&emsp;&emsp;&emsp;&emsp;&emsp;
 							</div>
-							<div>관리비 ${dto.expense}만원</div>
-							<div>전용면적 ${dto.area}㎡</div>
-							<div>양도 가능일 ${dto.transDate}</div>
-							<div>${dto.subject}</div>
+							<div class="expense-div">관리비 ${dto.expense}만원</div>
+							<div class="area-div">전용면적 ${dto.area}㎡</div>
+							<div class="subject-div">${dto.subject}</div>
 						</div>
 					</li>
 				</c:forEach>
@@ -221,10 +221,10 @@ function myList() {
 	    <div id="menu_wrap" class="bg_white">
 	        <div class="option">
 	            <div>
-	                <form onsubmit="searchPlaces(); return false;">
+	                <form class="search-form" onsubmit="searchPlaces(); return false;">
 	                	<div>키워드 검색</div>
 	                    <input type="text" id="keyword" size="15" placeholder="ex) 홍대맛집"> 
-	                    <button id="kSearch" class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> 
+	                    <button id="kSearch" class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass searchBtn-cls"></i></button> 
 	                </form>
 	            </div>
 	        </div>
@@ -233,44 +233,46 @@ function myList() {
 	        <div id="pagination"></div>
 	    </div>
 	    
+	    <div id="maps-div">
 	    <div class="mapInfo">
-	    	<div class="mapType">
-	    		<i class="fa-solid fa-mound"></i>&nbsp; 지형정보 <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" />
-			    <i class="fa-solid fa-mountain-city"></i>&nbsp; 지적편집도 <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" />
+	    	<div class="mapType d-flex justify-content-around">
+	    		<div><i class="fa-solid fa-mound mapInfo-images"></i>&nbsp; <span class="mapInfo-title"> 지형정보</span> <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /></div>
+			    <div><i class="fa-solid fa-mountain-city mapInfo-images"></i>&nbsp; <span class="mapInfo-title"> 지적편집도</span> <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /></div>
 			</div>
-			<div class="mapType">
-			   <i class="fa-solid fa-car-side"></i>&nbsp; 교통정보  <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" />  
-			   <i class="fa-solid fa-person-biking"></i>&nbsp; 자전거도로 <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" />
+			<div class="mapType d-flex justify-content-around">
+			   <div><i class="fa-solid fa-car-side mapInfo-images"></i>&nbsp; <span class="mapInfo-title"> 교통정보</span>  <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /></div>  
+			   <div><i class="fa-solid fa-person-biking mapInfo-images"></i>&nbsp; <span class="mapInfo-title"> 자전거도로</span> <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /></div>  
 			</div>
 			<div id="clickLatlng"></div>
 	    </div>
 	    
 	    <ul id="category">
-	        <li id="BK9" data-order="0"> 
-	            <span class="bank"><i class="fa-solid fa-piggy-bank"></i></span>
+	        <li id="BK9 category-images" data-order="0"> 
+	            <span class="bank category-images"><i class="fa-solid fa-piggy-bank" style="margin-right: 5px;"></i></span>
 	            	은행
 	        </li>       
 	        <li id="MT1" data-order="1"> 
-	            <span class="mart"><i class="fa-solid fa-store"></i></span>
+	            <span class="mart category-images"><i class="fa-solid fa-store" style="margin-right: 5px;"></i></span>
 	            	마트
 	        </li>  
 	        <li id="PM9" data-order="2"> 
-	            <span class="pharmacy"><i class="fa-solid fa-hospital"></i></span>
+	            <span class="pharmacy category-images"><i class="fa-solid fa-hospital" style="margin-right: 5px;"></i></span>
 	           	 	약국
 	        </li>  
 	        <li id="OL7" data-order="3"> 
-	            <span class="oil"><i class="fa-solid fa-oil-can"></i></span>
+	            <span class="oil category-images"><i class="fa-solid fa-oil-can"></i></span>
 	           		 주유소
 	        </li>  
 	        <li id="CE7" data-order="4"> 
-	            <span class="cafe"><i class="fa-solid fa-mug-hot"></i></span>
+	            <span class="cafe category-images"><i class="fa-solid fa-mug-hot"></i></span>
 	            	카페
 	        </li>  
 	        <li id="CS2" data-order="5"> 
-	            <span class="store"><i class="fa-solid fa-bottle-water"></i></span>
+	            <span class="store category-images"><i class="fa-solid fa-bottle-water"></i></span>
 	            	편의점
 	        </li>      
     	</ul>
+    	</div>
     </div>
 </div>
 
@@ -951,11 +953,11 @@ function getListItem(index, places) {
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
-                '   <h5>' + places.place_name + '</h5>';
+                '   <div style="font-size: 16px; font-weight:600;">' + places.place_name + '</div>';
 
     if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+        itemStr += '    <span class="text-truncate">' + places.road_address_name + '</span>' +
+                    '   <span class="jibun gray text-truncate">' +  places.address_name  + '</span>';
     } else {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }

@@ -46,7 +46,6 @@
 
 .myList-count {
 	text-align: center;
-	margin-bottom: 25px;
 	font-weight: 600;
 }
 
@@ -54,6 +53,7 @@
 	width: 150px;
     height: 117px;
     border-radius: 7px;
+    object-fit: cover;
 }
 
 .myList-set {
@@ -83,7 +83,7 @@ function allList() {
 
 <div class="myList-class">
 	<ul class="myList-ul">
-		<li class="myList-count">내 게시글 ${count}개 </li>
+		<li class="myList-count">내 게시글 ${count}개</li>
 		<c:if test="${!empty sessionScope.member.userId}">
 			<li><button type="button" onclick="allList();" class="btn btn-primary">전체 게시글</button></li>
 		</c:if>
@@ -91,11 +91,13 @@ function allList() {
 			<li class="myList-list" onclick="detailPage(${dto.num});"> 
 				<div><img class="myList-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 				<div class="myList-set">
-					<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}</div>
-					<div>관리비 ${dto.expense}만원</div>
-					<div>전용면적 ${dto.area}㎡</div>
-					<div>양도 가능일 ${dto.transDate}</div>
-					<div>${dto.subject}</div>
+					<div class="transDate-div">양도 가능일 ${dto.transDate}</div>
+					<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
+					&emsp;&emsp;&emsp;&emsp;&emsp;
+					</div>
+					<div class="expense-div">관리비 ${dto.expense}만원</div>
+					<div class="area-div">전용면적 ${dto.area}㎡</div>
+					<div class="subject-div">${dto.subject}</div>
 				</div>
 			</li>
 		</c:forEach>

@@ -27,7 +27,7 @@ article {
 }
 
 .detail-list > div {
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	margin-left: 30px;
 }
 
@@ -74,6 +74,8 @@ i {
 .noteForm {
 	width: 30vw;
 }
+
+.detail-image {color: #A1A1A1;}
 
 </style>
 
@@ -154,23 +156,23 @@ function deleteComm() {
 				<div>등록번호 ${dto.num}</div>
 				<div>${dto.regDate}</div>
 			</div>
-			<div><i class="fa-regular fa-building"></i> ${dto.addr1}</div>
-			<div><i class="fa-solid fa-building"></i> ${dto.addr2}</div>
-			<div><i class="fa-solid fa-coins"></i> 월세 ${dto.deposit}/${dto.monthly}</div>
-			<div><i class="fa-solid fa-plug"></i> 관리비 ${dto.expense}만원</div>
-			<div><i class="fa-regular fa-comment"></i> ${dto.subject}</div>
+			<div><i class="fa-regular fa-building detail-image"></i> ${dto.addr1}</div>
+			<div><i class="fa-solid fa-building detail-image"></i> ${dto.addr2}</div>
+			<div><i class="fa-solid fa-coins detail-image"></i> 월세 ${dto.deposit}/${dto.monthly}</div>
+			<div><i class="fa-solid fa-plug detail-image"></i> 관리비 ${dto.expense}만원</div>
+			<div><i class="fa-regular fa-comment detail-image"></i> ${dto.subject}</div>
 			
-			<div><i class="fa-solid fa-vector-square"></i> 전용 ${dto.area}㎡</div>
-			<div><i class="fa-solid fa-square-parking"></i> ${dto.parking == 1 ? "주차 가능" : "주차 불가능"}</div>
-			<div><i class="fa-solid fa-elevator"></i> ${dto.elevator == 1 ? "엘리베이터 있음 " : "엘리베이터 없음"}</div>
-			<div><i class="fa-solid fa-florin-sign"></i> ${dto.floor}층/${dto.bFloor}층</div>
-			<div><i class="fa-regular fa-calendar"></i> 입주 가능일 : ${dto.transDate}</div>
+			<div><i class="fa-solid fa-vector-square detail-image"></i> 전용 ${dto.area}㎡</div>
+			<div><i class="fa-solid fa-square-parking detail-image"></i> ${dto.parking == 1 ? "주차 가능" : "주차 불가능"}</div>
+			<div><i class="fa-solid fa-elevator detail-image"></i> ${dto.elevator == 1 ? "엘리베이터 있음 " : "엘리베이터 없음"}</div>
+			<div><i class="fa-solid fa-florin-sign detail-image"></i> ${dto.floor}층/${dto.bFloor}층</div>
+			<div><i class="fa-regular fa-calendar detail-image"></i> 입주 가능일 : ${dto.transDate}</div>
 			<div>
-				<div><i class="fa-solid fa-comment"></i> 상세 설명</div>
+				<div><i class="fa-solid fa-comment detail-image"></i> 상세 설명</div>
 				<div>${dto.content}</div>
 			</div>
 			<div>
-				<div><i class="fa-solid fa-location-dot"></i> 위치</div>
+				<div><i class="fa-solid fa-location-dot detail-image"></i> 위치</div>
 				<div>우편번호 또는 기본 주소를 통한 위치 표시하기</div>
 			</div>
 		</div>

@@ -5,7 +5,7 @@
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top: -625px;left:0;bottom:0;width:250px;height:490px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top: -625px;left:0;bottom:0;width:270px;height:380px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.5);z-index: 1;font-size:12px;border-radius: 10px;backdrop-filter: blur(4px);}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 1px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: left;}
@@ -39,7 +39,7 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
-#map {width: 135vh; height: 100vh; position: relative;}
+#map { width: 100vw; height: 100vh; position: relative; top: 0px; }
 #container {overflow:hidden;height:820px;position:relative;}
 #mapWrapper {width:100%; height:700px; z-index:1; display: flex;}
 #rvWrapper {    
@@ -65,12 +65,12 @@
 #close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 1px 1px #888;}
 #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
 
-#category {position:absolute;top: 44px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden; z-index: 2; width: 302px;}
-#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
+#category {left:10px;border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); background: #fff;overflow: hidden; z-index: 2; width: 302px; margin-left: 10px; margin-top: 10px;}
+#category li {font-size: 14px; float:left;list-style: none;width:50px;padding:6px 0;text-align: center; cursor: pointer;}
 #category li.on {background: #eee;}
-#category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
+#category li:hover {background: rgba(54, 200, 138, 0.2);}
 #category li:last-child{margin-right:0;border-right:0;}
-#category li span {display: block;margin:0 auto 3px;width:27px;height: 28px;}
+#category li span {display: block;margin:0 auto;width:27px;height: 28px;}
 #category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;}
 #category li .bank {background-position: -10px 0;}
 #category li .mart {background-position: -10px -36px;}
@@ -79,7 +79,9 @@
 #category li .cafe {background-position: -10px -144px;}
 #category li .store {background-position: -10px -180px;}
 #category li.on .category_bg {background-position-x:-46px;}
-#category li span > i {color: #36C88A; box-shadow: 1px 1px 2px;}
+#category li span > i {color: #36C88A;}
+
+.category-images { font-size: 18px; }
 
 .placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
 .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
@@ -106,7 +108,7 @@ main {
 .thumbnail-viewer {
 	cursor: pointer;
 	border: 1px solid #f5fffa;
-	width: 50px; height: 50px; border-radius: 10px;
+	width: 40px; height: 40px; border-radius: 10px;
 	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
 	position: relative;
 	z-index: 9999;
@@ -122,23 +124,30 @@ main {
 
 .img-flex .item {
 	object-fit:cover;
-	width: 50px; height: 50px; border-radius: 10px;
+	width: 40px; height: 40px; border-radius: 10px;
 	cursor: pointer;
 }
 
 .search {
     position: absolute;
     z-index: 10;
-    width: 250px;
+    width: 270px;
     left: 10px;
     top: -1px;
     height: 65px;
     margin: 10px 0 30px 0;
-    padding: 5px;
+    padding: 8px 13px 0 13px;
     font-size: 12px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
 }
+
+#kSearch, #aSearch { width: 30px; height: 30px; margin-bottom: 4px; }
+
+.search-form { padding: 5px 8px 0 8px; }
+
+.searchBtn-cls { margin-right: 4px; }
 
 #data {
   width: 200px;
@@ -210,8 +219,8 @@ body{
 }
 
 .mc {
-	width: 55vw;
-    height: 95vh;
+	width: 1000px;
+    height: 850px;
     background: white;
 }
 
@@ -315,6 +324,8 @@ ul {
 
 .sub > select {
     height: 24px;
+    padding: 0 20px;
+    width: 100px;
 }
 
 .parking {
@@ -350,12 +361,11 @@ ul {
 }
 
 .assign-class {
-	width: 24%;
+	width: 450px;
 }
 
 .assign-count {
 	text-align: center;
-	margin-bottom: 25px;
 	font-weight: 600;
 }
 
@@ -363,6 +373,7 @@ ul {
 	width: 150px;
     height: 117px;
     border-radius: 7px;
+    object-fit: cover;
 }
 
 .assign-set {
@@ -370,24 +381,29 @@ ul {
 }
 
 .monthly {
-	font-weight: bold;
+	font-weight: 600;
+	font-size: 22px;
 }
 
 .mapInfo {
-	position: absolute;
     z-index: 2;
     margin-left: 10px;
-    box-shadow: 2px 2px 3px rgb(0 0 0 / 40%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     background-color: white;
     border-radius: 5px;
     padding: 2px;
-    margin-top: -20px;
     padding-top: 4px;
+    width: 302px;
 }
 
-.mapType > i {
+#maps-div { position: absolute; z-index: 2; top: -20%; }
+
+.mapInfo-title { font-size: 14px; }
+
+.mapInfo-images { margin-right: 5px; }
+
+.mapType > div > i {
 	color: #36C88A;
-    box-shadow: 1px 1px 2px;
 }
 
 #kSearch, #aSearch {
@@ -443,7 +459,6 @@ ul {
     width: 10px;
   }
   #asDetail::-webkit-scrollbar-thumb {
-    background-color: #36C884;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
@@ -455,13 +470,12 @@ ul {
   }
   
 .assign-ul {
-    overflow: auto;
+    overflow: auto; width: 450px;
   }
 .assign-ul::-webkit-scrollbar {
     width: 10px;
   }
 .assign-ul::-webkit-scrollbar-thumb {
-    background-color: #36C884;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
@@ -470,4 +484,11 @@ ul {
     background-color: white;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
-  }  
+  }
+  
+.transDate-div { color: #36C88A; font-size: 14px; }
+.expense-div, .area-div { font-size: 14px; }
+.area-div { margin-top: -4px; }
+.subject-div { font-size: 16px; color: #A1A1A1; margin-top: 2px; }
+
+#asDetail {width: 450px;}
