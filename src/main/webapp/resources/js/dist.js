@@ -55,7 +55,10 @@ $(function(){
 		$(this).css("font-weight", "600");
 		
 		let val = $(this).attr("data-val");
-		$("input[name=selectCategory]").val(val);
+		$("input[name=selectCategory]").val(val);	
+		
+		let text = $(this).text();
+		$("input[name=selectCategory]").attr("data-text", text);
 		
 		if(val === "population" || val === "income" || val === "rent") {
 			$("select[name=induL]").hide();
@@ -147,6 +150,7 @@ $(function(){
 		let query = "fileName="+fileName;
 		
 		const fn = function(data) {
+			$("#excelButton-div").html('<button class="btn" id="excelButton">엑셀 저장</button>');
 			$("#output-table").html(data);
 			
 			$("tr.branch").css("display", '');
@@ -184,4 +188,48 @@ $(function(){
 		ajaxFun(url, "get", query, "html", fn);
 	});
 });
+
+function s2ab(s) { 
+    var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    var view = new Uint8Array(buf);  //create uint8array as viewer
+    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    return buf;    
+}
+function exportExcel(){ 
+    // step 1. workbook 생성
+    var wb = XLSX.utils.book_new();
+
+    // step 2. 시트 만들기 
+    var newWorksheet = excelHandler.getWorksheet();
+    
+    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
+    XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
+
+    // step 4. 엑셀 파일 만들기 
+    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+
+    // step 5. 엑셀 파일 내보내기 
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
+}
+$(document).ready(function() { 
+    $(".body-container").on("click", "#excelButton", function(){
+        exportExcel();
+    });
+});
+
+var excelHandler = {
+        getExcelFileName : function(){
+            return '서울시_상권별현황_'+$("input[name=selectCategory]").attr("data-text")+'.xlsx';
+        },
+        getSheetName : function(){
+            return '서울시 상권별현황';
+        },
+        getExcelData : function(){
+            return document.getElementById('table1'); 
+        },
+        getWorksheet : function(){
+            return XLSX.utils.table_to_sheet(this.getExcelData());
+        }
+}
+
 
