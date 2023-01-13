@@ -60,7 +60,7 @@ div#ckEditor img { max-width: 100%; height: auto; }
 function deleteOk(num) {
     if(confirm("글을 삭제 하시겠습니까 ? ")) {
     	let query = "num="+num+"&page=${page}";
-	    let url = "${pageContext.request.contextPath}/localComm/delete?" + query;
+	    let url = "${pageContext.request.contextPath}/typeComm/delete?" + query;
     	location.href = url;
     }
 }
@@ -172,7 +172,7 @@ $(function(){
 
 
 
-// 게시글 공감 여부
+//게시글 공감 여부
 $(function(){
 	$(".btnSendTypeLike").click(function(){
 		if(!'${sessionScope.member.userId}') {
@@ -184,7 +184,7 @@ $(function(){
 		const $i = $(this).find("i");
 		let like = $i.hasClass("bi-heart-fill");
 		
-		let url = "${pageContext.request.contextPath}/localComm/insertTypeCommLike";
+		let url = "${pageContext.request.contextPath}/typeComm/insertTypeCommLike";
 		let num = "${dto.num}";
 		let query = "num=" + num + "&like=" + like;
 		
@@ -258,7 +258,7 @@ let maskingFunc = {
 			<h3 class="localCommTitle"> 업종별 게시판 </h3>
 		</div>
 		
-		<div class="category-title">
+		<div class="category-title" style="margin-left: 5px;">
 		  ${dto.catejobName} >  ${dto.jobName} </div>
 		<div class="body-main">
  			<hr style="border: 0; height: 2px; background: black; margin-bottom: 0px;">
@@ -286,9 +286,19 @@ let maskingFunc = {
 							${dto.content}
 						</td>
 					</tr>
+						
+					<c:forEach var="vo" items="${listFile}">
+						<tr>
+							<td colspan="2">
+								파&nbsp;&nbsp;일 :
+								<a href="${pageContext.request.contextPath}/typeComm/download?fileNum=${vo.fileNum}" style="color: black;">${vo.originalFilename}</a>
+								(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> kb)
+							</td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td colspan="2" class="text-center p-3">
-							 <button type="button" class="btn btnSendLocalLike" title="좋아요" style="border-color: #A3A6AD">
+							 <button type="button" class="btn btnSendTypeLike" title="좋아요" style="border-color: #A3A6AD">
 							 	<i class="bi ${userTypeCommLiked ? 'bi-heart-fill':'bi-heart' }" style="color: ${userTypeCommLiked ? '#FF4F99':'#A3A6AD' }"></i>&nbsp;
 							 	<span id="typeCommLikeCount" style="color: #A3A6AD">${likeCount}</span>
 							 </button>
@@ -320,18 +330,14 @@ let maskingFunc = {
 							<c:when test="${sessionScope.member.userId==dto.userId}">
 								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/typeComm/update?num=${dto.num}&page=${page}&size=${size}';">수정</button>
 							</c:when>
-							<c:otherwise>
-								<button type="button" class="btn btn-light" disabled="disabled">수정</button>
-							</c:otherwise>
+					
 						</c:choose>
 				    	
 						<c:choose>
 				    		<c:when test="${sessionScope.member.userId==dto.userId}">
 				    			<button type="button" class="btn btn-light" onclick="deleteOk(${dto.num});">삭제</button>
 				    		</c:when>
-				    		<c:otherwise>
-				    			<button type="button" class="btn btn-light" disabled="disabled">삭제</button>
-				    		</c:otherwise>
+				    	
 				    	</c:choose>
 					</td>
 					<td class="text-end">

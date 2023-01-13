@@ -100,7 +100,6 @@
 }
 
 .backMain { width: 200px; display: inline-block;}
-.search {}
 
 </style>
 
@@ -197,13 +196,13 @@ $(function(){
 			
 			<h6 class="semiTitle">&nbsp;업종 기준</h6>
 			
-			<form class="typeSelectorForm" name="typeSelectorForm"  method="post" action="${pageContext.request.contextPath}/typeComm/list">
+			<form name="typeSelectorForm"  method="post" action="${pageContext.request.contextPath}/typeComm/list">
 							<div class="col-auto p-1" style="flex: 1; float: left;">
 								<select name="catejobNum" class="form-select" style="width: 115px;">
 									<option value="">:: 업종 ::</option>
 									<c:forEach var="vo" items="${listCategory}">
 										<option value="${vo.catejobNum}"
-											${vo.catejobNum==dto.catejobNum?"selected='selected'":""}>${vo.catejobName}</option>
+											${vo.catejobNum==catejobNum?"selected='selected'":""}>${vo.catejobName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -222,7 +221,7 @@ $(function(){
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
-							<th scope="col">제목</th>
+							<th scope="col" style=" max-width: 300px;" >제목</th>
 							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
 							<th scope="col">조회수</th>
@@ -233,13 +232,18 @@ $(function(){
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-								<td>
-									<a href="${articleUrl}&num=${dto.num}" style="text-decoration:none; color:black;">${dto.subject}</a>
+								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
+									<c:if test="${empty sessionScope.member.userId}">
+										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none;">&nbsp;${dto.subject}&nbsp;</a>
+									</c:if> 
+									<c:if test="${not empty sessionScope.member.userId}">
+										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none;">${dto.subject}</a>
+									</c:if>
 								</td>
 								<td>${dto.regDate}</td>
 								<td>${dto.userName}</td>
 								<td>${dto.hitCount}</td>
-								<td>0</td>
+								<td>${dto.likeCount}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

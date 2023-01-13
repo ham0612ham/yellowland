@@ -52,11 +52,11 @@
 element.style {
     width: 80px;
 }
-.form-select {
-	border-radius: 0px;
-	border: 2px;
-}
 
+.form-select {
+ border: revert;
+ border-radius: 3px;
+}
   
 div#ckEditor img { max-width: 100%; height: auto; }
 
@@ -139,7 +139,7 @@ $(function(){
 	$("form select[name=siguNum]").change(function(){
 		let siguNum = $(this).val();
 		$("form select[name=dongNum]").find('option').remove().end()
-				.append("<option value=''>행정동</option>");
+				.append("<option value=''>::행정동 ::</option>");
 		
 		if(! siguNum) {
 			return false;
@@ -168,12 +168,15 @@ $(function(){
 	}
 });
 
-//ckEditor 이미지 사이즈 조절
-/*
-CKEDITOR.replace( 'editor1', {
-    disallowedContent : 'img{width,height}'
-} );
-*/
+//글 수정시, 첨부파일 삭제
+<c:if test="${mode=='update'}">
+function deleteFile(fileNum) {
+	let url = "${pageContext.request.contextPath}/localComm/deleteFile";
+	$.post(url, {fileNum:fileNum}, function(data){
+		$("#f"+fileNum).remove();
+	}, "json");
+}
+</c:if>
 
 </script>
 
@@ -197,8 +200,8 @@ CKEDITOR.replace( 'editor1', {
 								</select>
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="dongNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>행정동</option>
+								<select name="dongNum" class="form-select" style="width: 150px;">
+									<option value="" ${condition=="all"?"selected='selected'":""}>::행정동 ::</option>
 								</select>
 							</div>
 						</th>
@@ -228,6 +231,20 @@ CKEDITOR.replace( 'editor1', {
 							<input type="file" name="selectFile" multiple="multiple">
 						</td>
 					</tr>
+					
+					<c:if test="${mode=='update'}">
+						<c:forEach var="vo" items="${listFile}">
+							<tr id="f${vo.fileNum}">
+								<td class="table-light col-sm-2" scope="row">첨부된파일</td>
+								<td> 
+									<p class="form-control-plaintext">
+										<a href="javascript:deleteFile('${vo.fileNum}');"><i class="bi bi-trash"></i></a>
+										${vo.originalFilename}
+									</p>
+								</td>
+							</tr>
+						</c:forEach> 
+					</c:if>
 				</tbody>
 			</table>
 			<br>

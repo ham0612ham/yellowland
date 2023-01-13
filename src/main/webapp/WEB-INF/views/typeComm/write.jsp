@@ -11,6 +11,12 @@
 	margin-top: 100px;
 }
 
+.form-select {
+ border: revert;
+ border-radius: 3px;
+}
+
+
 .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
 	min-height:400px;
 }
@@ -44,17 +50,10 @@
     --bs-btn-disabled-border-color: #212529;
 }
 
-.typeCkeck {
- 	
-}
 
 .
 element.style {
     width: 80px;
-}
-.form-select {
-	border-radius: 0px;
-	border: 2px;
 }
 
   
@@ -102,6 +101,16 @@ function sendOk() {
 	f.action = "${pageContext.request.contextPath}/typeComm/${mode}";
 	f.submit();
 }
+
+//글 수정시, 첨부파일 삭제
+<c:if test="${mode=='update'}">
+function deleteFile(fileNum) {
+	let url = "${pageContext.request.contextPath}/typeComm/deleteFile";
+	$.post(url, {fileNum:fileNum}, function(data){
+		$("#f"+fileNum).remove();
+	}, "json");
+}
+</c:if>
 </script>
 
 <script type="text/javascript">
@@ -139,7 +148,7 @@ $(function(){
 	$("form select[name=catejobNum]").change(function(){
 		let catejobNum = $(this).val();
 		$("form select[name=jobNum]").find('option').remove().end()
-				.append("<option value=''>세부업종</option>");
+				.append("<option value=''>::세부업종 ::</option>");
 		
 		if(! catejobNum) {
 			return false;
@@ -168,12 +177,15 @@ $(function(){
 	}
 });
 
-//ckEditor 이미지 사이즈 조절
-/*
-CKEDITOR.replace( 'editor1', {
-    disallowedContent : 'img{width,height}'
-} );
-*/
+// 글 수정시, 첨부파일 삭제
+<c:if test="${mode=='update'}">
+function deleteFile(fileNum) {
+	let url = "${pageContext.request.contextPath}/typeComm/deleteFile";
+	$.post(url, {fileNum:fileNum}, function(data){
+		$("#f"+fileNum).remove();
+	}, "json");
+}
+</c:if>
 
 </script>
 
@@ -189,16 +201,16 @@ CKEDITOR.replace( 'editor1', {
 						<th scope="col" class="typeCkeck">업종 선택</th>
 						<th scope="col" class="typeCkeck">
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="catejobNum" class="form-select" style="width: 125px;">
-									<option value="">:: 업종 ::</option>
+								<select name="catejobNum" class="form-select" style="width: 100px;">
+									<option value="">::업종 ::</option>
 									<c:forEach var="vo" items="${listCategory}">
 									<option value="${vo.catejobNum}" ${vo.catejobNum==dto.catejobNum?"selected='selected'":""}>${vo.catejobName}</option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="col-auto p-1" style="flex:1; float: left;">
-								<select name="jobNum" class="form-select" style="width: 125px;">
-									<option value="" ${condition=="all"?"selected='selected'":""}>세부업종</option>
+								<select name="jobNum" class="form-select" style="width: 156px;">
+									<option value="" ${condition=="all"?"selected='selected'":""}>::세부업종 ::</option>
 								</select>
 							</div>
 						</th>
@@ -228,6 +240,20 @@ CKEDITOR.replace( 'editor1', {
 							<input type="file" name="selectFile" multiple="multiple">
 						</td>
 					</tr>
+					
+					<c:if test="${mode=='update'}">
+						<c:forEach var="vo" items="${listFile}">
+							<tr id="f${vo.fileNum}">
+								<td class="table-light col-sm-2" scope="row">첨부된파일</td>
+								<td> 
+									<p class="form-control-plaintext">
+										<a href="javascript:deleteFile('${vo.fileNum}');"><i class="bi bi-trash"></i></a>
+										${vo.originalFilename}
+									</p>
+								</td>
+							</tr>
+						</c:forEach> 
+					</c:if>
 				</tbody>
 			</table>
 			<br>

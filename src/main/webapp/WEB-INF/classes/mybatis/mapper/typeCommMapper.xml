@@ -195,22 +195,22 @@
 	
 	<!-- 공감(좋아요) -->
 	<!-- 게시 글 좋아요 추가 -->
-	<insert id="insertLocalCommLike" parameterType="map">
+	<insert id="insertTypeCommLike" parameterType="map">
 		INSERT INTO typeCommLike(num, userId) VALUES (#{num}, #{userId})
 	</insert>
 
 	<!-- 게시 글 좋아요 삭제 -->
-	<delete id="deleteLocalCommLike" parameterType="map">
+	<delete id="deleteTypeCommLike" parameterType="map">
 		DELETE FROM typeCommLike WHERE num = #{num} AND userId = #{userId}
 	</delete>
       
 	<!-- 게시글 좋아요 개수 -->
-	<select id="localCommLikeCount" parameterType="Long" resultType="Integer">
+	<select id="typeCommLikeCount" parameterType="Long" resultType="Integer">
 		SELECT COUNT(*) FROM typeCommLike WHERE num=#{num}
 	</select>
 
 	<!-- 게시글 좋아요 여부 -->
-	<select id="userLocalCommLiked" parameterType="map" resultType="com.sp.app.typeComm.TypeComm">
+	<select id="userTypeCommLiked" parameterType="map" resultType="com.sp.app.typeComm.TypeComm">
 		SELECT num, userId FROM typeCommLike WHERE num = #{num} AND userId = #{userId}
 	</select>
       

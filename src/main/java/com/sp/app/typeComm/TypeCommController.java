@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,24 +37,6 @@ public class TypeCommController {
 	@Autowired
 	private FileManager FileManager;
 	
-	/*
-	@RequestMapping(value = "list")
-	public String list(Model model) throws Exception {
-		return ".typeComm.list";
-	}
-	
-	@RequestMapping(value = "write")
-	public String writeForm(Model model) throws Exception {
-		return ".typeComm.write";
-	}
-	
-	@RequestMapping(value = "article")
-	public String article(Model model) throws Exception {
-		return ".typeComm.article";
-	}
-	*/
-	
-
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String condition,
@@ -235,7 +218,7 @@ public class TypeCommController {
 		List<TypeComm> listFile = service.listFile(num);
 	
 		// 게시글 좋아요 여부
-		map.put("userid", info.getUserId());
+		map.put("userId", info.getUserId());
 		boolean userTypeCommLiked = service.userTypeCommLiked(map);
 		
 		model.addAttribute("dto", dto);
@@ -298,21 +281,18 @@ public class TypeCommController {
 		return "redirect:/typeComm/list?page=" + page;
 	}
 	
+	@RequestMapping(value = "delete")
 	public String delete(@RequestParam long num,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		// SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		String query = "page=" + page;
 		if (keyword.length() != 0) {
 			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
-		}
-
-		if (info.getMembership() < 51) {
-			return "redirect:/typeComm/list?" + query;
 		}
 
 		try {
@@ -494,9 +474,42 @@ public class TypeCommController {
 			return map;
 		}
 		
-		/*
+		
 		// 게시글 좋아요 추가/삭제
-		public Map<String, Object> insertLocalCommLike() 
-		*/
+		@PostMapping("insertTypeCommLike")
+		@ResponseBody
+		public Map<String, Object> insertTypeCommLike(@RequestParam long num,
+				@RequestParam boolean like,
+				HttpSession session) {
+			String state = "true";
+			int typeCommLikeCount = 0;
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("num", num);
+			paramMap.put("userId", info.getUserId());
+			
+			
+			try {
+				if(like) {
+					service.deleteTypeCommLike(paramMap);
+				} else {
+					service.insertTypeCommLike(paramMap);
+				}
+			} catch (DuplicateKeyException e) {
+				state = "liked";
+			} catch (Exception e) {
+				state = "false";
+			}
+			
+			typeCommLikeCount = service.typeCommLikeCount(num);
+			
+			Map<String, Object> model = new HashMap<>();
+			model.put("state", state);
+			model.put("typeCommLikeCount", typeCommLikeCount);
+			
+			return model;
+		}
+		
 		
 }

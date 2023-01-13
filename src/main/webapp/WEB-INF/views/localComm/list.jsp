@@ -100,7 +100,7 @@
 }
 
 .backMain { width: 200px; display: inline-block;}
-.search {}
+
 
 </style>
 
@@ -149,7 +149,7 @@ $(function(){
 	$("form select[name=siguNum]").change(function(){
 		let siguNum = $(this).val();
 		$("form select[name=dongNum]").find('option').remove().end()
-				.append("<option value=''>행정동</option>");
+				.append("<option value=''>::행정동 ::</option>");
 		
 		if(! siguNum) {
 			return false;
@@ -210,7 +210,7 @@ $(function(){
 				</div>
 				<div class="col-auto p-1" style="flex: 1; float: left;">
 					<select name="dongNum" class="form-select" style="width: 125px;">
-						<option value="">행정동</option>
+						<option value="">::행정동 ::</option>
 					</select>
 				</div>
 				<div class="col-auto">
@@ -224,7 +224,7 @@ $(function(){
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
-							<th scope="col">제목</th>
+							<th scope="col" style=" max-width: 300px;" >제목</th>
 							<th scope="col">작성일</th>
 							<th scope="col">작성자</th>
 							<th scope="col">조회수</th>
@@ -235,7 +235,7 @@ $(function(){
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-								<td>
+								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
 									<c:if test="${empty sessionScope.member.userId}">
 										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none;">${dto.subject}</a>
 									</c:if> 

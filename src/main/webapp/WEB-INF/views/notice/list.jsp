@@ -50,6 +50,11 @@
 	--bs-pagination-hover-color: #ffffff;
 	}
 
+.page-navigation {
+	text-align: center;
+}
+
+
 </style>
 
 <script>
@@ -79,7 +84,7 @@ function searchList(){
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
-							<th scope="col">제목</th>
+							<th scope="col" style=" max-width: 380px;" >제목</th>
 							<th scope="col">작성일</th>
 						</tr>
 					</thead>
@@ -87,8 +92,8 @@ function searchList(){
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-								<td>
-								<a href="${articleUrl}&num=${dto.num}" class="text-reset" style=" text-decoration: none; color:black;">${dto.subject}</td>
+								<td style=" max-width: 380px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
+									<a href="${articleUrl}&num=${dto.num}" class="text-reset" style=" text-decoration: none; color:black;">${dto.subject}</td>
 								<td>${dto.reg_date}</td>
 							</tr>
 						</c:forEach>

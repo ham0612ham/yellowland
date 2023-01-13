@@ -67,33 +67,16 @@ function deleteOk(num) {
 				${dto.content} 
 			</span>
 		</div>
-		
-		
-		<c:choose>
-			<c:when test="${sessionScope.member.userId==dto.userId}">
-				<button type="button" class="btn btn-light"
-					onclick="location.href='${pageContext.request.contextPath}/qna/update?num=${dto.num}&page=${page}';">수정</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn-light" disabled="disabled">수정</button>
-			</c:otherwise>
-		</c:choose>
-
-		<c:choose>
-			<c:when test="${sessionScope.member.userId==dto.userId}">
-				<button type="button" class="btn btn-light" style="margin-right: 10px;" onclick="deleteOk(${dto.num});">삭제</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn-light" disabled="disabled" style="margin-right: 10px;">삭제</button>
-			</c:otherwise>
-		</c:choose>
 
 		<c:if test="${not empty dto2}">
-		
+			<hr style="margin-top: 40px;">
+		</c:if>
+
+		<c:if test="${not empty dto2}">
 			<div class="articleManager">
 				<h4 class="articleManagerCircle">●&nbsp;</h4>
 				<h3 class="articleManagerManager">관리자</h3>
-				<h3 class="articleManagerDate">&nbsp;${dto2.regDate}날짜</h3>
+				<h3 class="articleManagerDate">&nbsp;${dto2.regDate}</h3>
 				<h3></h3>
 				<br>
 				<div  class="articleManagerContent">
@@ -107,7 +90,17 @@ function deleteOk(num) {
 		<br>	
 		<br>	
 		<hr>
+		
 		<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/qna/list';">목록</button>
-
+		
+		<c:choose>
+			<c:when test="${sessionScope.member.userId==dto.userId}">
+				<button type="button" class="btn btn-light" style=" margin-bottom: 20px; margin-right: 10px;" onclick="deleteOk(${dto.num});">삭제</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-light" disabled="disabled" style=" margin-bottom: 20px;">삭제</button>
+			</c:otherwise>
+		</c:choose>
+		
 	</div>
 </div>

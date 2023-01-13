@@ -8,9 +8,9 @@
 	<span class='reply-count' style="font-weight: bold; color: #36C88A; margin-left: 10px;">댓글 ${replyCount}개</span>
 </div>
 
-<table class='table table-borderless'>
+<table class='table table-borderless' style="margin-top: 10px;">
 	<c:forEach var="vo" items="${listReply}">
-		<tr class='border'>
+		<tr class='border' style="height: 120px;" >
 			<td width='90%'>
 				<div class='row reply-writer' style="width:100%; height: 40px;">
 					<h4 class="articleWriterCircle" data-userId="${vo.userId}" style="display: inline; color: #756EF2; width: 35px;" >●&nbsp;</h4>${dto.userName}
@@ -18,7 +18,7 @@
 					<div class='date' style="float: left; width: 200px; color: #9B9898;  padding:0px; height: 30px;" >${vo.regDate}</div>
 					<c:choose>
 						<c:when test="${sessionScope.member.userId==vo.userId}">
-							<div class='deleteReply reply-menu-item' style="width: 35px; margin-left:438px; display: inline; padding: 0px;" data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
+							<div class='deleteReply reply-menu-item' style="width: 35px; margin-left:438px; display: inline; padding: 0px; " data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
 						</c:when>
 					</c:choose>
 			

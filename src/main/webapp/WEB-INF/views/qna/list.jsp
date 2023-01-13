@@ -34,6 +34,7 @@
 
 .pagination justify-content-center {
 	float: left;
+	text-align: center;
 }
 
 .btn {
@@ -81,6 +82,7 @@
 .page-navigation {
 	margin-left: 330px;
 	margin-bottom: 50px;
+	text-align: center;
 }
 
 .show {
@@ -112,7 +114,7 @@
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
-							<th scope="col">제목</th>
+							<th scope="col" style=" max-width: 300px;" >제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">답변여부</th>
 							<th scope="col">작성일</th>
@@ -122,7 +124,7 @@
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-								<td>
+								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
 									<c:if test="${dto.userId == sessionScope.member.userId}">
 										<a href="${articleUrl}&num=${dto.num}" style="text-decoration: none; color:black;">${dto.subject}</a>
 									</c:if>

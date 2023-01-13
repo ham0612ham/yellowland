@@ -55,6 +55,7 @@
 
 .page-navigation {
 	margin-top: 20px;
+	text-align: center;
 }
 
 .bi bi-chevron-bar-right::after{
