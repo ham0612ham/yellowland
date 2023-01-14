@@ -69,7 +69,7 @@
 			<tr>
 				<th style="border: none">&nbsp;</th>
 				<th class="three-div1-img" rowspan="3" style="border: none">
-					<img style="width: 300px; float: right;" src="${pageContext.request.contextPath}/resources/images/message.png">
+					<img style="width: 300px; float: right;" src="${pageContext.request.contextPath}/resources/images/nav.png">
 				</th>
 			</tr>
 			<tr>
@@ -128,7 +128,7 @@
 		<table class="table three-div4 hide" style="margin: auto; width: 900px;">
 			<tr>
 				<th class="three-div4-img" rowspan="3" style="border: none">
-					<img style="width: 300px; float: left;" src="${pageContext.request.contextPath}/resources/images/nav.png">
+					<img style="width: 300px; float: left;" src="${pageContext.request.contextPath}/resources/images/contract.png">
 				</th>
 				<th style="border: none">&nbsp;</th>
 			</tr>

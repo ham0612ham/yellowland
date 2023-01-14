@@ -15,6 +15,9 @@
 	width: 100%; min-height: 300px; background: #fff; border-radius: 20px; padding: 20px 50px;
 	box-shadow: 10px 10px 15px rgb(0,0,0,0.2);
 }
+.capture-div {
+	width: 100%; min-height: 300px; background: #fff; padding: 20px 50px;
+}
 @keyframes box-ani {
 	0% { transform: translate(0, 60px); }
 	100% { transform: translate(0, 0); }
@@ -70,12 +73,12 @@
 .image-btn { margin: 0px 4px 30px 4px; cursor: pointer }
 </style>
 
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 
 Kakao.init('${daumKey}');
 
-//SDK 초기화 여부를 판단합니다.
 console.log(Kakao.isInitialized());
 
 function kakaoShare() {
@@ -99,7 +102,6 @@ Kakao.Link.sendDefault({
      },
    },
  ],
- // 카카오톡 미설치 시 카카오톡 설치 경로이동
  installTalk: true,
 })
 }
@@ -130,6 +132,31 @@ $(function(){
 	}
 });
 
+function printDiv() {
+	$(".capture-div").css("display", "");
+	const now = new Date().getTime();
+	
+	let div = $(".capture-div");
+	div = div[0];
+	html2canvas(div).then(function(canvas){
+		var myImage = canvas.toDataURL("image/jpeg");
+		downloadURI(myImage, now+".png") // 현재시간 밀리세컨드로 png 이름 저장
+	});
+}
+
+function downloadURI(uri, name) {
+	var link = document.createElement("a")
+	if( typeof link.download === 'string' ) {
+		link.download = name;
+		link.href = uri;
+		document.body.appendChild(link);
+		link.click();
+		$("#link-box").show;
+	} else {
+		window.open(uri);
+	}
+	$(".capture-div").css("display", "none");
+}
 </script>
 
 <div class="container">
@@ -190,7 +217,8 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				<div style="text-align: center;">
+				<div style="text-align: center;" id="link-box">
+					<span><img class="image-btn image-btn3" src="${pageContext.request.contextPath}/resources/images/capture.png" style="width: 50px;" title="결과 보내기" id="pick" onclick="printDiv(); return false;"></span>
 					<span><img class="image-btn image-btn1" src="${pageContext.request.contextPath}/resources/images/kakao.png" style="width: 50px;" title="카카오톡 공유" onclick="kakaoShare();"></span>
 					<span><img class="image-btn image-btn2" src="${pageContext.request.contextPath}/resources/images/facebook.png" style="width: 50px;" title="페이스북 공유" onclick="onClickFacebook();"></span>
 					<span><img class="image-btn image-btn3" src="${pageContext.request.contextPath}/resources/images/link.png" style="width: 50px;" title="주소 복사" onclick="clip(); return false;"></span>
@@ -199,3 +227,61 @@ $(function(){
 		</div>
 	</div>
 </div>
+
+		<div class="capture-div" style='display:none; width: 600px;'>
+			<div class='result-div'>
+				<div class='result-img-div'>
+					<img class="result-img" src="${pageContext.request.contextPath}/resources/images/testStep/food.png">
+				</div>
+				<div class="result-job-div">
+					<div class="result-job">
+						<span class="semi">
+							<img class="colon" src="${pageContext.request.contextPath}/resources/images/testStep/colon_1.png">
+						</span>
+						<span class="job">${first}</span>
+						<span class="semi">
+							<img class="colon" src="${pageContext.request.contextPath}/resources/images/testStep/colon_2.png">
+						</span>
+					</div>
+				</div>
+				<div class="result-border">
+					<div class="result-tags">
+						당신의 성향에 가장 어울리는 가게는 <span class="blue-job">${first}</span>입니다.
+					</div>
+				</div>
+				<div class="result-border">
+					<div class="result-tag">
+						<span class="blue-job">${first}</span> 외에 당신에게 어울리는 다른 가게는 어떤 것이 있을까요?
+					</div>
+					<div class="result-tag d-flex flex-row mb-3" style='margin: 0px;'>
+						<div class="gray-div"><span>${second}</span></div>
+						<div class="gray-div"><span>${third}</span></div>
+						<div class="gray-div"><span>${fourth}</span></div>
+						<div class="gray-div"><span>${fifth}</span></div>
+					</div>
+				</div>
+				<div class="result-border" style="margin-bottom: 30px; font-size: 14px;">
+					<div class="result-tags d-flex justify-content-between" style="padding: 10px 30px 5px 30px;">
+						<div>직접 조건별 상권을 확인하고싶다면?</div>
+						<div>
+							<span class="menu" onclick='location.href="${pageContext.request.contextPath}/commercial/map"'>뜨는 상권</span>
+							<span class="gray-color">으로 알아보기</span>
+						</div>
+					</div>
+					<div class="result-tags d-flex justify-content-between" style="padding: 0 30px;">
+						<div>맞춤별 동네를 찾고 싶다면?</div>
+						<div>
+							<span class="menu" onclick='location.href="${pageContext.request.contextPath}/matching/main"'>상권 매칭</span>
+							<span class="gray-color">으로 알아보기</span>
+						</div>
+					</div>
+					<div class="result-tags d-flex justify-content-between" style="padding: 5px 30px 10px 30px;">
+						<div>모든 수치를 한 눈에 보고 싶다면?</div>
+						<div>
+							<span class="menu" onclick='location.href="${pageContext.request.contextPath}/analysis/area/main"'>상권 현황</span>
+							<span class="gray-color">으로 알아보기</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

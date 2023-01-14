@@ -149,7 +149,7 @@ $(function(){
 		let query = "fileName="+fileName;
 		
 		const fn = function(data) {
-			$("#excelButton-div").html('<button class="btn" id="excelButton">엑셀 저장</button>');
+			$("#excelButton-div").html('<button class="btn" id="captureButton" style="margin-right: 5px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="현재 펼쳐진 이미지대로 캡쳐됩니다.">캡쳐 저장</button><button class="btn" id="excelButton">엑셀 저장</button>');
 			$("#output-table").html(data);
 			
 			$("tr.branch").css("display", '');
@@ -190,25 +190,20 @@ $(function(){
 });
 
 function s2ab(s) { 
-    var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-    var view = new Uint8Array(buf);  //create uint8array as viewer
-    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
     return buf;    
 }
 function exportExcel(){ 
-    // step 1. workbook 생성
     var wb = XLSX.utils.book_new();
 
-    // step 2. 시트 만들기 
     var newWorksheet = excelHandler.getWorksheet();
     
-    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
     XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
 
-    // step 4. 엑셀 파일 만들기 
     var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
 
-    // step 5. 엑셀 파일 내보내기 
     saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
 }
 $(document).ready(function() { 
@@ -232,3 +227,32 @@ var excelHandler = {
         }
 }
 
+$(function(){
+	$("#excelButton-div").on("click", "#captureButton", function(){
+		printDiv();
+	});
+});
+
+function printDiv() {
+	const now = new Date().getTime();
+	
+	let div = $("#table1");
+	div = div[0];
+	html2canvas(div).then(function(canvas){
+		var myImage = canvas.toDataURL("image/jpeg");
+		downloadURI(myImage, now+".png") // 현재시간 밀리세컨드로 png 이름 저장
+	});
+}
+
+function downloadURI(uri, name) {
+	var link = document.createElement("a")
+	if( typeof link.download === 'string' ) {
+		link.download = name;
+		link.href = uri;
+		document.body.appendChild(link);
+		link.click();
+		$("#link-box").show;
+	} else {
+		window.open(uri);
+	}
+}

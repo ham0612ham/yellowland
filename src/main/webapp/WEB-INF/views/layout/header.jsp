@@ -12,7 +12,7 @@
 			<ul class="main-menu">
 				<li><a href="${pageContext.request.contextPath}/commercial/map" class="main-menu-a">뜨는 상권</a></li>
 				<li><a href="${pageContext.request.contextPath}/matching/main" class="main-menu-a">상권 매칭</a></li>
-				<li><a href="${pageContext.request.contextPath}/analysis/main" class="main-menu-a">상권 현황</a>
+				<li><a href="${pageContext.request.contextPath}/analysis/area/main" class="main-menu-a">상권 현황</a>
 					<ul class="sub-menu" style="z-index: 100">
 						<li><a href="${pageContext.request.contextPath}/analysis/area/main" aria-label="subemnu">지역별 현황</a></li>
 						<li><a href="${pageContext.request.contextPath}/analysis/dist/main" aria-label="subemnu">상권별 현황</a></li>
