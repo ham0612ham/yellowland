@@ -113,7 +113,11 @@ public class QnaController {
 			Model model) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+		
+		if (info == null) {
+			return "redirect:/member/login";			
+		}
+		
 		String query = "page=" + page;
 
 		Qna qnaDto = service.readQna(num);

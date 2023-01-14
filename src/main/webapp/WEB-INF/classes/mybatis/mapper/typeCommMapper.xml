@@ -83,7 +83,9 @@
 	
 	<!-- 리스트 -->
 	<select id="listTypeComm" parameterType="map" resultType="com.sp.app.typeComm.TypeComm">
-		SELECT t.num,subject, t.userId, userName,  hitCount, 
+		SELECT t.num,subject, t.userId, 
+				replace(userName, substr(userName, 2, 1), '*') userName,
+				  hitCount, 
 			   TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount,
 			   NVL(likeCount, 0) likeCount
 		FROM typeComm t
@@ -113,7 +115,8 @@
 	
 	<!-- 글보기 -->
 	<select id="readTypeComm" parameterType="Long" resultType="com.sp.app.typeComm.TypeComm">
-		SELECT num, t.userId, userName, subject, content, TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, 
+		SELECT num, t.userId, replace(userName, substr(userName, 2, 1), '*') userName, 
+		subject, content, TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, 
 			hitCount, t.catejobNum, t.jobNum, catejobName, jobName
 		FROM typeComm t
 		JOIN member1 m ON t.userId=m.userId
@@ -175,7 +178,8 @@
 	</insert>	
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.app.typeComm.Reply">
-		SELECT r.replyNum, r.userId, userName, num, content, r.regDate 
+		SELECT r.replyNum, r.userId, replace(userName, substr(userName, 2, 1), '*') userName,
+		 num, content, r.regDate 
 		FROM typeCommReply r
 		JOIN member1 m ON r.userId = m.userId
 		WHERE num=#{num}

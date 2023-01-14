@@ -83,8 +83,8 @@
    
    <!-- 리스트 -->
    <select id="listLocalComm" parameterType="map" resultType="com.sp.app.localComm.LocalComm">
-      SELECT l.num,subject, l.userId, userName,  hitCount, 
-            TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount, 
+      SELECT l.num,subject, l.userId, replace(userName, substr(userName, 2, 1), '*') userName,
+       		hitCount, TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount, 
             NVL(likeCount, 0) likeCount
       FROM localComm l
       JOIN member1 m ON m.userId=l.userId
@@ -113,7 +113,8 @@
 
    <!-- 글보기 -->
    <select id="readLocalComm" parameterType="Long" resultType="com.sp.app.localComm.LocalComm">
-     SELECT num, l.userId, userName, subject, content, TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate,
+     SELECT num, l.userId, replace(userName, substr(userName, 2, 1), '*') userName,
+      subject, content, TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate,
       hitCount, l.siguNum, l.dongNum, dongName, siguName
       FROM localComm l
       JOIN member1 m ON l.userId=m.userId 
@@ -175,7 +176,8 @@
    </insert>   
    
    <select id="listReply" parameterType="map" resultType="com.sp.app.localComm.Reply">
-      SELECT r.replyNum, r.userId, userName, num, content, r.regDate 
+      SELECT r.replyNum, r.userId, replace(userName, substr(userName, 2, 1), '*') userName,
+      num, content, r.regDate 
       FROM localCommReply r
       JOIN member1 m ON r.userId = m.userId
       WHERE num=#{num}

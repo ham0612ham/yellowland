@@ -282,8 +282,8 @@ $(function(){
 						<input type="text" class="form-control" id="searchComm"  name="keyword" value="${keyword}" >
 					</div>
 					<div class="searchButton">
-						<input type="hidden" name = "siguNum" value="${catejobNum}">
-						<input type="hidden" name = "dongNum" value="${jobNum}">
+						<input type="hidden" name = "catejobNum" value="${catejobNum}">
+						<input type="hidden" name = "jobNum" value="${jobNum}">
 						<button type="button" class="btn btn-primary" onclick="searchCondtion()">검색</button>
 					</div>
 				</form>

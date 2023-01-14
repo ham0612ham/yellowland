@@ -193,6 +193,10 @@ public class LocalCommController {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
+		if (info == null) {
+			return "redirect:/member/login";			
+		}
+		
 		String query = "page=" + page;
 		if (keyword.length() != 0) {
 			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");

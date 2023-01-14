@@ -51,7 +51,20 @@
   display: block;
 }  
   
-div#ckEditor img { max-width: 100%; height: auto; }
+.badge{
+
+	width: 50px; 
+	height: 28px;
+ 	font-size: 15px;
+    margin-left: 427px;
+    margin-top: 10px;
+    font-weight: 400;
+    cursor : pointer;}  
+
+.readDto {
+	text-decoration: none;
+	color:black;
+}  
   
 </style>
 
@@ -150,7 +163,7 @@ $(function(){
 
 //댓글 삭제
 $(function(){
-	$("body").on("click", ".deleteReply", function(){
+	$("body").on("click", "#deleteReply", function(){
 		if(! confirm("게시물을 삭제하시겠습니까 ? ")) {
 		    return false;
 		}
@@ -213,43 +226,6 @@ $(function(){
 });
 
 
-// 이름 마스킹 처리
-let maskingFunc = {
-	checkNull : function (str){
-		if(typeof str == "undefined" || str == null || str == ""){
-			return true;
-		}
-		else{
-			return false;
-		}
-	},
-	/*
-	※ 이름 마스킹
-	ex1) 원본 데이터 : 갓댐희, 변경 데이터 : 갓댐*
-	ex2) 원본 데이터 : 하늘에수, 변경 데이터 : 하늘**
-	ex3) 원본 데이터 : 갓댐, 변경 데이터 : 갓*
-	*/
-	name : function(userName){
-		let originStr = userName;
-		let maskingStr;
-		let strLength;
-		
-		if(this.checkNull(originStr) == true){
-			return originStr;
-		}
-		
-		strLength = originStr.length;
-		
-		if(strLength < 3){
-			maskingStr = originStr.replace(/(?<=.{1})./gi, "*");
-		}else {
-			maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
-		}
-		
-		return maskingStr;
-	}
-}
-
 </script>
 
 <div class="container">
@@ -274,7 +250,7 @@ let maskingFunc = {
 				<tbody>
 					<tr>
 						<td width="50%">
-							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName} {maskingStr}
+							<h4 class="articleWriterCircle" >●&nbsp;</h4>${dto.userName}
 						</td>
 						<td colspan="2" width="50%" style="text-align: right;">
 						    <p style="display: inline; color: #696969; ">작성일자 </p><p style="display: inline; font-weight: 500;">${dto.regDate}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline; color: #696969;">조회</p> <p style="display: inline; font-weight: 500;">${dto.hitCount}</p>
@@ -307,7 +283,7 @@ let maskingFunc = {
 						<td colspan="2" >
 							이전글 :
 							<c:if test="${not empty preReadDto}">
-								<a href="${pageContext.request.contextPath}/typeComm/article?${query}&num=${preReadDto.num}" style="text-decoration: none; color:black;">${preReadDto.subject}</a>
+								<a class="readDto" href="${pageContext.request.contextPath}/typeComm/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -315,7 +291,7 @@ let maskingFunc = {
 						<td colspan="2" style="text-decoration: none;">
 							다음글 :
 							<c:if test="${not empty nextReadDto}">
-								<a href="${pageContext.request.contextPath}/typeComm/article?${query}&num=${nextReadDto.num}" style="text-decoration: none; color:black;">${nextReadDto.subject}</a>
+								<a class="readDto" href="${pageContext.request.contextPath}/typeComm/article?${query}&num=${nextReadDto.num}" >${nextReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>

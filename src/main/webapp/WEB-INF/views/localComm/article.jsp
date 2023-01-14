@@ -46,12 +46,26 @@
 }  
   
 .image image_resized {
-	 max-width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
 }  
   
-div#ckEditor img { max-width: 100%; height: auto; }
+.badge{
+
+	width: 50px; 
+	height: 28px;
+ 	font-size: 15px;
+    margin-left: 427px;
+    margin-top: 10px;
+    font-weight: 400;
+    cursor : pointer;}  
+  
+.readDto {
+	text-decoration: none;
+	color:black;
+}  
+    
   
 </style>
 
@@ -150,7 +164,7 @@ $(function(){
 
 //댓글 삭제
 $(function(){
-	$("body").on("click", ".deleteReply", function(){
+	$("body").on("click", "#deleteReply", function(){
 		if(! confirm("게시물을 삭제하시겠습니까 ? ")) {
 		    return false;
 		}
@@ -212,88 +226,6 @@ $(function(){
 	});
 });
 
-// ckEditor 이미지 사이즈 조절
-/*
-CKEDITOR.on('instanceReady', function (ev) {
-ev.editor.dataProcessor.htmlFilter.addRules(
-    {
-        elements:
-        {
-            $: function (element) {
-                // Output dimensions of images as width and height
-                if (element.name == 'img') {
-                    var style = element.attributes.style;
-
-                    if (style) {
-                        // Get the width from the style.
-                        var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
-                            width = match && match[1];
-
-                        // Get the height from the style.
-                        match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
-                        var height = match && match[1];
-
-                        if (width) {
-                            element.attributes.style = element.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
-                            element.attributes.width = width;
-                        }
-
-                        if (height) {
-                            element.attributes.style = element.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
-                            element.attributes.height = height;
-                        }
-                    }
-                }
-
-
-
-                if (!element.attributes.style)
-                    delete element.attributes.style;
-
-                return element;
-            }
-        }
-    });
-});
-*/
-
-// 이름 마스킹 처리
-let maskingFunc = {
-	checkNull : function (str){
-		if(typeof str == "undefined" || str == null || str == ""){
-			return true;
-		}
-		else{
-			return false;
-		}
-	},
-	/*
-	※ 이름 마스킹
-	ex1) 원본 데이터 : 갓댐희, 변경 데이터 : 갓댐*
-	ex2) 원본 데이터 : 하늘에수, 변경 데이터 : 하늘**
-	ex3) 원본 데이터 : 갓댐, 변경 데이터 : 갓*
-	*/
-	name : function(userName){
-		let originStr = userName;
-		let maskingStr;
-		let strLength;
-		
-		if(this.checkNull(originStr) == true){
-			return originStr;
-		}
-		
-		strLength = originStr.length;
-		
-		if(strLength < 3){
-			maskingStr = originStr.replace(/(?<=.{1})./gi, "*");
-		}else {
-			maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
-		}
-		
-		return maskingStr;
-	}
-}
-
 </script>
 
 <div class="container">
@@ -350,7 +282,7 @@ let maskingFunc = {
 						<td colspan="2" >
 							이전글 :
 							<c:if test="${not empty preReadDto}">
-								<a href="${pageContext.request.contextPath}/localComm/article?${query}&num=${preReadDto.num}" style="text-decoration: none; color:black;">${preReadDto.subject}</a>
+								<a class="readDto" href="${pageContext.request.contextPath}/localComm/article?${query}&num=${preReadDto.num}" >${preReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
@@ -358,7 +290,7 @@ let maskingFunc = {
 						<td colspan="2" style="text-decoration: none;">
 							다음글 :
 							<c:if test="${not empty nextReadDto}">
-								<a href="${pageContext.request.contextPath}/localComm/article?${query}&num=${nextReadDto.num}" style="text-decoration: none; color:black;">${nextReadDto.subject}</a>
+								<a class="readDto" href="${pageContext.request.contextPath}/localComm/article?${query}&num=${nextReadDto.num}" >${nextReadDto.subject}</a>
 							</c:if>
 						</td>
 					</tr>
