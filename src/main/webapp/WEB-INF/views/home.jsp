@@ -6,7 +6,7 @@
 	<div style="position: relative;">
 		<div id="back-gray" style="position: absolute; z-index: -2;">
 		</div>
-			<div style="position: relative; left: 200px; top: -100px; z-index: -1;">
+			<div style="position: absolute; z-index: -1;">
 				<div class="circles circle-1">&nbsp;</div>
 				<div class="circles circle-2">&nbsp;</div>
 				<div class="circles circle-3">&nbsp;</div>
@@ -46,7 +46,7 @@
 									margin-left: 150px; width: 330px;"
 									onclick="location.href='${pageContext.request.contextPath}/matching/main'">
 								<div class="three-bigchar">상권 매칭</div>
-								<div class="three-smchar lh-sm">원하는 위치 주변의 상권 분석과<br>다양한 통계를 확인하세요</div>
+								<div class="three-smchar lh-sm">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
 							</div>
 						</th>
 					</tr>
@@ -54,9 +54,9 @@
 						<th style="border: none" class="three-button">
 							<div class="d-flex flex-row three-btn" id="bl-button"
 								style="background-color: #49B3FF; box-shadow: 0px 0px 10px rgb(73, 179, 255, 1.0); 
-									width: 370px;" onclick="location.href='${pageContext.request.contextPath}/analysis/main'">
-								<div class="three-bigchar">상권 분석</div>
-								<div class="three-smchar lh-sm">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
+									width: 370px;" onclick="${pageContext.request.contextPath}/analysis/area/main'">
+								<div class="three-bigchar">상권 현황</div>
+								<div class="three-smchar lh-sm">서울시 모든 곳의 상권 분석을<br>직접적인 수치로 확인해세요</div>
 							</div>
 						</th>
 					</tr>
@@ -94,8 +94,8 @@
 			</tr>
 			<tr>
 				<th class="three-div2-text" style="border: none;">
-					<div style="font-weight: 200; font-size: 40px; text-align: right;">내가 <span class="text-bold">점찍은 </span>곳, 어떨까?</div>
-					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px; text-align: right;">원하는 위치 주변의 상권 분석과<br>다양한 통계를 확인하세요</div>
+					<div style="font-weight: 200; font-size: 40px; text-align: right;">나에게 <span class="text-bold">딱 맞는 </span>곳, 어딜까?</div>
+					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px; text-align: right;">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
 					<button class="btn btn-dark black-btn" style="float: right;">상권 매칭 바로가기</button>
 				</th>
 			</tr>
@@ -115,8 +115,8 @@
 			<tr>
 				<th class="three-div3-text" style="border: none;">
 					<div style="font-weight: 200; font-size: 40px">자세한 <span class="text-bold">정보 </span>어디 없나?</div>
-					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px;">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
-					<button class="btn btn-dark black-btn">상권 분석  바로가기</button>
+					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px;">서울시 모든 곳의 상권 분석을<br>직접적인 수치로 확인해세요</div>
+					<button class="btn btn-dark black-btn">상권 현황  바로가기</button>
 				</th>
 			</tr>
 			<tr>

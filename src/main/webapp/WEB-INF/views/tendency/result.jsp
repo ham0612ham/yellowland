@@ -249,7 +249,7 @@ function downloadURI(uri, name) {
 						당신의 성향에 가장 어울리는 가게는 <span class="blue-job">${first}</span>입니다.
 					</div>
 				</div>
-				<div class="result-border">
+				<div class="result-border" style="margin-bottom: 50px;">
 					<div class="result-tag">
 						<span class="blue-job">${first}</span> 외에 당신에게 어울리는 다른 가게는 어떤 것이 있을까요?
 					</div>
@@ -258,29 +258,6 @@ function downloadURI(uri, name) {
 						<div class="gray-div"><span>${third}</span></div>
 						<div class="gray-div"><span>${fourth}</span></div>
 						<div class="gray-div"><span>${fifth}</span></div>
-					</div>
-				</div>
-				<div class="result-border" style="margin-bottom: 30px; font-size: 14px;">
-					<div class="result-tags d-flex justify-content-between" style="padding: 10px 30px 5px 30px;">
-						<div>직접 조건별 상권을 확인하고싶다면?</div>
-						<div>
-							<span class="menu" onclick='location.href="${pageContext.request.contextPath}/commercial/map"'>뜨는 상권</span>
-							<span class="gray-color">으로 알아보기</span>
-						</div>
-					</div>
-					<div class="result-tags d-flex justify-content-between" style="padding: 0 30px;">
-						<div>맞춤별 동네를 찾고 싶다면?</div>
-						<div>
-							<span class="menu" onclick='location.href="${pageContext.request.contextPath}/matching/main"'>상권 매칭</span>
-							<span class="gray-color">으로 알아보기</span>
-						</div>
-					</div>
-					<div class="result-tags d-flex justify-content-between" style="padding: 5px 30px 10px 30px;">
-						<div>모든 수치를 한 눈에 보고 싶다면?</div>
-						<div>
-							<span class="menu" onclick='location.href="${pageContext.request.contextPath}/analysis/area/main"'>상권 현황</span>
-							<span class="gray-color">으로 알아보기</span>
-						</div>
 					</div>
 				</div>
 			</div>

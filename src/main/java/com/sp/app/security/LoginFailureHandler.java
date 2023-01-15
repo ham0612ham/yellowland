@@ -22,7 +22,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler{
 	@Autowired
 	private MemberService service;
 	
-	private String defaultFailureUrl; // 넘겨줄 주소
+	private String defaultFailureUrl;
 	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -34,21 +34,17 @@ public class LoginFailureHandler implements AuthenticationFailureHandler{
 		
 		try {
 			if(exception instanceof BadCredentialsException) {
-				// 패스워드가 일치하지 않는 경우
 				
-				// 실패횟수 누적
 				service.updateFailureCount(userId);
 				int count = service.checkFailureCount(userId);
 				
 				if(count >= 5) {
-					// 계정 비활성화
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("enabled", 0);
 					map.put("userId", userId);
 					
 					service.updateMemberEnabled(map);
 					
-					// 계정 비활성화 상태 저장
 					Member dto = new Member();
 					dto.setUserId(userId);
 					dto.setRegisterId(userId);
@@ -70,7 +66,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler{
 		request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
 	}
 
-	public void setDefaultFailureUrl(String defaultFailureUrl) { // defaultFailureUrl : 넘겨줄 주소
+	public void setDefaultFailureUrl(String defaultFailureUrl) {
 		this.defaultFailureUrl = defaultFailureUrl;
 	}
 	

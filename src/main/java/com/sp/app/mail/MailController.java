@@ -13,12 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MailController {
 	@Autowired
 	private MailSender mailSender;
-	
-	@RequestMapping(value="send", method=RequestMethod.GET)
-	public String sendForm(Model model) throws Exception {
-
-		return ".mail.send";
-	}
 
 	@RequestMapping(value="send", method=RequestMethod.POST)
 	public String sendSubmit(Mail dto, 
