@@ -364,7 +364,7 @@ function overall(data, latitude, longitude) {
 	map = new kakao.maps.Map(mapContainer, mapOption); 
 	
 	// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-	kakao.maps.event.addListener(map, 'bounds_changed', function() {             
+	kakao.maps.event.addListener(map, 'dragend', function() {             
 	    
 	    // 지도 영역정보를 얻어옵니다 
 	    var bounds = map.getBounds();
@@ -374,12 +374,6 @@ function overall(data, latitude, longitude) {
 	    
 	    // 영역정보의 북동쪽 정보를 얻어옵니다 
 	    var neLatlng = bounds.getNorthEast().toString();
-	    
-	    var message = '<p>영역좌표는 남서쪽 위도, 경도는  ' + swLatlng + '이고 <br>'; 
-	    message += '북동쪽 위도, 경도는  ' + neLatlng + '입니다 </p>';  
-	    
-	    var resultDiv = document.getElementById('result');   
-	    resultDiv.innerHTML = message;
 	    
 	    
 	    updateList(swLatlng, neLatlng);
