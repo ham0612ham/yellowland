@@ -242,7 +242,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="select_maintitle"></div>
 				</div>
 	
-			
+			 
 			<div class="justify-content-center" style="width: 100%;">
 				<form name="areaform">
 					<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist">
@@ -266,7 +266,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<div class="select-title">원하는 지역을 선택해주세요</div>
 				</div>
 			</div>
-			
+			 
 			<div class="justify-content-center" style="width: 100%;">
 				<form name="areaform">
 					<div>
