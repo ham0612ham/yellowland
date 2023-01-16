@@ -1,6 +1,7 @@
 package com.sp.app.assignComm;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AssignCommService {
 	public void insertAllComm(Community dto, String path) throws Exception; // 입력 폼 내용 입력
@@ -16,4 +17,8 @@ public interface AssignCommService {
 	public long listCommCount(String userId); // 내 게시물 갯수
 	
 	public void insertNote(Note note) throws Exception;
+	
+	// 지도 영역 안의 위도 경도에 따른 리스트 표시
+	public List<Community> updateList(Map<String, Object> map);
+	public long updateListCount(Map<String, Object> map);
 }

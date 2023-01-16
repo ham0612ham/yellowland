@@ -161,8 +161,6 @@ function checkIn() {
 	}
 	
 	
-	
-	
 	f.action = "${pageContext.request.contextPath}/assignComm/write";
  	f.submit();
 }

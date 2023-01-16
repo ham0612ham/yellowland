@@ -286,7 +286,7 @@ function myList() {
   data-shape="pc"
   data-support-multiple-densities="true"
 ></div>
-
+<div id="result"></div>
 
 <div>
 	<a class="float" onclick="loginCheck();" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-plus my-float"></i></a>
@@ -307,6 +307,32 @@ function search() {
 	let data = document.getElementById("data").value;
 	
 	overall(data);
+}
+
+function updateList(swLatlng, neLatlng) {
+	
+	let swLat = swLatlng.substring(1, swLatlng.indexOf(','))
+	let swLng = swLatlng.substring(swLatlng.indexOf(',') + 2, swLatlng.indexOf(')'))
+	let neLat = neLatlng.substring(1, neLatlng.indexOf(','))
+	let neLng = neLatlng.substring(neLatlng.indexOf(',') + 2, neLatlng.indexOf(')'))
+	
+	// alert('swLat : ' + swLat + ' swLng : ' + swLng);
+	// alert('neLat : ' + neLat + ' neLng : ' + neLng);
+	
+	let url = '${pageContext.request.contextPath}/assignComm/updateList';
+	let query = 'swLat=' + swLat + "&swLng=" + swLng + "&neLat=" + neLat + "&neLng=" + neLng;
+	
+	
+	const fn = function(data) {
+		console.log("적용완료");
+		
+	    let assignClass = document.querySelector('.assign-class');
+	   
+	    assignClass.innerHTML = '';
+	    assignClass.innerHTML = data;
+	};
+	
+	ajaxFun(url, 'get', query, 'html', fn);
 }
 
 var markers = [];
@@ -336,6 +362,29 @@ function overall(data, latitude, longitude) {
     
 	// 지도를 생성합니다    
 	map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+	kakao.maps.event.addListener(map, 'bounds_changed', function() {             
+	    
+	    // 지도 영역정보를 얻어옵니다 
+	    var bounds = map.getBounds();
+	    
+	    // 영역정보의 남서쪽 정보를 얻어옵니다 
+	    var swLatlng = bounds.getSouthWest().toString();
+	    
+	    // 영역정보의 북동쪽 정보를 얻어옵니다 
+	    var neLatlng = bounds.getNorthEast().toString();
+	    
+	    var message = '<p>영역좌표는 남서쪽 위도, 경도는  ' + swLatlng + '이고 <br>'; 
+	    message += '북동쪽 위도, 경도는  ' + neLatlng + '입니다 </p>';  
+	    
+	    var resultDiv = document.getElementById('result');   
+	    resultDiv.innerHTML = message;
+	    
+	    
+	    updateList(swLatlng, neLatlng);
+	   
+	});
 	
 	// 장소 검색 객체를 생성합니다
 	ps = new kakao.maps.services.Places(map);

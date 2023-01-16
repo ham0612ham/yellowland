@@ -2,15 +2,19 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="assignComm">
+	<select id="seq" resultType="Long">
+		SELECT ASSIGNCOMM_SEQ.NEXTVAL FROM dual
+	</select>
+
 	<insert id="insertComm" parameterType="com.sp.app.assignComm.Community">
 		INSERT INTO assignComm(num, subject, content, userId, regDate, thumbnail, zip, addr1, addr2, pNum, lat, lng) 
-			VALUES(ASSIGNCOMM_SEQ.NEXTVAL, #{subject}, #{content}, #{userId}, 
+			VALUES(#{num}, #{subject}, #{content}, #{userId}, 
 				SYSDATE, #{thumbnail}, #{zip}, #{addr1}, #{addr2}, #{pNum}, #{lat}, #{lng})
 	</insert>
 	
 	<insert id="insertCommDetail" parameterType="com.sp.app.assignComm.Community">
 		INSERT INTO assignCommDetail(num, deposit, monthly, expense, area, bFloor, floor, parking, elevator, transDate) 
-			VALUES(ASSIGNCOMM_SEQ.CURRVAL, #{deposit}, #{monthly}, #{expense}, #{area}, #{bFloor}, #{floor}, #{parking}, #{elevator}, #{transDate})
+			VALUES(#{num}, #{deposit}, #{monthly}, #{expense}, #{area}, #{bFloor}, #{floor}, #{parking}, #{elevator}, #{transDate})
 	</insert>
 	
 	<insert id="insertCommImg" parameterType="com.sp.app.assignComm.Community">
@@ -83,5 +87,22 @@
 		INSERT INTO note(num, senderId, receiverId, content, sendDay) 
 			VALUES(NOTE_SEQ.NEXTVAL, #{senderId}, #{receiverId}, #{content}, SYSDATE)
 	</insert>
+	
+	<select id="updateListCount" resultType="long">
+		SELECT NVL(COUNT(*), 0) count 
+		FROM assignComm
+		WHERE lat &gt;= #{swLat, jdbcType=DOUBLE} and lat &lt;= #{neLat, jdbcType=DOUBLE} 
+        		and lng &gt;= #{swLng, jdbcType=DOUBLE} and lng &lt;= #{neLng, jdbcType=DOUBLE}
+	</select>
+	
+	<select id="updateList" parameterType="map" resultType="com.sp.app.assignComm.Community">
+		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate, 
+			pNum, zip, addr1, addr2, thumbnail, deposit, monthly, expense, area, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate, lat, lng
+		FROM assignComm a
+        JOIN assignCommDetail ad ON a.num = ad.num
+        WHERE lat &gt;= #{swLat, jdbcType=DOUBLE} and lat &lt;= #{neLat, jdbcType=DOUBLE} 
+        		and lng &gt;= #{swLng, jdbcType=DOUBLE} and lng &lt;= #{neLng, jdbcType=DOUBLE}
+        ORDER BY regDate DESC, a.num DESC 
+	</select>
 	
 </mapper>

@@ -3,7 +3,9 @@ package com.sp.app.assignComm;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -230,6 +232,37 @@ public class AssignCommController {
 		
 		
 		return "assignComm/updateForm";
+	}
+	
+	@RequestMapping(value = "updateList", method = RequestMethod.GET)
+	public String updateList(@RequestParam double swLat, @RequestParam double swLng, 
+			@RequestParam double neLat, @RequestParam double neLng, Model model) throws Exception {
+		
+		List<Community> list = null;
+		long count = 0;
+		
+		try {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("swLat", swLat);
+			map.put("swLng", swLng);
+			map.put("neLat", neLat);
+			map.put("neLng", neLng);
+			
+			list = service.updateList(map);
+			
+			count = service.updateListCount(map);
+			
+			model.addAttribute("updateList", list);
+			model.addAttribute("newCount", count);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "assignComm/updateList";
 	}
 	
 }

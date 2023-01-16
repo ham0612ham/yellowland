@@ -1,6 +1,7 @@
 package com.sp.app.assignComm;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,10 @@ public class AssignCommServiceImpl implements AssignCommService {
 	public void insertAllComm(Community dto, String pathname) throws Exception {
 		
 		try {
+			
+			long seq = dao.selectOne("assignComm.seq");
+			
+			dto.setNum(seq);
 			
 			String thumbnail = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
 			dto.setThumbnail(thumbnail);
@@ -220,5 +225,37 @@ public class AssignCommServiceImpl implements AssignCommService {
 		}
 		
 	}
+	
+	@Override
+	public List<Community> updateList(Map<String, Object> map) {
+		
+		List<Community> list = null;
+		
+		try {
+			
+			list = dao.selectList("assignComm.updateList", map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
+	
+	@Override
+	public long updateListCount(Map<String, Object> map) {
+		
+		long count = 0;
+		
+		try {
+			
+			count = dao.selectOne("assignComm.updateListCount", map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }
