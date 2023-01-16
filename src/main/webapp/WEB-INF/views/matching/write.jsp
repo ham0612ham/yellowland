@@ -260,7 +260,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			</div>
 		</div>
 		
-		 <div class="check-area">
+		 <div class="check-area"> 
 			<div>
 			    <div class="d-flex justify-content-center"> 
 				<div class="select-title">원하는 지역을 선택해주세요</div>
