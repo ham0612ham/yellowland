@@ -1,5 +1,7 @@
 package com.sp.app.notice;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -133,6 +137,8 @@ public class NoticeController {
 
 		// 파일
 		List<Notice> listFile = service.listFile(num);
+		
+		model.addAttribute("listFile", listFile);
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("preReadDto", preReadDto);
@@ -144,4 +150,65 @@ public class NoticeController {
 		return ".notice.article";
 	}
 	
+
+	@RequestMapping(value = "download")
+	public void download(@RequestParam long fileNum,
+			HttpServletResponse resp,
+			HttpSession session) throws Exception {
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "notice";
+
+		boolean b = false;
+
+		Notice dto = service.readFile(fileNum);
+		if (dto != null) {
+			String saveFilename = dto.getSaveFilename();
+			String originalFilename = dto.getOriginalFilename();
+
+			b = FileManager.doFileDownload(saveFilename, originalFilename, pathname, resp);
+		}
+
+		if (! b) {
+			try {
+				resp.setContentType("text/html; charset=utf-8");
+				PrintWriter out = resp.getWriter();
+				out.println("<script>alert('파일 다운로드가 불가능 합니다 !!!');history.back();</script>");
+			} catch (Exception e) {
+			}
+		}
+	}
+
+	@RequestMapping(value = "zipdownload")
+	public void zipdownload(@RequestParam long num,
+			HttpServletResponse resp,
+			HttpSession session) throws Exception {
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "notice";
+
+		boolean b = false;
+
+		List<Notice> listFile = service.listFile(num);
+		if (listFile.size() > 0) {
+			String[] sources = new String[listFile.size()];
+			String[] originals = new String[listFile.size()];
+			String zipFilename = num + ".zip";
+
+			for (int idx = 0; idx < listFile.size(); idx++) {
+				sources[idx] = pathname + File.separator + listFile.get(idx).getSaveFilename();
+				originals[idx] = File.separator + listFile.get(idx).getOriginalFilename();
+			}
+
+			b = FileManager.doZipFileDownload(sources, originals, zipFilename, resp);
+		}
+
+		if (! b) {
+			try {
+				resp.setContentType("text/html; charset=utf-8");
+				PrintWriter out = resp.getWriter();
+				out.println("<script>alert('파일 다운로드가 불가능 합니다 !!!');history.back();</script>");
+			} catch (Exception e) {
+			}
+		}
+	}
+
 }

@@ -46,6 +46,8 @@
 		<intercept-url pattern="/assignComm/**" access="permitAll"/>
 		<intercept-url pattern="/bringcate/**" access="permitAll"/>
 		<intercept-url pattern="/echart/**" access="permitAll"/>
+		<intercept-url pattern="/typeComm/**" access="permitAll"/>
+		<intercept-url pattern="/localComm/**" access="permitAll"/>
 		
 		<intercept-url pattern="/resources/**" access="permitAll"/>
 		<intercept-url pattern="/uploads/**" access="permitAll"/>

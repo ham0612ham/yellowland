@@ -190,9 +190,11 @@ public class TypeCommController {
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		
+		/*
 		if (info == null) {
 			return "redirect:/member/login";			
 		}
+		*/
 		
 		String query = "page=" + page;
 		if (keyword.length() != 0) {

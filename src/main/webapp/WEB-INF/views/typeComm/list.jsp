@@ -233,12 +233,7 @@ $(function(){
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
 								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
-									<c:if test="${empty sessionScope.member.userId}">
-										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none;">&nbsp;${dto.subject}&nbsp;</a>
-									</c:if> 
-									<c:if test="${not empty sessionScope.member.userId}">
-										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none;">${dto.subject}</a>
-									</c:if>
+									<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none;">${dto.subject}</a>
 								</td>
 								<td>${dto.regDate}</td>
 								<td>${dto.userName}</td>

@@ -1,5 +1,9 @@
 package com.sp.app.notice;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class Notice {
 	private long num;
 	private String userId;
@@ -9,7 +13,53 @@ public class Notice {
 	private String reg_date;
 	private int hitCount;
 	
+	// 파일
+	private long fileNum;
+	private String originalFilename;
+	private String saveFilename;
+	private long fileSize;
+	private int fileCount;
 	
+	// 스프링에서 파일 받기
+	private List<MultipartFile> selectFile; // <input type='file' name='selectFile' ..
+	
+	
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getOriginalFilename() {
+		return originalFilename;
+	}
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
+	}
+	public String getSaveFilename() {
+		return saveFilename;
+	}
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
+	}
+	public long getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+	public int getFileCount() {
+		return fileCount;
+	}
+	public void setFileCount(int fileCount) {
+		this.fileCount = fileCount;
+	}
+	public List<MultipartFile> getSelectFile() {
+		return selectFile;
+	}
+	public void setSelectFile(List<MultipartFile> selectFile) {
+		this.selectFile = selectFile;
+	}
 	public int getHitCount() {
 		return hitCount;
 	}

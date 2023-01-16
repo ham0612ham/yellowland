@@ -48,7 +48,7 @@
 
 		<hr>
 
-		<div class="articleContent">
+		<div class="articleContent" style="max-width: 500px; overflow-wrap: anywhere; " id="ckEditor">
 			<span>
 			${dto.content}
 			</span>
