@@ -210,6 +210,8 @@ public class TypeCommController {
 		
 		int likeCount = service.typeCommLikeCount(num);
 		
+		int replyCount = service.typeCommReplyCount(num);
+		
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		
 		// 이전 글, 다음 글
@@ -236,6 +238,7 @@ public class TypeCommController {
 		
 		model.addAttribute("userTypeCommLiked", userTypeCommLiked);
 		model.addAttribute("likeCount", likeCount);
+		model.addAttribute("replyCount", replyCount);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);

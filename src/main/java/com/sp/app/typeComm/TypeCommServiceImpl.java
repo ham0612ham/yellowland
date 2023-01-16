@@ -353,5 +353,18 @@ public class TypeCommServiceImpl implements TypeCommService {
 		}
 		return listJob;
 	}
+
+	@Override
+	public int typeCommReplyCount(long num) {
+		int result = 0;
+
+		try {
+			result = dao.selectOne("typeComm.replyCount", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 	
 }	

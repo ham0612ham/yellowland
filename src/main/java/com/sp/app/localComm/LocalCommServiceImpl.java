@@ -365,4 +365,18 @@ public class LocalCommServiceImpl implements LocalCommService {
 	}
 
 
+	@Override
+	public int localCommReplyCount(long num) {
+		int result = 0;
+
+		try {
+			result = dao.selectOne("localComm.replyCount", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+
 }

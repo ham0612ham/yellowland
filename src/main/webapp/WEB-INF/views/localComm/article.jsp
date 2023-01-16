@@ -250,7 +250,7 @@ $(function(){
 				<tbody>
 					<tr>
 						<td width="50%">
-							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName} {maskingStr}
+							<h4 class="articleWriterCircle">●&nbsp;</h4>${dto.userName}
 						</td>
 						<td colspan="2" width="50%" style="text-align: right;">
 						    <p style="display: inline; color: #696969; ">작성일자 </p><p style="display: inline; font-weight: 500;">${dto.regDate}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p style="display: inline; color: #696969;">조회</p> <p style="display: inline; font-weight: 500;">${dto.hitCount}</p>

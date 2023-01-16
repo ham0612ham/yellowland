@@ -25,6 +25,7 @@ public interface LocalCommService {
 	public List<Reply> listReply(Map<String, Object> map);
 	public int replyCount(Map<String, Object> map);
 	public void deleteReply(Map<String, Object> map) throws Exception;
+	public int localCommReplyCount(long num);
 	
 	// 시군구
 	public List<LocalComm> listSigu () throws Exception;

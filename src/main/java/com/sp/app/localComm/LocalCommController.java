@@ -211,6 +211,7 @@ public class LocalCommController {
 		
 		int likeCount = service.localCommLikeCount(num);
 		
+		int replyCount = service.localCommReplyCount(num);
 		
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 		
@@ -238,6 +239,7 @@ public class LocalCommController {
 		
 		model.addAttribute("userLocalCommLiked", userLocalCommLiked);
 		model.addAttribute("likeCount", likeCount);
+		model.addAttribute("replyCount", replyCount);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);

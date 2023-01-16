@@ -29,6 +29,7 @@ public interface TypeCommService {
 	public List<Reply> listReply(Map<String, Object> map);
 	public int replyCount(Map<String, Object> map);
 	public void deleteReply(Map<String, Object> map) throws Exception;
+	public int typeCommReplyCount(long num);
 	
 	// 파일
 	public void insertFile(TypeComm dto) throws Exception;

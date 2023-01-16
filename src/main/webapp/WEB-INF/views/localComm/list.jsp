@@ -25,16 +25,16 @@
 .colNoticeTitle {
 	font-weight: bold; 
 	color: #36C88A; 
-	font-size: 18px;
+	font-size: 20px;
 	height: 10px;
+	margin-bottom: 10px;
 	}
 .title1 {font-weight: bold; color: #36C88A; font-size: 30px; }
 
 
 .division {
 	margin-top: 20px; 
-	margin-bottom: 10px; 
-	margin-left: 20px; 
+	margin-left: 52px; 
 	border-width: 2px;
 	background-color:black;
 	background: black;
@@ -49,6 +49,7 @@
 	}
 
 .page-navigation {
+	margin-top:20px;
 	margin-bottom: 50px;
 	text-align: center;
 }
@@ -184,19 +185,21 @@ $(function(){
 <div class="container">
 	<div class="table1">
 		<h3 class="fw-semibold">커뮤니티</h3>
-		<div class="row row-cols-auto">
-			<div class="col"><a href="#" class="text-decoration-none" style="color:#C2C2C2">커뮤니티 홈</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/typeComm/list" class="text-decoration-none" style="color:#C2C2C2">업종별 커뮤니티</a></div>
+		<div>
+			<div class="col" style="margin-top: 10px;">
+				<a href="${pageContext.request.contextPath}/typeComm/list" class="text-decoration-none" style="color:#C2C2C2; font-size: 20px;">업종별 커뮤니티</a>
+			</div>
 			<div class="colNoticeTitle" style="margin-bottom: 15px;">
 				<div>지역별 커뮤니티</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	
 	<div class="body-container">
 		<div class="table2">
 			<h3 class="title1">지역별 커뮤니티</h3>
-			
-			<h6 class="semiTitle">&nbsp;지역 기준</h6>
 			
 			<form name="typeSelectorForm" method="post" action="${pageContext.request.contextPath}/localComm/list">
 				<div class="col-auto p-1" style="flex: 1; float: left;">
@@ -235,14 +238,25 @@ $(function(){
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
+								<td style=" max-width: 340px; ">
 									<c:if test="${empty sessionScope.member.userId}">
-										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none;">${dto.subject}</a>
+										<a href="${pageContext.request.contextPath}/member/login" style="color:black; text-decoration: none; max-width: 300px; display: block; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
+											<span style="max-width: 280px;">${dto.subject}</span>
+											<c:if test="${dto.replyCount != 0}">
+												<span style="font-weight: bold; color:#36C88A;"> [${dto.replyCount}]</span>
+											</c:if>
+										</a>
 									</c:if> 
 									<c:if test="${not empty sessionScope.member.userId}">
-										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none;">${dto.subject}</a>
+										<a href="${articleUrl}&num=${dto.num}" style="color:black; text-decoration: none; max-width: 260px; display: block; ">
+											<span style="max-width: 260px;  display: block; text-overflow: ellipsis; white-space: nowrap; overflow:hidden; float: left;">${dto.subject}</span>
+											
+										</a>
+										<c:if test="${dto.replyCount != 0}">
+												<span style=" max-width: 40px; font-weight: bold; color:#36C88A; display: inline; float: left;">&nbsp;&nbsp;[${dto.replyCount}]</span>
+											</c:if>
 									</c:if>
-								</td>
+								</td>	
 								<td>${dto.regDate}</td>
 								<td>${dto.userName}</td>
 								<td>${dto.hitCount}</td>

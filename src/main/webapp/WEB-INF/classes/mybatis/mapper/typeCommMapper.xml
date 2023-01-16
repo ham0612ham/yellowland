@@ -87,7 +87,7 @@
 				replace(userName, substr(userName, 2, 1), '*') userName,
 				  hitCount, 
 			   TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount,
-			   NVL(likeCount, 0) likeCount
+			   NVL(likeCount, 0) likeCount, NVL(replyCount, 0) replyCount
 		FROM typeComm t
 		JOIN member1 m ON m.userId=t.userId
 		LEFT OUTER JOIN (
@@ -96,6 +96,10 @@
 		) f ON t.num=f.num
 		 LEFT OUTER JOIN (
          SELECT num, COUNT(*) likeCount FROM typeCommLike
+         GROUP BY num
+      ) tc ON t.num=tc.num  
+        LEFT OUTER JOIN (
+         SELECT num, COUNT(*) replyCount FROM typeCommReply
          GROUP BY num
       ) tc ON t.num=tc.num  
        <where>
