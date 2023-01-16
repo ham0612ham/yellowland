@@ -322,7 +322,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<form name="form-budget" method="post">
 					<input type="hidden" name="selectedMenu" value="">
 					<input type="hidden" name="siguNum" value="">
-					
+					 
 					<div class="select-title"> 임대료 </div>
 					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
 						<div>  <input type="range" id="budget_input" name="budget" min="0" max="100" list="budget_input">
