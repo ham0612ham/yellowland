@@ -326,7 +326,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					<div class="select-title"> 임대료 </div>
 					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
 						<div>  <input type="range" id="budget_input" name="budget" min="0" max="100" list="budget_input">
- 					           <output id ="value">1평(3.3m) 기준 : </output>
+ 					           <output id ="value"> 1평(3.3m) 기준 : </output>
  							   <label class=budget  for="budget"></label>
  							   
  							   <datalist id="budget_input">
