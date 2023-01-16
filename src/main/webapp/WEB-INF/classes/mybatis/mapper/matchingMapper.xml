@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="matching">
+	<select id="seq" resultType="Long">
+		SELECT matching_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertMatching" parameterType="com.sp.app.matching.Matching" >
+		 INSERT INTO Matching(num, userId, name, jobNum, siguNum, dongNum, budget, extent, mdate)
+			VALUES (matching_seq.NEXTVAL,  #{userId},  #{name}, #{jobNum}, #{siguNum}, #{dongNum}, #{budget},
+				  #{extent}, SYSDATE); 
+	</insert>
+	
+	<!-- 모든 시군구(번호, 이름) -->
+	<select id="listSigu" resultType="com.sp.app.matching.Matching">
+		  SELECT siguNum, siguName 
+              FROM CATEGORYGU
+	</select>
+
+	<!-- 시군구의 동(번호, 이름): 조건 시군구번호  -->
+	<select id="listDong" resultType="com.sp.app.matching.Matching" parameterType="Long">
+		   SELECT g.siguNum, g.siguName, dongNum, dongName
+           FROM CATEGORYGU g
+           JOIN DONG d ON d.siguNum =  g.siguNum
+           WHERE d.siguNum = #{siguNum}
+	</select> 
+
+	
+</mapper>
