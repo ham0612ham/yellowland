@@ -6,7 +6,7 @@
 	<div style="position: relative;">
 		<div id="back-gray" style="position: absolute; z-index: -2;">
 		</div>
-			<div style="position: absolute; z-index: -1;">
+			<div style="position: relative; left: 200px; top: -100px; z-index: -1;">
 				<div class="circles circle-1">&nbsp;</div>
 				<div class="circles circle-2">&nbsp;</div>
 				<div class="circles circle-3">&nbsp;</div>
@@ -76,7 +76,7 @@
 				<th class="three-div1-text" style="border: none;">
 					<div style="font-weight: 200; font-size: 40px">요즘 <span class="text-bold">핫한 상권</span>은 어디?</div>
 					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px;">요즘 뜨는 주요 상권에 대한 확인과<br>분석을 해보세요</div>
-					<button class="btn btn-dark black-btn">뜨는 상권 바로가기</button>
+					<button class="btn btn-dark black-btn" onclick='location.href="${pageContext.request.contextPath}/commercial/map"'>뜨는 상권 바로가기</button>
 				</th>
 			</tr>
 			<tr>
@@ -96,7 +96,7 @@
 				<th class="three-div2-text" style="border: none;">
 					<div style="font-weight: 200; font-size: 40px; text-align: right;">나에게 <span class="text-bold">딱 맞는 </span>곳, 어딜까?</div>
 					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px; text-align: right;">예비 사장님들을 위한 전략적이고<br>스마트한 창업분석</div>
-					<button class="btn btn-dark black-btn" style="float: right;">상권 매칭 바로가기</button>
+					<button class="btn btn-dark black-btn" style="float: right;" onclick='location.href="${pageContext.request.contextPath}/matching/main"'>상권 매칭 바로가기</button>
 				</th>
 			</tr>
 			<tr>
@@ -116,7 +116,7 @@
 				<th class="three-div3-text" style="border: none;">
 					<div style="font-weight: 200; font-size: 40px">자세한 <span class="text-bold">정보 </span>어디 없나?</div>
 					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px;">서울시 모든 곳의 상권 분석을<br>직접적인 수치로 확인해세요</div>
-					<button class="btn btn-dark black-btn">상권 현황  바로가기</button>
+					<button class="btn btn-dark black-btn" onclick='location.href="${pageContext.request.contextPath}/analysis/area/main"'>상권 현황  바로가기</button>
 				</th>
 			</tr>
 			<tr>
@@ -136,7 +136,7 @@
 				<th class="three-div4-text" style="border: none;">
 					<div style="font-weight: 200; font-size: 40px; text-align: right;">괜찮은 <span class="text-bold">노른자 매물 </span>여기에!</div>
 					<div class="lh-sm" style="border: none; font-weight: 200; font-size: 18px; text-align: right;">원하는 위치의 다양한 매물을<br>여기서 확인, 직접 연락해보세요</div>
-					<button class="btn btn-dark black-btn" style="float: right;">상가 양도 바로가기</button>
+					<button class="btn btn-dark black-btn" style="float: right;" onclick='location.href="${pageContext.request.contextPath}/assignComm/main"'>상가 양도 바로가기</button>
 				</th>
 			</tr>
 			<tr>
