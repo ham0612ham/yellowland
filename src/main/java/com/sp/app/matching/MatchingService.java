@@ -11,8 +11,9 @@ public interface MatchingService {
 	public Matching readMatching(long num);
 	public List<Matching> listMatching(String dongNum);
 
-}
+   public List<Matching> listSigu () throws Exception;
+   public List<Matching> listDong (long siguNum) throws Exception;
 
-
+}  
 
  

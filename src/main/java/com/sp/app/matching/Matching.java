@@ -11,6 +11,38 @@ public class Matching {
 	private String size; //희망면적 
 	private String mDate; //분석날짜
 	
+	private long siguNum; // 자치구
+	private long dongNum; // 행정동 
+	
+	private String siguName; // 자치구 
+	private String dongName; // 행정동 
+	
+	
+	public long getSiguNum() {
+		return siguNum;
+	}
+	public void setSiguNum(long siguNum) {
+		this.siguNum = siguNum;
+	}
+	public long getDongNum() {
+		return dongNum;
+	}
+	public void setDongNum(long dongNum) {
+		this.dongNum = dongNum;
+	}
+	public String getSiguName() {
+		return siguName;
+	}
+	public void setSiguName(String siguName) {
+		this.siguName = siguName;
+	}
+	public String getDongName() {
+		return dongName;
+	}
+	public void setDongName(String dongName) {
+		this.dongName = dongName;
+	}
+	
 	public long getMatchingNum() {
 		return matchingNum;
 	}

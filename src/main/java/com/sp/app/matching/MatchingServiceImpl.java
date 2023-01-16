@@ -58,6 +58,29 @@ public class MatchingServiceImpl implements MatchingService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Matching> listSigu() throws Exception {
+		List<Matching> listSigu = null;
+		
+		try {
+			listSigu = dao.selectList("matching.listSigu");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listSigu;
+	}
+
+	@Override
+	public List<Matching> listDong(long siguNum) throws Exception {
+		List<Matching> listDong = null;
+		try {
+			listDong = dao.selectList("matching.listDong", siguNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listDong;
+	}
 	
 
 }

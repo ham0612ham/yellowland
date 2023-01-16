@@ -16,22 +16,30 @@ main { width: 320px; }
 }
 footer { display: none; }
 .check-area { 
-	box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); width: 300px; 
+	box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); width: 350px; 
 	padding-top: 12px; background: white; margin-left: 20px;
 	min-height: 50px; border-radius: 15px; padding-bottom: 12px; margin-bottom: 15px; 
 }
+.check-area1 { 
+	box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); width: 350px; 
+	padding-top: 12px; background: white; margin-left: 20px;
+	min-height: 50px; border-bottom-radius:15px; padding-bottom: 12px; margin-bottom: 15px; 
+}
+	
 .show-area { 
 	box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); width: 300px; 
-	padding-top: 12px; background: white; margin-left: 20px;
-	min-height: 50px; border-radius: 15px; padding-bottom: 12px; margin-bottom: 15px; 
-	position : center; 
+	 background: white; margin-left: 20px;
+	min-height: 50px; border-radius: 15px; margin-bottom: 15px; 
+	position : center;
+	font-size: 11px;
 }
 input[type=checkbox], input[type=radio] { display: none; }
 label, .div-4 {
 	display: block; border-radius: 12px; margin: 0 auto; text-align: center; color: #000;
 }
 input[type=checkbox]:checked+label, input[type=radio]:checked+label { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
-input[type=checkbox]:checked+label:hover, input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
+input[type=checkbox]:checked+label:hover, 
+input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
 input[type=checkbox]:hover+label, input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
 label:hover { color: #18BD77; cursor: pointer; }
 input[type=checkbox]+label, input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
@@ -47,6 +55,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
     
 .div-4 { 
 	width: 21.3%; margin: 3px; padding: 17px 6px; font-size: 12px;
+	height: 50px;
 	font-weight: 600; margin-top: 7px;
 }
 .selectGu, .selectWork, .selectDong { 
@@ -56,39 +65,61 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .title {
 	margin: 0 0 10px 16px; font-weight: 800; 
 	color: #36C88A; font-size: 18px; }
-.select-title { font-size: 13px; margin-left: 16px; font-weight: 600; padding-top: 5px; }
-.show-area {font-size : 18px; text-align:center; font-weight:600; }
-.div-3 { width: 29.7%; margin: 3px; padding: 6px; font-size: 12px;
+.select_maintitle {font-size:20px; margin-left:16px; font-weight:600; padding: 10px;}
+.select-title { font-size: 13px; margin-left: 16px; font-weight: 600; padding-top: 5px; margin-bottom:10px; }
+
+.show-area { font-size : 18px; text-align:center; font-weight:600; }
+
+.div-1 { width: 93%; margin: 3px; padding: 6px; font-size: 13px; height:50px;
+	margin-top: 2px; font-weight: 600; position: margin}
+
+.div-3 { width: 29.7%; margin: 3px; padding: 6px; font-size: 13px; height:50px;
 	margin-top: 2px; font-weight: 600; }
 .hideSel { display: none; }
 
-#map { z-index: -2; width: 100vw; height: 100vh; position: absolute; top: 0px; }
+#map { z-index: -2; width: 70vw; height: 100vh; position: absolute; top: 0px; right:0px;  }
 
-#green-div { background: #36C88A; height: 40px; width: 100%; padding-right: 10px; padding-left: 10px;}
-#green-div > span { color: white; font-size: 16px; margin: auto; }
-.marker { 
-	width: 80px; height: 80px; background: rgb(54,200,138,0.3);
-	border-radius: 40px; padding-top: 8px; position: relative;
+#analysis-banner { 
+	position: absolute; min-width: 800px;
+	background: white; margin-left: 100%;
+	right: 0px; top: 60px; z-index: 3;
+	border-bottom-left-radius : 40px;
+	border-top-left-radius : 40px;
 }
-.marker-region-name { 
-	font-size: 11px; background: #36C88A; border-radius: 5px; margin: auto;
-	color: white; text-align:center; padding:1px; width: 60px; margin-top: -17px;
-}
-.marker-sales-total { 
-	font-size: 11px; background: white; border-radius: 5px; margin: auto;
-	color: #36C88A; text-align:center; padding:1px; width: 60px; margin-top: 2px;
-}
-.marker-rank { 
-	text-align: center; position: relative;  margin-bottom: 5px; top: -16px;
-}
-.marker-rank-img { margin: auto; text-align:center; }
-.marker-rank-text { 
-	color: #36C88A; font-weight: 600; font-size: 12px; text-align: center;
-	position: absolute; top: 13%; left: 45%;
-}
+
+
+
+#green-div { background: #36C88A; height: 100px; width: 20%; padding-right: 10px; padding-left: 10px;
+             border-bottom-left-radius: 20px;
+             border-top-left-radius: 20px; }
+#green-div > span { color: white; font-size: 16px; font-weight: 600; padding: 5px; }
+
+#green-top { box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); 
+	         padding-top: 30px;  margin-left: 20px;
+             background: #36C88A; height: 58px; width: 350px;
+             border-top-right-radius : 40px;
+	         border-top-left-radius : 40px;}
+
+#green-top > span { height:160px; 
+                    width:360px; 
+                    color: white; 
+                    font-size: 18px;
+                    font-weight: 600; 
+                    padding: 120px; 
+                    margin-bottom:50px;
+                     }
+             
+#btn-radio { width:20px; padding_bottom:3px;}
 #btn-x { width: 16px; padding-bottom: 3px; }
 #btn-x:hover { cursor: pointer; }
-.rank-title { font-size: 13px; margin: 0 16px; font-weight: 600; padding-top: 5px; }
+#btn-location { width:16px; }
+#btn-select {position: d-flex justify-content-center}
+#rank-title { padding : 5px;}
+#btn-showreport { padding-bottom:100px; width: 350px; 
+                  padding-top: 12px; background: white; margin-left: 20px;
+                  border-radius: 15px;}
+#report-title { font-size : 13px; margin:0 font-weight: 600; padding : 5px;}
+#report-title > span { color: white; font-size: 16px; font-weight: 600; padding: 5px; }
 .hole-rank-title { font-size: 13px; margin-left: 16px; font-weight: 600; padding-top: 5px; color: #36C88A; }
 .hole-rank-quarter { font-size: 11px; margin-right: 16px; font-weight: 600; padding-top: 5px; color: #767676; float: right; }
 .rank-div { padding: 0 15px; margin-top: 5px; }
@@ -103,8 +134,18 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 #analysis-info { margin: 5px 0 0; }
 #analysis-info > .info-bold { margin-left: 16px; font-size: 13px; font-weight: 600; }
 #analysis-info > .info-light { margin-left: 8px; font-size: 13px; }
-</style>
 
+#analysis-dialog { text-align: center; font-size: 12px; margin 10px 0; color: #BBBBBB;}
+
+
+    
+}
+
+
+ 
+ 
+</style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/matching.js"></script>
 <script type="text/javascript">
 	
 
@@ -112,48 +153,150 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <div class="header-white"></div>
 <div class="container" style="margin: 0px;">
 	<div class="body-container">
-	
-		<div id="map"></div>
+	 
+	 <div id="analysis-banner"style="opacity: 1;">
+    	<div id="green-div" class="d-flex justify-content-between">
+	    	  <span> 동동이님의 매칭분석 리포트 </span> 
+	    	  <span><img id="btn-x"  src='${pageContext.request.contextPath}/resources/images/x.png'></span>
+	   </div>
+			
+		<div id="analysis-dialog" class="d-flex justify-content-between">
+			<a class="list-group-item list-group-item-action" href="#list-item-1">지역분석</a>
+      		<a class="list-group-item list-group-item-action" href="#list-item-2">업종분석</a>
+     		<a class="list-group-item list-group-item-action" href="#list-item-3">상권추천</a>
+		</div>
+			
+		<div id="analysis-info">
+		        <img id="btn-location" src='${pageContext.request.contextPath}/resources/images/location.png'> 
+				<span class="info-bold">위치</span>
+				<span class="info-light" id="info-region">서울시</span>
+				<span class="info-light" id="info-region">강서구</span>
+				<span class="info-light" id="info-region">마곡동</span>
+				<span class="info-bold">업종</span>
+				<span class="info-light" id="info-job">업종전체</span>
+			</div>
+	  
+	  <div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style="opacity: 0;">
+			<div>&nbsp;</div>
+			<div class="analysis-div" id="list-item-1">
+				<div class="analy-title">점포수</div>
+				<div class="analy-big-txt">점포수는 <span class="analy-green-txt" id="zumposu-result"></span> 입니다.</div>
+				<div class="analy-graph" id="zumposu">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">개업수</div>
+				<div class="analy-big-txt">개업수는 <span class="analy-green-txt" id="geupsu-result"></span> 입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-quart-count"></span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="fl-right" id="geupsu-year-count"></span>
+					</div>
+				</div>
+				<div class="analy-graph" id="geupsu">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="analysis-div">
+				<div class="analy-title">폐업수</div>
+				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt" id="pyeupsu-result"></span> 입니다.</div>
+				<div class="analy-discribe">
+					<div class="analy-disc-text">
+						<span>전년 동분기 대비</span><span class="fl-right" id="pyeupsu-year-count"></span>
+					</div>
+					<div class="analy-disc-text">
+						<span>전분기 대비</span><span class="fl-right" id="pyeupsu-quart-count"></span>
+					</div>
+				</div>
+				<div class="analy-graph" id="pyeupsu">
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+				</div>
+			</div>	
+	    </div> 
+	   
 
-		  <div class="show-area justify-content-center" ><i class="bi bi-geo-alt">  </i>  지도에서 위치를 선택해주세요.
+	   
+	 
+	   </div>
+	    
+	    
+		<div id="map"></div>
 		
 		  </div>
-		  
+		 <div class="justify-content-center">
+		  <div id="green-top"> 
+		   <span> <i class="bi bi-buildings"></i> 노른자 상권매칭 </span> </div> </div>
+		 <div class="check-area1">
+		        <div class="d-flex justify-content-center">
+				<div class="select_maintitle"></div>
+				</div>
+	
+			
+			<div class="justify-content-center" style="width: 100%;">
+				<form name="areaform">
+					<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist">
+					    <input class="select-region" id="region" type="radio" name="selectRegion" value="region">
+			            <label for="region" class="div-1" id="region-lav">지역선택</label>
+					    <input class="nav-link" id="cate" type="radio" role="tab" name="selectMenu" value="cate">
+					    <label for="cate" class="div-3" id="category-lav">업종</label>
+					    <input class="nav-link" id="budget" type="radio" role="tab" name="selectMenu" value="budget">
+					    <label for="budget" class="div-3" id="budget-lav">임대료 / 평수 </label>
+					    <input class="nav-link" id="target" type="radio" role="tab" name="selectMenu" value="size">
+					    <label for="target" class="div-3" id="target-lav">타겟층</label>
+					    	
+					</div>
+				</form>
+			</div>
+		</div>
+		
 		 <div class="check-area">
 			<div>
-				<div class="select-title">분석지역</div>
-				<div class="select-title"> </div>
+			    <div class="d-flex justify-content-center"> 
+				<div class="select-title">원하는 지역을 선택해주세요</div>
+				</div>
 			</div>
 			
 			<div class="justify-content-center" style="width: 100%;">
-				<div>
-					<select name="categoryGu" class="form-select selectGu" id="select-Gu"> </select>
+				<form name="areaform">
+					<div>
+						<select name="siguNum" class="form-select selectGu" > 
+						  <option value=""> 자치구 </option> 
+						  <c:forEach var="vo" items ="${listSigu}">
+						  <option value ="${vo.siguNum}" ${vo.siguNum == dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
+						  </c:forEach>
+						  </select>
+					</div>
+					<div>
+						<select name="dongNum" class="form-select selectDong">
+						 <option value="" ${condition=="all"?"selected='selected'":""}> 행정동 </option> 
+						 </select>
+					</div>
+					 <div class="d-flex justify-content-center">
+					 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
 				</div>
-				<div class=select> </div>
-				<div>
-					<select name="dong" class="form-select selectDong" id="select-Dong"> </select>
-				</div>
-
-				<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist">
-				
-				    <input class="nav-link" id="cate" type="radio" role="tab" name="selectMenu" value="cate">
-				    <label for="size" class="div-3" id="category-lav">업종선택</label>
-				    
-				    <input class="nav-link" id="budget" type="radio" role="tab" name="selectMenu" value="budget">
-					<label for="budget" class="div-3" id="budget-lav">임대료 예산</label>
-					
-				    <input class="nav-link" id="areasize" type="radio" role="tab" name="selectMenu" value="areasize">
-				    <label for="areasize" class="div-3" id="areasize-lav">희망면적</label>
-				</div>
+				</form>
 			</div>
 		</div>
-	
-		<div class="check-area">
+	 </div>
+	 
 			<div id="form-stoCou-sales">
+		    	<div class="check-area">
 				<form name="form-stoCou-sales" method="post">
 					<input type="hidden" name="category" value="">
 					<input type="hidden" name="gu" value="">
-					<div class="select-title">업종</div>
+					<div class="d-flex justify-content-center"> 
+					<div class="select-title">원하는 업종을 선택해주세요.</div></div>
 					<div class="d-flex justify-content-center">
 						<input id="allJob" type="radio" name="selectMenu1" checked>
 						<label for="allJob" class="div-4 selMenu-lavs" id="allJob-lav" data-val="all">전체</label>
@@ -165,21 +308,63 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 						<label for="retail" class="div-4 selMenu-lavs" id="retail-lav" data-val="CS3">소매업</label>
 					</div>
 					<div class="d-flex justify-content-center">
-						<select id="selPlace" name="" class="form-select selectWork hideSel" style="margin-top: 5px;">
-							
+						<select id="selPlace" name="selectWork" class="form-select selectWork hideSel" style="margin-top: 5px;">			
 						</select>	
 					</div>
-					<button class="btn btn-primary btn-select" style="width: 92%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0">선택</button>
+                   <div class="d-flex justify-content-center">
+				 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+				</div>				
 				</form>
 			</div>
-					
-			<div id="form-Pop1" style="display: none">
+		</div>
+		 <div id="form-budget" style="display: none">	
+		   <div class="check-area">				
 				<form name="form-budget" method="post">
-					<input type="hidden" name="category" value="">
-					<input type="hidden" name="gu" value="">
-					<div class="select-title">임대료</div>
+					<input type="hidden" name="selectedMenu" value="">
+					<input type="hidden" name="siguNum" value="">
+					
+					<div class="select-title"> 임대료 </div>
 					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
-						<input type="radio" class="btn-check" name="gender" id="allGender" autocomplete="off" checked value="allGender">
+						<div>  <input type="range" id="budget_input" name="budget" min="0" max="100" list="budget_input">
+ 					           <output id ="value">1평(3.3m) 기준 : </output>
+ 							   <label class=budget  for="budget"></label>
+ 							   
+ 							   <datalist id="budget_input">
+                             	<option value="0"></option>
+ 								<option value="25"></option>
+ 								<option value="50"></option>
+							    <option value="75"></option>
+ 							    <option value="100"></option>
+								</datalist>
+							</div>
+					</div>
+					 
+					  <div class="select-title">임대평수</div>
+				   	   <div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
+						<input type="radio" class="btn-check" name="size" id="ssize" autocomplete="off" checked value="ssize">
+						<label class="btn btn-outline-primary" for="small" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">소형(10평대)</label>
+						
+					    <input type="radio" class="btn-check" name="size" id="msize" autocomplete="off" value="msize">
+					    <label class="btn btn-outline-primary" for="medium" style="font-size: 12px; font-weight: 600;">중형(20평대)</label>
+					
+					    <input type="radio" class="btn-check" name="size" id="lsize" autocomplete="off" value="lsize">  
+					    <label class="btn btn-outline-primary" for="large" style="border-radius: 0 12px 12px 0; font-size: 12px; font-weight: 600;">대형(30평이상)</label>
+					</div>
+				</form>
+				  <div class="d-flex justify-content-center">
+				 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+				</div>
+			</div>
+		  </div>
+		
+		  <div id="form-target" style="display: none">	
+		   <div class="check-area">				
+				<form name="form-target" method="post">
+					<input type="hidden" name="selectedMenu" value="">
+					<input type="hidden" name="siguNum" value="">
+					<div class="select-title"> 성별 </div>
+					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
+						<input type="radio" class="btn-check" name="budget" id="allGender" autocomplete="off" checked value="allGender">
 						<label class="btn btn-outline-primary" for="allGender" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">전체</label>
 						
 					    <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" value="male">
@@ -188,26 +373,15 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					    <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" value="female">  
 					    <label class="btn btn-outline-primary" for="female" style="border-radius: 0 12px 12px 0; font-size: 12px; font-weight: 600;">여자</label>
 					</div>
-						
-				    <div class="select-title weekSel">희망면적</div>
-				    <div class="btn-group three-btn-group weekSel" role="group2" aria-label="Basic radio toggle button group" style=" margin-left: 12px; width: 92%;">
-					    <input type="radio" class="btn-check" name="week" id="allWeek" autocomplete="off" checked value="allWeek">
-					    <label class="btn btn-outline-primary" for="allWeek" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">전체</label>
-						
-					    <input type="radio" class="btn-check" name="week" id="week" autocomplete="off" value="week">
-					    <label class="btn btn-outline-primary" for="week" style="font-size: 12px; font-weight: 600;">주중</label>
-						
-					    <input type="radio" class="btn-check" name="week" id="weekend" autocomplete="off" value="weekend">  
-					    <label class="btn btn-outline-primary" for="weekend" style="border-radius: 0 12px 12px 0; font-size: 12px; font-weight: 600;">주말</label>
-					</div>
-				    <div class="select-title">연령대</div>
-				    <div class="btn-group five-btn-group" role="group3" aria-label="Basic radio toggle button group" style=" margin-left: 12px; width: 92%;">
+					 
+					  <div class="select-title">연령대</div>
+				   	   <div class="btn-group five-btn-group" role="group3" aria-label="Basic radio toggle button group" style=" margin-left: 12px; width: 92%;">
 					    <input type="radio" class="btn-check" name="age" id="allAge" autocomplete="off" checked value="ageAll">
 					    <label class="btn btn-outline-primary" for="allAge" style="border-radius: 12px 0 0 12px; font-size: 10px; font-weight: 600; width: 45px; padding: 9px 6.5px;">전체</label>
 					
 					    <input type="radio" class="btn-check" name="age" id="age10" autocomplete="off" value="age10">
 					    <label class="btn btn-outline-primary" for="age10" style="font-size: 10px; font-weight: 600; width: 45px; padding: 9px 6.5px;">10대</label>
-						
+					    
 					    <input type="radio" class="btn-check" name="age" id="age2030" autocomplete="off" value="age2030">  
 					    <label class="btn btn-outline-primary" for="age2030" style="font-size: 10px; font-weight: 600; width: 70px; padding: 9px 6.5px;">20~30대</label>
 						    
@@ -218,58 +392,20 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					    <label class="btn btn-outline-primary" for="age60" style="border-radius: 0 12px 12px 0; font-size: 10px; font-weight: 600; width: 72px; padding: 9px 6.5px;">60대 이상</label>
 					</div>
 				</form>
+				 <div class="d-flex justify-content-center">
+				 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+				</div>
 			</div>
-		  <button class="btn btn-primary btn-send" style="width:92%; font-size : 12px; border-radius: 12px; margin:20px 12px 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 분석 리포트 보기  </button>
-		</div>
-	</div>
-</div>
-
-<!-- 분석리포트 Report Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel"> 분석리포트 </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="row">
- 		 <div class="col-4">
-    	<div id="simple-list-example" class="d-flex flex-column gap-2 simple-list-example-scrollspy text-center">
-     	 <a class="p-1 rounded" href="#simple-list-item-1">Item 1</a>
-      		<a class="p-1 rounded" href="#simple-list-item-2">Item 2</a>
-     	    <a class="p-1 rounded" href="#simple-list-item-3">Item 3</a>
-     	    <a class="p-1 rounded" href="#simple-list-item-4">Item 4</a>
-            <a class="p-1 rounded" href="#simple-list-item-5">Item 5</a>
-   		 </div>
- 	    </div>
- 	 <div class="col-8">
-    <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
-      <h4 id="simple-list-item-1">Item 1</h4>
-      <p>내용내용내용내</p>
-      <h4 id="simple-list-item-2">Item 2</h4>
-      <p>...</p>
-      <h4 id="simple-list-item-3">Item 3</h4>
-      <p>...</p>
-      <h4 id="simple-list-item-4">Item 4</h4>
-      <p>...</p>
-      <h4 id="simple-list-item-5">Item 5</h4>
-      <p>...</p>
-    </div>
-  </div>
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
+		  </div>
+		 <div class=buttonform>
+		<button class="btn btn-primary showreport" onclick= "showreport()" style="width:92%; font-size : 12px; border-radius: 12px; margin:20px 12px 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="bi bi-clipboard2-data-fill"></i> 분석 리포트 보기  </button>
+	     </div>
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumkey}"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=772eb01cb6c2f20c17fb9d3c64f74709"></script>
+
+<script>
+
 var areas = [
     {
         name : '용산구',
@@ -622,16 +758,16 @@ function displayArea(area) {
         map: map, // 다각형을 표시할 지도 객체
         path: area.path,
         strokeWeight: 2,
-        strokeColor: '#36C88A',
+        strokeColor: '#FFFF',
         strokeOpacity: 0.8,
-        fillColor: '#fff',
+        fillColor: '#FFE400',
         fillOpacity: 0.7 
     });
 
     // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다 
     // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
     kakao.maps.event.addListener(polygon, 'mouseover', function(mouseEvent) {
-        polygon.setOptions({fillColor: '#C0C0C0'});
+        polygon.setOptions({fillColor: '#09f'});
 
         customOverlay.setContent('<div class="area">' + area.name + '</div>');
         
@@ -648,7 +784,7 @@ function displayArea(area) {
     // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
     // 커스텀 오버레이를 지도에서 제거합니다 
     kakao.maps.event.addListener(polygon, 'mouseout', function() {
-        polygon.setOptions({fillColor: '#fff'});
+        polygon.setOptions({fillColor: '#FFE400'});
         customOverlay.setMap(null);
     }); 
 
@@ -656,7 +792,6 @@ function displayArea(area) {
     kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
         var content = '<div class="info">' + 
                     '   <div class="title">' + area.name + '</div>' +
-                    '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
                     '</div>';
 
         infowindow.setContent(content); 
@@ -664,29 +799,75 @@ function displayArea(area) {
         infowindow.setMap(map);
     });
 }
-		
+
 </script>
+
 
 <script type="text/javascript">
 
+
 function ajaxFun(url, method, query, dataType, fn) {
-	$.ajax({
-		type:method,
-		url:url,
-		data:query,
-		dataType:dataType,
-		success:function(data) {
-			fn(data);
-		},
-		beforeSend:function(jqXHR) {
-			jqXHR.setRequestHeader("AJAX", true);
-		},
-		error:function(jqXHR) {
-			console.log(jqXHR.responseText);
-		}
-	});
+		$.ajax({
+			type:method,
+			url:url,
+			data:query,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend:function(jqXHR) {
+				jqXHR.setRequestHeader("AJAX", true);
+			},
+			error:function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert("요청 처리가 실패했습니다.");
+					return false;
+				}
+		    	
+				console.log(jqXHR.responseText);
+			}
+		});
+	}
+function showreport(){
+	
+	
 }
 
+//매칭폼 값띄우기 
+
+	
+	
+//동 리스트 가져오기 
+$(function(){
+		$("form select[name=siguNum]").change(function(){
+			let siguNum = $(this).val();
+			 $("form select[name=dongNum]").find('option').remove().end()
+					.append("<option value=''>행정동</option>");
+				
+			  if(! siguNum) {
+					return false;
+				}
+				
+				let url = "${pageContext.request.contextPath}/matching/listDong";
+				let query = "siguNum="+siguNum;
+				
+				const fn = function(data) {
+					
+					console.log(data)
+					$.each(data.listDong, function(index, item){
+						let dongNum = item.dongNum;
+						let dongName = item.dongName;
+						let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
+						$("form select[name=dongNum]").append(s);
+					});
+				};
+				ajaxFun(url, "get", query, "json", fn);
+			});
+		});
+		
 // 줄이기, 늘리기
 $(function(){
 	$(".show-hide-btn").click(function(){
@@ -703,6 +884,7 @@ $(function(){
 		}
 	});
 });
+
 
 // 마커 hover 이벤트
 $(function(){
@@ -725,7 +907,7 @@ $(function(){
 
 // 마커 click 이벤트
 $(function(){
-	$(".marker").click(function(){
+	$(".showreport").click(function(){
 		$("#analysis").show();
 		let dong = $(this).find(".marker-region-name").text();
 		$("#info-region").text(dong);
@@ -746,75 +928,72 @@ $(function(){
 	});
 });
 
-// 자치구 리스트 가져옴
 $(function(){
-	let url = "${pageContext.request.contextPath}/bringcate/categoryGu";
-	let query;
-	let innerHtml;
-	
-	const fn = function(data) {
-		innerHtml += "<option value='all'>자치구 전체</option>";
-		for(let dto of data.siguList) {
-			innerHtml += "<option value='"+dto.siguNum+"'>"+dto.siguName+"</option>";
-		}
-		$("#select-Gu").html(innerHtml);
-	}
-	
-	ajaxFun(url, "post", query, "json", fn);
+	$("#btn-x").click(function(){
+		$("#analysis").hide();
+		$("#analysis-banner").hide();
+	});
 });
-
-
-//동 리스트 가져오기 
-
-$(function(){
-	let url = "${pageContext.request.contextPath}/bringcate/dong";
-	let query;
-	let innerHtml;
-	
-	const fn = function(data) {
-		innerHtml += "<option value='all'>행정동 전체</option>";
-		for(let dto of data.dongList) {
-			innerHtml += "<option value='"+dto.dongNum+"'>"+dto.dongName+"</option>";
-		}
-		$("#select-Dong").html(innerHtml);
-	}
-	
-	ajaxFun(url, "post", query, "json", fn);
-});
-
-
 //임대료예산,면적 select 
 
+						
+//메뉴선택하기 
 $(function(){
 	$("#selPlace").hide;
-	
+	$(".selectMenu").click(function(){
+		$("#analysis").hide();
+	    $("#analysis-banner").hide();
+	    
+	});
+		
 	$("#category-lav").click(function(){
-		$("#btn-send").hide();
 		$("#form-stoCou-sales").show();
-		$("#form-Pop1").hide ();
+		$("#form-budget").hide ();
+		$("#form-size").hide ();
+		$("#form-target").hide ();
+		$("input[name=selectMenu1]#allJob").prop("checked", true);
+		$("#selPlace").addClass("hideSel");
+		$("select[name=selectWork]").val("all");
 	});
-	
+		
 	$("#budget-lav").click(function(){
-		$("#btn-send").hide();
 		$("#form-stoCou-sales").hide();
-		$("#form-Pop1").show();
+		$("#form-budget").show();
+		$("#form-size").hide ();
+		$("#form-target").hide ();
+		$("input[name=selectMenu1]#allJob").prop("checked", true);
+		$("#selPlace").addClass("hideSel");
+		$("select[name=selectWork]").val("all");
 	});
 	
-	$("#areasize-lav").click(function(){
-		$("#btn-send").hide();
+	$("#size-lav").click(function(){
 		$("#form-stoCou-sales").hide();
-		$("#form-Pop1").show();
-
+		$("#form-budget").hide();
+		$("#form-size").show();
+		$("#form-target").hide();
+		$("input[name=selectMenu1]#allJob").prop("checked", true);
+		$("#selPlace").addClass("hideSel");
+		$("select[name=selectWork]").val("all");
 	});
-
+	
+	$("#target-lav").click(function(){
+		$("#form-stoCou-sales").hide();
+		$("#form-budget").hide();
+		$("#form-target").show();
+		$("input[name=selectMenu1]#allJob").prop("checked", true);
+		$("#selPlace").addClass("hideSel");
+		$("select[name=selectWork]").val("all");
+	});
+	
 	
 });
+
 
 // 업종 select
 $(function(){
 	$("#allJob").click(function(){
-		$("#selPlace").addClass("hideSel");
-		$("#selPlace").attr("name", "all");
+		$("#selPlace").addClass("hideSel"); //모든업종클릭시 selplace삭제
+		$("#selPlace").attr("name", "all"); //모든업종에All값주기 
 	});
 	
 	$(".selMenu-lavs").click(function(){
@@ -852,11 +1031,13 @@ $(function(){
 	});
 });
 
+//btn-select 누르면 
 $(function(){
 	$(".btn-select").click(function(){
 	});
 });
 
+//btn-send 누르면 
 $(function(){
 	$(".btn-send").click(function(){
 		let selected = $("input[name=selectMenu]:checked").val();
@@ -869,5 +1050,9 @@ $(function(){
 		alert(query);
 	});
 });
+
+function selectAge() {
+	const f = document.chooseForm_e
+}
 
 </script>
