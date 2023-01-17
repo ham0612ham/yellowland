@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myTypeReply">
+   <sql id="where-list">
+      <if test="condition=='all' ">
+         ( INSTR(subject, #{keyword}) &gt; 0
+            OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+      </if>
+      <if test="condition=='subject' ">
+         INSTR(subject, #{keyword}) &gt; 0
+      </if>
+      <if test="condition=='content' ">
+         DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+      </if>
+      <if test="condition=='userName' ">
+         userName=#{keyword}
+      </if>
+      <if test="condition=='regdate' ">
+         ( TO_CHAR(regdate, 'YYYY-MM-DD') = #{keyword}
+            OR TO_CHAR(regdate, 'YYYYMMDD') = #{keyword} )
+      </if>
+   </sql>
+
+   <select id="listMyReply" parameterType="map" resultType="com.sp.app.myTypeReply.MyTypeReply">
+             select r.replynum,m.username,r.userId,t.subject,TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate,t.content,t.catejobnum,c.catejobname, j.jobname
+         from typecommreply r
+          JOIN member1 m ON r.userId=m.userId
+         LEFT OUTER JOIN typecomm t ON t.num = r.num       
+         LEFT OUTER JOIN job j ON t.jobnum = j.jobnum 
+         left outer join categoryjob c on c.catejobnum =t.catejobnum            
+               <where>
+                  <if test="keyword != null and keyword!=''  ">
+                     <include refid="where-list"/>
+                  </if>
+                  and r.userId=#{userId}
+               </where>             
+        ORDER BY regdate DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+   </select>
+   
+   <select id="dataCount" parameterType="map" resultType="Integer">
+         SELECT COUNT(*)
+         FROM typecommreply   
+         
+         
+         <where>
+         <if test="keyword != null and keyword!=''  ">
+            <include refid="where-list"/>
+         </if>
+         and userId=#{userId}
+      </where>
+   </select>
+   
+   
+   <select id="readMyReply" parameterType="Long" resultType="com.sp.app.myTypeReply.MyTypeReply">
+        select r.replynum,m.username,r.userId,t.subject,TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate,t.content,t.catejobnum,c.catejobname, j.jobname
+         from typecommreply r
+          JOIN member1 m ON r.userId=m.userId
+         LEFT OUTER JOIN typecomm t ON t.num = r.num       
+         LEFT OUTER JOIN job j ON t.jobnum = j.jobnum 
+         left outer join categoryjob c on c.catejobnum =t.catejobnum
+       where r.userId=#{userId}
+   </select>
+
+   
+</mapper>
