@@ -10,25 +10,17 @@
 	margin: auto;
 	margin-top: 100px;
 }
-
 .categoryTitle {font-size: 17px; color: #696969;}
-
-
 .articleWriterCircle {display: inline; color: #36C88A;}
 .articleWriterManager {display: inline; font-size: 15px; font-weight: bold; color: #696969;}
 .articleWriterDate {display: inline; font-size: 16px; color: #696969;}
 .articleWriterIsAnswer {display: inline; font-size: 15px; color: #696969;}
-
 .articleContent { min-height: 350px; text-align: center;}
 .articleManagerCircle {display: inline; color: #756EF2;}
 .articleManagerManager  {display: inline; font-size: 15px; font-weight: bold; color: #696969;}
 .articleManagerDate {display: inline; font-size: 16px; color: #696969;}
-
 .articleManagerContent {margin-left: 50px; width: 500px; margin-top: 10px;}
 .articleManagerContentDetail { margin-top: 50px;}
-
-
-
 .division {margin-bottom: 10px; margin-top: 10px;}
 .preNext {font-size: 18px;}
 .btn {width: 80px; height:40px; font-size: 13px; }
@@ -36,7 +28,7 @@
 </style>
 
 <script type="text/javascript">
-<c:if test="${sessionScope.member.userId==dto.userId}">
+<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
 function deleteOk(num) {
     if(confirm("문의글을 삭제 하시 겠습니까 ? ")) {
     	let query = "num="+num+"&page=${page}";
@@ -46,7 +38,7 @@ function deleteOk(num) {
 }
 </c:if>
 
-<c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.membership>50 }">
+<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50 }">
 function deleteInquiry(num) {
 	if(confirm("문의를 삭제 하시겠습니까 ?")) {
 		let query = "num="+num+"&${query}";
@@ -56,7 +48,7 @@ function deleteInquiry(num) {
 }
 </c:if>
 
-<c:if test="${sessionScope.member.membership>50 }">
+<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50 }">
 function deleteAnswer(num) {
 	if(confirm("답변을 삭제 하시겠습니까 ?")) {
 		let query = "num="+num+"&${query}";
@@ -98,6 +90,23 @@ function sendReplyOk() {
 			<span class="articleContentDetail">
 				${dto.content} 
 			</span>
+		</div>
+		<div class="articleLower">
+			<hr class="division">
+			<h5 class="preNext" style="color: #696969; font-size: 16px;">
+				이전글:
+				<c:if test="${not empty preReadDto}">
+					<a href="${pageContext.request.contextPath}/admin/qnaManage/article?${query}&num=${preReadDto.num}" style=" text-decoration: none; color:black;">${preReadDto.subject}</a>
+				</c:if>
+			</h5>
+			<hr class="division">
+			<h5 class="preNext" style="color: #696969; font-size: 16px;">
+				다음글:
+				<c:if test="${not empty nextReadDto}">
+					<a href="${pageContext.request.contextPath}/admin/qnaManage/article?${query}&num=${nextReadDto.num}" style=" text-decoration: none; color:black;">${nextReadDto.subject}</a>
+				</c:if>	
+			</h5>
+			<hr class="division">
 		</div>
 	<hr>
 

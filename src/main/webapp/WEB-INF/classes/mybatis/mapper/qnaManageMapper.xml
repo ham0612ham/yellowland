@@ -84,6 +84,34 @@
 		  DELETE FROM INQUIRYBOARD 
 		  	WHERE num = #{num}
 	</delete>
-	
+	<select id="preReadQna" parameterType="map" resultType="com.sp.app.admin.qnaManage.Qna">
+		SELECT num, subject
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+    
+    <select id="nextReadQna" parameterType="map" resultType="com.sp.app.admin.qnaManage.Qna">
+    	SELECT num, subject
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
 	
 </mapper>
