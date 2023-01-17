@@ -138,7 +138,7 @@ function searchList() {
 				<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<th scope="row">${dataCount - (page-1) * size - status.index}</th>
-								<td><a class="text-truncate" href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</a></td>
+								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;"><a class="text-truncate" href="${articleUrl}&num=${dto.num}" style=" text-decoration: none; color:black;">${dto.subject}</a></td>
 								
 								<td>${dto.userName}</td>
 								<td>${dto.isReply!=0?"답변완료":"-"}</td>

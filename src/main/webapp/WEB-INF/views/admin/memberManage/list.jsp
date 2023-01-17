@@ -217,7 +217,7 @@ function selectStateChange() {
 				</tr>
 			</table>
 			
-		<form name="listForm" method="post">		
+		<!--  <form name="listForm" method="post">	-->	
 			<table class="table note-table">
 				<thead>
 					<tr> 
@@ -250,7 +250,7 @@ function selectStateChange() {
 			<input type="hidden" name="page" value="${page}">
 			<input type="hidden" name="condition" value="${condition}">
 			<input type="hidden" name="keyword" value="${keyword}">
-		</form>		 
+		<!--</form>	-->		 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>

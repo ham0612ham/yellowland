@@ -60,7 +60,7 @@
 		           <c:if test="${not empty sessionScope.member}">
 						<span class="login-menu2-a">${sessionScope.member.userName}님</span>
 						<a class="login-menu2-a" style="padding-right: 14px;" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-						<a class="login-menu2-a" href="${pageContext.request.contextPath}/">정보수정</a>
+						<a class="login-menu2-a" href="${pageContext.request.contextPath}/"></a>
 		           </c:if>
 		        </li>
 		    </ul>

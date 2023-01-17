@@ -17,7 +17,11 @@ input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
 label:hover { color: #18BD77; cursor: pointer; }
 input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
 .up-btn { padding: 8px 30px; }
-.fw-semibold { height: 50px; width: 150px; }
+.fw-semibold {
+	height: 50px;
+	width: 150px;
+	font-size: 30px;
+}
 .row { height: 200px; width: 180px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 700px; text-align: left;}
@@ -123,7 +127,7 @@ function searchList() {
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr> 
 							<td>${dataCount - (page-1) * size - status.index}</td>			
-							<td>
+							<td style=" max-width: 500px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
 								<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</a>
 							</td>
 						</tr>
