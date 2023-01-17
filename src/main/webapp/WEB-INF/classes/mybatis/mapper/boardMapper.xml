@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="listSigu" resultType="com.sp.app.admin.board.Board">
+		  SELECT siguNum, siguName 
+              FROM CATEGORYGU
+	</select>
+	
+	<select id="listDong" resultType="com.sp.app.admin.board.Board" parameterType="Long">
+		   SELECT g.siguNum, g.siguName, dongNum, dongName
+           FROM CATEGORYGU g
+           JOIN DONG d ON d.siguNum =  g.siguNum
+           WHERE d.siguNum = #{siguNum}
+	</select> 
+	
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='regDate' ">
+			( TO_CHAR(regDate, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(regDate, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+	
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.admin.board.Board">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM localCommFile
+		WHERE num=#{num} 
+	 </select>
+	
+	<select id="readFile" parameterType="Long" resultType="com.sp.app.admin.board.Board">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM localCommFile
+	    WHERE fileNum=#{fileNum}      
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM localCommFile WHERE ${field} = #{num}
+	</delete>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+			FROM localcomm l
+			JOIN member1 m ON l.userId=m.userId
+			<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			
+		</where> 
+	</select>
+	
+
+	<select id="listBoard" parameterType="map" resultType="com.sp.app.admin.board.Board">
+		     SELECT l.num,subject, l.userId, userName,  hitCount, 
+			   TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate, NVL(fileCount, 0) fileCount ,d.dongName,c.siguName,
+			   NVL(likeCount, 0) likeCount
+		FROM localComm l
+		JOIN member1 m ON m.userId=l.userId
+        LEFT OUTER JOIN dong d on d.dongnum=l.dongnum
+        LEFT OUTER JOIN categorygu c on c.sigunum=l.sigunum
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileCount FROM localCommFile
+			GROUP BY num
+		) f ON l.num=f.num
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) likeCount FROM localCommLike
+			GROUP BY num
+		) lc ON l.num=lc.num	
+        <where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where> 
+		ORDER BY l.num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	
+	<select id="readBoard" parameterType="Long" resultType="com.sp.app.admin.board.Board">
+		   select l.num,m.username,l.userId,l.subject,TO_CHAR(l.regDate, 'YYYY-MM-DD')regDate,l.content,d.dongname,c.siguname,hitCount
+			from localcomm l
+			JOIN member1 m ON l.userId=m.userId
+            LEFT OUTER JOIN dong d on d.dongnum=l.dongnum
+            LEFT OUTER JOIN categorygu c on c.sigunum=l.sigunum
+            
+        	WHERE l.num = #{num}
+	</select>
+	
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE localComm SET hitCount=hitCount+1 WHERE num = #{num}
+	</update>
+      
+      <!-- 댓글 -->
+	<insert id="insertReply" parameterType="com.sp.app.admin.board.Reply">
+		INSERT INTO localCommReply(replyNum, num, userId, content, regDate)
+			VALUES (localCommReply_seq.NEXTVAL, #{num}, #{userId}, #{content}, SYSDATE)
+	</insert>	
+     <!--  
+      <select id="readAnswer" parameterType="Long" resultType="com.sp.app.admin.board.Board">
+		SELECT m.userName, r.regDate, r.content,r.replynum,r.answer
+			FROM localcommreply r
+			JOIN member1 m ON m.userId = r.userId
+			WHERE num = #{num}
+	</select>
+      -->
+     <select id="listReply" parameterType="map" resultType="com.sp.app.admin.board.Reply">
+		SELECT r.replyNum, r.userId, userName, num, content, r.regDate 
+		FROM localCommReply r
+		JOIN member1 m ON r.userId = m.userId
+		WHERE num=#{num}
+		ORDER BY r.replyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM localCommReply
+		WHERE num=#{num}
+	</select>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM localCommReply
+		WHERE replyNum = #{replyNum}
+	</delete>
+
+	<delete id="deleteBoard" parameterType="Long">
+		  DELETE FROM localcomm
+				WHERE num = #{num}
+	</delete>
+	
+		<!-- 이전글 -->
+	<select id="preReadBoard" parameterType="map" resultType="com.sp.app.admin.board.Board">
+		SELECT num, subject
+		FROM localcomm l
+		JOIN member1 m ON l.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+
+    <!-- 다음글 -->
+    <select id="nextReadBoard" parameterType="map" resultType="com.sp.app.admin.board.Board">
+		SELECT num, subject
+		FROM localcomm l
+		JOIN member1 m ON l.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+    
+    <!-- 공감(좋아요) -->
+   <!-- 게시 글 좋아요 추가 -->
+   <insert id="insertBoardLike" parameterType="map">
+      INSERT INTO localCommLike(num, userId) VALUES (#{num}, #{userId})
+   </insert>
+
+   <!-- 게시 글 좋아요 삭제 -->
+   <delete id="deleteBoardLike" parameterType="map">
+      DELETE FROM localCommLike WHERE num = #{num} AND userId = #{userId}
+   </delete>
+      
+   <!-- 게시글 좋아요 개수 -->
+   <select id="BoardLikeCount" parameterType="Long" resultType="Integer">
+      SELECT COUNT(*) FROM localCommLike WHERE num=#{num}
+   </select>
+
+   <!-- 게시글 좋아요 여부 -->
+   <select id="userBoardLiked" parameterType="map" resultType="com.sp.app.admin.board.Board">
+      SELECT num, userId FROM localCommLike WHERE num = #{num} AND userId = #{userId}
+   </select>
+</mapper>
