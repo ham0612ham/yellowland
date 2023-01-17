@@ -13,18 +13,19 @@
 
 <script type="text/javascript">
 function sendOk() {
-	const f = document.pwdForm;
+	   const f = document.pwdForm;
 
-	let str = f.userPwd.value.trim();
-	if(!str) {
-		alert("패스워드를 입력하세요. ");
-		f.userPwd.focus();
-		return;
+	   let str = f.userPwd.value.trim();
+	   if(!str) {
+	      alert("패스워드를 입력하세요. ");
+	      f.userPwd.focus();
+	      return;
+	   }
+
+	   f.action = "${pageContext.request.contextPath}/member/pwd";
+	   f.submit();
 	}
 
-	f.action = "${pageContext.request.contextPath}/member/pwd";
-	f.submit();
-}
 </script>
 
 <div class="container">
