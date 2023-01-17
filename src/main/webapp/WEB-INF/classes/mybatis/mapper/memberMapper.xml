@@ -144,4 +144,15 @@
 		WHERE userName = #{userName} AND REPLACE(tel, '-') = #{tel}
 	</select>
 	
+	
+	<select id="detailMember" parameterType="String" resultType="com.sp.app.member.Member">
+		SELECT m.memberIdx, membership, m1.userId, userName, userPwd, enabled,
+			registerDate, modifyDate, lastLogin,
+			TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, 
+			zip, addr1, addr2
+		FROM member m 
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx 
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE m1.userId = #{userId}
+	</select>
 </mapper>

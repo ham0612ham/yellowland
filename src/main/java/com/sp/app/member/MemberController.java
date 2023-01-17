@@ -142,6 +142,7 @@ public class MemberController {
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode", "update");
+		model.addAttribute("mode", "dropout");
 		return ".member.member";
 	}
 
@@ -164,7 +165,47 @@ public class MemberController {
 
 		return "redirect:/member/complete";
 	}
+	/*
+	@RequestMapping(value = "dropout", method = RequestMethod.POST)
+	public String dropoutSubmit(Member dto,
+			final RedirectAttributes reAttr,
+			Model model) {
 
+		try {
+			service.updateMember(dto);
+		} catch (Exception e) {
+		}
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(dto.getUserName() + "님의 회원 탈퇴 처리가 정상적으로 처리되었습니다.<br>");
+		sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+
+		reAttr.addFlashAttribute("title", "회원 탈퇴");
+		reAttr.addFlashAttribute("message", sb.toString());
+
+		return "redirect:/member/complete";
+	}
+	
+		@PostMapping("dropoutPwd")
+	public String dropoutPwdFormSubmit(@RequestParam String userPwd,
+			HttpSession session, Model model) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		Member dto = new Member();
+		dto.setUserId(info.getUserId());
+		dto.setUserPwd(userPwd);
+		
+		try {
+			service.dropoutPwd(dto);
+		} catch (RuntimeException e) { // 똑같을 때 RuntimeException예외를 이전에 발생시켜놨음
+			model.addAttribute("message", "변경할 패스워드가 기존 패스워드와 일치 합니다.");
+			return ".member.dropoutPwd";
+		} catch (Exception e) {
+		}
+		
+		return "redirect:/";
+	}
+*/
 	@RequestMapping(value = "userIdCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> idCheck(@RequestParam String userId) throws Exception {
@@ -321,4 +362,29 @@ public class MemberController {
 		
 		return "redirect:/member/complete";
 	}
+	
+	@RequestMapping(value="detail", method = RequestMethod.GET)
+	public String detailForm(HttpSession session,Model model)throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");	
+		Member dto=null;
+		dto=service.readMember(info.getUserId());
+		
+		model.addAttribute("dto", dto);
+
+		return ".member.detail";
+	}
+	
+	@RequestMapping(value="delete")
+	public String delete(HttpSession session)throws Exception{
+	
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Map<String, Object>map =new HashMap<String, Object>();
+		map.put("userId",info.getUserId());
+		
+		service.deleteMember(map);
+		
+		
+		return "redirect:/";
+	}
+	
 }

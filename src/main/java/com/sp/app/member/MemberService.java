@@ -14,7 +14,7 @@ public interface MemberService {
 	public Member readMember(String userId);
 	public Member readMember(long memberIdx);
 	
-	public void deleteMember(Map<String, Object> map) throws Exception;
+	public void deleteMember(Map<String, Object> map) throws Exception;//탈퇴관련 
 	
 	public void generatePwd(Member dto) throws Exception;
 	
@@ -29,4 +29,6 @@ public interface MemberService {
 	public String confirmIdTel(Map<String, Object> map) throws Exception;
 	public Map<String, Object> confirmNameTel(Map<String, Object> map) throws Exception;
 	public void sendMail(String userId) throws Exception;
+	//public void dropoutPwd(Member dto) throws Exception;  //탈퇴관련 생각중 
+	public Member detailMember(String userId);
 }
