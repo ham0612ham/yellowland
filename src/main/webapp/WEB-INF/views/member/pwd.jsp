@@ -12,6 +12,7 @@
 </style>
 
 <script type="text/javascript">
+/*
 function sendOk() {
 	   const f = document.pwdForm;
 
@@ -25,7 +26,20 @@ function sendOk() {
 	   f.action = "${pageContext.request.contextPath}/member/pwd";
 	   f.submit();
 	}
+*/
+function sendOk() {
+	   const f = document.pwdForm;
 
+	   let str = f.userPwd.value.trim();
+	   if(!str) {
+	      alert("패스워드를 입력하세요. ");
+	      f.userPwd.focus();
+	      return;
+	   }
+
+	   f.action = "${pageContext.request.contextPath}/member/pwd";
+	   f.submit();
+	}
 </script>
 
 <div class="container">
@@ -42,16 +56,11 @@ function sendOk() {
 		                </div>
                         
                         <div class="d-grid">
-                            <input type="text" name="userId" class="form-control form-control-lg" placeholder="아이디"
-                            		value="${sessionScope.member.userId}" 
-                            		readonly="readonly">
-                        </div>
-                        <div class="d-grid">
                             <input type="password" name="userPwd" class="form-control form-control-lg" placeholder="패스워드">
                         </div>
                         <div class="d-grid">
-                            <button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">확인 <i class="bi bi-check2"></i> </button>
-                            <input type="hidden" name="mode" value="${mode}">
+                            <button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">${mode=='update'?'수정':'탈퇴'} <i class="bi bi-check2"></i> </button>
+                            <input type="hidden" name="mode" value="${mode}">                             
                         </div>
                     </form>
                 </div>

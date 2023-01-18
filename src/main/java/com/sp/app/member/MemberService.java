@@ -29,6 +29,8 @@ public interface MemberService {
 	public String confirmIdTel(Map<String, Object> map) throws Exception;
 	public Map<String, Object> confirmNameTel(Map<String, Object> map) throws Exception;
 	public void sendMail(String userId) throws Exception;
-	//public void dropoutPwd(Member dto) throws Exception;  //탈퇴관련 생각중 
+	public void dropoutMember(Member dto) throws Exception;  //탈퇴관련 생각중 
+	//public void dropoutMember(String userId) throws Exception; 
 	public Member detailMember(String userId);
+	public void deleteMember (String userId)throws Exception;
 }

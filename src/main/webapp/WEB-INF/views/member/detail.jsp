@@ -155,8 +155,7 @@ function memberdeleteOk(userId) {
 					<div class="text-center" align="left">
 			            
 			            <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/pwd'"> 회원정보변경 <i class="bi bi-check2"></i></button>
-			            <button type="button" name="sendButton" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/member/pwd'"> 회원 탈퇴 <i class="bi bi-check2"></i></button>
-						<input type="hidden" name="userIdValid" id="userIdValid" value="false">
+			            <button type="button" name="sendButton" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/member/pwd?dropout'"> 회원 탈퇴 <i class="bi bi-check2"></i></button>
 			        </div>
 			</div>
 		 
