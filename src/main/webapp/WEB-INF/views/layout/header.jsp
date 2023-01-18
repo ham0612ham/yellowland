@@ -62,7 +62,7 @@
 		           <c:if test="${not empty sessionScope.member}">
 						<span class="login-menu-a" id="user-sort">${sessionScope.member.userName}</span>님
 						<a class="login-menu-a" style="padding-right: 14px;" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-						<a class="login-menu-a" href="${pageContext.request.contextPath}/">마이페이지</a>
+						<a class="login-menu-a" href="${pageContext.request.contextPath}/member/detail">마이페이지</a>
 						<a href="${pageContext.request.contextPath}/note/receive/list" title="쪽지" class="position-relative">
 							<span class="new-noteCount position-absolute translate-middle badge rounded-pill">
 								<img style="width: 20px; margin-top: 15px; margin-left: 30px; z-index: -1" src="${pageContext.request.contextPath}/resources/images/note.png">
