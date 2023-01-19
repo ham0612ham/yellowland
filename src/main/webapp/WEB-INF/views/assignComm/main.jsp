@@ -209,6 +209,12 @@ function myList() {
 					</li>
 				</c:forEach>
 				<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
+				<li>
+					<div class="loading-container" style="display: none;">
+					    <div class="loading"></div>
+					    <div id="loading-text">loading</div>
+					</div>
+				</li>
 			</ul>
 			<div id="asDetail" style="overflow: auto; height: 800px;"></div>
 			<div id="asDetail2" style="overflow: auto; height: 800px;"></div>
@@ -328,7 +334,8 @@ function updateList(swLatlng, neLatlng) {
 		
 	    let assignClass = document.querySelector('.assign-class');
 	   
-	    assignClass.innerHTML = '';
+	    
+	    
 	    assignClass.innerHTML = data;
 	};
 	
@@ -362,6 +369,16 @@ function overall(data, latitude, longitude) {
     
 	// 지도를 생성합니다    
 	map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	kakao.maps.event.addListener(map, 'drag', function() {
+		const loader = document.querySelector('.loading-container');
+	    
+	    setTimeout(() => {
+      		loader.style.display = 'block';
+  		}, 300);
+	    
+	    assignClass.innerHTML = '';
+	});
 	
 	// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 	kakao.maps.event.addListener(map, 'dragend', function() {             
@@ -522,6 +539,7 @@ function overall(data, latitude, longitude) {
 
 	    // 마커가 놓인 위치를 기준으로 로드뷰를 설정합니다
 	    toggleRoadview(position);
+	    
 	});
 
 	//지도에 클릭 이벤트를 등록합니다
@@ -583,6 +601,30 @@ function getLocation() {
 	      let longitude = position.coords.longitude;
 	      
 	      overall(data, latitude, longitude);
+	      
+	   	  // 마커가 표시될 위치입니다 
+	      var markerPosition  = new kakao.maps.LatLng(latitude, longitude); 
+
+	      // 마커를 생성합니다
+	      var marker = new kakao.maps.Marker({
+	          position: markerPosition
+	      });
+
+	      // 마커가 지도 위에 표시되도록 설정합니다
+	      marker.setMap(map);
+	      
+	      var iwContent = '<div style="padding:5px;margin-left: 46px;"><div>내 위치</div></div>', 
+	      iwPosition = new kakao.maps.LatLng(latitude, longitude); //인포윈도우 표시 위치입니다
+
+		  // 인포윈도우를 생성합니다
+		  var infowindow = new kakao.maps.InfoWindow({
+		      position : iwPosition, 
+		      content : iwContent 
+		  });
+		    
+		  // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+		  infowindow.open(map, marker); 
+
 	      
 	    }, function(error) {
 	      console.error(error);
@@ -1092,7 +1134,7 @@ function removeAllChildNods(el) {
 
     
 </script>
-
+<!-- 
 <script>
   window.kakaoAsyncInit = function() {
     Kakao.Channel.createChatButton({
@@ -1110,4 +1152,4 @@ function removeAllChildNods(el) {
     fjs.parentNode.insertBefore(js, fjs);
   })(document, 'script', 'kakao-js-sdk');
 </script>
-
+ -->

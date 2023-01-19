@@ -171,10 +171,6 @@ function deleteComm() {
 				<div><i class="fa-solid fa-comment detail-image"></i> 상세 설명</div>
 				<div>${dto.content}</div>
 			</div>
-			<div>
-				<div><i class="fa-solid fa-location-dot detail-image"></i> 위치</div>
-				<div>우편번호 또는 기본 주소를 통한 위치 표시하기</div>
-			</div>
 		</div>
 		
 	</div>
