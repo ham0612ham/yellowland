@@ -148,18 +148,19 @@ function memberdeleteOk(userId) {
 						
 					
 				</table>
-			</div>
+			
 
 			
-			
-			<div class="col-6 text-center" style="display: flex; margin-top: 60px;" align="left">
-					<div class="text-center" align="left">
+			<div class="board-list-footer d-flex justify-content-between" >
+			<!--  <div class="col-6 text-center" style="display: flex;" align="right">-->
+					<div class="text-center" align="left" style="margin-left: 300px; margin-top: 100px" >
 			            
 			            <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/member/pwd'"> 회원정보변경 <i class="bi bi-check2"></i></button>
 			            <button type="button" name="sendButton" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/member/pwd?dropout'"> 회원 탈퇴 <i class="bi bi-check2"></i></button>
-			        </div>
+			     <!--   </div>-->
 			</div>
-		 
+			</div>
+		 </div>
 		</div>
 
 
