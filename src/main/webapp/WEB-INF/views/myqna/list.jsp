@@ -14,7 +14,7 @@
 
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 150px; width: 220px;}
+.row { height: 200px; width: 220px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
@@ -88,6 +88,7 @@ function searchList() {
 			<div class="col"><a href="${pageContext.request.contextPath}/mylocal/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 게시글</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 답변</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/note/receive/list" class="text-decoration-none" style="color:#C2C2C2"> 쪽지함</a></div>
+			<!-- <div class="col"><a href="${pageContext.request.contextPath}/#" class="text-decoration-none" style="color:#C2C2C2">나의 매칭결과 리스트</a></div>-->
 		</div>
 	</div>
 	<div class="body-container">
@@ -116,12 +117,12 @@ function searchList() {
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>
+			
 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-			
+			</div>
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
 				<button class="btnDelete btn btn-light" style="float: left; width: 90px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;" onclick="location.href='${pageContext.request.contextPath}/myqna/list';">
 					새로고침

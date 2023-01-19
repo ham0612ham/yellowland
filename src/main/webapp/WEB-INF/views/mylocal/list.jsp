@@ -13,7 +13,7 @@
 
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 150px; width: 220px;}
+.row { height: 200px; width: 220px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
@@ -162,6 +162,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 			</div>
 			<div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2"> 내가작성한 답변</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/note/receive/list" class="text-decoration-none" style="color:#C2C2C2"> 쪽지함</a></div>
+			<!-- <div class="col"><a href="${pageContext.request.contextPath}/#" class="text-decoration-none" style="color:#C2C2C2">나의 매칭결과 리스트</a></div>-->
 			</div>
 		</div>
 	
@@ -203,12 +204,13 @@ function ajaxFun(url, method, query, dataType, fn) {
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>
+			
 
 			
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
+		</div>
 
 
 

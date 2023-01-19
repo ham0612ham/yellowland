@@ -21,7 +21,7 @@
 }
 
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 150px; width: 220px;}
+.row { height: 200px; width: 220px;}
 .table1 {float: left; width: 220px;text-align: left;}
 .table2 {width: 800px; text-align: left;}
 
@@ -176,6 +176,7 @@ $(function(){
              <div class="colNoticeTitle">
                <div>쪽지함</div>
 			</div>
+			<!-- <div class="col"><a href="${pageContext.request.contextPath}/#" class="text-decoration-none" style="color:#C2C2C2">나의 매칭결과 리스트</a></div>-->
 		 </div>
 		</div>
 	<div class="body-container">
@@ -233,15 +234,16 @@ $(function(){
 						</c:forEach>
 					</tbody>
 				</table>
-				</div>
+				
 				<input type="hidden" name="page" value="${page}">
 				<input type="hidden" name="condition" value="${condition}">
 				<input type="hidden" name="keyword" value="${keyword}">
 			</form>
+			
+			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}</div>
 			</div>
-			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
-			</div>
-
+		</div>
+	
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
 				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 10px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
 					삭제
@@ -288,7 +290,7 @@ $(function(){
 			</div>
 			</div>
 		</div>
-	</div>
+	
 
 
 <img id="message-img" src="${pageContext.request.contextPath}/resources/images/note_2.png">
