@@ -70,14 +70,14 @@ function sendOk() {
 
 	str = f.catejobNum.value;
 	if(!str) {
-		alert("시군구를 선택하세요 !");
+		alert("업종을 선택하세요 !");
 		f.catejobNum.focus();
 		return;
 	}
 	
 	str = f.jobNum.value;
 	if(!str) {
-		alert("행정동을 선택하세요 !");
+		alert("세부업종을 선택하세요 !");
 		f.jobNum.focus();
 		return;
 	}

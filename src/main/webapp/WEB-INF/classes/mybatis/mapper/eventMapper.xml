@@ -53,6 +53,7 @@
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
 		WHERE enable = 1 AND <![CDATA[staDate <= SYSDATE]]> AND <![CDATA[endDate >= SYSDATE]]>
+			AND num &gt; #{num}
 		ORDER BY num ASC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -62,6 +63,7 @@
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
 		WHERE enable = 1 AND <![CDATA[staDate <= SYSDATE]]> AND <![CDATA[endDate >= SYSDATE]]>
+			AND num &lt; #{num}
 		ORDER BY num DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -71,6 +73,8 @@
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
 		WHERE enable = 0 OR staDate &gt; SYSDATE OR endDate &lt; SYSDATE
+			AND num &gt; #{num}
+			AND (<![CDATA[staDate > SYSDATE]]> OR <![CDATA[endDate < SYSDATE]]>)
 		ORDER BY num ASC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -80,6 +84,8 @@
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
 		WHERE enable = 0 OR staDate &gt; SYSDATE OR endDate &lt; SYSDATE
+			AND num &lt; #{num}
+			AND (<![CDATA[staDate > SYSDATE]]> OR <![CDATA[endDate < SYSDATE]]>)
 		ORDER BY num DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
