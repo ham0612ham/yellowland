@@ -112,9 +112,9 @@ function memberdeleteOk(userId) {
 			<div class="colNoticeTitle">
 				<div>회원정보</div>
 			</div>		
-			<div class="col"><a href="${pageContext.request.contextPath}/myqna/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 1대1문의</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/mylocal/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 게시글</a></div>							
-			<div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 답변</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/myqna/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 1:1문의</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/mylocal/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 게시글</a></div>							
+			<div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 답변</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/note/receive/list" class="text-decoration-none" style="color:#C2C2C2"> 쪽지함 </a></div>
 			<!-- <div class="col"><a href="${pageContext.request.contextPath}/#" class="text-decoration-none" style="color:#C2C2C2">나의 매칭결과 리스트</a></div>-->
 		</div>

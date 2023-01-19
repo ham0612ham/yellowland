@@ -170,9 +170,9 @@ $(function(){
          <h3 class="fw-semibold">마이페이지</h3>
          <div class="row row-cols-auto">
             <div class="col"><a href="${pageContext.request.contextPath}/member/detail" class="text-decoration-none" style="color:#C2C2C2">회원정보</a></div>     
-            <div class="col"><a href="${pageContext.request.contextPath}/myqna/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 1대1문의</a></div>                      
-            <div class="col"><a href="${pageContext.request.contextPath}/mylocal/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 게시글</a></div>
-              <div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2">내가작성한 답변</a></div>           
+            <div class="col"><a href="${pageContext.request.contextPath}/myqna/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 1:1문의</a></div>                      
+            <div class="col"><a href="${pageContext.request.contextPath}/mylocal/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 게시글</a></div>
+              <div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 답변</a></div>           
              <div class="colNoticeTitle">
                <div>쪽지함</div>
 			</div>
