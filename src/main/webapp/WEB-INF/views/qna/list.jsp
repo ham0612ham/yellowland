@@ -134,7 +134,14 @@
 									</c:if>
 								</td>
 								<td>${dto.userName}</td>
-								<td>${dto.isReply != 0 ?"답변완료":"-"}</td>
+								<td>
+									<c:if test="${dto.isReply != 0}">
+										<span style="color:#36C88A; font-weight: bold;">답변완료</span>
+									</c:if>
+									<c:if test="${dto.isReply == 0}">
+										<span style="font-weight: bold;">-</span>
+									</c:if>
+								</td>
 								<td>${dto.regDate}</td>
 							</tr>
 						</c:forEach>
