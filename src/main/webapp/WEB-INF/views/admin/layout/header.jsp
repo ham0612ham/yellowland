@@ -22,8 +22,8 @@
 				<li><a href="${pageContext.request.contextPath}/assignComm/main" class="main-menu-a">상가 양도</a></li>
 				<li><a href="">커뮤니티</a>
 					<ul class="sub-menu2">
-						<li><a href="${pageContext.request.contextPath}/localCommunity/list" aria-label="subemnu">지역별 커뮤니티</a></li>
-						<li><a href="${pageContext.request.contextPath}/typeCommunity/list" aria-label="subemnu">업종별 커뮤니티</a></li>
+						<li><a href="${pageContext.request.contextPath}/localComm/list" aria-label="subemnu">지역별 커뮤니티</a></li>
+						<li><a href="${pageContext.request.contextPath}/typeComm/list" aria-label="subemnu">업종별 커뮤니티</a></li>
 					</ul>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/notice/list" class="main-menu2-a">고객센터</a>
@@ -35,6 +35,9 @@
 				</li>
 				<li>
 					<a href="${pageContext.request.contextPath}/event/list" class="main-menu-a">이벤트</a>
+				</li>
+				<li>
+					<a href="${pageContext.request.contextPath}/tendency/main" class="main-menu-a">성향 테스트</a>
 				</li>
 				<c:if test="${sessionScope.member.membership==99}">
 					<li><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="main-menu2-a">관리자 메뉴</a>
