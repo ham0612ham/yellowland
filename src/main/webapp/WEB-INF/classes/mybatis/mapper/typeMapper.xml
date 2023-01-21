@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="type">
+   <sql id="where-list">
+      <if test="condition=='all' ">
+         ( INSTR(subject, #{keyword}) &gt; 0
+            OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+      </if>
+      <if test="condition=='subject' ">
+         INSTR(subject, #{keyword}) &gt; 0
+      </if>
+      <if test="condition=='content' ">
+         DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+      </if>
+      <if test="condition=='userName' ">
+         userName=#{keyword}
+      </if>
+      <if test="condition=='regDate' ">
+         ( TO_CHAR(regDate, 'YYYY-MM-DD') = #{keyword}
+            OR TO_CHAR(regDate, 'YYYYMMDD') = #{keyword} )
+      </if>
+   </sql>
+
+   <select id="dataCount" parameterType="map" resultType="Integer">
+         SELECT NVL(COUNT(*), 0)
+             FROM typecomm t
+           JOIN member1 m ON t.userId=m.userId
+         <where>
+         <if test="keyword!=null and keyword!='' ">
+            <include refid="where-list"/>
+         </if>
+         
+      </where> 
+   </select>
+   
+
+   <select id="listType" parameterType="map" resultType="com.sp.app.admin.type.TypeComm">
+         select t.num,m.username,m.userId,t.subject,TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate,t.content,t.catejobnum,c.catejobname, j.jobname,hitCount,NVL(likeCount, 0) likeCount
+         from typecomm t
+          JOIN member1 m ON t.userId=m.userId
+             
+         LEFT OUTER JOIN job j ON t.jobnum = j.jobnum 
+         left outer join categoryjob c on c.catejobnum =t.catejobnum
+         LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileCount FROM typeCommFile
+			GROUP BY num
+		) f ON t.num=f.num
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) likeCount FROM typeCommLike
+			GROUP BY num
+		) tc ON t.num=tc.num
+        <where>
+         <if test="keyword!=null and keyword!='' ">
+            <include refid="where-list"/>
+         </if>
+         
+      </where> 
+      ORDER BY t.num DESC
+      OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+   </select>
+   
+   
+   <select id="readType" parameterType="Long" resultType="com.sp.app.admin.type.TypeComm">
+          select t.num,m.username,m.userId,t.subject,TO_CHAR(t.regDate, 'YYYY-MM-DD') regDate,t.content,t.catejobnum,c.catejobname, j.jobname,hitCount,NVL(likeCount, 0) likeCount
+         from typecomm t
+          JOIN member1 m ON t.userId=m.userId
+              
+         LEFT OUTER JOIN job j ON t.jobnum = j.jobnum 
+         left outer join categoryjob c on c.catejobnum =t.catejobnum
+         LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileCount FROM typeCommFile
+			GROUP BY num
+		) f ON t.num=f.num
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) likeCount FROM typeCommLike
+			GROUP BY num
+		) tc ON t.num=tc.num
+           WHERE t.num = #{num}
+   </select>
+      
+     
+      
+   <delete id="deleteType" parameterType="Long">
+        DELETE FROM typecomm
+         WHERE num = #{num}
+   </delete>
+   
+   	<!-- 이전글 -->
+	<select id="preReadType" parameterType="map" resultType="com.sp.app.admin.type.TypeComm">
+		SELECT num, subject
+		FROM typecomm t
+		JOIN member1 m ON t.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+
+    <!-- 다음글 -->
+    <select id="nextReadType" parameterType="map" resultType="com.sp.app.admin.type.TypeComm">
+		SELECT num, subject
+		FROM typecomm t
+		JOIN member1 m ON t.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+    
+    <insert id="insertReply" parameterType="com.sp.app.admin.type.Reply">
+		INSERT INTO typeCommReply(replyNum, num, userId, content, regDate)
+			VALUES (typeCommReply_seq.NEXTVAL, #{num}, #{userId}, #{content}, SYSDATE)
+	</insert>	
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.app.admin.type.Reply">
+		SELECT r.replyNum, r.userId, userName, num, content, r.regDate 
+		FROM typeCommReply r
+		JOIN member1 m ON r.userId = m.userId
+		WHERE num=#{num}
+		ORDER BY r.replyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM typeCommReply
+		WHERE num=#{num}
+	</select>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM typeCommReply
+		WHERE replyNum = #{replyNum}
+	</delete>
+	
+	 <!-- 조회수 증가 -->
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE typeComm SET hitCount=hitCount+1 WHERE num = #{num}
+	</update>
+	
+	<insert id="insertTypeCommLike" parameterType="map">
+		INSERT INTO typeCommLike(num, userId) VALUES (#{num}, #{userId})
+	</insert>
+
+	<!-- 게시 글 좋아요 삭제 -->
+	<delete id="deleteTypeCommLike" parameterType="map">
+		DELETE FROM typeCommLike WHERE num = #{num} AND userId = #{userId}
+	</delete>
+      
+	<!-- 게시글 좋아요 개수 -->
+	<select id="typeCommLikeCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM typeCommLike WHERE num=#{num}
+	</select>
+
+	<!-- 게시글 좋아요 여부 -->
+	<select id="userTypeCommLiked" parameterType="map" resultType="com.sp.app.admin.type.TypeComm">
+		SELECT num, userId FROM typeCommLike WHERE num = #{num} AND userId = #{userId}
+	</select>
+</mapper>

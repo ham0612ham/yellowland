@@ -92,9 +92,7 @@ function detailedMember(userId) {
 		       " 수정 " : function() {
 		    	   updateOk(); 
 		       },
-		       " 삭제 " : function() {
-		    	   deleteOk(userId);
-			   },
+		      
 		       " 닫기 " : function() {
 		    	   $(this).dialog("close");
 		       }
@@ -140,13 +138,7 @@ function updateOk() {
 	$('#member-dialog').dialog("close");
 }
 
-function deleteOk(userId) {
-	if(confirm("선택한 계정을 삭제 하시겠습니까 ?")) {
 
-	}
-	
-	$('#member-dialog').dialog("close");
-}
 
 function memberStateDetaileView() {
 	$('#memberStateDetaile').dialog({
@@ -217,7 +209,7 @@ function selectStateChange() {
 				</tr>
 			</table>
 			
-		<form name="listForm" method="post">		
+		<!--  <form name="listForm" method="post">	-->	
 			<table class="table note-table">
 				<thead>
 					<tr> 
@@ -237,12 +229,12 @@ function selectStateChange() {
 					<c:forEach var="dto" items="${list}" varStatus="status">
 						<tr class="hover" onclick="detailedMember('${dto.userId}');"> 
 							<td>${dataCount - (page-1) * size - status.index}</td>
-							<td>${dto.userId}</td>
+							<td style=" max-width: 100px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">${dto.userId}</td>
 							<td>${dto.userName}</td>
 							<td>${dto.birth}</td>
-							<td>${dto.tel}</td>
+							<td style=" max-width: 100px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">${dto.tel}</td>
 							<td>${dto.enabled==1?"활성":"잠금"}</td>
-							<td>${dto.email}</td>
+							<td style=" max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">${dto.email}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -250,7 +242,7 @@ function selectStateChange() {
 			<input type="hidden" name="page" value="${page}">
 			<input type="hidden" name="condition" value="${condition}">
 			<input type="hidden" name="keyword" value="${keyword}">
-		</form>		 
+		<!--</form>	-->		 
 			<div class="page-navigation">
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>

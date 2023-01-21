@@ -67,6 +67,7 @@
 }
 
 
+
 </style>
 
 <div class="container">
@@ -101,7 +102,7 @@
 							      		<div class="questionContentSize" >
 											<div >
 												<h3 class="questionContentADetail">A</h3>
-												<span class="questionContentMainDetail">${dto.content}</span>
+												<span class="questionContentMainDetail" style="font-size: 16px;">${dto.content}</span>
 											</div>	
 										</div>
 							      </div>

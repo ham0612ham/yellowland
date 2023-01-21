@@ -180,6 +180,7 @@ function deleteNote() {
 					<div class="row reply-form m-1">
 						<textarea name="content" class="form-control"></textarea>
 						<input type="hidden" name="receivers" value="${dto.senderId}">
+						<input type="hidden" name="receiverName" value="${dto.senderName}">
 					</div>
 				</form>
 			</div>

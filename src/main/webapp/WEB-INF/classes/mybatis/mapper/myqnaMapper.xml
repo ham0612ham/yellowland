@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myqna">
+	<insert id="insertMyQna" parameterType="com.sp.app.myqna.MyQna">
+		INSERT INTO INQUIRYBOARD(num, subject, content, regDate, userId)
+		VALUES (INQUIRYBOARD_seq.NEXTVAL, #{subject}, #{content},
+		SYSDATE, #{userId})
+	</insert>
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='regdate' ">
+			( TO_CHAR(regdate, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(regdate, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			and m.userId=#{userId}
+		</where>
+	</select>
+	
+
+	<select id="listMyQna" parameterType="map" resultType="com.sp.app.myqna.MyQna">
+		SELECT q.num, m.userName, q.userId, q.subject,
+			TO_CHAR(q.regDate, 'YYYY-MM-DD') regDate, q.content, NVL(r.num, 0) isReply
+		FROM INQUIRYBOARD q
+        JOIN member1 m ON q.userId=m.userId
+        LEFT OUTER JOIN INQUIRYREPLY r on q.num = r.num
+      	
+      	<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			and m.userId=#{userId}
+		</where>
+        ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+		
+	<select id="readMyQna" parameterType="Long" resultType="com.sp.app.myqna.MyQna">
+		SELECT m.userName, q.userId, q.num, q.subject, q.content, q.regDate 
+			FROM INQUIRYBOARD q 
+			JOIN member1 m ON q.userId = m.userId
+			WHERE num = #{num}
+	</select>
+	
+	<select id="readAnswer" parameterType="Long" resultType="com.sp.app.myqna.MyQna">
+		SELECT m.userName, q.regDate, q.content
+			FROM INQUIRYREPLY q 
+			JOIN member1 m ON m.userId = q.userId
+			WHERE num = #{num}
+	</select>
+	
+	
+	<update id="updateMyQna" parameterType="com.sp.app.myqna.MyQna">
+		UPDAET INQUIRYBOARD SET subject=#{subject}, content=#{content}
+			WHERE num = #{num} AND userId = #{userId}	
+	</update>
+	
+
+	<delete id="deleteMyQna" parameterType="Long">
+		  DELETE FROM INQUIRYBOARD 
+		  	WHERE num = #{num}
+	</delete>
+	<select id="preReadMyQna" parameterType="map" resultType="com.sp.app.myqna.MyQna">
+		SELECT num, subject
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND m.userId=#{userId}
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+    
+    <select id="nextReadMyQna" parameterType="map" resultType="com.sp.app.myqna.MyQna">
+    	SELECT num, subject
+		FROM INQUIRYBOARD q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND m.userId=#{userId}
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+    </select>
+	
+</mapper>

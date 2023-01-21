@@ -104,7 +104,7 @@ public class MemberController {
 			@RequestParam String mode, 
 			final RedirectAttributes reAttr,
 			HttpSession session,
-			Model model) {
+			Model model) throws Exception{
 
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
@@ -127,21 +127,32 @@ public class MemberController {
 		}
 
 		if (mode.equals("dropout")) {
-			session.removeAttribute("member");
-			session.invalidate();
+			try {
+				Map<String, Object>map=new HashMap<String, Object>();
+				map.put("memberIdx",info.getMemberIdx());
+				map.put("userId", info.getUserId());
+				service.deleteMember(map);
+				
+				session.removeAttribute("member");
+				session.invalidate();
 
-			StringBuilder sb = new StringBuilder();
-			sb.append(dto.getUserName() + "님의 회원 탈퇴 처리가 정상적으로 처리되었습니다.<br>");
-			sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+				StringBuilder sb = new StringBuilder();
+				sb.append(dto.getUserName() + "님의 회원 탈퇴 처리가 정상적으로 처리되었습니다.<br>");
+				sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
 
-			reAttr.addFlashAttribute("title", "회원 탈퇴");
-			reAttr.addFlashAttribute("message", sb.toString());
+				reAttr.addFlashAttribute("title", "회원 탈퇴");
+				reAttr.addFlashAttribute("message", sb.toString());
 
-			return "redirect:/member/complete";
+				return "redirect:/member/complete";
+			} catch (Exception e) {
+			}
+			
+			
 		}
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode", "update");
+		model.addAttribute("mode", "dropout");
 		return ".member.member";
 	}
 
@@ -164,6 +175,7 @@ public class MemberController {
 
 		return "redirect:/member/complete";
 	}
+	
 
 	@RequestMapping(value = "userIdCheck", method = RequestMethod.POST)
 	@ResponseBody
@@ -321,4 +333,29 @@ public class MemberController {
 		
 		return "redirect:/member/complete";
 	}
+	
+	@RequestMapping(value="detail", method = RequestMethod.GET)
+	public String detailForm(HttpSession session,Model model)throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");	
+		Member dto=null;
+		dto=service.readMember(info.getUserId());
+		
+		model.addAttribute("dto", dto);
+
+		return ".member.detail";
+	}
+	
+	@RequestMapping(value="delete")
+	public String delete(@RequestParam String userId,@RequestParam String page,HttpSession session)throws Exception{
+	
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Map<String, Object>map =new HashMap<String, Object>();
+		map.put("userId",info.getUserId());
+		
+		service.deleteMember(map);
+		
+		
+		return "redirect:/";
+	}
+	
 }

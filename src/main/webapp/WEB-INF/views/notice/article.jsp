@@ -48,11 +48,21 @@
 
 		<hr>
 
-		<div class="articleContent" style="max-width: 500px; overflow-wrap: anywhere; " id="ckEditor">
+		<div class="articleContent" style="max-width: 500px; overflow-wrap: anywhere; margin-left: 150px; " id="ckEditor">
 			<span>
 			${dto.content}
 			</span>
 		</div>
+		
+			<c:forEach var="vo" items="${listFile}">
+						<tr>
+							<td colspan="2">
+								파&nbsp;&nbsp;일 :
+								<a href="${pageContext.request.contextPath}/notice/download?fileNum=${vo.fileNum}" style="color: black;">${vo.originalFilename}</a>
+								(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> kb)
+							</td>
+						</tr>
+					</c:forEach>
 		
 		<div class="articleLower">
 			<hr class="division">

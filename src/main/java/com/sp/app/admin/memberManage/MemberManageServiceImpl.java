@@ -49,14 +49,15 @@ public class MemberManageServiceImpl implements MemberManageService {
 			if (dto != null) {
 				if (dto.getEmail() != null) {
 					String[] s = dto.getEmail().split("@");
-					dto.setEmail(s[0]);
-					
+					dto.setEmail1(s[0]);
+					dto.setEmail2(s[1]);
 				}
 
 				if (dto.getTel() != null) {
 					String[] s = dto.getTel().split("-");
-					dto.setTel(s[0]);
-					
+					dto.setTel1(s[0]);
+					dto.setTel2(s[1]);
+					dto.setTel3(s[2]);
 				}
 			}
 

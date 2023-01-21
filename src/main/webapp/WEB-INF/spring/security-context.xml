@@ -31,9 +31,12 @@
 		<intercept-url pattern="/member/confirmIdTel/**" access="permitAll"/>
 		<intercept-url pattern="/member/confirmNameTel/**" access="permitAll"/>
 		
+		<intercept-url pattern="/event/enlist/**" access="permitAll"/>
+		<intercept-url pattern="/event/dislist/**" access="permitAll"/>
 		<intercept-url pattern="/event/list/**" access="permitAll"/>
 		<intercept-url pattern="/event/lists/**" access="permitAll"/>
 		<intercept-url pattern="/event/article/**" access="permitAll"/>
+		<intercept-url pattern="/event/disarticle/**" access="permitAll"/>
 		<intercept-url pattern="/tendency/**" access="permitAll"/>
 		<intercept-url pattern="/note/countMessage" access="permitAll"/>
 		<intercept-url pattern="/analysisFile/**" access="permitAll"/>

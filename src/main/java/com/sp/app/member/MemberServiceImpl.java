@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.dao.CommonDAO;
 import com.sp.app.mail.Mail;
@@ -264,7 +268,30 @@ public class MemberServiceImpl implements MemberService {
 			throw e;
 		}
 	}
+//삭제는 번호를 확인하고 해야하니 dropout에서 하는게 맞지않을까해서 
 
+	@Override
+	public void dropoutMember(Member dto)throws Exception{
+		try {
+			if(isPasswordCheck(dto.getUserId(), dto.getUserPwd())) {
+				throw new RuntimeException("패스워드가 기존 패스워드와 일치합니다.");
+			}
+			
+			String encPassword = bcrypt.encode(dto.getUserPwd());
+			dto.setUserPwd(encPassword);
+			//dao.deleteData("member.dropoutMember",dto);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("membership", 0);
+			updateMembership(map);		
+			dao.deleteData("member.deleteMember2", map);
+			dao.deleteData("member.deleteMember1", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+				throw e;
+		}
+			
+	}
+	
 	@Override
 	public int checkFailureCount(String userId) {
 		int result = 0;
@@ -400,4 +427,36 @@ public class MemberServiceImpl implements MemberService {
 			throw new Exception("이메일 전송중 오류가 발생했습니다.");
 		}
 	}
+
+	@Override
+	public Member detailMember(String userId) {
+		Member dto=null;
+		try {
+			dto=dao.selectOne("member.detailMember",userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public void deleteMember(String userId) throws Exception {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("membership", 0);
+			updateMembership(map);
+			dao.deleteData("member.deleteMember2",map);
+			dao.deleteData("member.deleteMember1",map);
+			//dao.deleteData("member.deleteMember2",userId);
+			//dao.deleteData("member.deleteMember1",userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+
+
+	
 }

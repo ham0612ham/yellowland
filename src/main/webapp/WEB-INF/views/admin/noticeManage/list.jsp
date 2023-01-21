@@ -127,11 +127,8 @@ function searchList() {
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr>
 								<td>${dataCount - (page-1) * size - status.index}</td>
-								<td class="left">
+								<td style=" max-width: 300px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
 									<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</a>
-						       <!--  <c:if test="${dto.gap < 10}">
-										<span class="badge text-bg-primary">New</span>
-									</c:if>  -->
 								</td>
 								<td>${dto.userId}</td>
 								<td>${dto.reg_date}</td>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myReply">
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(subject, #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(subject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR( content, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='regdate' ">
+			( TO_CHAR(regdate, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(regdate, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+
+	<select id="listMyReply" parameterType="map" resultType="com.sp.app.myReply.MyReply">
+  		    SELECT r.replynum,subject, r.userId, userName,   
+			   TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate ,d.dongName,c.siguName,r.content		 
+				FROM localCommreply r
+				JOIN member1 m ON m.userId=r.userId
+        		 LEFT OUTER JOIN localcomm l on l.num=r.num
+       			 LEFT OUTER JOIN dong d on d.dongNum=l.dongNum
+       			 LEFT OUTER JOIN categorygu c on c.siguNum=l.siguNum 					
+					<where>
+						<if test="keyword != null and keyword!=''  ">
+							<include refid="where-list"/>
+						</if>
+						and r.userId=#{userId}
+					</where>				 
+        ORDER BY regdate DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		   SELECT COUNT(*)
+			FROM localcommreply		
+			<where>
+			<if test="keyword != null and keyword!=''  ">
+				<include refid="where-list"/>
+			</if>
+			and userId=#{userId}
+		</where>
+	</select>
+	
+	
+	<select id="readMyReply" parameterType="Long" resultType="com.sp.app.myReply.MyReply">
+		  SELECT r.replynum,subject, r.userId, userName,   
+			   TO_CHAR(l.regDate, 'YYYY-MM-DD') regDate ,d.dongName,c.siguName,r.content		 
+		FROM localCommreply r
+		JOIN member1 m ON m.userId=r.userId
+          LEFT OUTER JOIN localcomm l on l.num=r.num
+        LEFT OUTER JOIN dong d on d.dongnum=l.dongnum
+        LEFT OUTER JOIN categorygu c on c.sigunum=l.sigunum 
+		 where r.userId=#{userId}
+	</select>
+
+	
+</mapper>
