@@ -1,3 +1,21 @@
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
 $(function(){
 	graph1Chart("all", "all");
 	graph2Chart("all", "all");

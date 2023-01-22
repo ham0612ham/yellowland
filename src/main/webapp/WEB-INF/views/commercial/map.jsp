@@ -165,7 +165,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 }
 #map-btns-div {
 	position: absolute; cursor: pointer; z-index: 2;
-	margin: 0px 6px; height: 40px; line-height: 14px;
+	margin: 0px 6px; height: 15px; line-height: 14px;
 	right: 10px; top: 115px; width: 85px;
 }
 .map-btns-divs { 

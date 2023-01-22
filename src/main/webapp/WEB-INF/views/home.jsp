@@ -2,6 +2,9 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style type="text/css">
+#footer-div { background: #EEEEEE; }
+</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/home_graph.js"></script>
 	<div style="position: relative;">
 		<div id="back-gray" style="position: absolute; z-index: -2;">

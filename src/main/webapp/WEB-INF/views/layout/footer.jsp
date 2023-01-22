@@ -12,9 +12,10 @@
     width: 70px;
 }
 
+.footer-div { background: white; }
 </style>
 
-	<div style="background: #EEEEEE; width: 100%; height: 70px;">
+	<div class="footer-div" id="footer-div" style="width: 100%; height: 70px;">
 		<div class="links" style="text-align: center; padding: 15px;">
 			<a class="navbar-brand" href="#" style="padding-left: 0px"><img id="img-gray" src="${pageContext.request.contextPath}/resources/images/logo_gray.png"></a>
 			<span>회사소개</span><span>이용약관</span><span>고객센터</span><span>인재채용</span><span>TEL : 02-336-8546</span>
