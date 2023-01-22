@@ -105,4 +105,12 @@
         ORDER BY regDate DESC, a.num DESC 
 	</select>
 	
+	<select id="detailLatLng" parameterType="map" resultType="com.sp.app.assignComm.Community">
+		SELECT a.num, subject, content, userId, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate, pNum, zip, addr1, addr2, thumbnail,
+			deposit, monthly, expense, area, floor, bFloor, parking, elevator, TO_CHAR(transDate, 'YYYY-MM-DD') AS transDate, lat, lng
+		FROM assignComm a
+        JOIN assignCommDetail ad ON a.num = ad.num
+		WHERE lat = #{lat} and lng = #{lng}
+	</select>
+	
 </mapper>

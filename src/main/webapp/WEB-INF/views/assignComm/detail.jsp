@@ -85,8 +85,10 @@ i {
 
 function backButton() {
 	
-	document.querySelector(".detail-view").style.display = "none";
-	document.querySelector(".assign-ul").style.display = "block";
+	const detailArticle = document.querySelector('.detail-article');
+	detailArticle.innerHTML = '';
+	
+	document.querySelector(".assign-up").style.display = "block";
 	
 }
 
@@ -113,7 +115,7 @@ function deleteComm() {
 
 
 
-<article>
+<article class="detail-article">
 	<div class="detail-view">
 		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 		    <div class="carousel-inner">

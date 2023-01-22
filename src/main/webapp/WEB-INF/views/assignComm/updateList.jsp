@@ -11,13 +11,14 @@
 </head>
 <body>
 
+
 <ul class="assign-up">
 	<li class="assign-count">지역 목록 ${newCount}개</li>
 	<c:if test="${!empty sessionScope.member.userId}">
 		<li class="my-title"><button type="button" onclick="myList();" class="btn btn-primary">내 게시글</button></li>
 	</c:if>
 	<c:forEach var="dto" items="${updateList}">
-		<li class="assign-list" onclick="detailPage(${dto.num});"> 
+		<li class="assign-list" onclick="detailPageUp(${dto.num});"> 
 			<div><img class="assign-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
 			<div class="assign-set">
 				<div class="transDate-div">양도 가능일 ${dto.transDate}</div>

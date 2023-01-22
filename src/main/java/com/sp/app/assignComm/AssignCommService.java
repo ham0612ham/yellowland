@@ -21,4 +21,7 @@ public interface AssignCommService {
 	// 지도 영역 안의 위도 경도에 따른 리스트 표시
 	public List<Community> updateList(Map<String, Object> map);
 	public long updateListCount(Map<String, Object> map);
+	
+	// 지도에 마커 클릭시 위도, 경도에 따른 세부 정보 표시
+	public Community detailLatLng(double lat, double lng);
 }

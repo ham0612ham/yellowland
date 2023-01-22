@@ -102,16 +102,32 @@ function ajaxFileFun(url, method, query, dataType, fn) {
 	});
 }
 
-function detailPage(num) {
+// 클러스터 업뎃 후 세부정보 페이지로 들어갈때 실행
+function detailPageUp(num) {
 	let url = "${pageContext.request.contextPath}/assignComm/detail";
 	let query = "num=" + num;
 	let selector = "#asDetail";
 	
-	document.querySelector(".assign-ul").style.display = "none";
+	document.querySelector(".assign-up").style.display = "none";
 	
 	const fn = function(data) {
 		$(selector).html(data);
 		dtoJsonDetail(num);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+}
+
+function detailLatLng(lat, lng) {
+	let url = "${pageContext.request.contextPath}/assignComm/detailLatLng";
+	let query = "lat=" + lat + "&lng=" + lng;
+	let selector = "#asDetail";
+	
+	document.querySelector(".assign-up").style.display = "none";
+	
+	const fn = function(data) {
+		$(selector).html(data);
+		//dtoJsonDetail( ${dto.num} );
 	};
 	
 	ajaxFun(url, "get", query, "html", fn);
@@ -145,7 +161,7 @@ function myList() {
 	let query = "userId=" + userId;
 	let selector = "#asDetail";
 	
-	document.querySelector(".assign-ul").style.display = "none";
+	document.querySelector(".assign-up").style.display = "none";
 	
 	
 	const fn = function(data) {
@@ -189,6 +205,7 @@ function myList() {
 		    </div>
 	    </div>
         <div class="assign-class">
+        <!-- 
 			<ul class="assign-ul">
 				<li class="assign-count">지역 목록 ${count}개</li>
 				<c:if test="${!empty sessionScope.member.userId}">
@@ -209,19 +226,18 @@ function myList() {
 					</li>
 				</c:forEach>
 				<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
-				<li>
-					<div class="loading-container" style="display: none;">
-					    <div class="loading"></div>
-					    <div id="loading-text">loading</div>
-					</div>
-				</li>
 			</ul>
+			-->
 			<div id="asDetail" style="overflow: auto; height: 800px;"></div>
 			<div id="asDetail2" style="overflow: auto; height: 800px;"></div>
 		</div>
+		 
     </div>
     
-   
+   	<div class="loading-container" style="display: none;">
+	    <div class="loading"></div>
+	    <div id="loading-text">loading</div>
+	</div>
     
     <div class="map_wrap">
 	    <div id="menu_wrap" class="bg_white">
@@ -330,17 +346,19 @@ function updateList(swLatlng, neLatlng) {
 	
 	
 	const fn = function(data) {
-		console.log("적용완료");
+		// console.log("적용완료");
 		
 	    let assignClass = document.querySelector('.assign-class');
 	   
-	    
+	    assignClass.innerHTML = '';
 	    
 	    assignClass.innerHTML = data;
 	};
 	
 	ajaxFun(url, 'get', query, 'html', fn);
 }
+
+
 
 var markers = [];
 
@@ -370,19 +388,68 @@ function overall(data, latitude, longitude) {
 	// 지도를 생성합니다    
 	map = new kakao.maps.Map(mapContainer, mapOption); 
 	
-	kakao.maps.event.addListener(map, 'drag', function() {
-		const loader = document.querySelector('.loading-container');
-	    
-	    setTimeout(() => {
-      		loader.style.display = 'block';
-  		}, 300);
-	    
+	// 지도 영역정보를 얻어옵니다 
+    var mainBounds = map.getBounds();
+    
+    // 영역정보의 남서쪽 정보를 얻어옵니다 
+    var mainSwLatlng = mainBounds.getSouthWest().toString();
+    
+    // 영역정보의 북동쪽 정보를 얻어옵니다 
+    var mainNeLatlng = mainBounds.getNorthEast().toString();
+	
+    updateList(mainSwLatlng, mainNeLatlng);
+    
+    
+	kakao.maps.event.addListener(map, 'dragstart', function() {   
+		
+		let detailView = document.querySelector(".detail-view");
+		let myListView = document.querySelector(".myList-class");
+		
+		
+		if(detailView !== null || myListView !== null) {
+			// 지도를 드래그할 때 리스트가 새로고침 되는 것을 방지
+			// 세부사항 페이지 or 내 게시글 페이지가 열려 있으면 리스트 업뎃 중단
+			return;
+		} 
+
+		const assignClass = document.querySelector('.assign-class');
+		   
 	    assignClass.innerHTML = '';
+	    
 	});
+	
+	kakao.maps.event.addListener(map, 'drag', function() {   
+		
+		let detailView = document.querySelector(".detail-view");
+		let myListView = document.querySelector(".myList-class");
+		
+		
+		if(detailView !== null || myListView !== null) {
+			// 지도를 드래그할 때 리스트가 새로고침 되는 것을 방지
+			// 세부사항 페이지 or 내 게시글 페이지가 열려 있으면 리스트 업뎃 중단
+			return;
+		} 
+		
+		// document.querySelector(".detail-view").style.display = "none";
+		const loader = document.querySelector('.loading-container');
+	    $(loader).show();
+	 
+	});
+	
 	
 	// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 	kakao.maps.event.addListener(map, 'dragend', function() {             
 	    
+		let detailView = document.querySelector(".detail-view");
+		let myListView = document.querySelector(".myList-class");
+		
+		
+		if(detailView !== null || myListView !== null) {
+			// 지도를 드래그할 때 리스트가 새로고침 되는 것을 방지
+			// 세부사항 페이지 or 내 게시글 페이지가 열려 있으면 리스트 업뎃 중단
+			return;
+		} 
+		
 	    // 지도 영역정보를 얻어옵니다 
 	    var bounds = map.getBounds();
 	    
@@ -392,6 +459,9 @@ function overall(data, latitude, longitude) {
 	    // 영역정보의 북동쪽 정보를 얻어옵니다 
 	    var neLatlng = bounds.getNorthEast().toString();
 	    
+		const loader = document.querySelector('.loading-container');
+		
+	    $(loader).hide();
 	    
 	    updateList(swLatlng, neLatlng);
 	   
@@ -465,13 +535,32 @@ function overall(data, latitude, longitude) {
     // 데이터에서 좌표 값을 가지고 마커를 표시합니다
     // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
 	    var markersGu = $(data.positions).map(function(i, position) {
-	           return new kakao.maps.Marker({
-	               position : new kakao.maps.LatLng(position.lat, position.lng)
-	           });
-	        });
+	    	
+    		var marker = new kakao.maps.Marker({
+    			position : new kakao.maps.LatLng(position.lat, position.lng),
+    			clickable: true // // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
+    		});
+   			
+   			/*
+   			ajaxFun 함수 이용해 위도 경도 담아 컨트롤러에 보내기
+   			위도 경도에 맞는 num을 찾아 반환 
+   			json으로 받아 인포윈도우 a태그에 바로가기 링크 만들기
+   			사용자가 해당 마커를 클릭하면 세부정보 띄우기
+   			*/
+   			
+   		   // 마커에 클릭이벤트를 등록합니다
+   	       kakao.maps.event.addListener(marker, 'click', function() {
+   	             
+   	       		detailLatLng(position.lat, position.lng);
+   	             
+   	       });
+   			
+   			return marker
+   		});
 
     // 클러스터러에 마커들을 추가합니다
      	clusterer.addMarkers(markersGu);
+    	
     });
 
     // 마커 클러스터러에 클릭이벤트를 등록합니다

@@ -265,4 +265,23 @@ public class AssignCommController {
 		return "assignComm/updateList";
 	}
 	
+	@GetMapping(value = "detailLatLng")
+	public String detailLatLng(@RequestParam double lat, @RequestParam double lng, Model model) throws Exception {
+		
+		Community dto = null;
+		
+		try {
+			
+			dto = service.detailLatLng(lat, lng);
+			
+			model.addAttribute("dto", dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "assignComm/detail";
+	}
+	
 }

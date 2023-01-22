@@ -71,8 +71,13 @@
 <script type="text/javascript">
 
 function allList() {
-	document.querySelector(".myList-ul").style.display = "none";
-	document.querySelector(".assign-ul").style.display = "block";
+	
+	const myListArticle = document.querySelector('.myList-article');
+	myListArticle.innerHTML = '';
+	
+	// document.querySelector(".myList-ul").style.display = "none";
+	
+	document.querySelector(".assign-up").style.display = "block";
 }
 
 
@@ -80,32 +85,32 @@ function allList() {
 </head>
 <body>
 
-
-<div class="myList-class">
-	<ul class="myList-ul">
-		<li class="myList-count">내 게시글 ${count}개</li>
-		<c:if test="${!empty sessionScope.member.userId}">
-			<li><button type="button" onclick="allList();" class="btn btn-primary">전체 게시글</button></li>
-		</c:if>
-		<c:forEach var="dto" items="${list}">
-			<li class="myList-list" onclick="detailPage(${dto.num});"> 
-				<div><img class="myList-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
-				<div class="myList-set">
-					<div class="transDate-div">양도 가능일 ${dto.transDate}</div>
-					<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
-					&emsp;&emsp;&emsp;&emsp;&emsp;
+<article class="myList-article">
+	<div class="myList-class">
+		<ul class="myList-ul">
+			<li class="myList-count">내 게시글 ${count}개</li>
+			<c:if test="${!empty sessionScope.member.userId}">
+				<li><button type="button" onclick="allList();" class="btn btn-primary">전체 게시글</button></li>
+			</c:if>
+			<c:forEach var="dto" items="${list}">
+				<li class="myList-list" onclick="detailPageUp(${dto.num});"> 
+					<div><img class="myList-img" src="${pageContext.request.contextPath}/uploads/image/${dto.thumbnail}"></div>
+					<div class="myList-set">
+						<div class="transDate-div">양도 가능일 ${dto.transDate}</div>
+						<div class="monthly"> 월세 ${dto.deposit}/${dto.monthly}
+						&emsp;&emsp;&emsp;&emsp;&emsp;
+						</div>
+						<div class="expense-div">관리비 ${dto.expense}만원</div>
+						<div class="area-div">전용면적 ${dto.area}㎡</div>
+						<div class="subject-div">${dto.subject}</div>
 					</div>
-					<div class="expense-div">관리비 ${dto.expense}만원</div>
-					<div class="area-div">전용면적 ${dto.area}㎡</div>
-					<div class="subject-div">${dto.subject}</div>
-				</div>
-			</li>
-		</c:forEach>
-		<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
-	</ul>
-	
-	<div id="asDetail" style="overflow: auto; height: 800px;"></div>
-</div>
-
+				</li>
+			</c:forEach>
+			<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
+		</ul>
+		
+		<div id="asDetail" style="overflow: auto; height: 800px;"></div>
+	</div>
+</article>
 </body>
 </html>

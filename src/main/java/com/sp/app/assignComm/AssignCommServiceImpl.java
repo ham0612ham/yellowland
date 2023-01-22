@@ -1,5 +1,6 @@
 package com.sp.app.assignComm;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -257,5 +258,26 @@ public class AssignCommServiceImpl implements AssignCommService {
 		}
 		
 		return count;
+	}
+	
+	@Override
+	public Community detailLatLng(double lat, double lng) {
+		
+		Community dto = null;
+		
+		try {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("lat", lat);
+			map.put("lng", lng);
+			
+			dto = dao.selectOne("assignComm.detailLatLng", map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 }
