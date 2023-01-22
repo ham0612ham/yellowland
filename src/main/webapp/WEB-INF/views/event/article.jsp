@@ -137,22 +137,42 @@ $(function(){
 					</td>
 				</tr>
 					
-				<tr>
-					<td colspan="2">
-						이전글 :
-						<c:if test="${not empty preReadDto}">
-							<a class="a-href" href="${pageContext.request.contextPath}/event/article?num=${preReadDto.num}">${preReadDto.subject}</a>
-						</c:if>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						다음글 :
-						<c:if test="${not empty nextReadDto}">
-							<a class="a-href" href="${pageContext.request.contextPath}/event/article?num=${nextReadDto.num}">${nextReadDto.subject}</a>
-						</c:if>
-					</td>
-				</tr>
+				<c:if test="${article eq 'yes'}">
+					<tr>
+						<td colspan="2">
+							이전글 :
+							<c:if test="${not empty preReadDto}">
+								<a class="a-href" href="${pageContext.request.contextPath}/event/article?num=${preReadDto.num}">${preReadDto.subject}</a>
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							다음글 :
+							<c:if test="${not empty nextReadDto}">
+								<a class="a-href" href="${pageContext.request.contextPath}/event/article?num=${nextReadDto.num}">${nextReadDto.subject}</a>
+							</c:if>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${article eq 'no'}">
+					<tr>
+						<td colspan="2">
+							이전글 :
+							<c:if test="${not empty preReadDto}">
+								<a class="a-href" href="${pageContext.request.contextPath}/event/disarticle?num=${preReadDto.num}">${preReadDto.subject}</a>
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							다음글 :
+							<c:if test="${not empty nextReadDto}">
+								<a class="a-href" href="${pageContext.request.contextPath}/event/disarticle?num=${nextReadDto.num}">${nextReadDto.subject}</a>
+							</c:if>
+						</td>
+					</tr>
+				</c:if>
 			</tbody>
 		</table>
 			

@@ -72,9 +72,7 @@
 		SELECT num, subject
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
-		WHERE enable = 0 OR staDate &gt; SYSDATE OR endDate &lt; SYSDATE
-			AND num &gt; #{num}
-			AND (<![CDATA[staDate > SYSDATE]]> OR <![CDATA[endDate < SYSDATE]]>)
+		WHERE num &gt; #{num} AND (enable = 0 OR (staDate &gt; SYSDATE OR endDate &lt; SYSDATE))
 		ORDER BY num ASC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -83,9 +81,7 @@
 		SELECT num, subject
 		FROM event e
 		JOIN member1 m ON e.userId=m.userId
-		WHERE enable = 0 OR staDate &gt; SYSDATE OR endDate &lt; SYSDATE
-			AND num &lt; #{num}
-			AND (<![CDATA[staDate > SYSDATE]]> OR <![CDATA[endDate < SYSDATE]]>)
+		WHERE num &lt; #{num} AND (enable = 0 OR (staDate &gt; SYSDATE OR endDate &lt; SYSDATE))
 		ORDER BY num DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
