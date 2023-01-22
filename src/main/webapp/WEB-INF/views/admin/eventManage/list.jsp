@@ -51,7 +51,7 @@ input[type=radio]+label {
 
 .row {
 	height: 200px;
-	width: 180px;
+	width: 200px;
 }
 
 .table1 {
@@ -190,7 +190,7 @@ input[type=radio]+label {
 			</div>
 			<div class="col">
 				<a href="${pageContext.request.contextPath}/admin/faqManage/list"
-					class="text-decoration-none" style="color: #C2C2C2">자주하는질문 관리</a>
+					class="text-decoration-none" style="color: #C2C2C2">자주 하는 질문 관리</a>
 			</div>
 			<div class="col">
 				<a href="${pageContext.request.contextPath}/admin/qnaManage/list"
