@@ -18,7 +18,7 @@ label:hover { color: #18BD77; cursor: pointer; }
 input[type=radio]+label { background: white; color: #A3A6AD; border: 0.5px solid #A3A6AD; }
 .up-btn { padding: 8px 30px; }
 .fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 200px; width: 180px;}
+.row { height: 200px; width: 200px;}
 .table1 {float: left; width: 300px;text-align: left;}
 .table2 {width: 700px; text-align: left;}
 
@@ -176,7 +176,7 @@ function selectStateChange() {
 		<h3 class="fw-semibold">관리자메뉴</h3>
 		<div class="row row-cols-auto">
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/noticeManage/list" class="text-decoration-none" style="color:#C2C2C2">공지사항 관리</a></div>
-			<div class="col"><a href="${pageContext.request.contextPath}/admin/faqManage/list" class="text-decoration-none" style="color:#C2C2C2">자주하는질문 관리</a></div>
+			<div class="col"><a href="${pageContext.request.contextPath}/admin/faqManage/list" class="text-decoration-none" style="color:#C2C2C2">자주 하는 질문 관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/qnaManage/list" class="text-decoration-none" style="color:#C2C2C2">1:1문의 관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/board/list" class="text-decoration-none" style="color:#C2C2C2">게시글 관리</a></div>
 			<div class="col"><a href="${pageContext.request.contextPath}/admin/eventManage/list" class="text-decoration-none" style="color:#C2C2C2">이벤트 관리</a></div>
