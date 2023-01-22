@@ -27,6 +27,14 @@
 
 <script type="text/javascript">
 
+CKEDITOR.editorConfig = function( config ) {
+    config.enterMode = CKEDITOR.ENTER_BR;
+};
+
+</script>
+
+<script type="text/javascript">
+
 
 
 function kakaopostIn() {
