@@ -48,7 +48,15 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .div-3 { width: 29.7%; margin: 3px; padding: 6px; font-size: 12px;
 	margin-top: 2px; font-weight: 600; }
 .hideSel { display: none; }
-#map { z-index: -2; width: 100vw; height: 100vh; position: absolute; top: 0px; }
+#map { z-index: -3; width: 100vw; height: 100vh; position: absolute; top: 0px; }
+#roadviewMap { z-index: -4; width: 100vw; height: 100vh; position: absolute; top: 0px; }
+#close-roadviewMap { 
+	position: absolute; cursor: pointer; z-index: -5;
+	margin: 0px 6px; height: 30px; line-height: 14px;
+	right: 10px; top: 15px;
+	color: white; border-radius: 10px;
+	font-size: 30px;
+}
 #analysis { 
 	position: absolute; min-width: 500px; height: calc(100vh - 100px); 
 	overflow: scroll; background: white; margin-left: 100%;
@@ -142,6 +150,51 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 }
 .active { color: #36C88A; font-weight: 600; }
 .list-group-item.active { color: #36C88A; font-weight: 600; }
+.plusminus-div { 
+	position: absolute; cursor: pointer; z-index: 2;
+	margin: 0px 6px; height: 30px; line-height: 14px;
+	right: 10px; bottom: 15px; width: 65px
+}
+.plusminus {
+	font-size: 30px; color: #36C88A; box-shadow: 0px 0px 5px rgb(0 0 0 / 20%); 
+	background-color: #fff; border-radius: 10px;
+}
+.plusminus:hover {
+	font-size: 30px; background-color: #36C88A; box-shadow: 0px 0px 5px rgb(0 0 0 / 20%); 
+	color: #fff; border-radius: 10px;
+}
+#map-btns-div {
+	position: absolute; cursor: pointer; z-index: 2;
+	margin: 0px 6px; height: 40px; line-height: 14px;
+	right: 10px; top: 115px; width: 85px;
+}
+.map-btns-divs { 
+	font-size: 12px; padding: 5px 0px;
+}
+#btn-jihyung+label {
+	border-top: 0.5px solid #fff;
+	border-left: 0.5px solid #fff;
+	border-right: 0.5px solid #fff;
+	box-shadow: 0px 0px 5px rgb(0 0 0 / 20%); 
+}
+#btn-kyotong+label, #btn-roadview+label {
+	border-bottom: 0.5px solid #fff;
+	border-left: 0.5px solid #fff;
+	border-right: 0.5px solid #fff;
+	box-shadow: 0px 0px 5px rgb(0 0 0 / 20%); 
+}
+#btn-jihyung:checked+label, #btn-jihyung:hover+label {
+	border-top: 0.5px solid #36C88A;
+	border-left: 0.5px solid #36C88A;
+	border-right: 0.5px solid #36C88A;
+}
+#btn-kyotong:checked+label, #btn-roadview:checked+label, 
+#btn-kyotong:hover+label, #btn-roadview:hover+label {
+	border-bottom: 0.5px solid #36C88A;
+	border-left: 0.5px solid #36C88A;
+	border-right: 0.5px solid #36C88A;
+}
+
 </style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
@@ -408,6 +461,8 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 		</div>
 		
 		<div id="map"></div>
+		<div id="roadviewMap"></div>
+		<i class="bi bi-x-square-fill" id="close-roadviewMap"></i>
 		<div class="check-area">
 		
 			<div>
@@ -561,6 +616,26 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				-->
 			</div>
 		</div>
+		<div class="plusminus-div d-flex justify-content-between">
+			<i class="plusminus bi bi-plus-square-fill" id="plus-size"></i>
+			<i class="plusminus bi bi-dash-square-fill" id="minus-size"></i>
+		</div>
+		
+		<input type="hidden" name="lat-size" value="37.5729503">
+		<input type="hidden" name="long-size" value="126.9793579">
+		<input type="hidden" name="map-level" value="8">
+		
+		<div class="btn-group-vertical" role="group" aria-label="Vertical button group" id="map-btns-div">
+			<input type="checkbox" class="btn-check" id="btn-jihyung" autocomplete="off">
+			<label class="btn btn-primary map-btns-divs" for="btn-jihyung">지형도</label>
+			<input type="checkbox" class="btn-check" id="btn-kyotong" autocomplete="off">
+			<label class="btn btn-primary map-btns-divs" for="btn-kyotong">교통정보</label>
+			<input type="checkbox" class="btn-check" id="btn-roadview" autocomplete="off">
+			<label class="btn btn-primary map-btns-divs" for="btn-roadview">로드뷰</label>
+		</div>
+		<input type="hidden" name="jihyung" value="no">
+		<input type="hidden" name="kyotong" value="no">
+		<input type="hidden" name="roadview" value="no">
 <%-- 	 	<div class='marker' data-val=''>
 			<div class=""></div>
 			<div class='marker-rank'>
@@ -586,15 +661,14 @@ $(function(){
 });
 
 function makeMap(level, lat1, long1, obj){
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	var mapContainer = document.getElementById('map'),
 	mapOption = { 
-	    center: new kakao.maps.LatLng(lat1, long1), // 지도의 중심좌표
-	    level: level // 지도의 확대 레벨
+	    center: new kakao.maps.LatLng(lat1, long1),
+	    level: level
 	};
 	
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	var map = new kakao.maps.Map(mapContainer, mapOption);
 	
-	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 	var positions = obj;
 	
 	for (var i = 0; i < positions.length; i ++) {
@@ -604,10 +678,196 @@ function makeMap(level, lat1, long1, obj){
 		    xAnchor: 0.3,
 		    yAnchor: 0.91
 		});
-		// 커스텀 오버레이를 지도에 표시합니다
 		customOverlay.setMap(map);
 	}
+	
+	let jihyung = $("input[name=jihyung]").val();
+	let kyotong = $("input[name=kyotong]").val();
+	let roadview = $("input[name=roadview]").val();
+	
+	if(jihyung === "yes") {
+		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);    
+	} else {
+		map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);
+	}
+	
+	if(kyotong === "yes") {
+		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);    
+	} else {
+		map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);   
+	}
+	
+	if(roadview === "yes") {
+		map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW); 
+		
+		$("#close-roadviewMap").css("z-index", "5");
+		var mapCenter = new kakao.maps.LatLng(lat1 , long1)
+		
+		var rvContainer = document.getElementById('roadviewMap'); //로드뷰를 표시할 div
+		var rv = new kakao.maps.Roadview(rvContainer); //로드뷰 객체
+		var rvClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+		toggleRoadview(mapCenter);
+
+		// 마커 이미지를 생성합니다.
+		var markImage = new kakao.maps.MarkerImage(
+		    'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png',
+		    new kakao.maps.Size(26, 46),
+		    {
+		        // 스프라이트 이미지를 사용합니다.
+		        // 스프라이트 이미지 전체의 크기를 지정하고
+		        spriteSize: new kakao.maps.Size(1666, 168),
+		        // 사용하고 싶은 영역의 좌상단 좌표를 입력합니다.
+		        // background-position으로 지정하는 값이며 부호는 반대입니다.
+		        spriteOrigin: new kakao.maps.Point(705, 114),
+		        offset: new kakao.maps.Point(13, 46)
+		    }
+		);
+
+		// 드래그가 가능한 마커를 생성합니다.
+		var rvMarker = new kakao.maps.Marker({
+		    image : markImage,
+		    position: mapCenter,
+		    draggable: true,
+		    map: map
+		});
+
+		//마커에 dragend 이벤트를 할당합니다
+		kakao.maps.event.addListener(rvMarker, 'dragend', function(mouseEvent) {
+		    var position = rvMarker.getPosition(); //현재 마커가 놓인 자리의 좌표
+		    toggleRoadview(position); //로드뷰를 토글합니다
+		});
+
+		//지도에 클릭 이벤트를 할당합니다
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent){
+		    
+		    // 현재 클릭한 부분의 좌표를 리턴 
+		    var position = mouseEvent.latLng; 
+
+		    rvMarker.setPosition(position);
+		    toggleRoadview(position); //로드뷰를 토글합니다
+		});
+
+		//로드뷰 toggle함수
+		function toggleRoadview(position){
+
+		    //전달받은 좌표(position)에 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄웁니다
+		    rvClient.getNearestPanoId(position, 50, function(panoId) {
+		        if (panoId === null) {
+		            rvContainer.style.display = 'none'; //로드뷰를 넣은 컨테이너를 숨깁니다
+		            mapContainer.style.width = '100%';
+		            map.relayout();
+		        } else {
+		        	mapContainer.style.width = '100%';
+		            map.relayout(); //지도를 감싸고 있는 영역이 변경됨에 따라, 지도를 재배열합니다
+		            rvContainer.style.display = 'block'; //로드뷰를 넣은 컨테이너를 보이게합니다
+		            rv.setPanoId(panoId, position); //panoId를 통한 로드뷰 실행
+		            rv.relayout(); //로드뷰를 감싸고 있는 영역이 변경됨에 따라, 로드뷰를 재배열합니다
+		        }
+		    });
+		    $("#roadviewMap").css("position", "absolute");
+		}
+	} else {
+		map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);    
+	}
+	
+	kakao.maps.event.addListener(map, 'mouseup', function() {
+
+	    var level = map.getLevel();
+
+	    var latlng = map.getCenter(); 
+
+	    $("input[name=lat-size]").val(latlng.getLat());
+	    $("input[name=long-size]").val(latlng.getLng());
+	    $("input[name=map-level]").val(level);
+	    
+	});
 }
+
+
+
+$(function(){
+	$("#plus-size").click(function(){
+		let map_lat = $("input[name=lat-size]").val();
+		let map_long = $("input[name=long-size]").val();
+		let map_level = Number($("input[name=map-level]").val())-1;
+		
+		$("input[name=map-level]").val(map_level);
+			
+		makeMap(map_level, map_lat, map_long, obj);
+	});
+	$("#minus-size").click(function(){
+		let map_lat = $("input[name=lat-size]").val();
+		let map_long = $("input[name=long-size]").val();
+		let map_level = Number($("input[name=map-level]").val())+1;
+			
+		$("input[name=map-level]").val(map_level);
+			
+		makeMap(map_level, map_lat, map_long, obj);
+	});
+	
+	$("#btn-jihyung").click(function(){
+		let map_lat = $("input[name=lat-size]").val();
+		let map_long = $("input[name=long-size]").val();
+		let map_level = Number($("input[name=map-level]").val());
+		let jihyung = $("input[name=jihyung]").val();
+		
+		if(jihyung === "no") {
+			$("input[name=jihyung]").val("yes");
+		} else {
+			$("input[name=jihyung]").val("no");
+		}
+			
+		makeMap(map_level, map_lat, map_long, obj);
+	});
+	
+	$("#btn-kyotong").click(function(){
+		let map_lat = $("input[name=lat-size]").val();
+		let map_long = $("input[name=long-size]").val();
+		let map_level = Number($("input[name=map-level]").val());
+		let kyotong = $("input[name=kyotong]").val();
+		
+		if(kyotong === "no") {
+			$("input[name=kyotong]").val("yes");
+		} else {
+			$("input[name=kyotong]").val("no");
+		}
+			
+		makeMap(map_level, map_lat, map_long, obj);
+	});
+	
+	$("#btn-roadview").click(function(){
+		let map_lat = $("input[name=lat-size]").val();
+		let map_long = $("input[name=long-size]").val();
+		let map_level = Number($("input[name=map-level]").val());
+		let roadview = $("input[name=roadview]").val();
+		
+		if(roadview === "no") {
+			$("input[name=roadview]").val("yes");
+			$("#roadviewMap").css("z-index", 3);
+		} else {
+			$("input[name=roadview]").val("no");
+			$("#roadviewMap").css("z-index", -4);
+		}
+			
+		makeMap(map_level, map_lat, map_long, obj);
+	});
+	
+	$("#close-roadviewMap").click(function(){
+		let map_lat = $("input[name=lat-size]").val();
+		let map_long = $("input[name=long-size]").val();
+		let map_level = Number($("input[name=map-level]").val());
+		let roadview = $("input[name=roadview]").val();
+		
+		$("input[name=roadview]").val("no");
+		$("#roadviewMap").css("z-index", -4);
+			
+		makeMap(map_level, map_lat, map_long, obj);
+		$("#close-roadviewMap").css("z-index", -5);
+		$("#btn-roadview").prop("checked", false);
+	})
+	
+});
 
 var obj = [];
 
@@ -808,4 +1068,5 @@ $(function(){
 		});	
 	});
 });
+
 </script>

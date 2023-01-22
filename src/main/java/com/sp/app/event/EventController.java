@@ -212,6 +212,7 @@ public class EventController {
 		}
 		
 		model.addAttribute("dto", dto);
+		model.addAttribute("article", "yes");
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
 		
@@ -248,6 +249,7 @@ public class EventController {
 		}
 		
 		model.addAttribute("dto", dto);
+		model.addAttribute("article", "no");
 		model.addAttribute("preReadDto", preReadDto);
 		model.addAttribute("nextReadDto", nextReadDto);
 		
