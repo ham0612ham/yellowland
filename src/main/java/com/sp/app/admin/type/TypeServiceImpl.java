@@ -176,7 +176,7 @@ public class TypeServiceImpl implements TypeService{
 	public List<TypeComm> listFile(long num) {
 		List<TypeComm>listFile=null;
 		try {
-			listFile=dao.selectOne("type.readFile",num);
+			listFile=dao.selectList("type.listFile",num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

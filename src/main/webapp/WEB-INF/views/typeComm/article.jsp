@@ -263,7 +263,7 @@ $(function(){
 						</td>
 					</tr>
 						
-					<c:forEach var="vo" items="${listFile}">
+			 		<c:forEach var="vo" items="${listFile}">
 						<tr>
 							<td colspan="2">
 								파&nbsp;&nbsp;일 :

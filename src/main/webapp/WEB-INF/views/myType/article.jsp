@@ -273,6 +273,16 @@ let maskingFunc = {
 							${dto.content}
 						</td>
 					</tr>
+					
+					<c:forEach var="vo" items="${listFile}">
+						<tr>
+							<td colspan="2">
+								파&nbsp;&nbsp;일 :
+								<a href="${pageContext.request.contextPath}/typeComm/download?fileNum=${vo.fileNum}" style="color: black;">${vo.originalFilename}</a>
+								(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> kb)
+							</td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td colspan="2" class="text-center p-3">
 							 <button type="button" class="btn btnSendTypeLike" title="좋아요" style="border-color: #A3A6AD">

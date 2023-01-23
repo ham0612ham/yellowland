@@ -266,7 +266,7 @@ $(function(){
 						<tr>
 							<td colspan="2">
 								파&nbsp;&nbsp;일 :
-								<a href="${pageContext.request.contextPath}/typeComm/download?fileNum=${vo.fileNum}" style="color: black;">${vo.originalFilename}</a>
+								<a href="${pageContext.request.contextPath}/localComm/download?fileNum=${vo.fileNum}" style="color: black;">${vo.originalFilename}</a>
 								(<fmt:formatNumber value="${vo.fileSize/1024}" pattern="0.00"/> kb)
 							</td>
 						</tr>

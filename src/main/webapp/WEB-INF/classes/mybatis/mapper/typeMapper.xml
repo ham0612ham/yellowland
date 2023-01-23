@@ -163,4 +163,16 @@
 	<select id="userTypeCommLiked" parameterType="map" resultType="com.sp.app.admin.type.TypeComm">
 		SELECT num, userId FROM typeCommLike WHERE num = #{num} AND userId = #{userId}
 	</select>
+	
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.admin.type.TypeComm">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM typeCommFile
+		WHERE num=#{num} 
+	 </select>
+	
+	<select id="readFile" parameterType="Long" resultType="com.sp.app.admin.type.TypeComm">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM typeCommFile
+	    WHERE fileNum=#{fileNum}      
+	</select>
 </mapper>

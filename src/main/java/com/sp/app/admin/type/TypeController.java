@@ -142,6 +142,8 @@ public class TypeController {
 		TypeComm preReadDto=service.preReadType(map);
 		TypeComm nextReadDto=service.nextReadType(map);
 		
+		List<TypeComm>listFile=service.listFile(num);
+		
 		boolean userTypeCommLiked=service.userTypeCommLiked(map);
 		
 		model.addAttribute("dto", dto);
@@ -150,9 +152,10 @@ public class TypeController {
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		model.addAttribute("userTypeCommLiked", userTypeCommLiked);
-		model.addAttribute("userTypeCommLiked", userTypeCommLiked);
+		//model.addAttribute("userTypeCommLiked", userTypeCommLiked);
 		model.addAttribute("likeCount", likeCount);
 		//model.addAttribute("replydto",replydto);
+		model.addAttribute("listFile", listFile);
 		return ".admin.type.article";
 	}
 	
