@@ -110,7 +110,6 @@ function allList() {
 			</c:forEach>
 			<li><div id="zero">${count == 0 ? " 게시물이 존재하지 않거나 삭제되었습니다. " : ""}</div></li>
 		</ul>
-		
 		<div id="asDetail" style="overflow: auto; height: 800px;"></div>
 	</div>
 </article>
