@@ -29,7 +29,7 @@
 				</div>
 				<div class="expense-div">관리비 ${dto.expense}만원</div>
 				<div class="area-div">전용면적 ${dto.area}㎡</div>
-				<div class="subject-div">${dto.subject}</div>
+				<div class="subject-div text-truncate" style="width: 236px;">${dto.subject}</div>
 			</div>
 		</li>
 	</c:forEach>
