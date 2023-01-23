@@ -58,7 +58,7 @@
 						<tr>
 							<td colspan="2">
 								파&nbsp;&nbsp;일 :
-								<a href="${pageContext.request.contextPath}/notice/download?fileNum=${vo.fileNum}" style="color: black;">${vo.oriFilename}</a>
+								<a href="${pageContext.request.contextPath}/admin/noticeManage/download?fileNum=${vo.fileNum}" style="color: black;">${vo.oriFilename}</a>
 							</td>
 						</tr>
 					</c:forEach>

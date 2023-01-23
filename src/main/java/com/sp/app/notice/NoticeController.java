@@ -156,7 +156,7 @@ public class NoticeController {
 			HttpServletResponse resp,
 			HttpSession session) throws Exception {
 		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "notice";
+		String pathname = root + "uploads" + File.separator + "noticeManage";
 
 		boolean b = false;
 
