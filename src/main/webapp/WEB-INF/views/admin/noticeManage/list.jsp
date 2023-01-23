@@ -115,7 +115,7 @@ function searchList() {
 						<th class="wx-200">제목</th>
 						<th class="wx-100">작성자</th>
 						<th class="wx-100">작성일</th>
-						<th class="wx-80">파일</th>
+						<!--  <th class="wx-80">파일</th>-->
 						
 					</tr>
 									
@@ -132,11 +132,11 @@ function searchList() {
 								</td>
 								<td>${dto.userId}</td>
 								<td>${dto.reg_date}</td>
-								<td>
+								<!--  <td>
 									<c:if test="${dto.fileCount != 0}">
 										<a href="${pageContext.request.contextPath}/admin/noticeManage/zipdownload?num=${dto.num}" class="text-reset"><i class="bi bi-file-arrow-down"></i></a>
 									</c:if>
-								</td>
+								</td>-->
 							</tr>
 						</c:forEach>
 				</tbody>
