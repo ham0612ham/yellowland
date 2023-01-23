@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
 
 @Service("notice.noticeService")
@@ -14,7 +13,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private CommonDAO dao;
 	
-	private FileManager fileManager;
+	// private FileManager fileManager;
 	
 	@Override
 	public List<Notice> listNotice(Map<String, Object> map) {

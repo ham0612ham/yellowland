@@ -15,7 +15,7 @@ public class Notice {
 	
 	// 파일
 	private long fileNum;
-	private String originalFilename;
+	private String oriFilename;
 	private String saveFilename;
 	private long fileSize;
 	private int fileCount;
@@ -30,11 +30,12 @@ public class Notice {
 	public void setFileNum(long fileNum) {
 		this.fileNum = fileNum;
 	}
-	public String getOriginalFilename() {
-		return originalFilename;
+
+	public String getOriFilename() {
+		return oriFilename;
 	}
-	public void setOriginalFilename(String originalFilename) {
-		this.originalFilename = originalFilename;
+	public void setOriFilename(String oriFilename) {
+		this.oriFilename = oriFilename;
 	}
 	public String getSaveFilename() {
 		return saveFilename;

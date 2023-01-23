@@ -163,9 +163,10 @@ public class NoticeController {
 		Notice dto = service.readFile(fileNum);
 		if (dto != null) {
 			String saveFilename = dto.getSaveFilename();
-			String originalFilename = dto.getOriginalFilename();
-
-			b = FileManager.doFileDownload(saveFilename, originalFilename, pathname, resp);
+			String oriFilename = dto.getOriFilename();
+			
+			b = FileManager.doFileDownload(saveFilename, oriFilename, pathname, resp);
+			
 		}
 
 		if (! b) {
@@ -195,7 +196,7 @@ public class NoticeController {
 
 			for (int idx = 0; idx < listFile.size(); idx++) {
 				sources[idx] = pathname + File.separator + listFile.get(idx).getSaveFilename();
-				originals[idx] = File.separator + listFile.get(idx).getOriginalFilename();
+				originals[idx] = File.separator + listFile.get(idx).getOriFilename();
 			}
 
 			b = FileManager.doZipFileDownload(sources, originals, zipFilename, resp);
