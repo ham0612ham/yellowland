@@ -364,8 +364,8 @@ var markers = [];
 
 function overall(data, latitude, longitude) {
 	
-	let lat = latitude  ? latitude : 37.5642135;
-	let lon = longitude ? longitude : 127.0016985;
+	let lat = latitude  ? latitude : 37.4991998;
+	let lon = longitude ? longitude : 126.9738471;
 	
 	var overlayOn = false, // 지도 위에 로드뷰 오버레이가 추가된 상태를 가지고 있을 변수
     container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
@@ -381,8 +381,8 @@ function overall(data, latitude, longitude) {
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	mapCenter = new kakao.maps.LatLng(lat, lon),
     mapOption = {
-        center: mapCenter, // 지도의 중심좌표  37.5062528, 126.73024
-        level: 9 // 지도의 확대 레벨
+        center: mapCenter, // 지도의 중심좌표 - 동작구 동작동 37.4991998, 126.9738471 
+        level: 8 // 지도의 확대 레벨
     };  
     
 	// 지도를 생성합니다    

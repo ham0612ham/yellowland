@@ -123,6 +123,17 @@ main {
 	background-size: cover;
 }
 
+.thumbnail-viewerUp {
+	cursor: pointer;
+	border: 1px solid #f5fffa;
+	width: 40px; height: 40px; border-radius: 10px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 .img-flex {
 	display: flex;
 	grid-template-columns:repeat(auto-fill, 54px);

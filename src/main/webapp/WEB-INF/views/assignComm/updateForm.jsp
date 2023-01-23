@@ -9,6 +9,18 @@
 <title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
+<style type="text/css">
+
+#add-img {
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+</style>
+
 <script type="text/javascript">
 
 CKEDITOR.editorConfig = function( config ) {
@@ -175,11 +187,11 @@ $(function() {
 	}
 	
 	// empty : 태그는 남기고 내용만 지움 
-	$(".thumbnail-viewer").empty();
-	$(".thumbnail-viewer").css("background-image", "url("+img+")");
+	$(".thumbnail-viewerUp").empty();
+	$(".thumbnail-viewerUp").css("background-image", "url("+img+")");
 	
 	
-	$(".thumbnail-viewer").click(function() {
+	$(".thumbnail-viewerUp").click(function() {
 		$("form[name=updateForm] input[name=thumbnailFile]").trigger("click");
 	});
 	
@@ -190,7 +202,7 @@ $(function() {
 		
 		// 이미지 파일이 없을 경우
 		if(! file) {
-			$(".thumbnail-viewer").empty();
+			$(".thumbnail-viewerUp").empty();
 			
 			if( img ) {
 				
@@ -202,7 +214,7 @@ $(function() {
 				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
 			}
 			
-			$(".thumbnail-viewer").css("background-image", "url("+ img +")");
+			$(".thumbnail-viewerUp").css("background-image", "url("+ img +")");
 		
 			return false;
 		}
@@ -217,8 +229,8 @@ $(function() {
 		
 		// 파일의 내용을 다 읽었으면 
 		reader.onload = function(e) {
-			$(".thumbnail-viewer").empty();
-			$(".thumbnail-viewer").css("background-image", "url("+ e.target.result +")");
+			$(".thumbnail-viewerUp").empty();
+			$(".thumbnail-viewerUp").css("background-image", "url("+ e.target.result +")");
 		};
 		
 		reader.readAsDataURL( file );
@@ -361,7 +373,7 @@ $(function() {
 										          	<div class="col-md-6">
 														<div class="form-group mainImg" >
 															<label class="label" for="thumbnailFile">대표 이미지</label>
-															<div class="thumbnail-viewer"></div>
+															<div class="thumbnail-viewerUp"></div>
 															<input type="file" name="thumbnailFile" accept="image/*" class="form-control" style="display: none;">
 														</div>
 													</div>
@@ -371,7 +383,7 @@ $(function() {
 														<div class="form-group subImg">
 															<label class="label" for="imgName">추가 이미지</label>
 															<div class="img-flex">
-																<img class="item img-update" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+																<img id="add-img" class="item img-update" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
 															</div>
 															<input type="file" name="imgFiles" accept="image/*" multiple="multiple" class="form-control" style="display: none;">
 														</div>
