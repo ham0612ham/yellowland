@@ -146,13 +146,29 @@ public class MemberController {
 				return "redirect:/member/complete";
 			} catch (Exception e) {
 			}
-			
-			
 		}
+//update 이거는 회원변경창으로 안가고 바로 업데이트되니까 아님  			
+			/*if (mode.equals("update")) {
+				try {
+					service.updateMember(dto);
+
+					StringBuilder sb = new StringBuilder();
+					sb.append(dto.getUserName() + "님의 회원정보가 정상적으로 변경되었습니다.<br>");
+					sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+
+					reAttr.addFlashAttribute("title", "회원 정보 수정");
+					reAttr.addFlashAttribute("message", sb.toString());
+
+					return "redirect:/member/complete";
+				} catch (Exception e) {
+				}
+			
+			}
+		*/
 
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode", "update");
-		model.addAttribute("mode", "dropout");
+		//model.addAttribute("mode", "dropout");
 		return ".member.member";
 	}
 
