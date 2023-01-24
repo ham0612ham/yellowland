@@ -25,7 +25,7 @@ footer { display: none; }
 	padding-top: 12px; background: white; margin-left: 20px;
 	min-height: 50px; border-bottom-radius:15px; padding-bottom: 12px; margin-bottom: 15px; 
 }
-	
+.area { backgound: white; }
 .show-area { 
 	box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); width: 300px; 
 	 background: white; margin-left: 20px;
@@ -37,7 +37,7 @@ input[type=checkbox], input[type=radio] { display: none; }
 label, .div-4 {
 	display: block; border-radius: 12px; margin: 0 auto; text-align: center; color: #000;
 }
-input[type=checkbox]:checked+label, input[type=radio]:checked+label { background: #36C88A; color: white; border: 0.5px solid #36C88A; }
+
 input[type=checkbox]:checked+label:hover, 
 input[type=radio]:checked+label:hover { background: #18BD77; color: white; border: 0.5px solid #18BD77; }
 input[type=checkbox]:hover+label, input[type=radio]:hover+label { color: #36C88A; border: 0.5px solid #36C88A; }
@@ -67,7 +67,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 	color: #36C88A; font-size: 18px; }
 .select_maintitle {font-size:20px; margin-left:16px; font-weight:600; padding: 10px;}
 .select-title { font-size: 13px; margin-left: 16px; font-weight: 600; padding-top: 5px; margin-bottom:10px; }
-
+.main-title {font-size:18px; font-weight:500; color:#fff}
 .show-area { font-size : 18px; text-align:center; font-weight:600; }
 
 .div-1 { width: 93%; margin: 3px; padding: 6px; font-size: 13px; height:50px;
@@ -76,22 +76,22 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .div-3 { width: 29.7%; margin: 3px; padding: 6px; font-size: 13px; height:50px;
 	margin-top: 2px; font-weight: 600; }
 .hideSel { display: none; }
-
+.range-budget { font-size:13px; }
 #map { z-index: -2; width: 70vw; height: 100vh; position: absolute; top: 0px; right:0px;  }
 
-#analysis-banner { 
-	position: absolute; min-width: 800px;
+#report-banner {
+	position: absolute; min-width: 700px;
 	background: white; margin-left: 100%;
-	right: 0px; top: 60px; z-index: 3;
-	border-bottom-left-radius : 40px;
+	padding-top: 12px;
+	right: 0px; top: 60px; z-index: 3;	
 	border-top-left-radius : 40px;
 }
 
 
-
-#green-div { background: #36C88A; height: 100px; width: 20%; padding-right: 10px; padding-left: 10px;
+#green-div { background: #36C88A; height: 50px; width: 100%; padding-right: 10px; padding-left: 10px;
              border-bottom-left-radius: 20px;
-             border-top-left-radius: 20px; }
+             border-top-left-radius: 20px;
+             margin-top:-10px; }
 #green-div > span { color: white; font-size: 16px; font-weight: 600; padding: 5px; }
 
 #green-top { box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2); 
@@ -105,12 +105,11 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
                     color: white; 
                     font-size: 18px;
                     font-weight: 600; 
-                    padding: 120px; 
-                    margin-bottom:50px;
-                     }
+                    margin-bottom:50px; }
              
 #btn-radio { width:20px; padding_bottom:3px;}
 #btn-x { width: 16px; padding-bottom: 3px; }
+#thumbs-up {width:30px;}
 #btn-x:hover { cursor: pointer; }
 #btn-location { width:16px; }
 #btn-select {position: d-flex justify-content-center}
@@ -120,25 +119,50 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
                   border-radius: 15px;}
 #report-title { font-size : 13px; margin:0 font-weight: 600; padding : 5px;}
 #report-title > span { color: white; font-size: 16px; font-weight: 600; padding: 5px; }
-.hole-rank-title { font-size: 13px; margin-left: 16px; font-weight: 600; padding-top: 5px; color: #36C88A; }
-.hole-rank-quarter { font-size: 11px; margin-right: 16px; font-weight: 600; padding-top: 5px; color: #767676; float: right; }
 .rank-div { padding: 0 15px; margin-top: 5px; }
 .ranks > div { font-size: 13px; }
 .rank { width: 20px; text-align: center; }
-.rank-region { width: 170px; }
 .rank-value { width: 50px; font-weight: 600; }
 .rank-percent { width: 50px; text-align: right; color: #36C88A; }
 .horiz { margin: 3px 0; }
 .show-hide-btn { float: right; cursor: pointer; margin-bottom: 3px; }
 .show-hide-btn > img { padding-bottom: 5px; }
-#analysis-info { margin: 5px 0 0; }
-#analysis-info > .info-bold { margin-left: 16px; font-size: 13px; font-weight: 600; }
-#analysis-info > .info-light { margin-left: 8px; font-size: 13px; }
+#report-info { margin: 5px 0 0; }
+#report-info > .info-bold { margin-left: 16px; font-size: 13px; font-weight: 600; }
+#report-info > .info-light { margin-left: 8px; font-size: 13px; }
+#report-class { 
+	text-align: center; font-size: 13px; margin: 10px 0; color: #BBBBBB;
+}
+#analysis-dialog { text-align: center; font-size: 12px; margin 10px 0; color: #BBBBBB;
+                    height:300px;}
+#getbudget {font-size:10px;}
 
-#analysis-dialog { text-align: center; font-size: 12px; margin 10px 0; color: #BBBBBB;}
+.form-range { width:100%; height: 1.5rem; padding: 0; background:transparent}
+.form-range:focus{outline:0;}
+.form-range:focus::-webkit-slider-thumb{
+ box-shadow: 0 0 0 1px #fff 0 0 0.25rem rgba(13,110,253,025);}
 
+.report-content { margin : 2px; backgroundcolor: #36C88A;}
+.report-div { margin: 16px; }
+.report-tit {font-size: 14px; font-weight:600;}
+.report-title { font-size: 20px;font-weight: 700; background: #f1f3f76c; max-height:1px; margin-bottom:30px; margin-top:10px; line-height:24px;   }
+.report-graphtitle { font-size: 15px; margin-top: 70px; font-weight: 700; max-height:1px; margin-bottom:30px; line-height:24px;   }
+.report-matching {font-size: 14px; margin-left : 70px;}
+.report-big-txt { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+.green-txt { color: #36C88A; }
+.report-graph { width: 100%; min-height: 300px; border: 0; margin-top: 30px;}
+.report-discribe { border: 0.3px solid #BBBBBB; padding: 10px; margin-bottom: 10px; }
+.rpt_txt { padding:16px 24px; background: #f1f3f76c; max-width: 500px; border:0; border-radius:8px; font-size: 14px; 
+           align : center; margin-left: 40px;}
+#report-class { 
+	text-align: center; font-size: 13px; margin:0; color: #BBBBBB;
+}
 
-    
+.
+
+ }
+ 
+
 }
 
 
@@ -146,117 +170,101 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
  
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/matching.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
+
 <script type="text/javascript">
-	
 
 </script>
 <div class="header-white"></div>
 <div class="container" style="margin: 0px;">
-	<div class="body-container">
-	 
-	 <div id="analysis-banner"style="opacity: 1;">
-    	<div id="green-div" class="d-flex justify-content-between">
-	    	  <span> 동동이님의 매칭분석 리포트 </span> 
-	    	  <span><img id="btn-x"  src='${pageContext.request.contextPath}/resources/images/x.png'></span>
-	   </div>
-			
-		<div id="analysis-dialog" class="d-flex justify-content-between">
-			<a class="list-group-item list-group-item-action" href="#list-item-1">지역분석</a>
-      		<a class="list-group-item list-group-item-action" href="#list-item-2">업종분석</a>
-     		<a class="list-group-item list-group-item-action" href="#list-item-3">상권추천</a>
-		</div>
-			
-		<div id="analysis-info">
-		        <img id="btn-location" src='${pageContext.request.contextPath}/resources/images/location.png'> 
-				<span class="info-bold">위치</span>
-				<span class="info-light" id="info-region">서울시</span>
-				<span class="info-light" id="info-region">강서구</span>
-				<span class="info-light" id="info-region">마곡동</span>
-				<span class="info-bold">업종</span>
-				<span class="info-light" id="info-job">업종전체</span>
-			</div>
-	  
-	  <div id="analysis" data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0" style="opacity: 0;">
-			<div>&nbsp;</div>
-			<div class="analysis-div" id="list-item-1">
-				<div class="analy-title">점포수</div>
-				<div class="analy-big-txt">점포수는 <span class="analy-green-txt" id="zumposu-result"></span> 입니다.</div>
-				<div class="analy-graph" id="zumposu">
-					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
-						<div class="spinner-border text-primary" role="status"></div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="analysis-div">
-				<div class="analy-title">개업수</div>
-				<div class="analy-big-txt">개업수는 <span class="analy-green-txt" id="geupsu-result"></span> 입니다.</div>
-				<div class="analy-discribe">
-					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="fl-right" id="geupsu-quart-count"></span>
-					</div>
-					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="fl-right" id="geupsu-year-count"></span>
-					</div>
-				</div>
-				<div class="analy-graph" id="geupsu">
-					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
-						<div class="spinner-border text-primary" role="status"></div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="analysis-div">
-				<div class="analy-title">폐업수</div>
-				<div class="analy-big-txt">폐업수는 <span class="analy-green-txt" id="pyeupsu-result"></span> 입니다.</div>
-				<div class="analy-discribe">
-					<div class="analy-disc-text">
-						<span>전년 동분기 대비</span><span class="fl-right" id="pyeupsu-year-count"></span>
-					</div>
-					<div class="analy-disc-text">
-						<span>전분기 대비</span><span class="fl-right" id="pyeupsu-quart-count"></span>
-					</div>
-				</div>
-				<div class="analy-graph" id="pyeupsu">
-					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
-						<div class="spinner-border text-primary" role="status"></div>
-					</div>
-				</div>
-			</div>	
-	    </div> 
-	   
 
-	   
-	 
-	   </div>
+	   <!--대화상자시작 -->
+	    <div id="report-banner"style="opacity: 1; display: none;">
+	        <div id="green-div" class="d-flex justify-content-between">
+	    	 <span> ${sessionScope.member.userName} 님의 매칭분석 리포트 </span> 
+	    	 <span><img id="btn-x" src='${pageContext.request.contextPath}/resources/images/x.png'></span>
+	        </div>
+	        
+			<div id="report-class" class="d-flex justify-content-between">
+				<a class="list-group-item list-group-item-action" href="#list-item-1">매칭결과</a>
+      			<a class="list-group-item list-group-item-action" href="#list-item-2">상권분석</a>
+			</div>
+		         <div class="report-content" id="list-item-1">
+				 <div class="report-title d-flex justify-content-between"> 상권매칭 결과  </div>
+				 <div class="report-tit"> <img id="thumbs-up" src='${pageContext.request.contextPath}/resources/images/thumbs-up.png'> 추천 상권 TOP5 </div>
+				 <div class="report-matching" id="matchingResult"></div>
+				 <div class="report-div"></div>
+			</div>
+			
+			
+			<div class="report-content" id="list-item-2">
+			 
+			 <div class="report-title d-flex justify-content-between"> 상권의 특성 </div>
+			    <div class="report-graphtitle"><i class="bi bi-1-circle"></i> 상권용도</div>
+			    <div class="report-graph" id="yongdoArea"> </div>
+			 	<div class="rpt_txt"> <span class="info-sigu"> </span> <span class="info-dong"></span> 의 확장상권은 
+			         으로 구성된 지역의 상권입니다.</div>
+			     
+			  <div class="report-div">
+			    	 <div class="report-graphtitle"><i class="bi bi-2-circle"></i> 업종 밀집도 </div> 
+			   		 <div class="report-graph" id="milzipdo"> </div>
+			 		 <div class="rpt_txt">
+					 <span> <span class="info-sigu"> </span> <span class="info-dong"></span> 의 업종현황은 <span class="green-txt upzongbunpo-job upzongbunpo-job-first"></span>이 가장 많고, <span class="green-txt upzongbunpo-job-grow"></span>이 증가 추세입니다.</span>
+					</div>
+			</div>
+			 <div class="report-div">
+					<div class="report-graphtitle"><i class="bi bi-3-circle"></i> 동종업종의 점포 수</div>
+					<div class="report-graph" id="jumpo"></div>
+					<div class="rpt_txt">
+			    	 <span class="info-sigu"></span>에서 운영중인 동종업종의 점포 수는 <span class="green-txt" id="jumpo-result"></span> 입니다.</div>
+	        </div>
+				<!-- 
+					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
+						<div class="spinner-border text-primary" role="status"></div>
+					</div>
+					 -->
+			</div>		
+			  </div>
+		
+			</div>		
+				
+
+	    <!--대화상자 -->
 	    
-	    
+	    <!-- 지도  -->
 		<div id="map"></div>
 		
-		  </div>
-		 <div class="justify-content-center">
+	<!-- 매칭 조건 입력버튼 -->
 		  <div id="green-top"> 
-		   <span> <i class="bi bi-buildings"></i> 노른자 상권매칭 </span> </div> </div>
-		 <div class="check-area1">
+		   <div class="d-flex justify-content-center">
+		   <span class="main-title"> 노른자 상권매칭 </span> </div> </div>
+		 <div class="check-area">
 		        <div class="d-flex justify-content-center">
 				<div class="select_maintitle"></div>
 				</div>
 	
 			 
 			<div class="justify-content-center" style="width: 100%;">
-				<form name="areaform">
+				<form name="areasubmitform" method="post">
 					<div class="nav nav-pills btn-group d-flex justify-content-center" role="tablist">
-					    <input class="select-region" id="region" type="radio" name="selectRegion" value="region">
-			            <label for="region" class="div-1" id="region-lav">지역선택</label>
+					    <input class="select-region" id="region" type="radio" name="selectRegion" value="region"/>
+			            <label for="region" class="div-1" id="region-lav">지역선택 <br><span id='getregion'> </span> </label> 
 					    <input class="nav-link" id="cate" type="radio" role="tab" name="selectMenu" value="cate">
-					    <label for="cate" class="div-3" id="category-lav">업종</label>
-					    <input class="nav-link" id="budget" type="radio" role="tab" name="selectMenu" value="budget">
-					    <label for="budget" class="div-3" id="budget-lav">임대료 / 평수 </label>
-					    <input class="nav-link" id="target" type="radio" role="tab" name="selectMenu" value="size">
-					    <label for="target" class="div-3" id="target-lav">타겟층</label>
-					    	
+					    <label for="cate" class="div-3" id="category-lav">업종    <br><span id='getcate'> </span> </label> 
+					    <input class="nav-link" id="budget" type="radio" role="tab" name="selectMenu2" value="budget">
+					    <label for="budget" class="div-3" id="budget-lav">임대료 / 평수 <br><span id='getbudget'> </span>  </label>
+					    <input class="nav-link" id="target" type="radio" role="tab" name="selectMenu3" value="size">
+					    <label for="target" class="div-3" id="target-lav">타겟층 <br><span id='gettarget'> </span> </label>
+					    <input type="hidden" name="siguNum">
+					    <input type="hidden" name="dongNum">
+					    <input type="hidden" name="setcate">
+					    <input type="hidden" name="setbudget">
+					    <input type="hidden" name="setsize">
+					    <input type="hidden" name="setgender">
+					    <input type="hidden" name="setage">    	
 					</div>
 				</form>
+					<button class="btn btn-primary showreport" type="button" onclick= "showreport()" style="width:92%; font-size : 12px; border-radius: 12px; margin:20px 12px 0"> <i class="bi bi-clipboard2-data-fill"></i> 분석 리포트 보기  </button>
 			</div>
 		</div>
 		
@@ -270,7 +278,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			<div class="justify-content-center" style="width: 100%;">
 				<form name="areaform">
 					<div>
-						<select name="siguNum" class="form-select selectGu" > 
+						<select id="selectsigu" name="siguNum" class="form-select selectGu" > 
 						  <option value=""> 자치구 </option> 
 						  <c:forEach var="vo" items ="${listSigu}">
 						  <option value ="${vo.siguNum}" ${vo.siguNum == dto.siguNum?"selected='selected'":""}>${vo.siguName}</option>
@@ -278,17 +286,17 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 						  </select>
 					</div>
 					<div>
-						<select name="dongNum" class="form-select selectDong">
+						<select id="selectdong" name="dongNum" class="form-select selectDong">
 						 <option value="" ${condition=="all"?"selected='selected'":""}> 행정동 </option> 
 						 </select>
 					</div>
 					 <div class="d-flex justify-content-center">
-					 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+					 <button type="button" class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
 				</div>
 				</form>
 			</div>
 		</div>
-	 </div>
+
 	 
 			<div id="form-stoCou-sales">
 		    	<div class="check-area">
@@ -298,8 +306,6 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					<div class="d-flex justify-content-center"> 
 					<div class="select-title">원하는 업종을 선택해주세요.</div></div>
 					<div class="d-flex justify-content-center">
-						<input id="allJob" type="radio" name="selectMenu1" checked>
-						<label for="allJob" class="div-4 selMenu-lavs" id="allJob-lav" data-val="all">전체</label>
 						<input id="food" type="radio" role="tab" name="selectMenu1" value="CS1">
 						<label for="food" class="div-4 selMenu-lavs" id="food-lav" data-val="CS1">외식업</label>
 						<input id="service" type="radio" role="tab" name="selectMenu1" value="CS2">
@@ -312,60 +318,53 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 						</select>	
 					</div>
                    <div class="d-flex justify-content-center">
-				 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+				 <button class="btn btn-primary btn-select-cate" type="button" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
 				</div>				
 				</form>
 			</div>
 		</div>
 		 <div id="form-budget" style="display: none">	
 		   <div class="check-area">				
-				<form name="form-budget" method="post">
+				<form name="form_budget" method="post">
 					<input type="hidden" name="selectedMenu" value="">
 					<input type="hidden" name="siguNum" value="">
 					 
 					<div class="select-title"> 임대료 </div>
 					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
-						<div>  <input type="range" id="budget_input" name="budget" min="0" max="100" list="budget_input">
- 					           <output id ="value"> 1평(3.3m) 기준 : </output>
+						<div>  <input type="range" name='budget' class="form-range" id="budget-select"  min="500000" max="8000000" step="100000" name="budget"  list="budget_input">
+ 					            <span class="range-budget" id ="value"> 월 단위 임대료 :  <span class="rangebudget" ></span> 원 </span>
  							   <label class=budget  for="budget"></label>
- 							   
- 							   <datalist id="budget_input">
-                             	<option value="0"></option>
- 								<option value="25"></option>
- 								<option value="50"></option>
-							    <option value="75"></option>
- 							    <option value="100"></option>
-								</datalist>
+ 
 							</div>
 					</div>
 					 
-					  <div class="select-title">임대평수</div>
+					   <div class="select-title">임대평수</div>
 				   	   <div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
-						<input type="radio" class="btn-check" name="size" id="ssize" autocomplete="off" checked value="ssize">
-						<label class="btn btn-outline-primary" for="small" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">소형(10평대)</label>
+						<input type="radio" class="btn-check" name="size" id="s_size" autocomplete="off" checked value="10">
+						<label class="btn btn-outline-primary" for="s_size" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">소형(10평대)</label>
 						
-					    <input type="radio" class="btn-check" name="size" id="msize" autocomplete="off" value="msize">
-					    <label class="btn btn-outline-primary" for="medium" style="font-size: 12px; font-weight: 600;">중형(20평대)</label>
+					    <input type="radio" class="btn-check" name="size" id="m_size" autocomplete="off" value="20">
+					    <label class="btn btn-outline-primary" for="m_size" style="font-size: 12px; font-weight: 600;">중형(20평대)</label>
 					
-					    <input type="radio" class="btn-check" name="size" id="lsize" autocomplete="off" value="lsize">  
-					    <label class="btn btn-outline-primary" for="large" style="border-radius: 0 12px 12px 0; font-size: 12px; font-weight: 600;">대형(30평이상)</label>
+					    <input type="radio" class="btn-check" name="size" id="l_size" autocomplete="off" value="30">  
+					    <label class="btn btn-outline-primary" for="l_size" style="border-radius: 0 12px 12px 0; font-size: 12px; font-weight: 600;">대형(30평이상)</label>
 					</div>
 				</form>
 				  <div class="d-flex justify-content-center">
-				 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+				 <button class="btn btn-primary btn-select-budget" type="button" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
 				</div>
 			</div>
 		  </div>
 		
 		  <div id="form-target" style="display: none">	
 		   <div class="check-area">				
-				<form name="form-target" method="post">
+				<form name="form_target" method="post">
 					<input type="hidden" name="selectedMenu" value="">
 					<input type="hidden" name="siguNum" value="">
 					<div class="select-title"> 성별 </div>
 					<div class="btn-group three-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 16px; width: 92%;">
-						<input type="radio" class="btn-check" name="budget" id="allGender" autocomplete="off" checked value="allGender">
-						<label class="btn btn-outline-primary" for="allGender" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">전체</label>
+						<input type="radio" class="btn-check" name="gender" id="allGender" autocomplete="off" checked value="allGender">
+						<label class="btn btn-outline-primary" for="allGender" style="border-radius: 12px 0 0 12px; font-size: 12px; font-weight: 600;">전체 </label>
 						
 					    <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" value="male">
 					    <label class="btn btn-outline-primary" for="male" style="font-size: 12px; font-weight: 600;">남자</label>
@@ -375,32 +374,30 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					</div>
 					 
 					  <div class="select-title">연령대</div>
-				   	   <div class="btn-group five-btn-group" role="group3" aria-label="Basic radio toggle button group" style=" margin-left: 12px; width: 92%;">
-					    <input type="radio" class="btn-check" name="age" id="allAge" autocomplete="off" checked value="ageAll">
+				   	   <div class="btn-group five-btn-group" role="group" aria-label="Basic radio toggle button group" style=" margin-left: 12px; width: 92%;">
+					    <input type="radio" class="btn-check" name="age" id="allAge" autocomplete="off" checked value="0">
 					    <label class="btn btn-outline-primary" for="allAge" style="border-radius: 12px 0 0 12px; font-size: 10px; font-weight: 600; width: 45px; padding: 9px 6.5px;">전체</label>
 					
-					    <input type="radio" class="btn-check" name="age" id="age10" autocomplete="off" value="age10">
+					    <input type="radio" class="btn-check" name="age" id="age10" autocomplete="off" value="10">
 					    <label class="btn btn-outline-primary" for="age10" style="font-size: 10px; font-weight: 600; width: 45px; padding: 9px 6.5px;">10대</label>
 					    
-					    <input type="radio" class="btn-check" name="age" id="age2030" autocomplete="off" value="age2030">  
+					    <input type="radio" class="btn-check" name="age" id="age2030" autocomplete="off" value="2030">  
 					    <label class="btn btn-outline-primary" for="age2030" style="font-size: 10px; font-weight: 600; width: 70px; padding: 9px 6.5px;">20~30대</label>
 						    
-					    <input type="radio" class="btn-check" name="age" id="age4050" autocomplete="off" value="age4050">  
+					    <input type="radio" class="btn-check" name="age" id="age4050" autocomplete="off" value="4050">  
 					    <label class="btn btn-outline-primary" for="age4050" style="font-size: 10px; font-weight: 600; width: 70px; padding: 9px 6.5px;">40~50대</label>
 						    
-					    <input type="radio" class="btn-check" name="age" id="age60" autocomplete="off" value="age60">  
+					    <input type="radio" class="btn-check" name="age" id="age60" autocomplete="off" value="60">  
 					    <label class="btn btn-outline-primary" for="age60" style="border-radius: 0 12px 12px 0; font-size: 10px; font-weight: 600; width: 72px; padding: 9px 6.5px;">60대 이상</label>
 					</div>
 				</form>
 				 <div class="d-flex justify-content-center">
-				 <button class="btn btn-primary btn-select" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button>
+				 <button class="btn btn-primary btn-target" type="button" style="width: 40%; font-size: 12px; border-radius: 12px; margin: 20px 12px 0"> 적용 </button> 
 				</div>
 			</div>
-		  </div>
-		 <div class=buttonform>
-		<button class="btn btn-primary showreport" onclick= "showreport()" style="width:92%; font-size : 12px; border-radius: 12px; margin:20px 12px 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i class="bi bi-clipboard2-data-fill"></i> 분석 리포트 보기  </button>
-	     </div>
-
+		   </div>
+		
+		
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=772eb01cb6c2f20c17fb9d3c64f74709"></script>
 
@@ -831,20 +828,90 @@ function ajaxFun(url, method, query, dataType, fn) {
 			}
 		});
 	}
-function showreport(){
 	
+ 	
+function showreport() {
+	const f = document.areasubmitform;
+	let str;
+
+	str = f.siguNum.value;
+	if (!str) {
+		alert("지역을 선택하세요.");
+		f.siguNum.focus();
+		return;
+	}
+	
+	str = f.dongNum.value;
+	if (!str) {
+		alert("행정동을 선택하세요.");
+		f.dongNum.focus();
+		return;
+	}
+
+	str = f.setcate.value;
+	//alert(str);
+	if (!str) {
+		alert("업종을 선택하세요.");
+		f.setcate.focus();
+		return;
+	}
+
+	str = f.setbudget.value;
+	if (!str) {
+		alert("임대료를 선택하세요 ");
+		f.setbudget.focus();
+		return;
+
+	}
+	str = f.setsize.value;
+	if (!str) {
+		alert("임대평수 선택하세요 ");
+		f.setsize.focus();
+		return;	
+	}
+	str = f.setgender.value;
+	if (!str) {
+		alert("타겟층 정보를 입력하세요");
+		f.setgender.focus();
+		return;	
+	}
+	
+	let query = $("form[name=areasubmitform]").serialize();
+	let url = "${pageContext.request.contextPath}/matching/write";
+	let dongNum = f.dongNum.value;
+	let siguNum = f.siguNum.value;
+
+	
+	makeGraph(dongNum);
+	makeGraph2(siguNum);
+
+	const fn = function(data){
+		let sgGBNames = data.sgGBNames;
+	   
+		let out = "";
+		for(let item of sgGBNames) {
+			out += "<div>" + item + "</div>";
+		}
+		
+		//alert(out);
+		
+		$("#report-banner").show();
+		$("#matchingResult").html(out);
+	
+		
+	};
+
+	
+	ajaxFun(url, "post", query, "json", fn);
+
 	
 }
 
-//매칭폼 값띄우기 
-
-	
-	
 //동 리스트 가져오기 
 $(function(){
-		$("form select[name=siguNum]").change(function(){
+		$("form[name=areaform] select[name=siguNum]").change(function(){
 			let siguNum = $(this).val();
-			 $("form select[name=dongNum]").find('option').remove().end()
+			 $("form[name=areaform] select[name=dongNum]").find('option').remove().end()
 					.append("<option value=''>행정동</option>");
 				
 			  if(! siguNum) {
@@ -861,7 +928,7 @@ $(function(){
 						let dongNum = item.dongNum;
 						let dongName = item.dongName;
 						let s = "<option value='"+dongNum+"'>"+dongName+"</option>";
-						$("form select[name=dongNum]").append(s);
+						$("form[name=areaform] select[name=dongNum]").append(s);
 					});
 				};
 				ajaxFun(url, "get", query, "json", fn);
@@ -886,72 +953,37 @@ $(function(){
 });
 
 
-// 마커 hover 이벤트
-$(function(){
-	$(".marker").mouseenter(function(){
-			$(this).find(".marker-region-name").css("background", "white");
-			$(this).find(".marker-region-name").css("color", "#36C88A");
-			$(this).find(".marker-sales-total").css("background", "#36C88A");
-			$(this).find(".marker-sales-total").css("color", "white");
-			
-		}
-	);
-	$(".marker").mouseleave(function(){
-			$(this).find(".marker-region-name").css("background", "#36C88A");
-			$(this).find(".marker-region-name").css("color", "white");
-			$(this).find(".marker-sales-total").css("background", "white");
-			$(this).find(".marker-sales-total").css("color", "#36C88A");
-		}
-	);
-});
-
-// 마커 click 이벤트
-$(function(){
-	$(".showreport").click(function(){
-		$("#analysis").show();
-		let dong = $(this).find(".marker-region-name").text();
-		$("#info-region").text(dong);
-		
-		if($("#stoCou").prop("checked") || $("#sales").prop("checked")) {
-			if($("#allJob").prop("checked")) {
-				$("#info-job").text("업종전체");
-			} else if ($("#food").prop("checked")) {
-				$("#info-job").text("외식업");
-			} else if ($("#service").prop("checked")) {
-				$("#info-job").text("서비스업");
-			} else if ($("#retail").prop("checked")) {
-				$("#info-job").text("소매업");
-			}
-		} else {
-			$("#info-job").text("업종전체");
-		}
-	});
-});
-
+	
 $(function(){
 	$("#btn-x").click(function(){
-		$("#analysis").hide();
-		$("#analysis-banner").hide();
+		$("#report").hide();
+		$("#report-banner").hide();
 	});
 });
 //임대료예산,면적 select 
 
-						
+//임대료 예산범위 
+
+$(document).ready(function() {
+    $('#budget-select').on('input', function(){
+         v = $('#budget-select').val();
+         $('span.rangebudget').text(v);
+    });
+});
+
+
+
 //메뉴선택하기 
 $(function(){
 	$("#selPlace").hide;
-	$(".selectMenu").click(function(){
-		$("#analysis").hide();
-	    $("#analysis-banner").hide();
 	    
 	});
 		
 	$("#category-lav").click(function(){
 		$("#form-stoCou-sales").show();
-		$("#form-budget").hide ();
+		$("#form_budget").hide ();
 		$("#form-size").hide ();
 		$("#form-target").hide ();
-		$("input[name=selectMenu1]#allJob").prop("checked", true);
 		$("#selPlace").addClass("hideSel");
 		$("select[name=selectWork]").val("all");
 	});
@@ -961,39 +993,26 @@ $(function(){
 		$("#form-budget").show();
 		$("#form-size").hide ();
 		$("#form-target").hide ();
-		$("input[name=selectMenu1]#allJob").prop("checked", true);
 		$("#selPlace").addClass("hideSel");
 		$("select[name=selectWork]").val("all");
 	});
 	
-	$("#size-lav").click(function(){
-		$("#form-stoCou-sales").hide();
-		$("#form-budget").hide();
-		$("#form-size").show();
-		$("#form-target").hide();
-		$("input[name=selectMenu1]#allJob").prop("checked", true);
-		$("#selPlace").addClass("hideSel");
-		$("select[name=selectWork]").val("all");
-	});
 	
 	$("#target-lav").click(function(){
 		$("#form-stoCou-sales").hide();
 		$("#form-budget").hide();
 		$("#form-target").show();
-		$("input[name=selectMenu1]#allJob").prop("checked", true);
-		$("#selPlace").addClass("hideSel");
+		$("#selectCate").addClass("hideSel");
 		$("select[name=selectWork]").val("all");
 	});
 	
-	
-});
 
 
 // 업종 select
 $(function(){
 	$("#allJob").click(function(){
-		$("#selPlace").addClass("hideSel"); //모든업종클릭시 selplace삭제
-		$("#selPlace").attr("name", "all"); //모든업종에All값주기 
+		$("#selectCate").addClass("hideSel"); //모든업종클릭시 selplace삭제
+		$("#selectCate").attr("name", "all"); //모든업종에All값주기 
 	});
 	
 	$(".selMenu-lavs").click(function(){
@@ -1031,28 +1050,127 @@ $(function(){
 	});
 });
 
-//btn-select 누르면 
+
+
+// 지역적용하기 
+
 $(function(){
 	$(".btn-select").click(function(){
+		let sigu = $("#selectsigu").val();
+		let dong =  $("#selectdong").val();
+		
+		let siguName = $("#selectsigu :selected").text();
+		let dongName =  $("#selectdong :selected").text();
+		
+		$("form[name=areasubmitform] input[name=siguName]").val("");
+		$("form[name=areasubmitform] input[name=dongName]").val("");
+		$("#getregion").html("");
+		
+		if(sigu != ""  && dong != "") {
+			$("#getregion").html("서울시"+"  "+ siguName +"  " + dongName);
+			$("form[name=areasubmitform] input[name=siguNum]").val(sigu);
+			$("form[name=areasubmitform] input[name=dongNum]").val(dong);
+	
+		$('span.info-sigu').text(siguName)
+		$('span.info-dong').text(dongName);
+		}
+		
+		
 	});
 });
 
-//btn-send 누르면 
+//타겟적용 
+
 $(function(){
-	$(".btn-send").click(function(){
-		let selected = $("input[name=selectMenu]:checked").val();
-		let selectedGu = $("#select-Gu").val();
-		$("input[name=category]").val(selected);
-		$("input[name=gu]").val(selectedGu);
+	$(".btn-target").click(function(){
+		const f = document.form_target
 		
-		let query = $(this).closest("form").serialize();
+		let s = "";
+		let gender = ""
+		for(let g of f.gender) {
+			if(g.checked) {
+				gender = g.value == "male" ? "남자" : (g.value == "female" ? "여자" : "전체");
+			}
+		}
 		
-		alert(query);
+		
+		let age = "0"
+		for(let g of f.age){
+			if(g.checked){
+				age = g.value 
+			}
+		}
+
+		$("#gettarget").html("");
+		$("form[name=areasubmitform] input[name=setgender]").val("");
+		$("form[name=areasubmitform] input[name=setage]").val("");
+		if(gender != ""  && age != "") {
+			
+			s = age == "0" ? "전체연령" : age + "대";
+			$("#gettarget").html(s + "/" + gender);
+			$("form[name=areasubmitform] input[name=setgender]").val(gender);
+			$("form[name=areasubmitform] input[name=setage]").val(age);
+		}
+		
+		
 	});
 });
 
-function selectAge() {
-	const f = document.chooseForm_e
-}
+
+//업종적용 
+
+$(function(){
+	$(".btn-select-cate").click(function(){
+		let cate = $("#selPlace").val();
+	
+		let cateName = $("#selPlace :selected").text();
+	
+		$("form[name=areasubmitform] input[name=setcate]").val("");
+		$("#getcate").html("");
+	
+		if(cate != "") {
+			$("#getcate").html(cateName);
+			$("form[name=areasubmitform] input[name=setcate]").val(cate);
+		
+		}
+
+	});
+});
+
+//임대료 임대평수 적용 
+
+$(function(){
+	
+	$(".btn-select-budget").click(function(){
+		
+		let budget = $("#budget-select").val();
+
+		
+		const f =document.form_budget
+	
+		let s = "";
+		let size = "";
+		
+		for(let g of f.size) {
+			if(g.checked) {
+				size = g.value
+			}
+		}
+		
+		$("form[name=areasubmitform] input[name=setbudget]").val("");
+		$("form[name=areasubmitform] input[name=setsize]").val("");
+		$("#getbudget").html("");
+		
+		
+		if(budget != "" && size!="" ) {
+			$("#getbudget").html( budget +"원"+"/"+ size + "평대" );
+			
+			$("form[name=areasubmitform] input[name=setbudget]").val(budget);
+			$("form[name=areasubmitform] input[name=setsize]").val(size);
+		}	
+	});
+});
+
+
 
 </script>

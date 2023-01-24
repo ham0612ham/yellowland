@@ -54,8 +54,12 @@ public class MatchingServiceImpl implements MatchingService{
 	}
 
 	@Override
-	public List<Matching> listMatching(String num) {
-		// TODO Auto-generated method stub
+	public List<Matching> listMatching(String dongnum) {
+		try {
+	
+		} catch (Exception e) {
+	// TODO: handle exception
+		}
 		return null;
 	}
 
@@ -80,6 +84,28 @@ public class MatchingServiceImpl implements MatchingService{
 			e.printStackTrace();
 		}
 		return listDong;
+	}
+
+	@Override
+	public List<Matching> listCategory() throws Exception {
+		List<Matching> listCategory = null;
+		try {
+			listCategory = dao.selectList("matching.listCategory");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return listCategory;
+	}
+
+	@Override
+	public List<Matching> listJob(String catejobNum) throws Exception {
+		List<Matching> listJob = null;
+		try {
+			listJob = dao.selectList("matching.listJob", catejobNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listJob;
 	}
 	
 

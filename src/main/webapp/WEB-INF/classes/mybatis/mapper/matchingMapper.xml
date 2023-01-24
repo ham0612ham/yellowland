@@ -7,9 +7,9 @@
 	</select>
 
 	<insert id="insertMatching" parameterType="com.sp.app.matching.Matching" >
-		 INSERT INTO Matching(num, userId, name, jobNum, siguNum, dongNum, budget, extent, mdate)
+		 INSERT INTO Matching(num, userId, name, jobNum, siguNum, dongNum, budget, extent,targetage, targetgender,mdate)
 			VALUES (matching_seq.NEXTVAL,  #{userId},  #{name}, #{jobNum}, #{siguNum}, #{dongNum}, #{budget},
-				  #{extent}, SYSDATE); 
+				  #{extent}, #{targetage}, #{targetgender} SYSDATE); 
 	</insert>
 	
 	<!-- 모든 시군구(번호, 이름) -->
@@ -24,7 +24,24 @@
            FROM CATEGORYGU g
            JOIN DONG d ON d.siguNum =  g.siguNum
            WHERE d.siguNum = #{siguNum}
+    </select>       
+     <!-- 모든 업종(번호, 이름) -->
+	
+	<select id="listCategory" resultType="com.sp.app.matching.Matching">
+		SELECT catejobNum, catejobName
+		FROM CATEGORYJOB
+	</select>
+	
+	
+	<!-- 업종 대분류의 소분류(번호, 이름): 조건 업종 대분류 코드(String형) -->
+	<select id="listJob" resultType="com.sp.app.matching.Matching" parameterType="String" >
+		SELECT c.catejobNum, c.catejobName, jobNum, jobName
+		FROM CATEGORYJOB C
+		JOIN JOB J ON c.catejobNum = j.catejobNum
+		WHERE j.catejobNum = #{catejobNum}
+	
 	</select> 
 
+    
 	
 </mapper>
