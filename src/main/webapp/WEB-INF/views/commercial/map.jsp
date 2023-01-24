@@ -151,7 +151,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .active { color: #36C88A; font-weight: 600; }
 .list-group-item.active { color: #36C88A; font-weight: 600; }
 .plusminus-div { 
-	position: absolute; cursor: pointer; z-index: 2;
+	position: absolute; cursor: pointer; z-index: 1;
 	margin: 0px 6px; height: 30px; line-height: 14px;
 	right: 10px; bottom: 15px; width: 65px
 }
