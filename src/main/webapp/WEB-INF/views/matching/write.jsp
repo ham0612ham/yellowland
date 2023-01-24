@@ -78,7 +78,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .hideSel { display: none; }
 .range-budget { font-size:13px; }
 #map { z-index: -2; width: 70vw; height: 100vh; position: absolute; top: 0px; right:0px;  }
-
+#report { height: calc(100vh - 100px);  overflow: scroll; top:100px; }
 #report-banner {
 	position: absolute; min-width: 700px;
 	background: white; margin-left: 100%;
@@ -146,7 +146,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .report-div { margin: 16px; }
 .report-tit {font-size: 14px; font-weight:600;}
 .report-title { font-size: 20px;font-weight: 700; background: #f1f3f76c; max-height:1px; margin-bottom:30px; margin-top:10px; line-height:24px;   }
-.report-graphtitle { font-size: 15px; margin-top: 70px; font-weight: 700; max-height:1px; margin-bottom:30px; line-height:24px;   }
+.report-graphtitle { font-size: 15px; margin-top: 40px; font-weight: 700; max-height:1px; margin-bottom:30px; line-height:24px;   }
 .report-matching {font-size: 14px; margin-left : 70px;}
 .report-big-txt { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
 .green-txt { color: #36C88A; }
@@ -179,6 +179,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 <div class="container" style="margin: 0px;">
 
 	   <!--대화상자시작 -->
+	 
 	    <div id="report-banner"style="opacity: 1; display: none;">
 	        <div id="green-div" class="d-flex justify-content-between">
 	    	 <span> ${sessionScope.member.userName} 님의 매칭분석 리포트 </span> 
@@ -189,17 +190,19 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				<a class="list-group-item list-group-item-action" href="#list-item-1">매칭결과</a>
       			<a class="list-group-item list-group-item-action" href="#list-item-2">상권분석</a>
 			</div>
-		         <div class="report-content" id="list-item-1">
-				 <div class="report-title d-flex justify-content-between"> 상권매칭 결과  </div>
-				 <div class="report-tit"> <img id="thumbs-up" src='${pageContext.request.contextPath}/resources/images/thumbs-up.png'> 추천 상권 TOP5 </div>
-				 <div class="report-matching" id="matchingResult"></div>
-				 <div class="report-div"></div>
-			</div>
+			
+			   <div id= "report" data-bs-spy="scroll" >
+		         	<div class="report-content" id="list-item-1">
+				 	<div class="report-title d-flex justify-content-between"> 상권매칭 결과  </div>
+					 <div class="report-tit"> <img id="thumbs-up" src='${pageContext.request.contextPath}/resources/images/thumbs-up.png'> 추천 상권 TOP5 </div>
+				 	<div class="report-matching" id="matchingResult"></div>	
+					 <div class="report-div"></div>
+			  </div>
 			
 			
 			<div class="report-content" id="list-item-2">
 			 
-			 <div class="report-title d-flex justify-content-between"> 상권의 특성 </div>
+				 <div class="report-title d-flex justify-content-between"> 상권의 특성 </div>
 			    <div class="report-graphtitle"><i class="bi bi-1-circle"></i> 상권용도</div>
 			    <div class="report-graph" id="yongdoArea"> </div>
 			 	<div class="rpt_txt"> <span class="info-sigu"> </span> <span class="info-dong"></span> 의 확장상권은 
@@ -227,7 +230,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			  </div>
 		
 			</div>		
-				
+		</div>
 
 	    <!--대화상자 -->
 	    
