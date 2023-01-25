@@ -417,7 +417,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 		
 		
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=772eb01cb6c2f20c17fb9d3c64f74709"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${daumKey}"></script>
 
 <script>
 
