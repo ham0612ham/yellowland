@@ -144,10 +144,11 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 
 .report-content { margin : 2px; backgroundcolor: #36C88A;}
 .report-div { margin: 16px; }
-.report-tit {font-size: 14px; font-weight:600;}
-.report-title { font-size: 20px;font-weight: 700; background: #f1f3f76c; max-height:1px; margin-bottom:30px; margin-top:10px; line-height:24px;   }
+.report-tit {font-size: 14px; font-weight:600;  margin-left:70px; margin-top:50px; }
+.report-title { font-size: 20px;font-weight: 700; background: #f1f3f76c; max-height:3px; margin-bottom:30px; margin-top:10px; line-height:50px; margin-left:300px;   }
+.report-name { font-size:14px; font-weight: 600; margin-left:70px; }
 .report-graphtitle { font-size: 15px; margin-top: 40px; font-weight: 700; max-height:1px; margin-bottom:30px; line-height:24px;   }
-.report-matching {font-size: 14px; margin-left : 70px;}
+.report-matching {font-size: 13px; margin-left : 70px; margin-bottom:10px;  }
 .report-big-txt { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
 .green-txt { color: #36C88A; }
 .report-graph { width: 100%; min-height: 300px; border: 0; margin-top: 30px;}
@@ -194,8 +195,9 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			   <div id= "report" data-bs-spy="scroll" >
 		         	<div class="report-content" id="list-item-1">
 				 	<div class="report-title d-flex justify-content-between"> 상권매칭 결과  </div>
-					 <div class="report-tit"> <img id="thumbs-up" src='${pageContext.request.contextPath}/resources/images/thumbs-up.png'> 추천 상권 TOP5 </div>
-				 	<div class="report-matching" id="matchingResult"></div>	
+					 <div class="report-tit"> <img id="thumbs-up" src='${pageContext.request.contextPath}/resources/images/thumbs-up.png'> ${sessionScope.member.userName} 님! 이 상권 어떠세요?  </div>
+				     <div class="report-name"> 상권이름  월 평균임대료  </div>
+				  	<div class="report-matching" id="matchingResult"></div>	
 					 <div class="report-div"></div>
 			  </div>
 			
@@ -203,11 +205,14 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			<div class="report-content" id="list-item-2">
 			 
 				 <div class="report-title d-flex justify-content-between"> 상권의 특성 </div>
+			
+			 <div class="report-div">
 			    <div class="report-graphtitle"><i class="bi bi-1-circle"></i> 상권용도</div>
 			    <div class="report-graph" id="yongdoArea"> </div>
-			 	<div class="rpt_txt"> <span class="info-sigu"> </span> <span class="info-dong"></span> 의 확장상권은 
+			 	<div class="rpt_txt"> <span class="info-sigu"> </span> <span class="info-dong"></span> 의 확장상권은 <span class="green-txt" id="yongdo-first"> </span>
 			         으로 구성된 지역의 상권입니다.</div>
-			     
+			 </div>
+			  
 			  <div class="report-div">
 			    	 <div class="report-graphtitle"><i class="bi bi-2-circle"></i> 업종 밀집도 </div> 
 			   		 <div class="report-graph" id="milzipdo"> </div>
@@ -221,6 +226,14 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					<div class="rpt_txt">
 			    	 <span class="info-sigu"></span>에서 운영중인 동종업종의 점포 수는 <span class="green-txt" id="jumpo-result"></span> 입니다.</div>
 	        </div>
+	         <div class="report-div">
+					<div class="report-graphtitle"><i class="bi bi-4-circle"></i> 임대료 </div>
+					<div class="report-graph" id="rent"></div>
+					<div class="rpt_txt">
+			    	 <span class="info-sigu"></span> 의 임대료 변화내용 ------ </div>
+	        </div>
+	        
+	        
 				<!-- 
 					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
 						<div class="spinner-border text-primary" role="status"></div>
@@ -889,11 +902,12 @@ function showreport() {
 	makeGraph2(siguNum);
 
 	const fn = function(data){
-		let sgGBNames = data.sgGBNames;
+		let list = data.list;
 	   
 		let out = "";
-		for(let item of sgGBNames) {
-			out += "<div>" + item + "</div>";
+		for(let item of list) {
+			out += 
+				"<div>" + item.sgGBName + "&nbsp" + item.budget + "원";
 		}
 		
 		//alert(out);

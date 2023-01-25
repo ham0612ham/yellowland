@@ -12,8 +12,11 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
+import com.sp.app.commercial.Sg_rent_dong_h;
 import com.sp.app.commercial.Sg_sales;
 import com.sp.app.commercial.Sg_store;
+import com.sp.app.matching.Sg_rent;
+import com.sp.app.matching.Sg_rent_y;
 import com.sp.app.matching.Sg_yongdo;
 
 @Service("matchingReport.matchingReportMongoOperations")
@@ -27,14 +30,16 @@ public class MatchingReportMongoOperations {
 	
 	
 	public List<Long> yongdoArea(long siguNum){
+		
 		List<Long> list = new ArrayList<Long>();
+		String[] yongdo = {"jooguArea","sangupArea","nokjiArea"};	
 		List<Sg_yongdo> result = null;
+		
 		MatchOperation matchOperation = null;
 		GroupOperation groupOperation = null;
 		Aggregation aggregation = null;
 		AggregationResults<Sg_yongdo> result1 = null;
 		
-		String[] yongdo = {"jooguArea","sangupArea","nokjiArea"};
 	
 		
 		try {
@@ -43,20 +48,12 @@ public class MatchingReportMongoOperations {
 				groupOperation = Aggregation.group("siguNum").sum(yongdo[i]).as("tot");
 				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
 				result1 = mongo.aggregate(aggregation, "sg_yongdo", Sg_yongdo.class);
-				result =  result1.getMappedResults();
-				
-				list.add(result.get(0).getTot());
-			}
-			
-			for(int i=0; i<3; i++) {
-				matchOperation = Aggregation.match(Criteria.where("siguNum").is(siguNum));
-				groupOperation = Aggregation.group("siguNum").sum(yongdo[i]).as("tot");
-				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
-				result1 = mongo.aggregate(aggregation, "sg_yongdo", Sg_yongdo.class);
 				result = result1.getMappedResults();
 				
 				list.add(result.get(0).getTot());
+				
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -122,43 +119,6 @@ public class MatchingReportMongoOperations {
 		
 		return list;
 	}
-	public List<Double> sungbuelMechul(long dongNum){
-		List<Double> list = new ArrayList<Double>();
-		String[] gender = {"salesCost_male", "salesCost_female"};
-		List<Sg_sales> result = null;
-		List<Sg_sales> sumResult = null;
-		long sum = 0;
-		
-		MatchOperation matchOperation = null;
-		GroupOperation groupOperation = null;
-		Aggregation aggregation = null;
-		AggregationResults<Sg_sales> result1 = null;
-		AggregationResults<Sg_sales> sumResult1 = null;
-		
-		try {
-			for(int i=0; i<2; i++) {
-				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum));
-				groupOperation = Aggregation.group("dongNum").sum(gender[i]).as("tot");
-				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
-				sumResult1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
-				sumResult = sumResult1.getMappedResults();
-				
-				sum += sumResult.get(0).getTot();
-			}
-			
-			for(int i=0; i<2; i++) {
-				matchOperation = Aggregation.match(Criteria.where("yCode").is(2022).and("qCode").is(3).and("dongNum").is(dongNum));
-				groupOperation = Aggregation.group("dongNum").sum(gender[i]).as("tot");
-				aggregation = Aggregation.newAggregation(matchOperation, groupOperation);
-				result1 = mongo.aggregate(aggregation, "sg_sales", Sg_sales.class);
-				result = result1.getMappedResults();
-				
-				list.add(Math.round((double)(result.get(0).getTot() * 100)/sum*10)/10.0);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return list;
-	}
+	
+
 }

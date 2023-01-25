@@ -66,14 +66,20 @@ public class MatchingController {
 			stringJson = URLDecoder.decode(stringJson,"utf-8");
 			
 		    JSONArray jarr = new JSONArray(stringJson);
-		    List<String> sgGBNames = new ArrayList<String>();
+
+		    List<MatchingInfo> list = new ArrayList<>();
+		    
 		    for(int i = 0; i < jarr.length(); i++) {
 		    	JSONObject job = jarr.getJSONObject(i);
-		    	sgGBNames.add(job.getString("sgGBName"));
+		    	MatchingInfo vo = new MatchingInfo();
+		    	vo.setSgGBName(job.getString("sgGBName"));
+		    	vo.setBudget(job.getInt("budget"));
+		    	list.add(vo);
 		    
 		    }
-			model.put("sgGBNames", sgGBNames);
 		    
+			model.put("list", list);
+		   
 			// Matching vo = new Matching();
 
 			//service.insertMatching(vo);

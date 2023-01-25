@@ -9,7 +9,23 @@ public class MatchingInfo {
 	private String setsize;
 	private String setgender;
 	private String setage;
+	private String sgGBName;
+	private int budget;
 	
+	
+	public String getSgGBName() {
+		return sgGBName;
+	}
+	public void setSgGBName(String sgGBName) {
+		this.sgGBName = sgGBName;
+	}
+
+	public int getBudget() {
+		return budget;
+	}
+	public void setBudget(int budget) {
+		this.budget = budget;
+	}
 	public String getSiguNum() {
 		return siguNum;
 	}

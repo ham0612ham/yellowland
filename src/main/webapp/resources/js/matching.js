@@ -2,7 +2,7 @@
 function makeGraph(dongNum){
 	milzipdo(dongNum);
 	jumpo(dongNum);
-	sungbuelMechul(dongNum);
+
 
 };
 
@@ -44,6 +44,8 @@ function makeGraph2(siguNum){
 					}
 				} ]
 			};
+			
+			$(".yongdo-first").text(data.most);
 			
 			option && myChart.setOption(option);
 		};
@@ -139,49 +141,4 @@ function  milzipdo(dongNum) {
 		ajaxFun(url, "get", query, "json", fn);
 	};
 
-function sungbuelMechul(dongNum) {
-		let url = "/app/matchingReport/sungbuelMechul";
-		let query = "dongNum="+dongNum;
-		let gender = [ '남성', '여성'];
-		const fn = function(data) {
-			var chartDom = document.getElementById('sungbuel-mechul');
-			var myChart = echarts.init(chartDom);
-			var option;
 
-			option = {
-				tooltip : {
-					trigger : 'item'
-				},
-				legend : {
-					orient : 'vertical',
-					left : 'left'
-				},
-				series : [ {
-					name : 'Access From',
-					type : 'pie',
-					radius : '60%',
-					color : [ '#756EF2', '#36C88A'],
-					data : [ {
-						value : data.male,
-						name : '남성'
-					}, {
-						value : data.female,
-						name : '여성'
-					}],
-					emphasis : {
-						itemStyle : {
-							shadowBlur : 10,
-							shadowOffsetX : 0,
-							shadowColor : 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				} ]
-			};
-
-			option && myChart.setOption(option);
-			$(".sungbuel-mechul-result").text(gender[data.gender]);
-			$(".sungbuel-mechul-percent").text("("+data.percent+"%)");
-		};
-		ajaxFun(url, "get", query, "json", fn);
-	};
- 

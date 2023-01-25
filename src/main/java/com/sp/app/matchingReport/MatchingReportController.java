@@ -23,22 +23,28 @@ public class MatchingReportController {
 	@ResponseBody
 	public Map<String, Object> yongdoArea(@RequestParam long siguNum){
 		Map<String, Object> model = new HashMap<String, Object>();
-		List<Long> list = null;
+		List<Map<String,Object>> data = new ArrayList<>();
+		List<Long> list = new ArrayList<Long>();
+		Map<String, Object> map = null;
+		String most = "";
+		String [] name = {"주거지역","상업지역","녹지지역"};
+		
 		try {
 			list = service.yongdoArea(siguNum);
+			List<String> list2 = service.yongdoAreamost(list);
+			most = list2.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		int max = 0;
-		for(int j=0; j<list.size()-1; j++) {
-			max = list.get(max) > list.get(j+1) ? max : j+1;
+		for(int i=0; i<3; i++) {
+			map = new HashMap<>();
+			map.put("value", list.get(i));
+			map.put("name", name[i]);
+			
+			data.add(map);
 		}
-		
-		model.put("jooguArea", list.get(0));
-		model.put("sangupArea", list.get(1));
-		model.put("nokjiArea",list.get(2));
-		model.put("percent", list.get(max));
+		model.put("data", data);
+		model.put("most", most);
 		
 		return model;
 	}
@@ -116,6 +122,5 @@ public class MatchingReportController {
 		
 		return model;
 	}
-
-
+	
 }
