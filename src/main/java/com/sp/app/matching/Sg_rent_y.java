@@ -2,8 +2,8 @@ package com.sp.app.matching;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "sg_rent_dong")
-public class Sg_rent_dong {
+@Document(collection = "sg_rent_y")
+public class Sg_rent_y {
 	private String siguNum;
 	private String siguName;
 	private long dongNum;

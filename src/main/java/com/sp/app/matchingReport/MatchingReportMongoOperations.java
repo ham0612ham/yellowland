@@ -3,6 +3,7 @@ package com.sp.app.matchingReport;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -30,7 +31,6 @@ public class MatchingReportMongoOperations {
 	
 	
 	public List<Long> yongdoArea(long siguNum){
-		
 		List<Long> list = new ArrayList<Long>();
 		String[] yongdo = {"jooguArea","sangupArea","nokjiArea"};	
 		List<Sg_yongdo> result = null;
@@ -40,7 +40,7 @@ public class MatchingReportMongoOperations {
 		Aggregation aggregation = null;
 		AggregationResults<Sg_yongdo> result1 = null;
 		
-	
+	 
 		
 		try {
 			for(int i=0; i<3; i++) {
@@ -50,6 +50,7 @@ public class MatchingReportMongoOperations {
 				result1 = mongo.aggregate(aggregation, "sg_yongdo", Sg_yongdo.class);
 				result = result1.getMappedResults();
 				
+				 System.out.print("결과"+result.get(0).getTot());
 				list.add(result.get(0).getTot());
 				
 			}

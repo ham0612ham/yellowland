@@ -9,8 +9,16 @@ public class Sg_yongdo {
 	private long jooguArea;
 	private long sangupArea;
 	private long nokjiArea;
+	private long tot;
 	
 	
+	
+	public long getTot() {
+		return tot;
+	}
+	public void setTot(long tot) {
+		this.tot = tot;
+	}
 	public long getJooguArea() {
 		return jooguArea;
 	}
@@ -40,10 +48,6 @@ public class Sg_yongdo {
 	}
 	public void setSiguName(String siguName) {
 		this.siguName = siguName;
-	}
-	public long getTot() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }
