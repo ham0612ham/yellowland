@@ -8,6 +8,6 @@ public interface MatchingReportService {
 	public List<String> yongdoAreamost(List<Long>list);
 	public List<Long> milzipdo(long dongNum);
 	public List<String> milzipdoup(List<Long> list);
-	public List<Long> imdae(long dongNum);
+
 	
 }

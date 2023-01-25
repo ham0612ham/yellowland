@@ -78,7 +78,6 @@ public class MatchingReportServiceImpl implements MatchingReportService {
 		List<String> list2 = new ArrayList<String>();
 		String most = "";
 		if(list.size() == 3) {
-			
 			if(list.get(0) > list.get(1) && list.get(0) > list.get(2)) most = "주거지역";
 			else if(list.get(1) > list.get(0) && list.get(1) > list.get(2)) most = "상업지역";
 			else most = "녹지지역";
@@ -86,12 +85,6 @@ public class MatchingReportServiceImpl implements MatchingReportService {
 		}
 		return list2;
 }
-
-	@Override
-	public List<Long> imdae(long dongNum) {
- 
-		return null;
-	}
 
 
 }
