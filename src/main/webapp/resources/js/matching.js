@@ -35,16 +35,20 @@ function makeGraph2(siguNum){
 					borderWidth: 2,
 					color : [ '#49B3FF', '#36C88A', '#FCFF6A' ],
 					data : data.data,
-					emphasis : {
 						itemStyle : {
-							shadowBlur : 10,
-							shadowOffsetX : 0,
-							shadowColor : 'rgba(0, 0, 0, 0.5)'
+							borderRadius: 10,
+							borderColor:'#fff',
+							borderWidth: 2
+						},
+						emphasis : {
+							itemStyle : {
+								shadowBlur : 10,
+								shadowOffsetX : 0,
+								shadowColor : 'rgba(0, 0, 0, 0.5)'
+							}
 						}
-					}
-				} ]
-			};
-			
+					} ]
+				};
 			$(".yongdo-first").text(data.most);
 			
 			option && myChart.setOption(option);
