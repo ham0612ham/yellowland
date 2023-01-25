@@ -147,9 +147,10 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .info-dong { font-weight: 600; }
 .report-content { margin : 2px; backgroundcolor: #36C88A;}
 .report-div { margin: 16px; }
+.report_div { margin : 50px;}
 .report-tit {font-size: 14px; font-weight:600;  margin-left:70px; margin-top:50px; }
 .report-title { font-size: 20px;font-weight: 700; background: #f1f3f76c; max-height:3px; margin-bottom:30px; margin-top:10px; line-height:50px; margin-left:300px;   }
-.report-name { font-size:14px; font-weight: 600; margin-left:70px; }
+.report-name { font-size:14px; font-weight: 600; margin-left:70px; margin-bottom :10px;}
 .report-graphtitle { font-size: 15px; margin-top: 40px; font-weight: 700; max-height:1px; margin-bottom:30px; line-height:24px;   }
 .report-matching {font-size: 13px; margin-left : 70px; margin-bottom:10px;  }
 .report-big-txt { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
@@ -206,7 +207,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 				     <div class="report-name"> 상권이름 &emsp; /&nbsp; 월 평균임대료 (3.3m² 기준) </div>
 				  	<div class="report-matching" id="matchingResult"></div>	
 				    </div>
-					 <div class="report-div"></div>
+					 <div class="report_div"></div>
 			  </div>
 			
 			
@@ -913,9 +914,7 @@ function showreport() {
 				"<div class='sglist flex-row'><span class='rank'>" 
 				+ "</span><span class='sgname-info'>"+ item.sgGBName
 				+ "</span><span class='list-budget'>"+ item.budget + " 원" + "</div> <hr class='line'>";
-		
-				
-	    alert(out);
+	
 		}
 		$("#report-banner").show();
 		$("#matchingResult").html(out);
