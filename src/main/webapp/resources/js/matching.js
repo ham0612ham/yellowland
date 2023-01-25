@@ -9,6 +9,7 @@ function makeGraph(dongNum){
 function makeGraph2(siguNum){
 	yongdoArea(siguNum);
 }
+
 	function yongdoArea(siguNum) {
 		let url = "/app/matchingReport/yongdoArea";
 		let query = "siguNum="+siguNum;

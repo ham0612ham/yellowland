@@ -124,7 +124,8 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .rank { width: 20px; text-align: center; }
 .rank-value { width: 50px; font-weight: 600; }
 .rank-percent { width: 50px; text-align: right; color: #36C88A; }
-.horiz { margin: 3px 0; }
+.sgname-info { width: 140px; }
+.line { margin: 3px 0; }
 .show-hide-btn { float: right; cursor: pointer; margin-bottom: 3px; }
 .show-hide-btn > img { padding-bottom: 5px; }
 #report-info { margin: 5px 0 0; }
@@ -137,11 +138,13 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
                     height:300px;}
 #getbudget {font-size:10px;}
 
+.main-title { font-weight:600; margin-bottom: 10px;}
 .form-range { width:100%; height: 1.5rem; padding: 0; background:transparent}
 .form-range:focus{outline:0;}
 .form-range:focus::-webkit-slider-thumb{
  box-shadow: 0 0 0 1px #fff 0 0 0.25rem rgba(13,110,253,025);}
-
+.info-sigu { font-weight: 600; }
+.info-dong { font-weight: 600; }
 .report-content { margin : 2px; backgroundcolor: #36C88A;}
 .report-div { margin: 16px; }
 .report-tit {font-size: 14px; font-weight:600;  margin-left:70px; margin-top:50px; }
@@ -154,9 +157,12 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 .report-graph { width: 100%; min-height: 300px; border: 0; margin-top: 30px;}
 .report-discribe { border: 0.3px solid #BBBBBB; padding: 10px; margin-bottom: 10px; }
 .rpt_txt { padding:16px 24px; background: #f1f3f76c; max-width: 500px; border:0; border-radius:8px; font-size: 14px; 
-           align : center; margin-left: 40px;}
+           align : center; margin-left: 60px;}
 #report-class { 
-	text-align: center; font-size: 13px; margin:0; color: #BBBBBB;
+	text-align: center; font-size: 13px; margin:0; color: #BBBBBB;}
+	
+.list-budget{ margin-left : 10px;}
+.budget-list { width: 120px; font-weight: 600; text-align: right; padding-right: 5px; }
 }
 
 .
@@ -196,8 +202,10 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 		         	<div class="report-content" id="list-item-1">
 				 	<div class="report-title d-flex justify-content-between"> 상권매칭 결과  </div>
 					 <div class="report-tit"> <img id="thumbs-up" src='${pageContext.request.contextPath}/resources/images/thumbs-up.png'> ${sessionScope.member.userName} 님! 이 상권 어떠세요?  </div>
-				     <div class="report-name"> 상권이름  월 평균임대료  </div>
+				    	<div class="rpt_txt"> 
+				     <div class="report-name"> 상권이름 &emsp; /&nbsp; 월 평균임대료 (3.3m² 기준) </div>
 				  	<div class="report-matching" id="matchingResult"></div>	
+				    </div>
 					 <div class="report-div"></div>
 			  </div>
 			
@@ -209,8 +217,8 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			 <div class="report-div">
 			    <div class="report-graphtitle"><i class="bi bi-1-circle"></i> 상권용도</div>
 			    <div class="report-graph" id="yongdoArea"> </div>
-			 	<div class="rpt_txt"> <span class="info-sigu"> </span> <span class="info-dong"></span> 의 확장상권은 <span class="green-txt" id="yongdo-first"> </span>
-			         으로 구성된 지역의 상권입니다.</div>
+			 	<div class="rpt_txt"> 
+			 	 <span class="info-sigu"> </span> <span class="info-dong"></span> 은 <span class="green-txt"> 주거ㆍ상업ㆍ녹지지역 </span> 으로 구분 됩니다.
 			 </div>
 			  
 			  <div class="report-div">
@@ -226,13 +234,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 					<div class="rpt_txt">
 			    	 <span class="info-sigu"></span>에서 운영중인 동종업종의 점포 수는 <span class="green-txt" id="jumpo-result"></span> 입니다.</div>
 	        </div>
-	         <div class="report-div">
-					<div class="report-graphtitle"><i class="bi bi-4-circle"></i> 임대료 </div>
-					<div class="report-graph" id="rent"></div>
-					<div class="rpt_txt">
-			    	 <span class="info-sigu"></span> 의 임대료 변화내용 ------ </div>
-	        </div>
-	        
+	         
 	        
 				<!-- 
 					<div class="d-flex justify-content-center" style="position: relative; top: 120px;">
@@ -244,7 +246,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 		
 			</div>		
 		</div>
-
+  </div>
 	    <!--대화상자 -->
 	    
 	    <!-- 지도  -->
@@ -253,7 +255,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 	<!-- 매칭 조건 입력버튼 -->
 		  <div id="green-top"> 
 		   <div class="d-flex justify-content-center">
-		   <span class="main-title"> 노른자 상권매칭 </span> </div> </div>
+		   <span class="main-title"> 노른자 상권매칭서비스 </span> </div> </div>
 		 <div class="check-area">
 		        <div class="d-flex justify-content-center">
 				<div class="select_maintitle"></div>
@@ -905,13 +907,16 @@ function showreport() {
 		let list = data.list;
 	   
 		let out = "";
+		
 		for(let item of list) {
 			out += 
-				"<div>" + item.sgGBName + "&nbsp" + item.budget + "원";
+				"<div class='sglist flex-row'><span class='rank'>" 
+				+ "</span><span class='sgname-info'>"+ item.sgGBName
+				+ "</span><span class='list-budget'>"+ item.budget + " 원" + "</div> <hr class='line'>";
+		
+				
+	    alert(out);
 		}
-		
-		//alert(out);
-		
 		$("#report-banner").show();
 		$("#matchingResult").html(out);
 	

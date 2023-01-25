@@ -82,6 +82,7 @@ public class MatchingReportServiceImpl implements MatchingReportService {
 			else if(list.get(1) > list.get(0) && list.get(1) > list.get(2)) most = "상업지역";
 			else most = "녹지지역";
 			list2.add(most);
+			
 		}
 		return list2;
 }
