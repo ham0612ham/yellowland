@@ -4,7 +4,7 @@ function makeGraph(dongNum){
 	jumpo(dongNum);
 
 
-};
+}; 
 
 function makeGraph2(siguNum){
 	yongdoArea(siguNum);
