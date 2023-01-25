@@ -194,7 +194,6 @@ public class CommercialServiceImpl implements CommercialService {
 
 	@Override
 	public List<Sg_store_top10> list_sg_store_top10(Form form) {
-		System.out.println("실행1");
 		List<Sg_store_top10> list = null;
 		String siguNum = form.getSiguNum();
 		try {
@@ -203,7 +202,6 @@ public class CommercialServiceImpl implements CommercialService {
 			} else {
 				List<Long> dongList = dao.selectList("commercial.dong", siguNum);
 				list = commercialMongo.list_sg_store_top10(form, dongList);
-				System.out.println("실행2");
 			}
 			for(int i=0; i<list.size(); i++) {
 				Position po = dao.selectOne("commercial.getLongLat_dong", list.get(i).getDongNum());
