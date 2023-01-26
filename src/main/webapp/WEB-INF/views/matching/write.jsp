@@ -219,7 +219,7 @@ input[type=checkbox]+label, input[type=radio]+label { background: white; color: 
 			    <div class="report-graphtitle"><i class="bi bi-1-circle"></i> 상권용도</div>
 			    <div class="report-graph" id="yongdoArea"> </div>
 			 	<div class="rpt_txt"> 
-			 	 <span class="info-sigu"> </span> <span class="info-dong"></span> 은 <span class="green-txt"> 주거ㆍ상업ㆍ녹지지역 </span> 으로 구분 됩니다.
+			 	 <span class="info-sigu"> </span> <span class="info-dong"></span> 은 주거ㆍ상업ㆍ녹지지역으로 구성된 <span class="green-txt yongdo-first ">  </span> 위주의 상권입니다.
 			 </div>
 			  
 			  <div class="report-div">
@@ -900,7 +900,7 @@ function showreport() {
 	let dongNum = f.dongNum.value;
 	let siguNum = f.siguNum.value;
 
-	
+	$("#report-banner").show();
 	makeGraph(dongNum);
 	makeGraph2(siguNum);
 
@@ -916,7 +916,7 @@ function showreport() {
 				+ "</span><span class='list-budget'>"+ item.budget + " 원" + "</div> <hr class='line'>";
 	
 		}
-		$("#report-banner").show();
+		//$("#report-banner").show();
 		$("#matchingResult").html(out);
 	
 		

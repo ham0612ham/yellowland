@@ -43,6 +43,7 @@ public class MatchingReportController {
 			
 			data.add(map);
 		}
+		
 		model.put("data", data);
 		model.put("most", most);
 		
