@@ -2,7 +2,7 @@
 function makeGraph(dongNum){
 	milzipdo(dongNum);
 	jumpo(dongNum);
-  
+   
  
 }; 
   
