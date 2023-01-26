@@ -2,8 +2,8 @@
 function makeGraph(dongNum){
 	milzipdo(dongNum);
 	jumpo(dongNum);
-
-
+  
+ 
 }; 
   
 function makeGraph2(siguNum){
