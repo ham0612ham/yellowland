@@ -10,50 +10,6 @@
 	margin: auto;
 	margin-top: 100px;
 }
-
-.fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.table1 {float: left; width: 300px;text-align: left;}
-.table2 {width: 800px; text-align: left;}
-
-.container {
-	margin-bottom: 65px;
-	min-height: 300px;
-}
-
-.fw-semibold { height: 50px; width: 150px; font-size: 30px; }
-.row { height: 200px; width: 220px;}
-.table1 {float: left; width: 220px;text-align: left;}
-.table2 {width: 800px; text-align: left;}
-
-.col { font-weight: bold; color: #C2C2C2; font-size: 18px;}
-.colNoticeTitle {font-weight: bold; color: #36C88A; font-size: 18px;}
-.title1 {font-weight: bold; color: #36C88A; font-size: 30px; }
-
-.text-decoration-none {color: #C2C2C2;} 
-
-.division {margin-top: 20px; margin-bottom: 10px;}
-.container.text-center {margin-top: 0px; margin-left: 40px; margin-right: 100px;}
-
-.form-select {
-	border: revert;
-	border-radius: 0px;
-	margin-left: 240px;
-}
-
-.col-auto {
-	display: inline-block;
-}
-
-.col-6 {
-	width: 100%;
-}
-
-.pagination {
-	--bs-pagination-hover-bg: #36C88A; 
-	--bs-pagination-focus-bg: #36C88A; 
-	--bs-pagination-focus-color: #ffffff;
-	--bs-pagination-hover-color: #ffffff;
-	}
 #this-title { font-size: 30px; font-weight: 600; color: #36C88A; }
 input[type=radio] { display: none; }
 label{
@@ -166,21 +122,7 @@ $(function(){
 </script>
 
 <div class="container">
-      <div class="table1">
-         <h3 class="fw-semibold">마이페이지</h3>
-         <div class="row row-cols-auto">
-            <div class="col"><a href="${pageContext.request.contextPath}/member/detail" class="text-decoration-none" style="color:#C2C2C2">회원정보</a></div>     
-            <div class="col"><a href="${pageContext.request.contextPath}/myqna/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 1:1문의</a></div>                      
-            <div class="col"><a href="${pageContext.request.contextPath}/mylocal/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 게시글</a></div>
-              <div class="col"><a href="${pageContext.request.contextPath}/myReply/list" class="text-decoration-none" style="color:#C2C2C2">내가 작성한 답변</a></div>           
-             <div class="colNoticeTitle">
-               <div>쪽지함</div>
-			</div>
-			<!-- <div class="col"><a href="${pageContext.request.contextPath}/#" class="text-decoration-none" style="color:#C2C2C2">나의 매칭결과 리스트</a></div>-->
-		 </div>
-		</div>
-	<div class="body-container">
-	<div class="table2">	
+	<div class="body-container">	
 		<div class="body-title" style="margin-bottom: 12px;">
 			<div id="this-title">쪽지함</div>
 		</div>
@@ -200,18 +142,16 @@ $(function(){
 			</div>
 			<hr style="margin-bottom: 0px;">
 			<form name="listForm" method="post">
-				<div id="table-div" class="container text-center">
-				
-				<table class="table table-borderless">
+				<div id="table-div">
+				<table class="table note-table">
 					<thead>
 						<tr>
 							<th scope="col" style="width: 8%">선택</th>
-                     		<th scope="col" style="width: 350px;">내용</th>
-                     		<th scope="col" style="width: 17%">${menuItem=="receive"?"보낸사람":"받는사람"}</th>
-                     		<th scope="col" style="width: 17%;">${menuItem=="receive"?"받은날짜":"보낸날짜"}</th>
-                     		<th scope="col" style="width: 17%;">읽은 날짜</th>
-                     		<th scope="col" style="width: 8%">&nbsp;</th>
-
+							<th scope="col" style="width: 450px;">내용</th>
+							<th scope="col" style="width: 10%">${menuItem=="receive"?"보낸사람":"받는사람"}</th>
+							<th scope="col" style="width: 17%;">${menuItem=="receive"?"받은날짜":"보낸날짜"}</th>
+							<th scope="col" style="width: 17%;">읽은 날짜</th>
+							<th scope="col" style="width: 8%">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -221,10 +161,11 @@ $(function(){
 							<td>
 								<input type="checkbox" name="nums" value="${dto.num}" class="form-check-input" style="margin-top: 6px;">
 							</td>
-							<td class="ellipsis pd content-td" style=" max-width: 250px; text-overflow: ellipsis; white-space: nowrap; overflow:hidden;">
+							<td class="ellipsis pd content-td" style="text-align: start; padding: 10px 0;">
 								<span>
-									<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.content}</a>
-								</span>														</td>
+									<a href="${articleUrl}&num=${dto.num}" class="text-reset text-truncate">${dto.content}</a>
+								</span>
+							</td>
 							<td class="pd" style="padding: 10px 0;">${menuItem=="receive"?dto.senderName:dto.receiverName}</td>
 							<td class="pd date-td" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">${dto.sendDay}</td>
 							<td class="pd date-td" style="color:#4F4F4F padding: 10px 0; padding-top: 13px;">${dto.identifyDay}</td>
@@ -234,18 +175,16 @@ $(function(){
 						</c:forEach>
 					</tbody>
 				</table>
-				
+				</div>
 				<input type="hidden" name="page" value="${page}">
 				<input type="hidden" name="condition" value="${condition}">
 				<input type="hidden" name="keyword" value="${keyword}">
 			</form>
-			
-			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}</div>
+			<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
-		</div>
-	
+
 			<div class="board-list-footer d-flex justify-content-between" style="margin-top: 30px;">
-				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 10px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
+				<button class="btnDelete btn btn-light" style="float: left; width: 70px; border-radius: 8px; border: 0.5px solid #A3A6AD; color: #A3A6AD;">
 					삭제
 				</button>
 				<form class="d-flex justify-content-between" name="searchForm"
@@ -286,12 +225,12 @@ $(function(){
 						</div>
 					</div>
 				</form>
-				<div style="width: 70px;">&nbsp;</div>
-			</div>
+				<div style="width: 70px;">
+				</div>
 			</div>
 		</div>
-	
-
+	</div>
+</div>
 
 <img id="message-img" src="${pageContext.request.contextPath}/resources/images/note_2.png">
 

@@ -150,7 +150,7 @@ $(function(){
 		let query = "fileName="+fileName;
 		
 		const fn = function(data) {
-			$("#excelButton-div").html('<button class="btn" id="excelButton">엑셀 저장</button>');
+			$("#excelButton-div").html('<button class="btn" id="captureButton" style="margin-right: 5px;" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="현재 펼쳐진 이미지대로 캡쳐됩니다.">캡쳐 저장</button><button class="btn" id="excelButton">엑셀 저장</button>');
 			$("#output-table").html(data);
 			
 			$("tr.branch").css("display", '');
@@ -228,3 +228,32 @@ var excelHandler = {
 }
 
 
+$(function(){
+	$("#excelButton-div").on("click", "#captureButton", function(){
+		printDiv();
+	});
+});
+
+function printDiv() {
+	const now = new Date().getTime();
+	
+	let div = $("#table1");
+	div = div[0];
+	html2canvas(div).then(function(canvas){
+		var myImage = canvas.toDataURL("image/jpeg");
+		downloadURI(myImage, now+".png") // 현재시간 밀리세컨드로 png 이름 저장
+	});
+}
+
+function downloadURI(uri, name) {
+	var link = document.createElement("a")
+	if( typeof link.download === 'string' ) {
+		link.download = name;
+		link.href = uri;
+		document.body.appendChild(link);
+		link.click();
+		$("#link-box").show;
+	} else {
+		window.open(uri);
+	}
+}

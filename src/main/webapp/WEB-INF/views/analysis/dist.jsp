@@ -52,13 +52,15 @@ form[name=selectForm] { margin-bottom: 40px; }
 #button-table tr td:hover { border: 0.5px solid #36C88A; }
 .uPart { font-size: 10px; margin: 0px; }
 #table1 > thead > tr th:first-child, #table1 > tbody > tr td:first-child { max-width: 120px; text-overflow: ellipsis; }
-#excelButton {
+#captureButton, #excelButton {
 	 width: 100px; margin-bottom: -30px; color: #A3A6AD;
 	 border-radius: 0px; border: 0.5px solid #e1e1e1; 
 }
-#excelButton:hover { color: #36C88A; border: 0.5px solid #36C88A; }
+#captureButton:hover, #excelButton:hover { color: #36C88A; border: 0.5px solid #36C88A; }
+
 </style>
 
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 <script type="text/javascript"
