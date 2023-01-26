@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.APISerializer;
+import com.sp.app.prop.PropReader;
 
 
 @Controller("matching.matchingController")
@@ -120,5 +121,15 @@ public class MatchingController {
 		return model;
 	}
 	
-
+   @RequestMapping(value="map")
+   public String main(Model model) throws Exception {
+	   PropReader propReader = new PropReader();
+	   
+	   String daumKey = propReader.readDaumKey();
+	   
+	   model.addAttribute("daumKey", daumKey);
+	   
+	   return ".matching.map";
+	   
+   }
 }
